@@ -47,6 +47,7 @@ r_refs("r-references.bib")
 set.seed(42)
 knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
 ```
+
 The theory of dyadic morality suggests that judgments of harm give moral valence to
 relationships between an intentional agent and vulnerable patient (Schein & Gray, 2018).
 That is, dyadic morality predicts that if one were to see someone (i.e., an agent) intentionally harming another person (i.e., a vulnerable patient), one would judge that this action (i.e., the harming of another person) is immoral or morally wrong. Furthermore, social interactions are composed of moral norms as mutually agreed upon rules as to how citizens ought to behave. Although moral norms (e.g., do not murder) are meant to keep people from damaging others, some justify norm violations — and harm — in pursuit of a goal (e.g., political assassinations), whereas others never condone violence to induce change. Understanding what differentiates violent and non-violent agents is therefore useful in protecting against harmful acts. One source that marks such differences is the political manifesto (i.e., “a written statement declaring publicly the intentions, motives, or views of its issuer”; Merriam-Webster, n.d.). The current study will target differences in linguistic indicators of justifications of harm and integrative complexity between violence-condoning and non-violent manifestos.  
