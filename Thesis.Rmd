@@ -35,11 +35,12 @@ output            : papaja::apa6_pdf
 
 ```{r setup, include = FALSE}
 library("papaja")
-library(dplyr)
-library(tidyr)
-library(ggplot2)
-library(readr)
-library(stringr)
+library("dplyr")
+library("tidyr")
+library("ggplot2")
+library("readr")
+library("stringr")
+library("tinylabels")
 r_refs("r-references.bib")
 
 # Source (load) your function definitions from an .R script in the R/ folder.
@@ -128,7 +129,7 @@ manifestos. For example, a manifesto by a political leader that accompanies a wa
 Russian Imperial Manifesto of 1914 by Tzar Nicholas II announcing Russia’s entry into World 
 War One; Golder, 1927) would be counted as violent; a manifesto espoused by a political 
 leader that does not accompany institutional violence by that leader’s institution (e.g., 
-John F. Kennedy’s Ich bin ein Berliner) would be counted as non-violent.
+John F. Kennedy’s "Ich bin ein Berliner") would be counted as non-violent.
 	
 ## Analyses
 
