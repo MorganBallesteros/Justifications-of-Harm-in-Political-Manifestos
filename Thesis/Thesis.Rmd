@@ -170,6 +170,17 @@ by_cat
 
 ```
 
+```{r, label=plot1, echo=false, warning=false, message=false, fig-cap="mean prevalence by marker."}
+
+# Bar chart of mean prevalence by marker.
+# - aes(x = marker, y = mean_prev): marker labels on x-axis; mean prevalence on y-axis
+# - fill = marker: gives each bar a different fill color by marker
+ggplot(by_cat, aes(x = marker, y = mean_prev, fill = marker)) + 
+  geom_col() + 
+  labs(x = "Marker", y = "Mean prevalence")
+
+```
+
 
 # Discussion
 
