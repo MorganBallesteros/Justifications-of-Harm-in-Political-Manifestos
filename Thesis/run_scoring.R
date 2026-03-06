@@ -27,7 +27,7 @@ pdf_paths <- list.files(
 
 # Define the marker list (the words/phrases you want to count).
 # Morgan: You can replace this with your full marker dictionary later.
-markers <- c("preemptive", "defend", "protect", "self-defense", "forced to fight", "no longer ignore", "act of defense", "purified", "purify", "brutal steps should have been used", "need for jihaad", "reasons for jihaad", "need for war", "the struggle is imposed upon", "natural struggle", "cannot coexist")
+markers <- c("harm", "damage", "agent", "patient", "intention", "intentional", "preemptive", "defend", "protect", "self-defense", "forced to fight", "no longer ignore", "act of defense", "purified", "purify", "brutal steps should have been used", "need for jihaad", "reasons for jihaad", "need for war", "the struggle is imposed upon", "natural struggle", "cannot coexist")
 
 # Run the main function in PDF mode:
 # - input_type = "pdf": read and extract raw text from PDFs
