@@ -84,10 +84,11 @@ Connecting the political manifesto and moral judgment literatures will enlighten
 research as to (a) how moral reasoning implicates justification in manifestos and (b) how 
 justification operates in the moral reasoning process, each of which could have policy 
 implications.
-#| do  I keep the above sentence "The present study..." in oultining implications here, or move it?
+<!-- do  I keep the above sentence "The present study..." in oultining implications here, or move it?
+-->
   Integrative Complexity is a linguistic measure of cognitive complexity composed of two primary components: (a) Differentiation and (b) Integration [@suedfeld199227]. Differentiation indicates how many perspectives one accounts for; Integration indicates the extent to which those differentiated perspectives are synthesized. A useful example is an argumentative essay, which, if it is complex, recognizes a variety of possible arguments for or against some claim, and synthesizes those arguments into one ultimate argument, using parts of each subsidiary argument [@ballesteros2025pcc]. Integrative complexity shows a robust relationship with political violence [@suedfeld2010cognitive]. However, research using the construct as a predictor of political violence has largely focused on political leaders in respect to events like war and international crises [@suedfeld2010cognitive]. To my knowledge, no study to date has directly linked the integrative complexity of political manifestos with justifications of political violence. Considering the measure’s long-standing precedent in predicting political events, integrating integrative complexity into the manifesto literature could help identify the factors that distinguish between merely violent rhetoric and rhetoric that induces violence, thereby affording greater predictability through an aggregation of said factors.
-#| again, should I keep the above sentence: "Considering the measure's..." as it provides reason for the work, but seemingly more for a proposal structure than an actual thesis
-
+<!-- again, should I keep the above sentence: "Considering the measure's..." as it provides reason for the work, but seemingly more for a proposal structure than an actual thesis
+-->
 ## Current Study
 
 The current study contributes to research seeking to identify differences between violent and non-violent political agents through an evaluation of political manifestos in two new ways: (a) by focusing a qualitative analysis on rhetoric about harm as designating moral valence by the theory of dyadic morality and (b) by scoring manifestos on integrative complexity. I seek to aid in answering three related questions: (a) do justifications of harm correspond to changes in individual moral norms?; (b) does integrative complexity predict whether a manifesto will result in violence versus non-violence?; and (c) does integrative complexity predict both temporally near and far instances of violence in relation to political manifestos? I predict that (a) changes in moral norms — as exemplified in the agents’ writings — and subsequent justification of increasingly harmful acts will be associated with a higher likelihood of violence, (b) lower levels of integrative complexity in political manifestos will predict higher likelihoods of violence, and (c) a decrease in integrative complexity will be associated with an individual coming to believe that harm is justified in pursuit of their political goals.
@@ -97,9 +98,9 @@ The current study contributes to research seeking to identify differences betwee
 ## Manifesto Selection
 
 This study includes manifestos divided into three categories following @ebner2025there; (a) violent self-sacrificial, (b) ideologically extreme, and (c) moderate. It also affords longitudinal analysis. I selected not only one-off manifestos already analyzed in the aforementioned literature (e.g.,  Anders Behring Breivik’s Manifesto of the Norway Attacks, 2011; Marx & Engels Manifesto of the Communist Party, 1848), but also sets of writings of individual authors across time (e.g., selections of Vladimir Lenin’s letters). Materials include ten manifestos for each of the aforementioned categories, and three longitudinal sets of writings for each category. Incorporating the 15 manifestos previously analyzed in the literature brings the study to a categorical count as follows: (a) nine violent self-sacrificial texts, (b) three ideologically extreme texts, and (c) 3 moderate texts. Each of these texts are one-off samples. To fill out the rest of the ten one-off samples for each category, manifestos were selected according to their place on the political spectrum (i.e., left to right political platforms), individual actor-author texts versus platform-representative texts, and length in order to match each category along these factors. The same factors were considered in choosing longitudinal samples, and selection included qualitatively matching samples across categories.
-#| Update manifesto selection examples in brackets.
-#| Did I appropriately select manifestos according to their place on the political spectrum as indicated above?
-
+<!-- Update manifesto selection examples in brackets.
+Did I appropriately select manifestos according to their place on the political spectrum as indicated above?
+-->
 ## Measures
   *Linguistic Indicators.* @ebner2025there supplies a list of words that indicate
 justifications of violence and, as a higher-order category of linguistic markers, violence
@@ -118,7 +119,8 @@ While automated integrative complexity does not correlate perfectly with hand sc
 [document-level correlation of .82, paragraph-level correlation of .46, @conway2020validating], it is an increasingly validated measure in its own right and often used as an 
 efficient and effective replacement for hand scoring. This study uses the document-level
 scores for all analyses.  
-#| I forgot to do this part in time for integrative data project; IGNORE AUTOMATED INTEGRATIVE COMPLEXITY PARTS!
+<!-- I forgot to do this part in time for integrative data project; IGNORE AUTOMATED INTEGRATIVE COMPLEXITY PARTS!
+-->
 	*Violence.* Previously analyzed manifestos are easily delineated as to whether they cause 
 violence; some manifestos precede lone-actor attacks by their author, the other manifestos 
 did not precede violence enacted by their author. The present study maintains this 
@@ -145,8 +147,9 @@ compared in the same manner as prevalence rates. I will also run regression anal
 longitudinal manifesto sets in order to understand the effect changes in integrative 
 complexity have on likelihood of violence. I will repeat these analyses for linguistic 
 markers of harm on said longitudinal sets.
-#| Need to include other categories of markers of violence condoning norms, perhaps even splitting the markers into categories such that I can examine prevalence of individual markers, marker categories, and violence condoning norms all together.
-#| Probably need to rewrite this section, at least by tense, but also distribute in different areas of the methods.
+<!-- Need to include other categories of markers of violence condoning norms, perhaps even splitting the markers into categories such that I can examine prevalence of individual markers, marker categories, and violence condoning norms all together.
+Probably need to rewrite this section, at least by tense, but also distribute in different areas of the methods.
+-->
 	
 # Discussion
 
@@ -172,8 +175,8 @@ platforms predict violence, both in the long- and short-term, then integrative c
 can become a powerful tool in tracking and stopping what are increasingly prevalent lone 
 actor violent acts. This study thus aims to help public safety policy makers understand the 
 precursors of political violence and intervene before tragedy strikes.
-#| Can use this for guide when witing actual discussion, so hold of on deleting.
-
+<!-- Can use this for guide when witing actual discussion, so hold of on deleting.
+-->
 ## Limitations
 
 The availability of political manifestos is the primary limitation of the proposed study. 
@@ -187,8 +190,8 @@ of political platforms (i.e., The Manifesto of the Communist Party, which is use
 literature, and Vladimir Lenin’s What Is To Be Done?, a novel addition). Thus, access to 
 such works through sites like the Marxists Internet Archive provides a wide range of 
 writings to choose from, both as select instances and as pieces of a longitudinal series.
-#| Can use this for guide when witing actual Limitations, so hold of on deleting.
-
+<!-- Can use this for guide when witing actual Limitations, so hold of on deleting.
+-->
 ##Future Directions
 
 
