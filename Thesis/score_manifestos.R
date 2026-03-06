@@ -65,7 +65,7 @@ score_manifestos <- function(input_type = c("text", "pdf"),
                              per = 1000,
                              output = c("long", "wide"),
                              write_out = FALSE,
-                             out_path = "data/processed/manifesto_scores.csv",
+                             out_path = "Thesis/data/processed/manifesto_scores.csv",
                              quiet = TRUE) {
   
   # Normalize argument choices to safe values.

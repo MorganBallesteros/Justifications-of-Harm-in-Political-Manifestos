@@ -19,14 +19,13 @@ source(here::here("Thesis", "score_manifestos.R"))
 # full.names = TRUE: return full relative paths, not just filenames
 # ignore.case = TRUE: match .PDF as well as .pdf
 pdf_paths <- list.files(
-  "data/raw/pdfs",
+  "Thesis/data/raw/pdfs",
   pattern = "\\.pdf$",
   full.names = TRUE,
   ignore.case = TRUE
 )
 
 # Define the marker list (the words/phrases you want to count).
-# Morgan: You can replace this with your full marker dictionary later.
 markers <- c("harm", "damage", "agent", "patient", "intention", "intentional", "preemptive", "defend", "protect", "self-defense", "forced to fight", "no longer ignore", "act of defense", "purified", "purify", "brutal steps should have been used", "need for jihaad", "reasons for jihaad", "need for war", "the struggle is imposed upon", "natural struggle", "cannot coexist")
 
 # Run the main function in PDF mode:
@@ -42,8 +41,9 @@ res <- score_manifestos(
   segment = "document",
   output = "long",
   write_out = TRUE,
-  out_path = "data/processed/manifesto_scores.csv",
+  out_path = "Thesis/data/processed/manifesto_scores.csv",
   quiet = FALSE
 )
 
 print(dplyr::glimpse(res$scores_long))
+

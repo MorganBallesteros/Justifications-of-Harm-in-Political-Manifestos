@@ -1,94 +1,683 @@
 doc_id,segment_id,marker,count,word_count,prevalence
-1160_KennedyIchbin,1,war,0,691,0
-142Thunberg,1,war,0,785,0
-1945 Labour Party Manifesto -,1,war,35,5134,6.8172964550058435
-1949_simone-de-beauvoir-the-second-sex,1,war,57,351507,0.16215893282352842
-anders_breivik_-_2083_manifesto_-_2011,1,war,951,802073,1.1856776128856101
-Atlantic-Charter,1,war,1,1037,0.9643201542912248
-brenton-tarrant-the-great-replacement-manifesto,1,war,17,16984,1.0009420631182289
-cho_manifesto_1.1,1,war,1,2203,0.45392646391284613
-Communist Manifesto,1,war,17,39076,0.4350496468420514
-DefeatingEurabia1,1,war,152,135135,1.124801124801125
-Earnest-Manifesto-042719,1,war,2,4430,0.45146726862302483
-"Four Freedoms Speech, Franklin Delano Roosevelt (1)",1,war,16,3387,4.7239444936521995
-Full_text_I_Have_a_Dream_,1,war,0,1695,0
-Hitler_Adolf_-_Mein_Kampf,1,war,340,273713,1.242177024839887
-Imperium - Yockey,1,war,971,185034,5.247684209388544
-"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi",1,war,883,157287,5.613941393757908
-milestones-f1,1,war,25,68527,0.36481970610124476
-patrick_crusius_-_the_inconvenient_truth_about_me,1,war,0,2422,0
-"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002",1,war,1538,929691,1.6543130997288347
-PortHuronStatement,1,war,22,8807,2.498012944248893
-Revolt Against The Modern World - Julius Evola,1,war,150,200238,0.749108560812633
-rodger_manifesto,1,war,15,109566,0.13690378402059034
-roofmanifesto,1,war,0,2460,0
-"Russian Imperial Manifesto, Announcing the Start of War in August 1914",1,war,3,447,6.7114093959731544
-ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post,1,war,6,35677,0.16817557530061386
-the-lawful-and-the-prohibited-in-islam_text,1,war,17,122093,0.13923812175964223
-the state and revolution - lenin,1,war,40,40117,0.9970835306727821
-the urban guerilla concept,1,war,5,9698,0.5155702206640544
-universal declaration of human rights,1,war,0,1784,0
-velayat_faqeeh - Khomeini,1,war,19,62541,0.30380070673638093
-what is to be done - lenin,1,war,17,67459,0.25200492150787884
-1160_KennedyIchbin,1,violence,0,691,0
-142Thunberg,1,violence,0,785,0
-1945 Labour Party Manifesto -,1,violence,0,5134,0
-1949_simone-de-beauvoir-the-second-sex,1,violence,48,351507,0.13655489079876076
-anders_breivik_-_2083_manifesto_-_2011,1,violence,218,802073,0.27179570936809994
-Atlantic-Charter,1,violence,0,1037,0
-brenton-tarrant-the-great-replacement-manifesto,1,violence,12,16984,0.7065473386716911
-cho_manifesto_1.1,1,violence,0,2203,0
-Communist Manifesto,1,violence,0,39076,0
-DefeatingEurabia1,1,violence,68,135135,0.5032005032005031
-Earnest-Manifesto-042719,1,violence,0,4430,0
-"Four Freedoms Speech, Franklin Delano Roosevelt (1)",1,violence,0,3387,0
-Full_text_I_Have_a_Dream_,1,violence,1,1695,0.5899705014749262
-Hitler_Adolf_-_Mein_Kampf,1,violence,14,273713,0.05114846572870123
-Imperium - Yockey,1,violence,12,185034,0.06485294594506956
-"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi",1,violence,6,157287,0.03814682713765283
-milestones-f1,1,violence,1,68527,0.01459278824404979
-patrick_crusius_-_the_inconvenient_truth_about_me,1,violence,0,2422,0
-"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002",1,violence,157,929691,0.168873313821474
-PortHuronStatement,1,violence,3,8807,0.3406381287612127
-Revolt Against The Modern World - Julius Evola,1,violence,20,200238,0.09988114144168439
-rodger_manifesto,1,violence,0,109566,0
-roofmanifesto,1,violence,0,2460,0
-"Russian Imperial Manifesto, Announcing the Start of War in August 1914",1,violence,0,447,0
-ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post,1,violence,11,35677,0.30832188805112537
-the-lawful-and-the-prohibited-in-islam_text,1,violence,2,122093,0.01638095550113438
-the state and revolution - lenin,1,violence,11,40117,0.2741979709350151
-the urban guerilla concept,1,violence,8,9698,0.8249123530624871
-universal declaration of human rights,1,violence,0,1784,0
-velayat_faqeeh - Khomeini,1,violence,0,62541,0
-what is to be done - lenin,1,violence,5,67459,0.07411909456114084
-1160_KennedyIchbin,1,attack,0,691,0
-142Thunberg,1,attack,0,785,0
-1945 Labour Party Manifesto -,1,attack,0,5134,0
-1949_simone-de-beauvoir-the-second-sex,1,attack,15,351507,0.04267340337461274
-anders_breivik_-_2083_manifesto_-_2011,1,attack,207,802073,0.2580812469687921
-Atlantic-Charter,1,attack,0,1037,0
-brenton-tarrant-the-great-replacement-manifesto,1,attack,66,16984,3.8860103626943006
-cho_manifesto_1.1,1,attack,1,2203,0.45392646391284613
-Communist Manifesto,1,attack,4,39076,0.10236462278636504
-DefeatingEurabia1,1,attack,22,135135,0.1628001628001628
-Earnest-Manifesto-042719,1,attack,5,4430,1.128668171557562
-"Four Freedoms Speech, Franklin Delano Roosevelt (1)",1,attack,3,3387,0.8857395925597874
-Full_text_I_Have_a_Dream_,1,attack,0,1695,0
-Hitler_Adolf_-_Mein_Kampf,1,attack,57,273713,0.2082473247525693
-Imperium - Yockey,1,attack,25,185034,0.13511030405222824
-"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi",1,attack,47,157287,0.29881681257828047
-milestones-f1,1,attack,4,68527,0.05837115297619916
-patrick_crusius_-_the_inconvenient_truth_about_me,1,attack,10,2422,4.1288191577208915
-"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002",1,attack,307,929691,0.3302172442241562
-PortHuronStatement,1,attack,0,8807,0
-Revolt Against The Modern World - Julius Evola,1,attack,10,200238,0.049940570720842195
-rodger_manifesto,1,attack,6,109566,0.05476151360823613
-roofmanifesto,1,attack,0,2460,0
-"Russian Imperial Manifesto, Announcing the Start of War in August 1914",1,attack,1,447,2.237136465324385
-ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post,1,attack,8,35677,0.22423410040081845
-the-lawful-and-the-prohibited-in-islam_text,1,attack,4,122093,0.03276191100226876
-the state and revolution - lenin,1,attack,2,40117,0.049854176533639105
-the urban guerilla concept,1,attack,1,9698,0.10311404413281089
-universal declaration of human rights,1,attack,0,1784,0
-velayat_faqeeh - Khomeini,1,attack,4,62541,0.06395804352344861
-what is to be done - lenin,1,attack,16,67459,0.2371811025956507
+1160_KennedyIchbin,1,harm,0,691,0
+142Thunberg,1,harm,0,785,0
+1945 Labour Party Manifesto -,1,harm,0,5134,0
+1949_simone-de-beauvoir-the-second-sex,1,harm,3,351507,0.008534680674922548
+anders_breivik_-_2083_manifesto_-_2011,1,harm,28,802073,0.034909540652783476
+Atlantic-Charter,1,harm,0,1037,0
+brenton-tarrant-the-great-replacement-manifesto,1,harm,9,16984,0.5299105040037683
+cho_manifesto_1.1,1,harm,0,2203,0
+Communist Manifesto,1,harm,0,39076,0
+DefeatingEurabia1,1,harm,5,135135,0.037000037000037
+Earnest-Manifesto-042719,1,harm,0,4430,0
+"Four Freedoms Speech, Franklin Delano Roosevelt (1)",1,harm,0,3387,0
+Full_text_I_Have_a_Dream_,1,harm,0,1695,0
+Hitler_Adolf_-_Mein_Kampf,1,harm,7,273713,0.025574232864350614
+Imperium - Yockey,1,harm,3,185034,0.01621323648626739
+"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi",1,harm,20,157287,0.12715609045884274
+milestones-f1,1,harm,1,68527,0.01459278824404979
+patrick_crusius_-_the_inconvenient_truth_about_me,1,harm,0,2422,0
+"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002",1,harm,21,929691,0.022588150256375505
+PortHuronStatement,1,harm,0,8807,0
+Revolt Against The Modern World - Julius Evola,1,harm,1,200238,0.00499405707208422
+rodger_manifesto,1,harm,0,109566,0
+roofmanifesto,1,harm,0,2460,0
+"Russian Imperial Manifesto, Announcing the Start of War in August 1914",1,harm,0,447,0
+ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post,1,harm,3,35677,0.08408778765030693
+the-lawful-and-the-prohibited-in-islam_text,1,harm,31,122093,0.2539048102675829
+the state and revolution - lenin,1,harm,0,40117,0
+the urban guerilla concept,1,harm,0,9698,0
+universal declaration of human rights,1,harm,0,1784,0
+velayat_faqeeh - Khomeini,1,harm,7,62541,0.11192657616603509
+what is to be done - lenin,1,harm,3,67459,0.044471456736684505
+1160_KennedyIchbin,1,damage,0,691,0
+142Thunberg,1,damage,0,785,0
+1945 Labour Party Manifesto -,1,damage,0,5134,0
+1949_simone-de-beauvoir-the-second-sex,1,damage,2,351507,0.005689787116615032
+anders_breivik_-_2083_manifesto_-_2011,1,damage,113,802073,0.14088493192016188
+Atlantic-Charter,1,damage,0,1037,0
+brenton-tarrant-the-great-replacement-manifesto,1,damage,2,16984,0.11775788977861518
+cho_manifesto_1.1,1,damage,0,2203,0
+Communist Manifesto,1,damage,0,39076,0
+DefeatingEurabia1,1,damage,5,135135,0.037000037000037
+Earnest-Manifesto-042719,1,damage,0,4430,0
+"Four Freedoms Speech, Franklin Delano Roosevelt (1)",1,damage,0,3387,0
+Full_text_I_Have_a_Dream_,1,damage,0,1695,0
+Hitler_Adolf_-_Mein_Kampf,1,damage,14,273713,0.05114846572870123
+Imperium - Yockey,1,damage,5,185034,0.02702206081044565
+"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi",1,damage,21,157287,0.1335138949817849
+milestones-f1,1,damage,0,68527,0
+patrick_crusius_-_the_inconvenient_truth_about_me,1,damage,1,2422,0.41288191577208916
+"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002",1,damage,118,929691,0.12692389191677667
+PortHuronStatement,1,damage,0,8807,0
+Revolt Against The Modern World - Julius Evola,1,damage,0,200238,0
+rodger_manifesto,1,damage,1,109566,0.009126918934706022
+roofmanifesto,1,damage,0,2460,0
+"Russian Imperial Manifesto, Announcing the Start of War in August 1914",1,damage,0,447,0
+ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post,1,damage,6,35677,0.16817557530061386
+the-lawful-and-the-prohibited-in-islam_text,1,damage,1,122093,0.00819047775056719
+the state and revolution - lenin,1,damage,0,40117,0
+the urban guerilla concept,1,damage,0,9698,0
+universal declaration of human rights,1,damage,0,1784,0
+velayat_faqeeh - Khomeini,1,damage,2,62541,0.031979021761724305
+what is to be done - lenin,1,damage,2,67459,0.029647637824456338
+1160_KennedyIchbin,1,agent,0,691,0
+142Thunberg,1,agent,0,785,0
+1945 Labour Party Manifesto -,1,agent,0,5134,0
+1949_simone-de-beauvoir-the-second-sex,1,agent,3,351507,0.008534680674922548
+anders_breivik_-_2083_manifesto_-_2011,1,agent,41,802073,0.05111754167014723
+Atlantic-Charter,1,agent,0,1037,0
+brenton-tarrant-the-great-replacement-manifesto,1,agent,1,16984,0.05887894488930759
+cho_manifesto_1.1,1,agent,0,2203,0
+Communist Manifesto,1,agent,2,39076,0.05118231139318252
+DefeatingEurabia1,1,agent,3,135135,0.0222000222000222
+Earnest-Manifesto-042719,1,agent,0,4430,0
+"Four Freedoms Speech, Franklin Delano Roosevelt (1)",1,agent,0,3387,0
+Full_text_I_Have_a_Dream_,1,agent,0,1695,0
+Hitler_Adolf_-_Mein_Kampf,1,agent,1,273713,0.0036534618377643737
+Imperium - Yockey,1,agent,1,185034,0.005404412162089129
+"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi",1,agent,0,157287,0
+milestones-f1,1,agent,0,68527,0
+patrick_crusius_-_the_inconvenient_truth_about_me,1,agent,0,2422,0
+"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002",1,agent,22,929691,0.02366377645906005
+PortHuronStatement,1,agent,0,8807,0
+Revolt Against The Modern World - Julius Evola,1,agent,0,200238,0
+rodger_manifesto,1,agent,2,109566,0.018253837869412044
+roofmanifesto,1,agent,0,2460,0
+"Russian Imperial Manifesto, Announcing the Start of War in August 1914",1,agent,0,447,0
+ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post,1,agent,0,35677,0
+the-lawful-and-the-prohibited-in-islam_text,1,agent,0,122093,0
+the state and revolution - lenin,1,agent,1,40117,0.024927088266819553
+the urban guerilla concept,1,agent,1,9698,0.10311404413281089
+universal declaration of human rights,1,agent,0,1784,0
+velayat_faqeeh - Khomeini,1,agent,1,62541,0.015989510880862152
+what is to be done - lenin,1,agent,2,67459,0.029647637824456338
+1160_KennedyIchbin,1,patient,0,691,0
+142Thunberg,1,patient,0,785,0
+1945 Labour Party Manifesto -,1,patient,0,5134,0
+1949_simone-de-beauvoir-the-second-sex,1,patient,22,351507,0.06258765828276534
+anders_breivik_-_2083_manifesto_-_2011,1,patient,12,802073,0.014961231708335774
+Atlantic-Charter,1,patient,0,1037,0
+brenton-tarrant-the-great-replacement-manifesto,1,patient,0,16984,0
+cho_manifesto_1.1,1,patient,0,2203,0
+Communist Manifesto,1,patient,0,39076,0
+DefeatingEurabia1,1,patient,3,135135,0.0222000222000222
+Earnest-Manifesto-042719,1,patient,0,4430,0
+"Four Freedoms Speech, Franklin Delano Roosevelt (1)",1,patient,0,3387,0
+Full_text_I_Have_a_Dream_,1,patient,0,1695,0
+Hitler_Adolf_-_Mein_Kampf,1,patient,4,273713,0.014613847351057495
+Imperium - Yockey,1,patient,0,185034,0
+"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi",1,patient,2,157287,0.012715609045884275
+milestones-f1,1,patient,1,68527,0.01459278824404979
+patrick_crusius_-_the_inconvenient_truth_about_me,1,patient,0,2422,0
+"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002",1,patient,17,929691,0.018285645445637315
+PortHuronStatement,1,patient,0,8807,0
+Revolt Against The Modern World - Julius Evola,1,patient,0,200238,0
+rodger_manifesto,1,patient,0,109566,0
+roofmanifesto,1,patient,0,2460,0
+"Russian Imperial Manifesto, Announcing the Start of War in August 1914",1,patient,0,447,0
+ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post,1,patient,1,35677,0.028029262550102307
+the-lawful-and-the-prohibited-in-islam_text,1,patient,8,122093,0.06552382200453752
+the state and revolution - lenin,1,patient,0,40117,0
+the urban guerilla concept,1,patient,0,9698,0
+universal declaration of human rights,1,patient,0,1784,0
+velayat_faqeeh - Khomeini,1,patient,0,62541,0
+what is to be done - lenin,1,patient,0,67459,0
+1160_KennedyIchbin,1,intention,0,691,0
+142Thunberg,1,intention,0,785,0
+1945 Labour Party Manifesto -,1,intention,0,5134,0
+1949_simone-de-beauvoir-the-second-sex,1,intention,4,351507,0.011379574233230064
+anders_breivik_-_2083_manifesto_-_2011,1,intention,71,802073,0.08852062094098667
+Atlantic-Charter,1,intention,0,1037,0
+brenton-tarrant-the-great-replacement-manifesto,1,intention,0,16984,0
+cho_manifesto_1.1,1,intention,0,2203,0
+Communist Manifesto,1,intention,1,39076,0.02559115569659126
+DefeatingEurabia1,1,intention,7,135135,0.0518000518000518
+Earnest-Manifesto-042719,1,intention,0,4430,0
+"Four Freedoms Speech, Franklin Delano Roosevelt (1)",1,intention,0,3387,0
+Full_text_I_Have_a_Dream_,1,intention,0,1695,0
+Hitler_Adolf_-_Mein_Kampf,1,intention,15,273713,0.054801927566465604
+Imperium - Yockey,1,intention,1,185034,0.005404412162089129
+"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi",1,intention,18,157287,0.11444048141295848
+milestones-f1,1,intention,5,68527,0.07296394122024896
+patrick_crusius_-_the_inconvenient_truth_about_me,1,intention,0,2422,0
+"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002",1,intention,18,929691,0.01936127164832186
+PortHuronStatement,1,intention,0,8807,0
+Revolt Against The Modern World - Julius Evola,1,intention,5,200238,0.024970285360421098
+rodger_manifesto,1,intention,0,109566,0
+roofmanifesto,1,intention,0,2460,0
+"Russian Imperial Manifesto, Announcing the Start of War in August 1914",1,intention,0,447,0
+ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post,1,intention,1,35677,0.028029262550102307
+the-lawful-and-the-prohibited-in-islam_text,1,intention,35,122093,0.28666672126985165
+the state and revolution - lenin,1,intention,0,40117,0
+the urban guerilla concept,1,intention,0,9698,0
+universal declaration of human rights,1,intention,0,1784,0
+velayat_faqeeh - Khomeini,1,intention,1,62541,0.015989510880862152
+what is to be done - lenin,1,intention,0,67459,0
+1160_KennedyIchbin,1,intentional,0,691,0
+142Thunberg,1,intentional,0,785,0
+1945 Labour Party Manifesto -,1,intentional,0,5134,0
+1949_simone-de-beauvoir-the-second-sex,1,intentional,0,351507,0
+anders_breivik_-_2083_manifesto_-_2011,1,intentional,5,802073,0.006233846545139907
+Atlantic-Charter,1,intentional,0,1037,0
+brenton-tarrant-the-great-replacement-manifesto,1,intentional,0,16984,0
+cho_manifesto_1.1,1,intentional,0,2203,0
+Communist Manifesto,1,intentional,0,39076,0
+DefeatingEurabia1,1,intentional,1,135135,0.0074000074000074
+Earnest-Manifesto-042719,1,intentional,0,4430,0
+"Four Freedoms Speech, Franklin Delano Roosevelt (1)",1,intentional,0,3387,0
+Full_text_I_Have_a_Dream_,1,intentional,0,1695,0
+Hitler_Adolf_-_Mein_Kampf,1,intentional,1,273713,0.0036534618377643737
+Imperium - Yockey,1,intentional,0,185034,0
+"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi",1,intentional,0,157287,0
+milestones-f1,1,intentional,0,68527,0
+patrick_crusius_-_the_inconvenient_truth_about_me,1,intentional,0,2422,0
+"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002",1,intentional,1,929691,0.0010756262026845478
+PortHuronStatement,1,intentional,0,8807,0
+Revolt Against The Modern World - Julius Evola,1,intentional,0,200238,0
+rodger_manifesto,1,intentional,0,109566,0
+roofmanifesto,1,intentional,0,2460,0
+"Russian Imperial Manifesto, Announcing the Start of War in August 1914",1,intentional,0,447,0
+ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post,1,intentional,0,35677,0
+the-lawful-and-the-prohibited-in-islam_text,1,intentional,0,122093,0
+the state and revolution - lenin,1,intentional,0,40117,0
+the urban guerilla concept,1,intentional,0,9698,0
+universal declaration of human rights,1,intentional,0,1784,0
+velayat_faqeeh - Khomeini,1,intentional,0,62541,0
+what is to be done - lenin,1,intentional,0,67459,0
+1160_KennedyIchbin,1,preemptive,0,691,0
+142Thunberg,1,preemptive,0,785,0
+1945 Labour Party Manifesto -,1,preemptive,0,5134,0
+1949_simone-de-beauvoir-the-second-sex,1,preemptive,0,351507,0
+anders_breivik_-_2083_manifesto_-_2011,1,preemptive,4,802073,0.0049870772361119255
+Atlantic-Charter,1,preemptive,0,1037,0
+brenton-tarrant-the-great-replacement-manifesto,1,preemptive,0,16984,0
+cho_manifesto_1.1,1,preemptive,0,2203,0
+Communist Manifesto,1,preemptive,0,39076,0
+DefeatingEurabia1,1,preemptive,0,135135,0
+Earnest-Manifesto-042719,1,preemptive,0,4430,0
+"Four Freedoms Speech, Franklin Delano Roosevelt (1)",1,preemptive,0,3387,0
+Full_text_I_Have_a_Dream_,1,preemptive,0,1695,0
+Hitler_Adolf_-_Mein_Kampf,1,preemptive,0,273713,0
+Imperium - Yockey,1,preemptive,0,185034,0
+"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi",1,preemptive,0,157287,0
+milestones-f1,1,preemptive,0,68527,0
+patrick_crusius_-_the_inconvenient_truth_about_me,1,preemptive,0,2422,0
+"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002",1,preemptive,5,929691,0.00537813101342274
+PortHuronStatement,1,preemptive,0,8807,0
+Revolt Against The Modern World - Julius Evola,1,preemptive,0,200238,0
+rodger_manifesto,1,preemptive,0,109566,0
+roofmanifesto,1,preemptive,0,2460,0
+"Russian Imperial Manifesto, Announcing the Start of War in August 1914",1,preemptive,0,447,0
+ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post,1,preemptive,0,35677,0
+the-lawful-and-the-prohibited-in-islam_text,1,preemptive,0,122093,0
+the state and revolution - lenin,1,preemptive,0,40117,0
+the urban guerilla concept,1,preemptive,0,9698,0
+universal declaration of human rights,1,preemptive,0,1784,0
+velayat_faqeeh - Khomeini,1,preemptive,0,62541,0
+what is to be done - lenin,1,preemptive,0,67459,0
+1160_KennedyIchbin,1,defend,0,691,0
+142Thunberg,1,defend,0,785,0
+1945 Labour Party Manifesto -,1,defend,0,5134,0
+1949_simone-de-beauvoir-the-second-sex,1,defend,32,351507,0.09103659386584051
+anders_breivik_-_2083_manifesto_-_2011,1,defend,86,802073,0.10722216057640639
+Atlantic-Charter,1,defend,1,1037,0.9643201542912248
+brenton-tarrant-the-great-replacement-manifesto,1,defend,0,16984,0
+cho_manifesto_1.1,1,defend,0,2203,0
+Communist Manifesto,1,defend,3,39076,0.07677346708977378
+DefeatingEurabia1,1,defend,29,135135,0.21460021460021458
+Earnest-Manifesto-042719,1,defend,4,4430,0.9029345372460497
+"Four Freedoms Speech, Franklin Delano Roosevelt (1)",1,defend,0,3387,0
+Full_text_I_Have_a_Dream_,1,defend,0,1695,0
+Hitler_Adolf_-_Mein_Kampf,1,defend,45,273713,0.16440578269939682
+Imperium - Yockey,1,defend,3,185034,0.01621323648626739
+"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi",1,defend,8,157287,0.0508624361835371
+milestones-f1,1,defend,7,68527,0.10214951770834854
+patrick_crusius_-_the_inconvenient_truth_about_me,1,defend,0,2422,0
+"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002",1,defend,86,929691,0.09250385343087111
+PortHuronStatement,1,defend,0,8807,0
+Revolt Against The Modern World - Julius Evola,1,defend,8,200238,0.03995245657667376
+rodger_manifesto,1,defend,0,109566,0
+roofmanifesto,1,defend,0,2460,0
+"Russian Imperial Manifesto, Announcing the Start of War in August 1914",1,defend,0,447,0
+ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post,1,defend,2,35677,0.05605852510020461
+the-lawful-and-the-prohibited-in-islam_text,1,defend,5,122093,0.04095238875283595
+the state and revolution - lenin,1,defend,0,40117,0
+the urban guerilla concept,1,defend,1,9698,0.10311404413281089
+universal declaration of human rights,1,defend,0,1784,0
+velayat_faqeeh - Khomeini,1,defend,8,62541,0.12791608704689722
+what is to be done - lenin,1,defend,9,67459,0.13341437021005353
+1160_KennedyIchbin,1,protect,0,691,0
+142Thunberg,1,protect,0,785,0
+1945 Labour Party Manifesto -,1,protect,0,5134,0
+1949_simone-de-beauvoir-the-second-sex,1,protect,16,351507,0.045518296932920255
+anders_breivik_-_2083_manifesto_-_2011,1,protect,127,802073,0.1583397022465536
+Atlantic-Charter,1,protect,0,1037,0
+brenton-tarrant-the-great-replacement-manifesto,1,protect,4,16984,0.23551577955723035
+cho_manifesto_1.1,1,protect,0,2203,0
+Communist Manifesto,1,protect,1,39076,0.02559115569659126
+DefeatingEurabia1,1,protect,26,135135,0.1924001924001924
+Earnest-Manifesto-042719,1,protect,0,4430,0
+"Four Freedoms Speech, Franklin Delano Roosevelt (1)",1,protect,1,3387,0.29524653085326247
+Full_text_I_Have_a_Dream_,1,protect,0,1695,0
+Hitler_Adolf_-_Mein_Kampf,1,protect,15,273713,0.054801927566465604
+Imperium - Yockey,1,protect,7,185034,0.03783088513462391
+"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi",1,protect,16,157287,0.1017248723670742
+milestones-f1,1,protect,3,68527,0.04377836473214937
+patrick_crusius_-_the_inconvenient_truth_about_me,1,protect,0,2422,0
+"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002",1,protect,182,929691,0.19576396888858771
+PortHuronStatement,1,protect,1,8807,0.11354604292040422
+Revolt Against The Modern World - Julius Evola,1,protect,3,200238,0.014982171216252659
+rodger_manifesto,1,protect,0,109566,0
+roofmanifesto,1,protect,3,2460,1.2195121951219512
+"Russian Imperial Manifesto, Announcing the Start of War in August 1914",1,protect,0,447,0
+ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post,1,protect,7,35677,0.19620483785071613
+the-lawful-and-the-prohibited-in-islam_text,1,protect,16,122093,0.13104764400907504
+the state and revolution - lenin,1,protect,0,40117,0
+the urban guerilla concept,1,protect,0,9698,0
+universal declaration of human rights,1,protect,0,1784,0
+velayat_faqeeh - Khomeini,1,protect,16,62541,0.25583217409379444
+what is to be done - lenin,1,protect,1,67459,0.014823818912228169
+1160_KennedyIchbin,1,self-defense,0,691,0
+142Thunberg,1,self-defense,0,785,0
+1945 Labour Party Manifesto -,1,self-defense,0,5134,0
+1949_simone-de-beauvoir-the-second-sex,1,self-defense,1,351507,0.002844893558307516
+anders_breivik_-_2083_manifesto_-_2011,1,self-defense,1,802073,0.0012467693090279814
+Atlantic-Charter,1,self-defense,0,1037,0
+brenton-tarrant-the-great-replacement-manifesto,1,self-defense,0,16984,0
+cho_manifesto_1.1,1,self-defense,0,2203,0
+Communist Manifesto,1,self-defense,0,39076,0
+DefeatingEurabia1,1,self-defense,1,135135,0.0074000074000074
+Earnest-Manifesto-042719,1,self-defense,2,4430,0.45146726862302483
+"Four Freedoms Speech, Franklin Delano Roosevelt (1)",1,self-defense,0,3387,0
+Full_text_I_Have_a_Dream_,1,self-defense,0,1695,0
+Hitler_Adolf_-_Mein_Kampf,1,self-defense,0,273713,0
+Imperium - Yockey,1,self-defense,3,185034,0.01621323648626739
+"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi",1,self-defense,3,157287,0.019073413568826414
+milestones-f1,1,self-defense,0,68527,0
+patrick_crusius_-_the_inconvenient_truth_about_me,1,self-defense,0,2422,0
+"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002",1,self-defense,21,929691,0.022588150256375505
+PortHuronStatement,1,self-defense,0,8807,0
+Revolt Against The Modern World - Julius Evola,1,self-defense,1,200238,0.00499405707208422
+rodger_manifesto,1,self-defense,0,109566,0
+roofmanifesto,1,self-defense,0,2460,0
+"Russian Imperial Manifesto, Announcing the Start of War in August 1914",1,self-defense,0,447,0
+ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post,1,self-defense,1,35677,0.028029262550102307
+the-lawful-and-the-prohibited-in-islam_text,1,self-defense,0,122093,0
+the state and revolution - lenin,1,self-defense,0,40117,0
+the urban guerilla concept,1,self-defense,1,9698,0.10311404413281089
+universal declaration of human rights,1,self-defense,0,1784,0
+velayat_faqeeh - Khomeini,1,self-defense,0,62541,0
+what is to be done - lenin,1,self-defense,0,67459,0
+1160_KennedyIchbin,1,forced to fight,0,691,0
+142Thunberg,1,forced to fight,0,785,0
+1945 Labour Party Manifesto -,1,forced to fight,0,5134,0
+1949_simone-de-beauvoir-the-second-sex,1,forced to fight,0,351507,0
+anders_breivik_-_2083_manifesto_-_2011,1,forced to fight,0,802073,0
+Atlantic-Charter,1,forced to fight,0,1037,0
+brenton-tarrant-the-great-replacement-manifesto,1,forced to fight,1,16984,0.05887894488930759
+cho_manifesto_1.1,1,forced to fight,0,2203,0
+Communist Manifesto,1,forced to fight,0,39076,0
+DefeatingEurabia1,1,forced to fight,0,135135,0
+Earnest-Manifesto-042719,1,forced to fight,0,4430,0
+"Four Freedoms Speech, Franklin Delano Roosevelt (1)",1,forced to fight,0,3387,0
+Full_text_I_Have_a_Dream_,1,forced to fight,0,1695,0
+Hitler_Adolf_-_Mein_Kampf,1,forced to fight,0,273713,0
+Imperium - Yockey,1,forced to fight,0,185034,0
+"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi",1,forced to fight,0,157287,0
+milestones-f1,1,forced to fight,0,68527,0
+patrick_crusius_-_the_inconvenient_truth_about_me,1,forced to fight,0,2422,0
+"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002",1,forced to fight,1,929691,0.0010756262026845478
+PortHuronStatement,1,forced to fight,0,8807,0
+Revolt Against The Modern World - Julius Evola,1,forced to fight,1,200238,0.00499405707208422
+rodger_manifesto,1,forced to fight,0,109566,0
+roofmanifesto,1,forced to fight,0,2460,0
+"Russian Imperial Manifesto, Announcing the Start of War in August 1914",1,forced to fight,0,447,0
+ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post,1,forced to fight,0,35677,0
+the-lawful-and-the-prohibited-in-islam_text,1,forced to fight,0,122093,0
+the state and revolution - lenin,1,forced to fight,0,40117,0
+the urban guerilla concept,1,forced to fight,0,9698,0
+universal declaration of human rights,1,forced to fight,0,1784,0
+velayat_faqeeh - Khomeini,1,forced to fight,0,62541,0
+what is to be done - lenin,1,forced to fight,0,67459,0
+1160_KennedyIchbin,1,no longer ignore,0,691,0
+142Thunberg,1,no longer ignore,0,785,0
+1945 Labour Party Manifesto -,1,no longer ignore,0,5134,0
+1949_simone-de-beauvoir-the-second-sex,1,no longer ignore,0,351507,0
+anders_breivik_-_2083_manifesto_-_2011,1,no longer ignore,0,802073,0
+Atlantic-Charter,1,no longer ignore,0,1037,0
+brenton-tarrant-the-great-replacement-manifesto,1,no longer ignore,1,16984,0.05887894488930759
+cho_manifesto_1.1,1,no longer ignore,0,2203,0
+Communist Manifesto,1,no longer ignore,0,39076,0
+DefeatingEurabia1,1,no longer ignore,0,135135,0
+Earnest-Manifesto-042719,1,no longer ignore,0,4430,0
+"Four Freedoms Speech, Franklin Delano Roosevelt (1)",1,no longer ignore,0,3387,0
+Full_text_I_Have_a_Dream_,1,no longer ignore,0,1695,0
+Hitler_Adolf_-_Mein_Kampf,1,no longer ignore,1,273713,0.0036534618377643737
+Imperium - Yockey,1,no longer ignore,0,185034,0
+"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi",1,no longer ignore,0,157287,0
+milestones-f1,1,no longer ignore,0,68527,0
+patrick_crusius_-_the_inconvenient_truth_about_me,1,no longer ignore,0,2422,0
+"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002",1,no longer ignore,0,929691,0
+PortHuronStatement,1,no longer ignore,0,8807,0
+Revolt Against The Modern World - Julius Evola,1,no longer ignore,0,200238,0
+rodger_manifesto,1,no longer ignore,0,109566,0
+roofmanifesto,1,no longer ignore,0,2460,0
+"Russian Imperial Manifesto, Announcing the Start of War in August 1914",1,no longer ignore,0,447,0
+ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post,1,no longer ignore,0,35677,0
+the-lawful-and-the-prohibited-in-islam_text,1,no longer ignore,0,122093,0
+the state and revolution - lenin,1,no longer ignore,0,40117,0
+the urban guerilla concept,1,no longer ignore,0,9698,0
+universal declaration of human rights,1,no longer ignore,0,1784,0
+velayat_faqeeh - Khomeini,1,no longer ignore,0,62541,0
+what is to be done - lenin,1,no longer ignore,0,67459,0
+1160_KennedyIchbin,1,act of defense,0,691,0
+142Thunberg,1,act of defense,0,785,0
+1945 Labour Party Manifesto -,1,act of defense,0,5134,0
+1949_simone-de-beauvoir-the-second-sex,1,act of defense,0,351507,0
+anders_breivik_-_2083_manifesto_-_2011,1,act of defense,0,802073,0
+Atlantic-Charter,1,act of defense,0,1037,0
+brenton-tarrant-the-great-replacement-manifesto,1,act of defense,0,16984,0
+cho_manifesto_1.1,1,act of defense,0,2203,0
+Communist Manifesto,1,act of defense,0,39076,0
+DefeatingEurabia1,1,act of defense,0,135135,0
+Earnest-Manifesto-042719,1,act of defense,1,4430,0.22573363431151242
+"Four Freedoms Speech, Franklin Delano Roosevelt (1)",1,act of defense,0,3387,0
+Full_text_I_Have_a_Dream_,1,act of defense,0,1695,0
+Hitler_Adolf_-_Mein_Kampf,1,act of defense,0,273713,0
+Imperium - Yockey,1,act of defense,0,185034,0
+"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi",1,act of defense,0,157287,0
+milestones-f1,1,act of defense,0,68527,0
+patrick_crusius_-_the_inconvenient_truth_about_me,1,act of defense,0,2422,0
+"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002",1,act of defense,0,929691,0
+PortHuronStatement,1,act of defense,0,8807,0
+Revolt Against The Modern World - Julius Evola,1,act of defense,0,200238,0
+rodger_manifesto,1,act of defense,0,109566,0
+roofmanifesto,1,act of defense,0,2460,0
+"Russian Imperial Manifesto, Announcing the Start of War in August 1914",1,act of defense,0,447,0
+ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post,1,act of defense,0,35677,0
+the-lawful-and-the-prohibited-in-islam_text,1,act of defense,0,122093,0
+the state and revolution - lenin,1,act of defense,0,40117,0
+the urban guerilla concept,1,act of defense,0,9698,0
+universal declaration of human rights,1,act of defense,0,1784,0
+velayat_faqeeh - Khomeini,1,act of defense,0,62541,0
+what is to be done - lenin,1,act of defense,0,67459,0
+1160_KennedyIchbin,1,purified,0,691,0
+142Thunberg,1,purified,0,785,0
+1945 Labour Party Manifesto -,1,purified,0,5134,0
+1949_simone-de-beauvoir-the-second-sex,1,purified,4,351507,0.011379574233230064
+anders_breivik_-_2083_manifesto_-_2011,1,purified,24,802073,0.029922463416671548
+Atlantic-Charter,1,purified,0,1037,0
+brenton-tarrant-the-great-replacement-manifesto,1,purified,0,16984,0
+cho_manifesto_1.1,1,purified,0,2203,0
+Communist Manifesto,1,purified,0,39076,0
+DefeatingEurabia1,1,purified,0,135135,0
+Earnest-Manifesto-042719,1,purified,0,4430,0
+"Four Freedoms Speech, Franklin Delano Roosevelt (1)",1,purified,0,3387,0
+Full_text_I_Have_a_Dream_,1,purified,0,1695,0
+Hitler_Adolf_-_Mein_Kampf,1,purified,0,273713,0
+Imperium - Yockey,1,purified,0,185034,0
+"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi",1,purified,0,157287,0
+milestones-f1,1,purified,11,68527,0.1605206706845477
+patrick_crusius_-_the_inconvenient_truth_about_me,1,purified,0,2422,0
+"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002",1,purified,0,929691,0
+PortHuronStatement,1,purified,0,8807,0
+Revolt Against The Modern World - Julius Evola,1,purified,16,200238,0.07990491315334752
+rodger_manifesto,1,purified,0,109566,0
+roofmanifesto,1,purified,0,2460,0
+"Russian Imperial Manifesto, Announcing the Start of War in August 1914",1,purified,0,447,0
+ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post,1,purified,0,35677,0
+the-lawful-and-the-prohibited-in-islam_text,1,purified,2,122093,0.01638095550113438
+the state and revolution - lenin,1,purified,0,40117,0
+the urban guerilla concept,1,purified,0,9698,0
+universal declaration of human rights,1,purified,0,1784,0
+velayat_faqeeh - Khomeini,1,purified,2,62541,0.031979021761724305
+what is to be done - lenin,1,purified,0,67459,0
+1160_KennedyIchbin,1,purify,0,691,0
+142Thunberg,1,purify,0,785,0
+1945 Labour Party Manifesto -,1,purify,0,5134,0
+1949_simone-de-beauvoir-the-second-sex,1,purify,0,351507,0
+anders_breivik_-_2083_manifesto_-_2011,1,purify,23,802073,0.02867569410764357
+Atlantic-Charter,1,purify,0,1037,0
+brenton-tarrant-the-great-replacement-manifesto,1,purify,0,16984,0
+cho_manifesto_1.1,1,purify,0,2203,0
+Communist Manifesto,1,purify,0,39076,0
+DefeatingEurabia1,1,purify,0,135135,0
+Earnest-Manifesto-042719,1,purify,0,4430,0
+"Four Freedoms Speech, Franklin Delano Roosevelt (1)",1,purify,0,3387,0
+Full_text_I_Have_a_Dream_,1,purify,0,1695,0
+Hitler_Adolf_-_Mein_Kampf,1,purify,0,273713,0
+Imperium - Yockey,1,purify,0,185034,0
+"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi",1,purify,0,157287,0
+milestones-f1,1,purify,3,68527,0.04377836473214937
+patrick_crusius_-_the_inconvenient_truth_about_me,1,purify,0,2422,0
+"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002",1,purify,1,929691,0.0010756262026845478
+PortHuronStatement,1,purify,0,8807,0
+Revolt Against The Modern World - Julius Evola,1,purify,5,200238,0.024970285360421098
+rodger_manifesto,1,purify,2,109566,0.018253837869412044
+roofmanifesto,1,purify,0,2460,0
+"Russian Imperial Manifesto, Announcing the Start of War in August 1914",1,purify,0,447,0
+ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post,1,purify,0,35677,0
+the-lawful-and-the-prohibited-in-islam_text,1,purify,7,122093,0.05733334425397034
+the state and revolution - lenin,1,purify,0,40117,0
+the urban guerilla concept,1,purify,0,9698,0
+universal declaration of human rights,1,purify,0,1784,0
+velayat_faqeeh - Khomeini,1,purify,2,62541,0.031979021761724305
+what is to be done - lenin,1,purify,0,67459,0
+1160_KennedyIchbin,1,brutal steps should have been used,0,691,0
+142Thunberg,1,brutal steps should have been used,0,785,0
+1945 Labour Party Manifesto -,1,brutal steps should have been used,0,5134,0
+1949_simone-de-beauvoir-the-second-sex,1,brutal steps should have been used,0,351507,0
+anders_breivik_-_2083_manifesto_-_2011,1,brutal steps should have been used,0,802073,0
+Atlantic-Charter,1,brutal steps should have been used,0,1037,0
+brenton-tarrant-the-great-replacement-manifesto,1,brutal steps should have been used,0,16984,0
+cho_manifesto_1.1,1,brutal steps should have been used,0,2203,0
+Communist Manifesto,1,brutal steps should have been used,0,39076,0
+DefeatingEurabia1,1,brutal steps should have been used,0,135135,0
+Earnest-Manifesto-042719,1,brutal steps should have been used,0,4430,0
+"Four Freedoms Speech, Franklin Delano Roosevelt (1)",1,brutal steps should have been used,0,3387,0
+Full_text_I_Have_a_Dream_,1,brutal steps should have been used,0,1695,0
+Hitler_Adolf_-_Mein_Kampf,1,brutal steps should have been used,0,273713,0
+Imperium - Yockey,1,brutal steps should have been used,0,185034,0
+"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi",1,brutal steps should have been used,0,157287,0
+milestones-f1,1,brutal steps should have been used,0,68527,0
+patrick_crusius_-_the_inconvenient_truth_about_me,1,brutal steps should have been used,0,2422,0
+"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002",1,brutal steps should have been used,0,929691,0
+PortHuronStatement,1,brutal steps should have been used,0,8807,0
+Revolt Against The Modern World - Julius Evola,1,brutal steps should have been used,0,200238,0
+rodger_manifesto,1,brutal steps should have been used,0,109566,0
+roofmanifesto,1,brutal steps should have been used,0,2460,0
+"Russian Imperial Manifesto, Announcing the Start of War in August 1914",1,brutal steps should have been used,0,447,0
+ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post,1,brutal steps should have been used,0,35677,0
+the-lawful-and-the-prohibited-in-islam_text,1,brutal steps should have been used,0,122093,0
+the state and revolution - lenin,1,brutal steps should have been used,0,40117,0
+the urban guerilla concept,1,brutal steps should have been used,0,9698,0
+universal declaration of human rights,1,brutal steps should have been used,0,1784,0
+velayat_faqeeh - Khomeini,1,brutal steps should have been used,0,62541,0
+what is to be done - lenin,1,brutal steps should have been used,0,67459,0
+1160_KennedyIchbin,1,need for jihaad,0,691,0
+142Thunberg,1,need for jihaad,0,785,0
+1945 Labour Party Manifesto -,1,need for jihaad,0,5134,0
+1949_simone-de-beauvoir-the-second-sex,1,need for jihaad,0,351507,0
+anders_breivik_-_2083_manifesto_-_2011,1,need for jihaad,0,802073,0
+Atlantic-Charter,1,need for jihaad,0,1037,0
+brenton-tarrant-the-great-replacement-manifesto,1,need for jihaad,0,16984,0
+cho_manifesto_1.1,1,need for jihaad,0,2203,0
+Communist Manifesto,1,need for jihaad,0,39076,0
+DefeatingEurabia1,1,need for jihaad,0,135135,0
+Earnest-Manifesto-042719,1,need for jihaad,0,4430,0
+"Four Freedoms Speech, Franklin Delano Roosevelt (1)",1,need for jihaad,0,3387,0
+Full_text_I_Have_a_Dream_,1,need for jihaad,0,1695,0
+Hitler_Adolf_-_Mein_Kampf,1,need for jihaad,0,273713,0
+Imperium - Yockey,1,need for jihaad,0,185034,0
+"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi",1,need for jihaad,0,157287,0
+milestones-f1,1,need for jihaad,0,68527,0
+patrick_crusius_-_the_inconvenient_truth_about_me,1,need for jihaad,0,2422,0
+"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002",1,need for jihaad,0,929691,0
+PortHuronStatement,1,need for jihaad,0,8807,0
+Revolt Against The Modern World - Julius Evola,1,need for jihaad,0,200238,0
+rodger_manifesto,1,need for jihaad,0,109566,0
+roofmanifesto,1,need for jihaad,0,2460,0
+"Russian Imperial Manifesto, Announcing the Start of War in August 1914",1,need for jihaad,0,447,0
+ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post,1,need for jihaad,0,35677,0
+the-lawful-and-the-prohibited-in-islam_text,1,need for jihaad,0,122093,0
+the state and revolution - lenin,1,need for jihaad,0,40117,0
+the urban guerilla concept,1,need for jihaad,0,9698,0
+universal declaration of human rights,1,need for jihaad,0,1784,0
+velayat_faqeeh - Khomeini,1,need for jihaad,0,62541,0
+what is to be done - lenin,1,need for jihaad,0,67459,0
+1160_KennedyIchbin,1,reasons for jihaad,0,691,0
+142Thunberg,1,reasons for jihaad,0,785,0
+1945 Labour Party Manifesto -,1,reasons for jihaad,0,5134,0
+1949_simone-de-beauvoir-the-second-sex,1,reasons for jihaad,0,351507,0
+anders_breivik_-_2083_manifesto_-_2011,1,reasons for jihaad,0,802073,0
+Atlantic-Charter,1,reasons for jihaad,0,1037,0
+brenton-tarrant-the-great-replacement-manifesto,1,reasons for jihaad,0,16984,0
+cho_manifesto_1.1,1,reasons for jihaad,0,2203,0
+Communist Manifesto,1,reasons for jihaad,0,39076,0
+DefeatingEurabia1,1,reasons for jihaad,0,135135,0
+Earnest-Manifesto-042719,1,reasons for jihaad,0,4430,0
+"Four Freedoms Speech, Franklin Delano Roosevelt (1)",1,reasons for jihaad,0,3387,0
+Full_text_I_Have_a_Dream_,1,reasons for jihaad,0,1695,0
+Hitler_Adolf_-_Mein_Kampf,1,reasons for jihaad,0,273713,0
+Imperium - Yockey,1,reasons for jihaad,0,185034,0
+"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi",1,reasons for jihaad,0,157287,0
+milestones-f1,1,reasons for jihaad,0,68527,0
+patrick_crusius_-_the_inconvenient_truth_about_me,1,reasons for jihaad,0,2422,0
+"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002",1,reasons for jihaad,0,929691,0
+PortHuronStatement,1,reasons for jihaad,0,8807,0
+Revolt Against The Modern World - Julius Evola,1,reasons for jihaad,0,200238,0
+rodger_manifesto,1,reasons for jihaad,0,109566,0
+roofmanifesto,1,reasons for jihaad,0,2460,0
+"Russian Imperial Manifesto, Announcing the Start of War in August 1914",1,reasons for jihaad,0,447,0
+ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post,1,reasons for jihaad,0,35677,0
+the-lawful-and-the-prohibited-in-islam_text,1,reasons for jihaad,0,122093,0
+the state and revolution - lenin,1,reasons for jihaad,0,40117,0
+the urban guerilla concept,1,reasons for jihaad,0,9698,0
+universal declaration of human rights,1,reasons for jihaad,0,1784,0
+velayat_faqeeh - Khomeini,1,reasons for jihaad,0,62541,0
+what is to be done - lenin,1,reasons for jihaad,0,67459,0
+1160_KennedyIchbin,1,need for war,0,691,0
+142Thunberg,1,need for war,0,785,0
+1945 Labour Party Manifesto -,1,need for war,0,5134,0
+1949_simone-de-beauvoir-the-second-sex,1,need for war,0,351507,0
+anders_breivik_-_2083_manifesto_-_2011,1,need for war,0,802073,0
+Atlantic-Charter,1,need for war,0,1037,0
+brenton-tarrant-the-great-replacement-manifesto,1,need for war,0,16984,0
+cho_manifesto_1.1,1,need for war,0,2203,0
+Communist Manifesto,1,need for war,0,39076,0
+DefeatingEurabia1,1,need for war,0,135135,0
+Earnest-Manifesto-042719,1,need for war,0,4430,0
+"Four Freedoms Speech, Franklin Delano Roosevelt (1)",1,need for war,0,3387,0
+Full_text_I_Have_a_Dream_,1,need for war,0,1695,0
+Hitler_Adolf_-_Mein_Kampf,1,need for war,0,273713,0
+Imperium - Yockey,1,need for war,0,185034,0
+"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi",1,need for war,0,157287,0
+milestones-f1,1,need for war,0,68527,0
+patrick_crusius_-_the_inconvenient_truth_about_me,1,need for war,0,2422,0
+"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002",1,need for war,0,929691,0
+PortHuronStatement,1,need for war,0,8807,0
+Revolt Against The Modern World - Julius Evola,1,need for war,0,200238,0
+rodger_manifesto,1,need for war,0,109566,0
+roofmanifesto,1,need for war,0,2460,0
+"Russian Imperial Manifesto, Announcing the Start of War in August 1914",1,need for war,0,447,0
+ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post,1,need for war,0,35677,0
+the-lawful-and-the-prohibited-in-islam_text,1,need for war,0,122093,0
+the state and revolution - lenin,1,need for war,0,40117,0
+the urban guerilla concept,1,need for war,0,9698,0
+universal declaration of human rights,1,need for war,0,1784,0
+velayat_faqeeh - Khomeini,1,need for war,0,62541,0
+what is to be done - lenin,1,need for war,0,67459,0
+1160_KennedyIchbin,1,the struggle is imposed upon,0,691,0
+142Thunberg,1,the struggle is imposed upon,0,785,0
+1945 Labour Party Manifesto -,1,the struggle is imposed upon,0,5134,0
+1949_simone-de-beauvoir-the-second-sex,1,the struggle is imposed upon,0,351507,0
+anders_breivik_-_2083_manifesto_-_2011,1,the struggle is imposed upon,0,802073,0
+Atlantic-Charter,1,the struggle is imposed upon,0,1037,0
+brenton-tarrant-the-great-replacement-manifesto,1,the struggle is imposed upon,0,16984,0
+cho_manifesto_1.1,1,the struggle is imposed upon,0,2203,0
+Communist Manifesto,1,the struggle is imposed upon,0,39076,0
+DefeatingEurabia1,1,the struggle is imposed upon,0,135135,0
+Earnest-Manifesto-042719,1,the struggle is imposed upon,0,4430,0
+"Four Freedoms Speech, Franklin Delano Roosevelt (1)",1,the struggle is imposed upon,0,3387,0
+Full_text_I_Have_a_Dream_,1,the struggle is imposed upon,0,1695,0
+Hitler_Adolf_-_Mein_Kampf,1,the struggle is imposed upon,0,273713,0
+Imperium - Yockey,1,the struggle is imposed upon,0,185034,0
+"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi",1,the struggle is imposed upon,0,157287,0
+milestones-f1,1,the struggle is imposed upon,1,68527,0.01459278824404979
+patrick_crusius_-_the_inconvenient_truth_about_me,1,the struggle is imposed upon,0,2422,0
+"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002",1,the struggle is imposed upon,0,929691,0
+PortHuronStatement,1,the struggle is imposed upon,0,8807,0
+Revolt Against The Modern World - Julius Evola,1,the struggle is imposed upon,0,200238,0
+rodger_manifesto,1,the struggle is imposed upon,0,109566,0
+roofmanifesto,1,the struggle is imposed upon,0,2460,0
+"Russian Imperial Manifesto, Announcing the Start of War in August 1914",1,the struggle is imposed upon,0,447,0
+ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post,1,the struggle is imposed upon,0,35677,0
+the-lawful-and-the-prohibited-in-islam_text,1,the struggle is imposed upon,0,122093,0
+the state and revolution - lenin,1,the struggle is imposed upon,0,40117,0
+the urban guerilla concept,1,the struggle is imposed upon,0,9698,0
+universal declaration of human rights,1,the struggle is imposed upon,0,1784,0
+velayat_faqeeh - Khomeini,1,the struggle is imposed upon,0,62541,0
+what is to be done - lenin,1,the struggle is imposed upon,0,67459,0
+1160_KennedyIchbin,1,natural struggle,0,691,0
+142Thunberg,1,natural struggle,0,785,0
+1945 Labour Party Manifesto -,1,natural struggle,0,5134,0
+1949_simone-de-beauvoir-the-second-sex,1,natural struggle,0,351507,0
+anders_breivik_-_2083_manifesto_-_2011,1,natural struggle,0,802073,0
+Atlantic-Charter,1,natural struggle,0,1037,0
+brenton-tarrant-the-great-replacement-manifesto,1,natural struggle,0,16984,0
+cho_manifesto_1.1,1,natural struggle,0,2203,0
+Communist Manifesto,1,natural struggle,0,39076,0
+DefeatingEurabia1,1,natural struggle,0,135135,0
+Earnest-Manifesto-042719,1,natural struggle,0,4430,0
+"Four Freedoms Speech, Franklin Delano Roosevelt (1)",1,natural struggle,0,3387,0
+Full_text_I_Have_a_Dream_,1,natural struggle,0,1695,0
+Hitler_Adolf_-_Mein_Kampf,1,natural struggle,1,273713,0.0036534618377643737
+Imperium - Yockey,1,natural struggle,0,185034,0
+"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi",1,natural struggle,0,157287,0
+milestones-f1,1,natural struggle,1,68527,0.01459278824404979
+patrick_crusius_-_the_inconvenient_truth_about_me,1,natural struggle,0,2422,0
+"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002",1,natural struggle,0,929691,0
+PortHuronStatement,1,natural struggle,0,8807,0
+Revolt Against The Modern World - Julius Evola,1,natural struggle,0,200238,0
+rodger_manifesto,1,natural struggle,0,109566,0
+roofmanifesto,1,natural struggle,0,2460,0
+"Russian Imperial Manifesto, Announcing the Start of War in August 1914",1,natural struggle,0,447,0
+ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post,1,natural struggle,0,35677,0
+the-lawful-and-the-prohibited-in-islam_text,1,natural struggle,0,122093,0
+the state and revolution - lenin,1,natural struggle,0,40117,0
+the urban guerilla concept,1,natural struggle,0,9698,0
+universal declaration of human rights,1,natural struggle,0,1784,0
+velayat_faqeeh - Khomeini,1,natural struggle,0,62541,0
+what is to be done - lenin,1,natural struggle,0,67459,0
+1160_KennedyIchbin,1,cannot coexist,0,691,0
+142Thunberg,1,cannot coexist,0,785,0
+1945 Labour Party Manifesto -,1,cannot coexist,0,5134,0
+1949_simone-de-beauvoir-the-second-sex,1,cannot coexist,0,351507,0
+anders_breivik_-_2083_manifesto_-_2011,1,cannot coexist,1,802073,0.0012467693090279814
+Atlantic-Charter,1,cannot coexist,0,1037,0
+brenton-tarrant-the-great-replacement-manifesto,1,cannot coexist,0,16984,0
+cho_manifesto_1.1,1,cannot coexist,0,2203,0
+Communist Manifesto,1,cannot coexist,0,39076,0
+DefeatingEurabia1,1,cannot coexist,0,135135,0
+Earnest-Manifesto-042719,1,cannot coexist,0,4430,0
+"Four Freedoms Speech, Franklin Delano Roosevelt (1)",1,cannot coexist,0,3387,0
+Full_text_I_Have_a_Dream_,1,cannot coexist,0,1695,0
+Hitler_Adolf_-_Mein_Kampf,1,cannot coexist,0,273713,0
+Imperium - Yockey,1,cannot coexist,0,185034,0
+"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi",1,cannot coexist,1,157287,0.006357804522942137
+milestones-f1,1,cannot coexist,0,68527,0
+patrick_crusius_-_the_inconvenient_truth_about_me,1,cannot coexist,0,2422,0
+"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002",1,cannot coexist,0,929691,0
+PortHuronStatement,1,cannot coexist,0,8807,0
+Revolt Against The Modern World - Julius Evola,1,cannot coexist,1,200238,0.00499405707208422
+rodger_manifesto,1,cannot coexist,0,109566,0
+roofmanifesto,1,cannot coexist,0,2460,0
+"Russian Imperial Manifesto, Announcing the Start of War in August 1914",1,cannot coexist,0,447,0
+ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post,1,cannot coexist,0,35677,0
+the-lawful-and-the-prohibited-in-islam_text,1,cannot coexist,0,122093,0
+the state and revolution - lenin,1,cannot coexist,0,40117,0
+the urban guerilla concept,1,cannot coexist,0,9698,0
+universal declaration of human rights,1,cannot coexist,0,1784,0
+velayat_faqeeh - Khomeini,1,cannot coexist,0,62541,0
+what is to be done - lenin,1,cannot coexist,0,67459,0

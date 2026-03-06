@@ -153,7 +153,24 @@ markers of harm on said longitudinal sets.
 <!-- Need to include other categories of markers of violence condoning norms, perhaps even splitting the markers into categories such that I can examine prevalence of individual markers, marker categories, and violence condoning norms all together.
 Probably need to rewrite this section, at least by tense, but also distribute in different areas of the methods.
 -->
-	
+
+```{r, label=descriptives mean prevalence, echo=false, warning=false, message=false, results=false}
+
+# Compute mean prevalence for each marker across all documents.
+# - group_by(marker): separate rows by marker (e.g., war/violence/attack)
+# - summarize(): reduce each marker group to a single row (the mean prevalence)
+# - na.rm = TRUE: ignore any missing prevalence values
+# - .groups = "drop": return an ungrouped tibble after summarizing
+by_cat <- scores %>%
+  group_by(marker) %>%
+  summarize(mean_prev = mean(prevalence, na.rm = TRUE), .groups = "drop")
+
+# Printing the object would show a tibble in the PDF; we suppress results above to keep the report clean.
+by_cat
+
+```
+
+
 # Discussion
 
 In line with my aforementioned hypotheses, I predict that (a) greater prevalence of
