@@ -67,16 +67,15 @@ knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
 ```
 
 The theory of dyadic morality suggests that judgments of harm give moral valence to
-relationships between an intentional agent and vulnerable patient (Schein & Gray, 2018).
+relationships between an intentional agent and vulnerable patient [@schein2018theory].
 That is, dyadic morality predicts that if one were to see someone (i.e., an agent) intentionally harming another person (i.e., a vulnerable patient), one would judge that this action (i.e., the harming of another person) is immoral or morally wrong. Furthermore, social interactions are composed of moral norms as mutually agreed upon rules as to how citizens ought to behave. Although moral norms (e.g., do not murder) are meant to keep people from damaging others, some justify norm violations — and harm — in pursuit of a goal (e.g., political assassinations), whereas others never condone violence to induce change. Understanding what differentiates violent and non-violent agents is therefore useful in protecting against harmful acts. One source that marks such differences is the political manifesto (i.e., “a written statement declaring publicly the intentions, motives, or views of its issuer”; Merriam-Webster, n.d.). The current study targets differences in linguistic indicators of justifications of harm and integrative complexity between violence-condoning and non-violent manifestos.  
 Research on linguistic markers of political violence follows the growing number of far-right
-manifestos published online prior to terrorist attacks (Capelos et al., 2025; Ebner et al.,
-2025). Some of these studies evaluate manifestos through the fusion-plus-threat model of
-violent extremism (Whitehouse, 2018), which predicts that individuals who lump their personal
+manifestos published online prior to terrorist attacks [@capelos2025today; @ebner2025there]. Some of these studies evaluate manifestos through the fusion-plus-threat model of
+violent extremism [@whitehouse2018dying], which predicts that individuals who lump their personal
 and group identities together will be more likely to self-sacrifice for their group.
 Associated linguistic work suggests that words indicating identity fusion, group threat, and
 violence-condoning norms — including justifications of violence — are correlated with 
-terrorism (Ebner et al., 2024; Ebner et al., 2025). While the existing literature grounds the
+terrorism [@ebner2024measuring; @ebner2025there]. While the existing literature grounds the
 importance of justificatory rhetoric in predicting terrorism, harm has not yet been examined 
 as central to moral judgment despite its importance in some theories of moral judgment (e.g.,
 the theory of dyadic morality). The present study serves as a real-world case on how emotion 
@@ -86,7 +85,7 @@ research as to (a) how moral reasoning implicates justification in manifestos an
 justification operates in the moral reasoning process, each of which could have policy 
 implications.
 #| do  I keep the above sentence "The present study..." in oultining implications here, or move it?
-  Integrative Complexity is a linguistic measure of cognitive complexity composed of two primary components: (a) Differentiation and (b) Integration (Suedfeld et al., 1992). Differentiation indicates how many perspectives one accounts for; Integration indicates the extent to which those differentiated perspectives are synthesized. A useful example is an argumentative essay, which, if it is complex, recognizes a variety of possible arguments for or against some claim, and synthesizes those arguments into one ultimate argument, using parts of each subsidiary argument [@ballesteros2025pcc]. Integrative complexity shows a robust relationship with political violence (Suedfeld, 2010). However, research using the construct as a predictor of political violence has largely focused on political leaders in respect to events like war and international crises (Suedfeld, 2010). To my knowledge, no study to date has directly linked the integrative complexity of political manifestos with justifications of political violence. Considering the measure’s long-standing precedent in predicting political events, integrating integrative complexity into the manifesto literature could help identify the factors that distinguish between merely violent rhetoric and rhetoric that induces violence, thereby affording greater predictability through an aggregation of said factors.
+  Integrative Complexity is a linguistic measure of cognitive complexity composed of two primary components: (a) Differentiation and (b) Integration [@suedfeld199227]. Differentiation indicates how many perspectives one accounts for; Integration indicates the extent to which those differentiated perspectives are synthesized. A useful example is an argumentative essay, which, if it is complex, recognizes a variety of possible arguments for or against some claim, and synthesizes those arguments into one ultimate argument, using parts of each subsidiary argument [@ballesteros2025pcc]. Integrative complexity shows a robust relationship with political violence [@suedfeld2010cognitive]. However, research using the construct as a predictor of political violence has largely focused on political leaders in respect to events like war and international crises [@suedfeld2010cognitive]. To my knowledge, no study to date has directly linked the integrative complexity of political manifestos with justifications of political violence. Considering the measure’s long-standing precedent in predicting political events, integrating integrative complexity into the manifesto literature could help identify the factors that distinguish between merely violent rhetoric and rhetoric that induces violence, thereby affording greater predictability through an aggregation of said factors.
 #| again, should I keep the above sentence: "Considering the measure's..." as it provides reason for the work, but seemingly more for a proposal structure than an actual thesis
 
 ## Current Study
@@ -97,15 +96,15 @@ The current study contributes to research seeking to identify differences betwee
 
 ## Manifesto Selection
 
-This study includes manifestos divided into three categories following Ebner et al. (2025); (a) violent self-sacrificial, (b) ideologically extreme, and (c) moderate. It also affords longitudinal analysis. I selected not only one-off manifestos already analyzed in the aforementioned literature (e.g.,  Anders Behring Breivik’s Manifesto of the Norway Attacks, 2011; Marx & Engels Manifesto of the Communist Party, 1848), but also sets of writings of individual authors across time (e.g., selections of Vladimir Lenin’s letters). Materials include ten manifestos for each of the aforementioned categories, and three longitudinal sets of writings for each category. Incorporating the 15 manifestos previously analyzed in the literature brings the study to a categorical count as follows: (a) nine violent self-sacrificial texts, (b) three ideologically extreme texts, and (c) 3 moderate texts. Each of these texts are one-off samples. To fill out the rest of the ten one-off samples for each category, manifestos were selected according to their place on the political spectrum (i.e., left to right political platforms), individual actor-author texts versus platform-representative texts, and length in order to match each category along these factors. The same factors were considered in choosing longitudinal samples, and selection included qualitatively matching samples across categories.
+This study includes manifestos divided into three categories following @ebner2025there; (a) violent self-sacrificial, (b) ideologically extreme, and (c) moderate. It also affords longitudinal analysis. I selected not only one-off manifestos already analyzed in the aforementioned literature (e.g.,  Anders Behring Breivik’s Manifesto of the Norway Attacks, 2011; Marx & Engels Manifesto of the Communist Party, 1848), but also sets of writings of individual authors across time (e.g., selections of Vladimir Lenin’s letters). Materials include ten manifestos for each of the aforementioned categories, and three longitudinal sets of writings for each category. Incorporating the 15 manifestos previously analyzed in the literature brings the study to a categorical count as follows: (a) nine violent self-sacrificial texts, (b) three ideologically extreme texts, and (c) 3 moderate texts. Each of these texts are one-off samples. To fill out the rest of the ten one-off samples for each category, manifestos were selected according to their place on the political spectrum (i.e., left to right political platforms), individual actor-author texts versus platform-representative texts, and length in order to match each category along these factors. The same factors were considered in choosing longitudinal samples, and selection included qualitatively matching samples across categories.
 #| Update manifesto selection examples in brackets.
 #| Did I appropriately select manifestos according to their place on the political spectrum as indicated above?
 
 ## Measures
-  *Linguistic Indicators.* Ebner et al. (2025) supplies a list of words that indicate
+  *Linguistic Indicators.* @ebner2025there supplies a list of words that indicate
 justifications of violence and, as a higher-order category of linguistic markers, violence
 condoning norms. The current study uses the set of words indicating violence condoning
-norms with minor alterations. First, indicators like “need for jihaad” (Ebner et al., 2025)
+norms with minor alterations. First, indicators like “need for jihaad” [@ebner2025there]
 have been replaced with relevant phrasing (e.g., need for war; need for revolution). Second,
 specific indicators of talk about harm in dyadic morality (e.g., harm, damage, agent,
 patient, intentional) have been added to the list of indicators. 
@@ -113,11 +112,10 @@ patient, intentional) have been added to the list of indicators.
 	*Automated Integrative Complexity.* Hand-scoring integrative complexity is an involved
 process requiring multiple scorers and often hours of work per scored material. In light of
 time and manpower limitations, this study instead uses automated integrative complexity
-(Conway et al., 2014) to score materials, a measure that uses linguistic markers of
+[@conway2014automated] to score materials, a measure that uses linguistic markers of
 differentiation and integration to construct an automated account of integrative complexity.
 While automated integrative complexity does not correlate perfectly with hand scores 
-(document-level correlation of .82, paragraph-level correlation of .46, Conway et al., 
-2020), it is an increasingly validated measure in its own right and often used as an 
+[document-level correlation of .82, paragraph-level correlation of .46, @conway2020validating], it is an increasingly validated measure in its own right and often used as an 
 efficient and effective replacement for hand scoring. This study uses the document-level
 scores for all analyses.  
 #| I forgot to do this part in time for integrative data project; IGNORE AUTOMATED INTEGRATIVE COMPLEXITY PARTS!
@@ -134,12 +132,12 @@ John F. Kennedy’s "Ich bin ein Berliner") would be counted as non-violent.
 	
 ## Analyses
 
-Following Ebner et al. (2024), I will measure the prevalence of various categories of 
+Following @ebner2024measuring, I will measure the prevalence of various categories of 
 linguistic markers indicating violence condoning norms (i.e., justification of violence, 
 martyrdom narrative, hopelessness of alternatives, calls to violence) and harm as a 
 percentage of occurrence relative to total sentence count. These prevalence rates will be 
 compared across manifesto categories (i.e., violent versus non-violent, extreme versus 
-non-extreme) to replicate Ebner et al. (2024) results suggesting that justification of 
+non-extreme) to replicate @ebner2024measuring results suggesting that justification of 
 violence is a significant predictor between categories. I will create .zip files for each 
 selected manifesto and run them through automated integrative complexity, which will give 
 scores for integrative complexity, differentiation, and integration. These scores will be 
@@ -179,11 +177,9 @@ precursors of political violence and intervene before tragedy strikes.
 ## Limitations
 
 The availability of political manifestos is the primary limitation of the proposed study. 
-Relevant prior literature on linguistic markers in political manifestos (i.e., Capelos et 
-al., 2025; Ebner et al., 2024; Ebner et al., 2025) share sets of either six or 15 
+Relevant prior literature on linguistic markers in political manifestos [i.e., @capelos2025today; @ebner2024measuring; @ebner2025there] share sets of either six or 15 
 manifestos, citing issues including “the limited availability of terrorist manifestos, 
-access restrictions to such documents, as well as researcher time considerations” (Ebner et 
-al., 2024). The current study delimits time constraints by using R to automate prevalence 
+access restrictions to such documents, as well as researcher time considerations” [@ebner2024measuring]. The current study delimits time constraints by using R to automate prevalence 
 rates and automated integrative complexity to measure integrative complexity, but manifesto 
 accessibility remains an issue. To gain statistical power, I will not limit data selection 
 to terrorist manifestos, but will also include writings that contributed to the development 
