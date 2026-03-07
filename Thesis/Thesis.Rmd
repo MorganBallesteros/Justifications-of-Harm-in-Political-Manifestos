@@ -261,10 +261,11 @@ papaja::apa_table(
 
 ```{r group-prevalence-plot, echo=FALSE, message=FALSE, warning=FALSE, fig.width=6.5, fig.height=4.5, fig.cap="Mean prevalence of grouped linguistic indicators of harm justification."}
 # ------------------------------------------------------------
-# Plot mean prevalence by marker group
+# Plot mean prevalence by marker group with 95% confidence intervals
 # ------------------------------------------------------------
 # Purpose:
-#   Visualize the average prevalence of each marker group across documents.
+#   Visualize the average prevalence of each marker group across documents,
+#   along with uncertainty around each mean.
 #
 # Why this plot is useful:
 #   The raw marker-level output contains too many individual indicators for a
@@ -272,19 +273,24 @@ papaja::apa_table(
 #   interpretable while preserving the main substantive distinctions in the data.
 #
 # Plot logic:
-#   First compute mean prevalence for each marker group, then plot those means
-#   as horizontal bars ordered from lowest to highest prevalence.
+#   First compute the mean prevalence and 95% confidence interval for each
+#   marker group, then plot those means as horizontal bars with error bars.
 #
 # APA formatting choices:
-#   - use a single fill rather than group-specific colors
-#   - remove the legend because the y-axis labels already identify each group
+#   - use a single neutral fill rather than group-specific colors
+#   - remove the legend because the axis labels already identify each group
 #   - use clean axis labels and minimal visual clutter
 #   - convert snake_case group labels into publication-readable text
 
 group_plot_data <- group_scores |>
   dplyr::group_by(marker_group) |>
   dplyr::summarise(
+    n = dplyr::n(),
     mean_prevalence = mean(prevalence, na.rm = TRUE),
+    sd_prevalence = sd(prevalence, na.rm = TRUE),
+    se_prevalence = sd_prevalence / sqrt(n),
+    ci_lower = mean_prevalence - 1.96 * se_prevalence,
+    ci_upper = mean_prevalence + 1.96 * se_prevalence,
     .groups = "drop"
   ) |>
   dplyr::mutate(
@@ -305,23 +311,27 @@ ggplot2::ggplot(
     fill = "grey70",
     color = "black"
   ) +
+  ggplot2::geom_errorbar(
+    ggplot2::aes(ymin = ci_lower, ymax = ci_upper),
+    width = 0.2,
+    color = "black"
+  ) +
   ggplot2::coord_flip() +
   ggplot2::labs(
     x = "Marker group",
     y = "Mean prevalence per 1,000 words"
   ) +
+  ggplot2::scale_y_continuous(
+    expand = ggplot2::expansion(mult = c(0, 0.05))
+  ) +
   ggplot2::theme_classic(base_size = 11) +
   ggplot2::theme(
     legend.position = "none",
     axis.title = ggplot2::element_text(color = "black"),
-    axis.text = ggplot2::element_text(color = "black"),
-    plot.caption = ggplot2::element_text(hjust = 0)
-  )+ 
-  ggplot2::scale_y_continuous(
-    breaks = scales::pretty_breaks(n = 5)
+    axis.text = ggplot2::element_text(color = "black")
   )
 ```
-
+*Note.* Bars represent mean grouped marker prevalence per 1,000 words across documents. Error bars represent 95% confidence intervals. Marker groups aggregate lexical indicators defined in the study's marker dictionary.
 
 
 # Discussion
