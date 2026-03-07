@@ -210,7 +210,7 @@ markers of harm on said longitudinal sets.
 Probably need to rewrite this section, at least by tense, but also distribute in different areas of the methods.
 -->
 
-```{r group-descriptives, echo=FALSE, message=FALSE, warning=FALSE}
+```{r group-descriptives, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
 # ------------------------------------------------------------
 # Descriptive statistics for marker groups
 # ------------------------------------------------------------
@@ -219,13 +219,12 @@ Probably need to rewrite this section, at least by tense, but also distribute in
 #
 # Why grouped descriptives are used:
 #   The marker dictionary classifies individual lexical indicators into broader
-#   theoretical groups (e.g., dyadic harm, martyrdom narrative, hopelessness).
-#   These grouped summaries are more interpretable than raw marker-level tables
-#   and reduce visual clutter in the main text.
+#   theoretical groups. These grouped summaries are more interpretable than raw
+#   marker-level tables and reduce visual clutter in the main text.
 #
 # Output:
-#   group_descriptives = summary table with central tendency and spread for
-#                        each marker group.
+#   group_descriptives = cleaned summary table with central tendency and spread
+#                        for each marker group.
 #
 # Interpretation:
 #   Prevalence values represent grouped marker counts per 1,000 words.
@@ -233,20 +232,30 @@ Probably need to rewrite this section, at least by tense, but also distribute in
 group_descriptives <- group_scores |>
   dplyr::group_by(marker_group) |>
   dplyr::summarise(
-    mean_prevalence = mean(prevalence, na.rm = TRUE),
-    sd_prevalence = sd(prevalence, na.rm = TRUE),
-    min_prevalence = min(prevalence, na.rm = TRUE),
-    max_prevalence = max(prevalence, na.rm = TRUE),
+    Documents = dplyr::n_distinct(doc_id),
+    Mean = mean(prevalence, na.rm = TRUE),
+    SD = sd(prevalence, na.rm = TRUE),
+    Min = min(prevalence, na.rm = TRUE),
+    Max = max(prevalence, na.rm = TRUE),
     .groups = "drop"
   ) |>
-  dplyr::arrange(dplyr::desc(mean_prevalence))
+  dplyr::mutate(
+    `Marker Group` = marker_group,
+    `Marker Group` = stringr::str_replace_all(`Marker Group`, "_", " "),
+    `Marker Group` = stringr::str_to_title(`Marker Group`)
+  ) |>
+  dplyr::select(`Marker Group`, Documents, Mean, SD, Min, Max) |>
+  dplyr::arrange(dplyr::desc(Mean)) |>
+  dplyr::mutate(
+    dplyr::across(c(Mean, SD, Min, Max), ~ round(.x, 2))
+  )
 
-group_descriptives
+papaja::apa_table(
+  group_descriptives,
+  caption = "Descriptive statistics for grouped linguistic indicators of harm justification.",
+   note = "Prevalence values represent marker occurrences per 1,000 words. Marker groups aggregate multiple lexical indicators defined in the study's marker dictionary. Document counts indicate the number of manifestos contributing observations to each group."
+)
 ```
-
-
-
-
 
 
 
@@ -288,7 +297,6 @@ ggplot2::ggplot(
     y = "Mean Prevalence per 1,000 Words"
   )
 ```
-
 
 
 # Discussion

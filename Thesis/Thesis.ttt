@@ -1,0 +1,31 @@
+\begin{table*}[hbt]
+\ifnextchar[{\eatarg}{}
+[tbp]
+
+\begin{center}
+\begin{threeparttable}
+
+\caption{\label{tab:group-descriptives}Descriptive statistics for grouped linguistic indicators of harm justification.}
+
+\begin{tabular}{llllll}
+\toprule
+Marker Group & \multicolumn{1}{c}{Documents} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{SD} & \multicolumn{1}{c}{Min} & \multicolumn{1}{c}{Max}\\
+\midrule
+Hopelessness & 31 & 3.87 & 3.02 & 0.00 & 12.11\\
+Role Model Status & 31 & 0.50 & 0.56 & 0.00 & 2.24\\
+Justification For Violence & 31 & 0.27 & 0.37 & 0.00 & 1.58\\
+Martyrdom Narrative & 31 & 0.24 & 0.43 & 0.00 & 2.26\\
+Dyadic Harm & 31 & 0.13 & 0.19 & 0.00 & 0.71\\
+Violent Reference & 31 & 0.12 & 0.45 & 0.00 & 2.48\\
+\bottomrule
+\addlinespace
+\end{tabular}
+
+\begin{tablenotes}[para]
+\normalsize{\textit{Note.} Prevalence values represent marker occurrences per 1,000 words. Marker groups aggregate multiple lexical indicators defined in the study's marker dictionary. Document counts indicate the number of manifestos contributing observations to each group.}
+\end{tablenotes}
+
+\end{threeparttable}
+\end{center}
+
+\end{table*}
