@@ -1,0 +1,187 @@
+doc_id,segment_id,marker_group,marker_category,count,word_count,prevalence
+1160_KennedyIchbin,1,dyadic_harm,harm_justification,0,691,0
+1160_KennedyIchbin,1,hopelessness,harm_justification,5,691,7.23589001447178
+1160_KennedyIchbin,1,justification_for_violence,harm_justification,0,691,0
+1160_KennedyIchbin,1,martyrdom_narrative,harm_justification,0,691,0
+1160_KennedyIchbin,1,role_model_status,violent_identification,0,691,0
+1160_KennedyIchbin,1,violent_reference,violent_identification,0,691,0
+142Thunberg,1,dyadic_harm,harm_justification,0,785,0
+142Thunberg,1,hopelessness,harm_justification,6,785,7.643312101910828
+142Thunberg,1,justification_for_violence,harm_justification,0,785,0
+142Thunberg,1,martyrdom_narrative,harm_justification,0,785,0
+142Thunberg,1,role_model_status,violent_identification,0,785,0
+142Thunberg,1,violent_reference,violent_identification,0,785,0
+1945 Labour Party Manifesto -,1,dyadic_harm,harm_justification,0,5134,0
+1945 Labour Party Manifesto -,1,hopelessness,harm_justification,14,5134,2.7269185820023374
+1945 Labour Party Manifesto -,1,justification_for_violence,harm_justification,0,5134,0
+1945 Labour Party Manifesto -,1,martyrdom_narrative,harm_justification,0,5134,0
+1945 Labour Party Manifesto -,1,role_model_status,violent_identification,2,5134,0.38955979742890534
+1945 Labour Party Manifesto -,1,violent_reference,violent_identification,0,5134,0
+1949_simone-de-beauvoir-the-second-sex,1,dyadic_harm,harm_justification,34,351507,0.09672638098245553
+1949_simone-de-beauvoir-the-second-sex,1,hopelessness,harm_justification,324,351507,0.9217455128916352
+1949_simone-de-beauvoir-the-second-sex,1,justification_for_violence,harm_justification,53,351507,0.15077935859029834
+1949_simone-de-beauvoir-the-second-sex,1,martyrdom_narrative,harm_justification,59,351507,0.16784871994014341
+1949_simone-de-beauvoir-the-second-sex,1,role_model_status,violent_identification,203,351507,0.5775133923364257
+1949_simone-de-beauvoir-the-second-sex,1,violent_reference,violent_identification,2,351507,0.005689787116615032
+Atlantic-Charter,1,dyadic_harm,harm_justification,0,1037,0
+Atlantic-Charter,1,hopelessness,harm_justification,2,1037,1.9286403085824495
+Atlantic-Charter,1,justification_for_violence,harm_justification,1,1037,0.9643201542912248
+Atlantic-Charter,1,martyrdom_narrative,harm_justification,0,1037,0
+Atlantic-Charter,1,role_model_status,violent_identification,0,1037,0
+Atlantic-Charter,1,violent_reference,violent_identification,0,1037,0
+Communist Manifesto,1,dyadic_harm,harm_justification,3,39076,0.07677346708977378
+Communist Manifesto,1,hopelessness,harm_justification,151,39076,3.8642645101852797
+Communist Manifesto,1,justification_for_violence,harm_justification,4,39076,0.10236462278636504
+Communist Manifesto,1,martyrdom_narrative,harm_justification,4,39076,0.10236462278636504
+Communist Manifesto,1,role_model_status,violent_identification,18,39076,0.46064080253864265
+Communist Manifesto,1,violent_reference,violent_identification,1,39076,0.02559115569659126
+DefeatingEurabia1,1,dyadic_harm,harm_justification,24,135135,0.1776001776001776
+DefeatingEurabia1,1,hopelessness,harm_justification,624,135135,4.617604617604617
+DefeatingEurabia1,1,justification_for_violence,harm_justification,56,135135,0.4144004144004144
+DefeatingEurabia1,1,martyrdom_narrative,harm_justification,3,135135,0.0222000222000222
+DefeatingEurabia1,1,role_model_status,violent_identification,75,135135,0.555000555000555
+DefeatingEurabia1,1,violent_reference,violent_identification,7,135135,0.0518000518000518
+Earnest-Manifesto-042719,1,dyadic_harm,harm_justification,0,4430,0
+Earnest-Manifesto-042719,1,hopelessness,harm_justification,1,4430,0.22573363431151242
+Earnest-Manifesto-042719,1,justification_for_violence,harm_justification,7,4430,1.580135440180587
+Earnest-Manifesto-042719,1,martyrdom_narrative,harm_justification,10,4430,2.257336343115124
+Earnest-Manifesto-042719,1,role_model_status,violent_identification,3,4430,0.6772009029345373
+Earnest-Manifesto-042719,1,violent_reference,violent_identification,11,4430,2.4830699774266365
+"Four Freedoms Speech, Franklin Delano Roosevelt (1)",1,dyadic_harm,harm_justification,0,3387,0
+"Four Freedoms Speech, Franklin Delano Roosevelt (1)",1,hopelessness,harm_justification,17,3387,5.019191024505462
+"Four Freedoms Speech, Franklin Delano Roosevelt (1)",1,justification_for_violence,harm_justification,1,3387,0.29524653085326247
+"Four Freedoms Speech, Franklin Delano Roosevelt (1)",1,martyrdom_narrative,harm_justification,2,3387,0.5904930617065249
+"Four Freedoms Speech, Franklin Delano Roosevelt (1)",1,role_model_status,violent_identification,3,3387,0.8857395925597874
+"Four Freedoms Speech, Franklin Delano Roosevelt (1)",1,violent_reference,violent_identification,0,3387,0
+Full_text_I_Have_a_Dream_,1,dyadic_harm,harm_justification,0,1695,0
+Full_text_I_Have_a_Dream_,1,hopelessness,harm_justification,3,1695,1.7699115044247788
+Full_text_I_Have_a_Dream_,1,justification_for_violence,harm_justification,0,1695,0
+Full_text_I_Have_a_Dream_,1,martyrdom_narrative,harm_justification,0,1695,0
+Full_text_I_Have_a_Dream_,1,role_model_status,violent_identification,0,1695,0
+Full_text_I_Have_a_Dream_,1,violent_reference,violent_identification,0,1695,0
+Hitler_Adolf_-_Mein_Kampf,1,dyadic_harm,harm_justification,42,273713,0.1534453971861037
+Hitler_Adolf_-_Mein_Kampf,1,hopelessness,harm_justification,1027,273713,3.752105307384012
+Hitler_Adolf_-_Mein_Kampf,1,justification_for_violence,harm_justification,62,273713,0.22651463394139118
+Hitler_Adolf_-_Mein_Kampf,1,martyrdom_narrative,harm_justification,82,273713,0.29958387069667863
+Hitler_Adolf_-_Mein_Kampf,1,role_model_status,violent_identification,111,273713,0.40553426399184545
+Hitler_Adolf_-_Mein_Kampf,1,violent_reference,violent_identification,18,273713,0.06576231307975873
+Imperium - Yockey,1,dyadic_harm,harm_justification,10,185034,0.0540441216208913
+Imperium - Yockey,1,hopelessness,harm_justification,1545,185034,8.349816790427706
+Imperium - Yockey,1,justification_for_violence,harm_justification,13,185034,0.07025735810715869
+Imperium - Yockey,1,martyrdom_narrative,harm_justification,36,185034,0.19455883783520866
+Imperium - Yockey,1,role_model_status,violent_identification,37,185034,0.19996324999729778
+Imperium - Yockey,1,violent_reference,violent_identification,0,185034,0
+"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi",1,dyadic_harm,harm_justification,61,157287,0.3878260758994704
+"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi",1,hopelessness,harm_justification,243,157287,1.5449464990749395
+"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi",1,justification_for_violence,harm_justification,28,157287,0.17801852664237985
+"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi",1,martyrdom_narrative,harm_justification,24,157287,0.1525873085506113
+"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi",1,role_model_status,violent_identification,32,157287,0.2034497447341484
+"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi",1,violent_reference,violent_identification,0,157287,0
+"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002",1,dyadic_harm,harm_justification,197,929691,0.21189836192885594
+"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002",1,hopelessness,harm_justification,1910,929691,2.0544460471274864
+"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002",1,justification_for_violence,harm_justification,296,929691,0.31838535599462614
+"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002",1,martyrdom_narrative,harm_justification,42,929691,0.04517630051275101
+"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002",1,role_model_status,violent_identification,420,929691,0.4517630051275101
+"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002",1,violent_reference,violent_identification,124,929691,0.13337764913288394
+PortHuronStatement,1,dyadic_harm,harm_justification,0,8807,0
+PortHuronStatement,1,hopelessness,harm_justification,76,8807,8.62949926195072
+PortHuronStatement,1,justification_for_violence,harm_justification,1,8807,0.11354604292040422
+PortHuronStatement,1,martyrdom_narrative,harm_justification,1,8807,0.11354604292040422
+PortHuronStatement,1,role_model_status,violent_identification,2,8807,0.22709208584080845
+PortHuronStatement,1,violent_reference,violent_identification,0,8807,0
+Revolt Against The Modern World - Julius Evola,1,dyadic_harm,harm_justification,6,200238,0.029964342432505318
+Revolt Against The Modern World - Julius Evola,1,hopelessness,harm_justification,355,200238,1.772890260589898
+Revolt Against The Modern World - Julius Evola,1,justification_for_violence,harm_justification,35,200238,0.1747919975229477
+Revolt Against The Modern World - Julius Evola,1,martyrdom_narrative,harm_justification,126,200238,0.6292511910826117
+Revolt Against The Modern World - Julius Evola,1,role_model_status,violent_identification,123,200238,0.6142690198663591
+Revolt Against The Modern World - Julius Evola,1,violent_reference,violent_identification,0,200238,0
+"Russian Imperial Manifesto, Announcing the Start of War in August 1914",1,dyadic_harm,harm_justification,0,447,0
+"Russian Imperial Manifesto, Announcing the Start of War in August 1914",1,hopelessness,harm_justification,0,447,0
+"Russian Imperial Manifesto, Announcing the Start of War in August 1914",1,justification_for_violence,harm_justification,0,447,0
+"Russian Imperial Manifesto, Announcing the Start of War in August 1914",1,martyrdom_narrative,harm_justification,0,447,0
+"Russian Imperial Manifesto, Announcing the Start of War in August 1914",1,role_model_status,violent_identification,1,447,2.237136465324385
+"Russian Imperial Manifesto, Announcing the Start of War in August 1914",1,violent_reference,violent_identification,0,447,0
+anders_breivik_-_2083_manifesto_-_2011,1,dyadic_harm,harm_justification,270,802073,0.33662771343755493
+anders_breivik_-_2083_manifesto_-_2011,1,hopelessness,harm_justification,3130,802073,3.9023879372575814
+anders_breivik_-_2083_manifesto_-_2011,1,justification_for_violence,harm_justification,266,802073,0.331640636201443
+anders_breivik_-_2083_manifesto_-_2011,1,martyrdom_narrative,harm_justification,417,802073,0.5199028018646681
+anders_breivik_-_2083_manifesto_-_2011,1,role_model_status,violent_identification,552,802073,0.6882166585834456
+anders_breivik_-_2083_manifesto_-_2011,1,violent_reference,violent_identification,56,802073,0.06981908130556695
+brenton-tarrant-the-great-replacement-manifesto,1,dyadic_harm,harm_justification,12,16984,0.7065473386716911
+brenton-tarrant-the-great-replacement-manifesto,1,hopelessness,harm_justification,69,16984,4.062647197362223
+brenton-tarrant-the-great-replacement-manifesto,1,justification_for_violence,harm_justification,6,16984,0.35327366933584553
+brenton-tarrant-the-great-replacement-manifesto,1,martyrdom_narrative,harm_justification,4,16984,0.23551577955723035
+brenton-tarrant-the-great-replacement-manifesto,1,role_model_status,violent_identification,28,16984,1.6486104569006124
+brenton-tarrant-the-great-replacement-manifesto,1,violent_reference,violent_identification,6,16984,0.35327366933584553
+cho_manifesto_1.1,1,dyadic_harm,harm_justification,0,2203,0
+cho_manifesto_1.1,1,hopelessness,harm_justification,3,2203,1.3617793917385383
+cho_manifesto_1.1,1,justification_for_violence,harm_justification,0,2203,0
+cho_manifesto_1.1,1,martyrdom_narrative,harm_justification,1,2203,0.45392646391284613
+cho_manifesto_1.1,1,role_model_status,violent_identification,2,2203,0.9078529278256923
+cho_manifesto_1.1,1,violent_reference,violent_identification,0,2203,0
+milestones-f1,1,dyadic_harm,harm_justification,7,68527,0.10214951770834854
+milestones-f1,1,hopelessness,harm_justification,309,68527,4.509171567411386
+milestones-f1,1,justification_for_violence,harm_justification,26,68527,0.37941249434529456
+milestones-f1,1,martyrdom_narrative,harm_justification,24,68527,0.35022691785719495
+milestones-f1,1,role_model_status,violent_identification,15,68527,0.21889182366074686
+milestones-f1,1,violent_reference,violent_identification,0,68527,0
+patrick_crusius_-_the_inconvenient_truth_about_me,1,dyadic_harm,harm_justification,1,2422,0.41288191577208916
+patrick_crusius_-_the_inconvenient_truth_about_me,1,hopelessness,harm_justification,7,2422,2.890173410404624
+patrick_crusius_-_the_inconvenient_truth_about_me,1,justification_for_violence,harm_justification,0,2422,0
+patrick_crusius_-_the_inconvenient_truth_about_me,1,martyrdom_narrative,harm_justification,2,2422,0.8257638315441783
+patrick_crusius_-_the_inconvenient_truth_about_me,1,role_model_status,violent_identification,5,2422,2.0644095788604457
+patrick_crusius_-_the_inconvenient_truth_about_me,1,violent_reference,violent_identification,1,2422,0.41288191577208916
+rodger_manifesto,1,dyadic_harm,harm_justification,3,109566,0.027380756804118066
+rodger_manifesto,1,hopelessness,harm_justification,121,109566,1.1043571910994285
+rodger_manifesto,1,justification_for_violence,harm_justification,2,109566,0.018253837869412044
+rodger_manifesto,1,martyrdom_narrative,harm_justification,2,109566,0.018253837869412044
+rodger_manifesto,1,role_model_status,violent_identification,6,109566,0.05476151360823613
+rodger_manifesto,1,violent_reference,violent_identification,0,109566,0
+roofmanifesto,1,dyadic_harm,harm_justification,0,2460,0
+roofmanifesto,1,hopelessness,harm_justification,1,2460,0.4065040650406504
+roofmanifesto,1,justification_for_violence,harm_justification,3,2460,1.2195121951219512
+roofmanifesto,1,martyrdom_narrative,harm_justification,0,2460,0
+roofmanifesto,1,role_model_status,violent_identification,0,2460,0
+roofmanifesto,1,violent_reference,violent_identification,0,2460,0
+ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post,1,dyadic_harm,harm_justification,11,35677,0.30832188805112537
+ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post,1,hopelessness,harm_justification,278,35677,7.792134988928441
+ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post,1,justification_for_violence,harm_justification,10,35677,0.2802926255010231
+ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post,1,martyrdom_narrative,harm_justification,1,35677,0.028029262550102307
+ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post,1,role_model_status,violent_identification,13,35677,0.36438041315132996
+ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post,1,violent_reference,violent_identification,0,35677,0
+the state and revolution - lenin,1,dyadic_harm,harm_justification,1,40117,0.024927088266819553
+the state and revolution - lenin,1,hopelessness,harm_justification,281,40117,7.004511802976294
+the state and revolution - lenin,1,justification_for_violence,harm_justification,0,40117,0
+the state and revolution - lenin,1,martyrdom_narrative,harm_justification,5,40117,0.12463544133409776
+the state and revolution - lenin,1,role_model_status,violent_identification,4,40117,0.09970835306727821
+the state and revolution - lenin,1,violent_reference,violent_identification,0,40117,0
+the urban guerilla concept,1,dyadic_harm,harm_justification,1,9698,0.10311404413281089
+the urban guerilla concept,1,hopelessness,harm_justification,65,9698,6.702412868632708
+the urban guerilla concept,1,justification_for_violence,harm_justification,2,9698,0.20622808826562178
+the urban guerilla concept,1,martyrdom_narrative,harm_justification,1,9698,0.10311404413281089
+the urban guerilla concept,1,role_model_status,violent_identification,6,9698,0.6186842647968653
+the urban guerilla concept,1,violent_reference,violent_identification,0,9698,0
+the-lawful-and-the-prohibited-in-islam_text,1,dyadic_harm,harm_justification,75,122093,0.6142858312925392
+the-lawful-and-the-prohibited-in-islam_text,1,hopelessness,harm_justification,64,122093,0.5241905760363001
+the-lawful-and-the-prohibited-in-islam_text,1,justification_for_violence,harm_justification,30,122093,0.24571433251701572
+the-lawful-and-the-prohibited-in-islam_text,1,martyrdom_narrative,harm_justification,11,122093,0.0900952552562391
+the-lawful-and-the-prohibited-in-islam_text,1,role_model_status,violent_identification,30,122093,0.24571433251701572
+the-lawful-and-the-prohibited-in-islam_text,1,violent_reference,violent_identification,0,122093,0
+universal declaration of human rights,1,dyadic_harm,harm_justification,0,1784,0
+universal declaration of human rights,1,hopelessness,harm_justification,6,1784,3.36322869955157
+universal declaration of human rights,1,justification_for_violence,harm_justification,0,1784,0
+universal declaration of human rights,1,martyrdom_narrative,harm_justification,0,1784,0
+universal declaration of human rights,1,role_model_status,violent_identification,0,1784,0
+universal declaration of human rights,1,violent_reference,violent_identification,0,1784,0
+velayat_faqeeh - Khomeini,1,dyadic_harm,harm_justification,11,62541,0.17588461968948368
+velayat_faqeeh - Khomeini,1,hopelessness,harm_justification,128,62541,2.0466573927503555
+velayat_faqeeh - Khomeini,1,justification_for_violence,harm_justification,28,62541,0.44770630466414035
+velayat_faqeeh - Khomeini,1,martyrdom_narrative,harm_justification,2,62541,0.031979021761724305
+velayat_faqeeh - Khomeini,1,role_model_status,violent_identification,22,62541,0.35176923937896737
+velayat_faqeeh - Khomeini,1,violent_reference,violent_identification,0,62541,0
+what is to be done - lenin,1,dyadic_harm,harm_justification,7,67459,0.10376673238559718
+what is to be done - lenin,1,hopelessness,harm_justification,817,67459,12.111060051290412
+what is to be done - lenin,1,justification_for_violence,harm_justification,10,67459,0.14823818912228168
+what is to be done - lenin,1,martyrdom_narrative,harm_justification,6,67459,0.08894291347336901
+what is to be done - lenin,1,role_model_status,violent_identification,24,67459,0.35577165389347604
+what is to be done - lenin,1,violent_reference,violent_identification,0,67459,0

@@ -1,0 +1,63 @@
+doc_id,segment_id,marker_category,count,word_count,prevalence
+1160_KennedyIchbin,1,harm_justification,5,691,7.23589001447178
+1160_KennedyIchbin,1,violent_identification,0,691,0
+142Thunberg,1,harm_justification,6,785,7.643312101910828
+142Thunberg,1,violent_identification,0,785,0
+1945 Labour Party Manifesto -,1,harm_justification,14,5134,2.7269185820023374
+1945 Labour Party Manifesto -,1,violent_identification,2,5134,0.38955979742890534
+1949_simone-de-beauvoir-the-second-sex,1,harm_justification,470,351507,1.3370999724045325
+1949_simone-de-beauvoir-the-second-sex,1,violent_identification,205,351507,0.5832031794530408
+Atlantic-Charter,1,harm_justification,3,1037,2.8929604628736745
+Atlantic-Charter,1,violent_identification,0,1037,0
+Communist Manifesto,1,harm_justification,162,39076,4.145767222847783
+Communist Manifesto,1,violent_identification,19,39076,0.4862319582352339
+DefeatingEurabia1,1,harm_justification,707,135135,5.231805231805232
+DefeatingEurabia1,1,violent_identification,82,135135,0.6068006068006069
+Earnest-Manifesto-042719,1,harm_justification,18,4430,4.063205417607223
+Earnest-Manifesto-042719,1,violent_identification,14,4430,3.160270880361174
+"Four Freedoms Speech, Franklin Delano Roosevelt (1)",1,harm_justification,20,3387,5.90493061706525
+"Four Freedoms Speech, Franklin Delano Roosevelt (1)",1,violent_identification,3,3387,0.8857395925597874
+Full_text_I_Have_a_Dream_,1,harm_justification,3,1695,1.7699115044247788
+Full_text_I_Have_a_Dream_,1,violent_identification,0,1695,0
+Hitler_Adolf_-_Mein_Kampf,1,harm_justification,1213,273713,4.431649209208185
+Hitler_Adolf_-_Mein_Kampf,1,violent_identification,129,273713,0.4712965770716042
+Imperium - Yockey,1,harm_justification,1604,185034,8.668677107990963
+Imperium - Yockey,1,violent_identification,37,185034,0.19996324999729778
+"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi",1,harm_justification,356,157287,2.263378410167401
+"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi",1,violent_identification,32,157287,0.2034497447341484
+"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002",1,harm_justification,2445,929691,2.6299060655637194
+"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002",1,violent_identification,544,929691,0.5851406542603941
+PortHuronStatement,1,harm_justification,78,8807,8.856591347791529
+PortHuronStatement,1,violent_identification,2,8807,0.22709208584080845
+Revolt Against The Modern World - Julius Evola,1,harm_justification,522,200238,2.6068977916279628
+Revolt Against The Modern World - Julius Evola,1,violent_identification,123,200238,0.6142690198663591
+"Russian Imperial Manifesto, Announcing the Start of War in August 1914",1,harm_justification,0,447,0
+"Russian Imperial Manifesto, Announcing the Start of War in August 1914",1,violent_identification,1,447,2.237136465324385
+anders_breivik_-_2083_manifesto_-_2011,1,harm_justification,4083,802073,5.090559088761247
+anders_breivik_-_2083_manifesto_-_2011,1,violent_identification,608,802073,0.7580357398890126
+brenton-tarrant-the-great-replacement-manifesto,1,harm_justification,91,16984,5.35798398492699
+brenton-tarrant-the-great-replacement-manifesto,1,violent_identification,34,16984,2.0018841262364577
+cho_manifesto_1.1,1,harm_justification,4,2203,1.8157058556513845
+cho_manifesto_1.1,1,violent_identification,2,2203,0.9078529278256923
+milestones-f1,1,harm_justification,366,68527,5.340960497322223
+milestones-f1,1,violent_identification,15,68527,0.21889182366074686
+patrick_crusius_-_the_inconvenient_truth_about_me,1,harm_justification,10,2422,4.1288191577208915
+patrick_crusius_-_the_inconvenient_truth_about_me,1,violent_identification,6,2422,2.477291494632535
+rodger_manifesto,1,harm_justification,128,109566,1.1682456236423708
+rodger_manifesto,1,violent_identification,6,109566,0.05476151360823613
+roofmanifesto,1,harm_justification,4,2460,1.6260162601626016
+roofmanifesto,1,violent_identification,0,2460,0
+ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post,1,harm_justification,300,35677,8.408778765030693
+ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post,1,violent_identification,13,35677,0.36438041315132996
+the state and revolution - lenin,1,harm_justification,287,40117,7.154074332577212
+the state and revolution - lenin,1,violent_identification,4,40117,0.09970835306727821
+the urban guerilla concept,1,harm_justification,69,9698,7.114869045163951
+the urban guerilla concept,1,violent_identification,6,9698,0.6186842647968653
+the-lawful-and-the-prohibited-in-islam_text,1,harm_justification,180,122093,1.4742859951020943
+the-lawful-and-the-prohibited-in-islam_text,1,violent_identification,30,122093,0.24571433251701572
+universal declaration of human rights,1,harm_justification,6,1784,3.36322869955157
+universal declaration of human rights,1,violent_identification,0,1784,0
+velayat_faqeeh - Khomeini,1,harm_justification,169,62541,2.702227338865704
+velayat_faqeeh - Khomeini,1,violent_identification,22,62541,0.35176923937896737
+what is to be done - lenin,1,harm_justification,840,67459,12.45200788627166
+what is to be done - lenin,1,violent_identification,24,67459,0.35577165389347604

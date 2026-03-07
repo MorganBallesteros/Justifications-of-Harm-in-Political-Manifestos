@@ -1,0 +1,32 @@
+doc_id,segment_id,has_violent_reference,has_role_model_status,violent_reference_count,role_model_status_count,word_count,role_model_glorification
+1160_KennedyIchbin,1,FALSE,FALSE,0,0,691,FALSE
+142Thunberg,1,FALSE,FALSE,0,0,785,FALSE
+1945 Labour Party Manifesto -,1,FALSE,TRUE,0,2,5134,FALSE
+1949_simone-de-beauvoir-the-second-sex,1,TRUE,TRUE,2,203,351507,TRUE
+Atlantic-Charter,1,FALSE,FALSE,0,0,1037,FALSE
+Communist Manifesto,1,TRUE,TRUE,1,18,39076,TRUE
+DefeatingEurabia1,1,TRUE,TRUE,7,75,135135,TRUE
+Earnest-Manifesto-042719,1,TRUE,TRUE,11,3,4430,TRUE
+"Four Freedoms Speech, Franklin Delano Roosevelt (1)",1,FALSE,TRUE,0,3,3387,FALSE
+Full_text_I_Have_a_Dream_,1,FALSE,FALSE,0,0,1695,FALSE
+Hitler_Adolf_-_Mein_Kampf,1,TRUE,TRUE,18,111,273713,TRUE
+Imperium - Yockey,1,FALSE,TRUE,0,37,185034,FALSE
+"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi",1,FALSE,TRUE,0,32,157287,FALSE
+"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002",1,TRUE,TRUE,124,420,929691,TRUE
+PortHuronStatement,1,FALSE,TRUE,0,2,8807,FALSE
+Revolt Against The Modern World - Julius Evola,1,FALSE,TRUE,0,123,200238,FALSE
+"Russian Imperial Manifesto, Announcing the Start of War in August 1914",1,FALSE,TRUE,0,1,447,FALSE
+anders_breivik_-_2083_manifesto_-_2011,1,TRUE,TRUE,56,552,802073,TRUE
+brenton-tarrant-the-great-replacement-manifesto,1,TRUE,TRUE,6,28,16984,TRUE
+cho_manifesto_1.1,1,FALSE,TRUE,0,2,2203,FALSE
+milestones-f1,1,FALSE,TRUE,0,15,68527,FALSE
+patrick_crusius_-_the_inconvenient_truth_about_me,1,TRUE,TRUE,1,5,2422,TRUE
+rodger_manifesto,1,FALSE,TRUE,0,6,109566,FALSE
+roofmanifesto,1,FALSE,FALSE,0,0,2460,FALSE
+ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post,1,FALSE,TRUE,0,13,35677,FALSE
+the state and revolution - lenin,1,FALSE,TRUE,0,4,40117,FALSE
+the urban guerilla concept,1,FALSE,TRUE,0,6,9698,FALSE
+the-lawful-and-the-prohibited-in-islam_text,1,FALSE,TRUE,0,30,122093,FALSE
+universal declaration of human rights,1,FALSE,FALSE,0,0,1784,FALSE
+velayat_faqeeh - Khomeini,1,FALSE,TRUE,0,22,62541,FALSE
+what is to be done - lenin,1,FALSE,TRUE,0,24,67459,FALSE
