@@ -303,13 +303,18 @@ complexity have on likelihood of violence. I will repeat these analyses for ling
 markers of harm on said longitudinal sets.
 
 \begin{verbatim}
-## # A tibble: 3 x 2
-##   marker   mean_prev
-##   <chr>        <dbl>
-## 1 attack       0.488
-## 2 violence     0.145
-## 3 war          1.42
+## # A tibble: 6 x 5
+##   marker_group       mean_prevalence sd_prevalence min_prevalence max_prevalence
+##   <chr>                        <dbl>         <dbl>          <dbl>          <dbl>
+## 1 hopelessness                 3.87          3.02               0         12.1  
+## 2 role_model_status            0.500         0.564              0          2.24 
+## 3 justification_for~           0.265         0.367              0          1.58 
+## 4 martyrdom_narrati~           0.240         0.434              0          2.26 
+## 5 dyadic_harm                  0.132         0.187              0          0.707
+## 6 violent_reference            0.116         0.450              0          2.48
 \end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Thesis_files/figure-latex/group-prevalence-plot-1.pdf}}
 
 \section{Discussion}\label{discussion}
 
