@@ -74,6 +74,7 @@ ggplot(by_cat, aes(x = marker, y = mean_prev, fill = marker)) +
   labs(x = "Marker", y = "Mean prevalence")
 
 ```
+
 ```{r}
 #| label: join-categories
 #| echo: false
