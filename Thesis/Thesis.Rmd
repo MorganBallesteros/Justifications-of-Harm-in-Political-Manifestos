@@ -33,25 +33,49 @@ classoption       : "man"
 output            : papaja::apa6_pdf
 ---
 
-```{r setup, include = FALSE}
-library("papaja")
-library("dplyr")
-library("tidyr")
-library("ggplot2")
-library("readr")
-library("stringr")
-library("tinylabels")
-library("here")
+```{r setup, include=FALSE}
+suppressPackageStartupMessages({
+  library(papaja)
+  library(dplyr)
+  library(tidyr)
+  library(ggplot2)
+  library(readr)
+  library(stringr)
+  library(tinylabels)
+  library(here)
+})
+
+# Register bibliography for citations
 r_refs("r-references.bib")
 
+# Fail early if a required package for PDF extraction is missing.
 if (!requireNamespace("pdftools", quietly = TRUE)) {
-  install.packages("pdftools")
+  stop("Package 'pdftools' is required to build processed scoring files. Please install it before knitting.")
 }
-# Source (load) your function definitions from an .R script in the R/ folder.
-# This ensures any functions you wrote in scripts are available in this Quarto session.
-source(here::here("Thesis", "score_manifestos.R"))
-```
 
+# Reproducibility checks for key project files.
+required_files <- c(
+  "run_scoring.R",
+  "score_manifestos.R",
+  "r-references.bib",
+  "data/markers/marker_dictionary.csv"
+)
+
+missing_files <- required_files[!file.exists(required_files)]
+
+if (length(missing_files) > 0) {
+  stop(
+    paste(
+      "The following required files are missing from the thesis directory:",
+      paste(missing_files, collapse = ", ")
+    )
+  )
+}
+
+if (!dir.exists("data/raw/pdfs")) {
+  stop("The directory 'data/raw/pdfs' is missing. The document cannot regenerate processed scoring files.")
+}
+```
 ```{r setup-data, echo=FALSE, message=FALSE, warning=FALSE}
 # ------------------------------------------------------------
 # Ensure processed scoring files exist
