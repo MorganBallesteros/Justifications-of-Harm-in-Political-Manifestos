@@ -76,67 +76,70 @@ if (!dir.exists("data/raw/pdfs")) {
   stop("The directory 'data/raw/pdfs' is missing. The document cannot regenerate processed scoring files.")
 }
 ```
+
+
+
+
 ```{r setup-data, echo=FALSE, message=FALSE, warning=FALSE}
 # ------------------------------------------------------------
 # Ensure processed scoring files exist
 # ------------------------------------------------------------
 # Purpose:
-#   Guarantee that the processed scoring outputs exist before the
-#   thesis analysis proceeds.
+#   Guarantee that processed scoring outputs exist before analysis proceeds.
 #
 # Reproducibility logic:
-#   If the processed CSV files are not present, the scoring pipeline
-#   (run_scoring.R) is executed automatically. This allows the thesis
-#   document to be rendered from a clean repository by simply
-#   knitting the R Markdown file.
+#   If processed files are absent, run_scoring.R is executed automatically.
+#   This allows the manuscript to be rendered from a clean thesis directory
+#   by simply knitting the R Markdown file.
 
-library(here)
-library(readr)
-library(dplyr)
-
-processed_file <- here::here(
-  "Thesis",
-  "data",
-  "processed",
-  "manifesto_scores_groups.csv"
-)
+processed_file <- "data/processed/manifesto_scores_groups.csv"
 
 if (!file.exists(processed_file)) {
-
-  message("Processed scoring files not found.")
-  message("Running scoring pipeline...")
-
-  source(here::here("Thesis","run_scoring.R"))
-
+  message("Processed scoring files not found. Running scoring pipeline...")
+  source("run_scoring.R")
   message("Scoring pipeline complete.")
-
 }
 
-# ------------------------------------------------------------
-# Load processed scoring outputs
-# ------------------------------------------------------------
+# Confirm that the pipeline produced the expected outputs.
+expected_outputs <- c(
+  "data/processed/manifesto_scores_markers.csv",
+  "data/processed/manifesto_scores_groups.csv",
+  "data/processed/manifesto_scores_categories.csv",
+  "data/processed/role_model_glorification_docs.csv"
+)
 
+missing_outputs <- expected_outputs[!file.exists(expected_outputs)]
+
+if (length(missing_outputs) > 0) {
+  stop(
+    paste(
+      "The scoring pipeline did not produce the expected files:",
+      paste(missing_outputs, collapse = ", ")
+    )
+  )
+}
+
+# Load processed outputs
 marker_scores <- read_csv(
-  here::here("Thesis","data","processed","manifesto_scores_markers.csv"),
+  "data/processed/manifesto_scores_markers.csv",
   show_col_types = FALSE
 )
 
 group_scores <- read_csv(
-  here::here("Thesis","data","processed","manifesto_scores_groups.csv"),
+  "data/processed/manifesto_scores_groups.csv",
   show_col_types = FALSE
 )
 
 category_scores <- read_csv(
-  here::here("Thesis","data","processed","manifesto_scores_categories.csv"),
+  "data/processed/manifesto_scores_categories.csv",
   show_col_types = FALSE
 )
 
 role_model_docs <- read_csv(
-  here::here("Thesis","data","processed","role_model_glorification_docs.csv"),
+  "data/processed/role_model_glorification_docs.csv",
   show_col_types = FALSE
 )
 ```
-
 
 
 
