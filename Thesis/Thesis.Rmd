@@ -411,8 +411,9 @@ doc_scores$category <- factor(
 #   moderate, ideologically extreme, and violent manifestos.
 #
 # Output:
-#   manifesto_descriptives = one row per manifesto category, with
-#   mean prevalence values for each grouped linguistic indicator.
+#   manifesto_descriptives = summary table of grouped marker prevalence,
+#   formatted so that marker groups appear as rows and manifesto
+#   categories appear as columns.
 #
 # Interpretation:
 #   Values represent average grouped marker prevalence per 1,000 words.
@@ -420,30 +421,34 @@ doc_scores$category <- factor(
 manifesto_descriptives <- doc_scores |>
   dplyr::group_by(category) |>
   dplyr::summarise(
-    `Dyadic Harm` = mean(dyadic_harm, na.rm = TRUE),
-    `Justification for Violence` = mean(justification_for_violence, na.rm = TRUE),
-    `Martyrdom Narrative` = mean(martyrdom_narrative, na.rm = TRUE),
-    `Hopelessness` = mean(hopelessness, na.rm = TRUE),
+    dyadic_harm = mean(dyadic_harm, na.rm = TRUE),
+    justification_for_violence = mean(justification_for_violence, na.rm = TRUE),
+    martyrdom_narrative = mean(martyrdom_narrative, na.rm = TRUE),
+    hopelessness = mean(hopelessness, na.rm = TRUE),
     .groups = "drop"
   ) |>
+  tidyr::pivot_longer(
+    cols = -category,
+    names_to = "marker_group",
+    values_to = "mean_prevalence"
+  ) |>
+  tidyr::pivot_wider(
+    names_from = category,
+    values_from = mean_prevalence
+  ) |>
   dplyr::mutate(
-    Category = dplyr::case_when(
-      category == "moderate" ~ "Moderate",
-      category == "extreme" ~ "Ideologically Extreme",
-      category == "violent" ~ "Violent Self-Sacrificial",
-      TRUE ~ as.character(category)
+    marker_group = dplyr::recode(
+      marker_group,
+      "dyadic_harm" = "Dyadic Harm",
+      "justification_for_violence" = "Justification for Violence",
+      "martyrdom_narrative" = "Martyrdom Narrative",
+      "hopelessness" = "Hopelessness"
     )
   ) |>
-  dplyr::select(
-    Category,
-    `Dyadic Harm`,
-    `Justification for Violence`,
-    `Martyrdom Narrative`,
-    `Hopelessness`
-  ) |>
+  dplyr::rename(`Marker Group` = marker_group) |>
   dplyr::mutate(
     dplyr::across(
-      c(`Dyadic Harm`, `Justification for Violence`, `Martyrdom Narrative`, `Hopelessness`),
+      where(is.numeric),
       ~ round(.x, 2)
     )
   )
@@ -451,7 +456,7 @@ manifesto_descriptives <- doc_scores |>
 papaja::apa_table(
   manifesto_descriptives,
   caption = "Mean prevalence of grouped linguistic indicators by manifesto category.",
-  note = "Values represent mean grouped marker prevalence per 1,000 words. Categories correspond to moderate, ideologically extreme, and violent self-sacrificial manifestos."
+  note = "Values represent grouped marker prevalence per 1,000 words."
 )
 ```
 
