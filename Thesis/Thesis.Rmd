@@ -470,36 +470,18 @@ papaja::apa_table(
 #   Test whether manifesto category predicts the prevalence of each
 #   grouped linguistic indicator.
 #
-# Research logic:
-#   If justifications of harm are associated with violent manifestos,
-#   then the prevalence of linguistic indicators should vary across
-#   the three manifesto types:
-#
-#     1. Moderate
-#     2. Ideologically Extreme
-#     3. Violent Self-Sacrificial
-#
-# Analytic strategy:
-#   We estimate a separate linear regression model for each marker
-#   group using the formula:
-#
-#       marker_group ~ category
-#
-#   Because "moderate" is the reference level of the category factor,
-#   the intercept represents the mean prevalence for moderate
-#   manifestos, and the remaining coefficients represent differences
-#   relative to that baseline.
+# Why this chunk exists:
+#   Separate linear models are estimated for each marker group using
+#   moderate manifestos as the reference category. To keep the table
+#   readable in APA manuscript format, only the category contrasts are
+#   shown in the main coefficient table. Intercepts and model-fit
+#   statistics are omitted here to reduce table width.
 #
 # Interpretation:
 #   Positive coefficients indicate that the marker group appears more
-#   frequently in that manifesto category compared with moderate texts.
+#   frequently in the comparison category than in moderate manifestos.
 
-# ------------------------------------------------------------
-# Define the marker groups to model
-# ------------------------------------------------------------
-# Each of these corresponds to a grouped linguistic indicator that
-# was constructed earlier in the pipeline from the marker dictionary.
-
+# Marker groups to model
 marker_groups <- c(
   "dyadic_harm",
   "justification_for_violence",
@@ -507,96 +489,60 @@ marker_groups <- c(
   "hopelessness"
 )
 
-# ------------------------------------------------------------
-# Fit regression models
-# ------------------------------------------------------------
-# For each marker group, fit a linear model predicting prevalence
-# from manifesto category. The models are stored in a list so they
-# can be summarized together later.
-
+# Fit one regression per marker group
 models <- lapply(marker_groups, function(m) {
   stats::lm(stats::as.formula(paste(m, "~ category")), data = doc_scores)
 })
 
-# Assign readable names to each model in the list
 names(models) <- marker_groups
 
-# ------------------------------------------------------------
-# Convert model summaries into a tidy regression table
-# ------------------------------------------------------------
-# Each model summary contains coefficient estimates, standard errors,
-# test statistics, and p-values. Here we extract those values and
-# convert them into a combined table suitable for presentation.
-
+# Build a compact coefficient table
 regression_table <- lapply(names(models), function(name) {
-
-  # Extract the model summary
   model_summary <- summary(models[[name]])
-
-  # Convert coefficient matrix into a data frame
   coefs <- as.data.frame(model_summary$coefficients)
-
-  # Preserve the original row names (terms) as a column
   coefs$term <- rownames(coefs)
   rownames(coefs) <- NULL
 
-  # Create a cleaned and labeled version of the coefficient table
   coefs |>
+    dplyr::filter(term != "(Intercept)") |>
     dplyr::transmute(
-
-      # Label the dependent variable (marker group)
       Outcome = dplyr::case_when(
         name == "dyadic_harm" ~ "Dyadic Harm",
-        name == "justification_for_violence" ~ "Justification for Violence",
-        name == "martyrdom_narrative" ~ "Martyrdom Narrative",
+        name == "justification_for_violence" ~ "Justification",
+        name == "martyrdom_narrative" ~ "Martyrdom",
         name == "hopelessness" ~ "Hopelessness",
         TRUE ~ name
       ),
-
-      # Replace technical coefficient names with readable labels
-      Term = dplyr::case_when(
-        term == "(Intercept)" ~ "Intercept (Moderate)",
-        term == "categoryextreme" ~ "Ideologically Extreme vs. Moderate",
-        term == "categoryviolent" ~ "Violent Self-Sacrificial vs. Moderate",
+      Contrast = dplyr::case_when(
+        term == "categoryextreme" ~ "Extreme vs. Moderate",
+        term == "categoryviolent" ~ "Violent vs. Moderate",
         TRUE ~ term
       ),
-
-      # Regression coefficient
       B = round(Estimate, 3),
-
-      # Standard error
       SE = round(`Std. Error`, 3),
-
-      # t statistic
       t = round(`t value`, 2),
-
-      # p-value formatted for APA style
       p = dplyr::case_when(
-      `Pr(>|t|)` < .001 ~ "$< .001$",
-       TRUE ~ sprintf("%.3f", `Pr(>|t|)`)
-      ),
-
-      # Model fit statistics (repeated for each row of the model)
-      `R2` = round(model_summary$r.squared, 3),
-      `Adj_R2` = round(model_summary$adj.r.squared, 3)
+        `Pr(>|t|)` < .001 ~ "< .001",
+        TRUE ~ sprintf("%.3f", `Pr(>|t|)`)
+      )
     )
 }) |>
-dplyr::bind_rows() |>
+  dplyr::bind_rows() |>
   dplyr::mutate(
     dplyr::across(where(is.character), ~ enc2utf8(as.character(.x)))
   )
-# ------------------------------------------------------------
-# Render the regression results as an APA-style table
-# ------------------------------------------------------------
-# papaja::apa_table() formats the table so it is suitable for
-# inclusion in an APA-style manuscript or thesis.
 
 papaja::apa_table(
   regression_table,
-  caption = "Linear regression models predicting grouped marker prevalence from manifesto category.",
-  note = "Moderate manifestos served as the reference category in all models. Intercepts therefore represent the estimated mean prevalence for moderate manifestos, and the remaining coefficients represent differences relative to that baseline. Values represent grouped marker prevalence per 1,000 words."
+  caption = "Linear regression coefficients predicting grouped marker prevalence from manifesto category.",
+  note = "Moderate manifestos served as the reference category in all models. Coefficients therefore represent differences in grouped marker prevalence relative to moderate manifestos. Values represent grouped marker prevalence per 1,000 words."
 )
 ```
+
+
+
+
+
 # Discussion
 
 In line with my aforementioned hypotheses, I predict that (a) greater prevalence of
