@@ -396,13 +396,6 @@ doc_scores$category <- factor(
 )
 ```
 
-```{r factorize-category}
-doc_scores$category <- factor(
-  doc_scores$category,
-  levels = c("moderate", "extreme", "violent")
-)
-```
-
 ```{r descriptives}
 doc_scores |>
   dplyr::group_by(category) |>
