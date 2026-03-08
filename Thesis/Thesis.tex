@@ -365,111 +365,41 @@ Hopelessness & 3.40 & 5.15 & 2.47\\
 
 \end{table}
 
-\begin{verbatim}
-## 
-## 
-## ==============================
-## Marker group: dyadic_harm 
-## ==============================
-## 
-## 
-## Call:
-## lm(formula = as.formula(paste(m, "~ category")), data = doc_scores)
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -0.19323 -0.10908 -0.01075  0.02026  0.51332 
-## 
-## Coefficients:
-##                 Estimate Std. Error t value Pr(>|t|)  
-## (Intercept)      0.01075    0.05829   0.184   0.8550  
-## categoryextreme  0.16375    0.07582   2.160   0.0395 *
-## categoryviolent  0.18248    0.08243   2.214   0.0352 *
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 0.1749 on 28 degrees of freedom
-## Multiple R-squared:  0.1813, Adjusted R-squared:  0.1228 
-## F-statistic: 3.099 on 2 and 28 DF,  p-value: 0.06083
-## 
-## 
-## 
-## ==============================
-## Marker group: justification_for_violence 
-## ==============================
-## 
-## 
-## Call:
-## lm(formula = as.formula(paste(m, "~ category")), data = doc_scores)
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -0.45653 -0.15671 -0.09414  0.05532  1.12361 
-## 
-## Coefficients:
-##                 Estimate Std. Error t value Pr(>|t|)  
-## (Intercept)      0.15671    0.11893   1.318   0.1983  
-## categoryextreme  0.05098    0.15471   0.330   0.7442  
-## categoryviolent  0.29982    0.16819   1.783   0.0855 .
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 0.3568 on 28 degrees of freedom
-## Multiple R-squared:  0.1183, Adjusted R-squared:  0.05536 
-## F-statistic: 1.879 on 2 and 28 DF,  p-value: 0.1715
-## 
-## 
-## 
-## ==============================
-## Marker group: martyrdom_narrative 
-## ==============================
-## 
-## 
-## Call:
-## lm(formula = as.formula(paste(m, "~ category")), data = doc_scores)
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -0.55117 -0.09903 -0.08426 -0.01372  1.70617 
-## 
-## Coefficients:
-##                 Estimate Std. Error t value Pr(>|t|)  
-## (Intercept)      0.08426    0.13212   0.638   0.5288  
-## categoryextreme  0.04855    0.17187   0.282   0.7797  
-## categoryviolent  0.46691    0.18684   2.499   0.0186 *
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 0.3963 on 28 degrees of freedom
-## Multiple R-squared:  0.2198, Adjusted R-squared:  0.1641 
-## F-statistic: 3.944 on 2 and 28 DF,  p-value: 0.03097
-## 
-## 
-## 
-## ==============================
-## Marker group: hopelessness 
-## ==============================
-## 
-## 
-## Call:
-## lm(formula = as.formula(paste(m, "~ category")), data = doc_scores)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -4.6308 -2.1522 -0.5374  1.7339  6.9561 
-## 
-## Coefficients:
-##                 Estimate Std. Error t value Pr(>|t|)   
-## (Intercept)       3.4010     0.9592   3.546   0.0014 **
-## categoryextreme   1.7540     1.2478   1.406   0.1708   
-## categoryviolent  -0.9327     1.3565  -0.688   0.4974   
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 2.878 on 28 degrees of freedom
-## Multiple R-squared:  0.1507, Adjusted R-squared:  0.08999 
-## F-statistic: 2.483 on 2 and 28 DF,  p-value: 0.1017
-\end{verbatim}
+\begin{table}[tbp]
+
+\begin{center}
+\begin{threeparttable}
+
+\caption{\label{tab:manifesto-regressions}Linear regression models predicting grouped marker prevalence from manifesto category.}
+
+\begin{tabular}{llllllll}
+\toprule
+Outcome & \multicolumn{1}{c}{Term} & \multicolumn{1}{c}{B} & \multicolumn{1}{c}{SE} & \multicolumn{1}{c}{t} & \multicolumn{1}{c}{p} & \multicolumn{1}{c}{R2} & \multicolumn{1}{c}{Adj\_R2}\\
+\midrule
+Dyadic Harm & Intercept (Moderate) & 0.01 & 0.06 & 0.18 & 0.855 & 0.18 & 0.12\\
+Dyadic Harm & Ideologically Extreme vs. Moderate & 0.16 & 0.08 & 2.16 & 0.040 & 0.18 & 0.12\\
+Dyadic Harm & Violent Self-Sacrificial vs. Moderate & 0.18 & 0.08 & 2.21 & 0.035 & 0.18 & 0.12\\
+Justification for Violence & Intercept (Moderate) & 0.16 & 0.12 & 1.32 & 0.198 & 0.12 & 0.06\\
+Justification for Violence & Ideologically Extreme vs. Moderate & 0.05 & 0.16 & 0.33 & 0.744 & 0.12 & 0.06\\
+Justification for Violence & Violent Self-Sacrificial vs. Moderate & 0.30 & 0.17 & 1.78 & 0.085 & 0.12 & 0.06\\
+Martyrdom Narrative & Intercept (Moderate) & 0.08 & 0.13 & 0.64 & 0.529 & 0.22 & 0.16\\
+Martyrdom Narrative & Ideologically Extreme vs. Moderate & 0.05 & 0.17 & 0.28 & 0.780 & 0.22 & 0.16\\
+Martyrdom Narrative & Violent Self-Sacrificial vs. Moderate & 0.47 & 0.19 & 2.50 & 0.019 & 0.22 & 0.16\\
+Hopelessness & Intercept (Moderate) & 3.40 & 0.96 & 3.55 & 0.001 & 0.15 & 0.09\\
+Hopelessness & Ideologically Extreme vs. Moderate & 1.75 & 1.25 & 1.41 & 0.171 & 0.15 & 0.09\\
+Hopelessness & Violent Self-Sacrificial vs. Moderate & -0.93 & 1.36 & -0.69 & 0.497 & 0.15 & 0.09\\
+\bottomrule
+\addlinespace
+\end{tabular}
+
+\begin{tablenotes}[para]
+\normalsize{\textit{Note.} Moderate manifestos served as the reference category in all models. Intercepts therefore represent the estimated mean prevalence for moderate manifestos, and the remaining coefficients represent differences relative to that baseline. Values represent grouped marker prevalence per 1,000 words.}
+\end{tablenotes}
+
+\end{threeparttable}
+\end{center}
+
+\end{table}
 
 \section{Discussion}\label{discussion}
 
