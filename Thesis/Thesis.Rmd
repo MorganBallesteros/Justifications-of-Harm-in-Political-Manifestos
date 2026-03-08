@@ -396,17 +396,65 @@ doc_scores$category <- factor(
 )
 ```
 
-```{r descriptives}
-doc_scores |>
+```{r manifesto-descriptives, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+# ------------------------------------------------------------
+# Descriptive statistics for manifesto categories
+# ------------------------------------------------------------
+# Purpose:
+#   Summarize the average prevalence of each marker group across the
+#   three manifesto categories used in the study.
+#
+# Why this chunk exists:
+#   Before fitting regression models, it is useful to show the raw
+#   descriptive pattern in the data. These means provide an easily
+#   interpretable overview of how marker prevalence differs across
+#   moderate, ideologically extreme, and violent manifestos.
+#
+# Output:
+#   manifesto_descriptives = one row per manifesto category, with
+#   mean prevalence values for each grouped linguistic indicator.
+#
+# Interpretation:
+#   Values represent average grouped marker prevalence per 1,000 words.
+
+manifesto_descriptives <- doc_scores |>
   dplyr::group_by(category) |>
   dplyr::summarise(
-    dyadic_harm = mean(dyadic_harm),
-    justification = mean(justification_for_violence),
-    martyrdom = mean(martyrdom_narrative),
-    hopelessness = mean(hopelessness),
+    `Dyadic Harm` = mean(dyadic_harm, na.rm = TRUE),
+    `Justification for Violence` = mean(justification_for_violence, na.rm = TRUE),
+    `Martyrdom Narrative` = mean(martyrdom_narrative, na.rm = TRUE),
+    `Hopelessness` = mean(hopelessness, na.rm = TRUE),
     .groups = "drop"
+  ) |>
+  dplyr::mutate(
+    Category = dplyr::case_when(
+      category == "moderate" ~ "Moderate",
+      category == "extreme" ~ "Ideologically Extreme",
+      category == "violent" ~ "Violent Self-Sacrificial",
+      TRUE ~ as.character(category)
+    )
+  ) |>
+  dplyr::select(
+    Category,
+    `Dyadic Harm`,
+    `Justification for Violence`,
+    `Martyrdom Narrative`,
+    `Hopelessness`
+  ) |>
+  dplyr::mutate(
+    dplyr::across(
+      c(`Dyadic Harm`, `Justification for Violence`, `Martyrdom Narrative`, `Hopelessness`),
+      ~ round(.x, 2)
+    )
   )
+
+papaja::apa_table(
+  manifesto_descriptives,
+  caption = "Mean prevalence of grouped linguistic indicators by manifesto category.",
+  note = "Values represent mean grouped marker prevalence per 1,000 words. Categories correspond to moderate, ideologically extreme, and violent self-sacrificial manifestos."
+)
 ```
+
 
 ```{r manifesto-regressions, echo=FALSE, message=FALSE, warning=FALSE}
 # ------------------------------------------------------------

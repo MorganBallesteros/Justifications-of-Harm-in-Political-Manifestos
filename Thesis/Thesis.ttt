@@ -29,3 +29,31 @@ Violent Reference & 31 & 0.12 & 0.45 & 0.00 & 2.48\\
 \end{center}
 
 \end{table*}
+\begin{table*}[hbt]
+\ifnextchar[{\eatarg}{}
+[tbp]
+
+\begin{center}
+\begin{threeparttable}
+
+\caption{\label{tab:manifesto-descriptives}Mean prevalence of grouped linguistic indicators by manifesto category.}
+
+\begin{tabular}{lllll}
+\toprule
+Category & \multicolumn{1}{c}{Dyadic Harm} & \multicolumn{1}{c}{Justification for Violence} & \multicolumn{1}{c}{Martyrdom Narrative} & \multicolumn{1}{c}{Hopelessness}\\
+\midrule
+Moderate & 0.01 & 0.16 & 0.08 & 3.40\\
+Ideologically Extreme & 0.17 & 0.21 & 0.13 & 5.15\\
+Violent Self-Sacrificial & 0.19 & 0.46 & 0.55 & 2.47\\
+\bottomrule
+\addlinespace
+\end{tabular}
+
+\begin{tablenotes}[para]
+\normalsize{\textit{Note.} Values represent mean grouped marker prevalence per 1,000 words. Categories correspond to moderate, ideologically extreme, and violent self-sacrificial manifestos.}
+\end{tablenotes}
+
+\end{threeparttable}
+\end{center}
+
+\end{table*}
