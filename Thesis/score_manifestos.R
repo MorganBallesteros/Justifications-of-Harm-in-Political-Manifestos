@@ -138,13 +138,39 @@ score_manifestos <- function(input_type = c("text", "pdf"),
   # Only keep documents with usable text for scoring
   docs_scoring <- docs %>% filter(has_text)
   
-  # ----------------------------
-  # Reshape non-tidy text -> tidy segments
-  # ----------------------------
-  # Goal:
-  #   Create a tidy table where each row is one "unit" of scoring text.
-  #   segment == "document": one row per doc
-  #   segment == "paragraph": multiple rows per doc, one paragraph per row
+  # ------------------------------------------------------------
+  # Reshape non-tidy text into tidy data
+  # ------------------------------------------------------------
+  # The raw input (PDF text) is not tidy because each document is
+  # stored as a single large character string. Multiple analytical
+  # units are embedded inside that string:
+  #
+  #   • documents
+  #   • paragraphs within documents
+  #   • marker occurrences within those paragraphs
+  #
+  # This violates tidy data principles because the analytical units
+  # are not represented as rows and variables.
+  #
+  # In tidy data:
+  #   - each variable should be a column
+  #   - each observation should be a row
+  #   - each type of observational unit should have its own table
+  #
+  # For this analysis, the relevant observational unit is a
+  # (document × paragraph × marker) observation.
+  #
+  # We therefore convert the raw text into a tidy structure where:
+  #
+  #   doc_id      = document identifier
+  #   segment_id  = paragraph index within the document
+  #   segment_text = text of that paragraph
+  #
+  # Later steps expand this further so that each row represents a
+  # single marker count within a segment.
+  #
+  # This tidy structure allows dplyr grouping, prevalence
+  # calculations, and joins with marker metadata.
   if (segment == "document") {
     segments_df <- docs_scoring %>%
       transmute(
