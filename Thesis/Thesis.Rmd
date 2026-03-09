@@ -206,8 +206,6 @@ While automated integrative complexity does not correlate perfectly with hand sc
 [document-level correlation of .82, paragraph-level correlation of .46, @conway2020validating], it is an increasingly validated measure in its own right and often used as an 
 efficient and effective replacement for hand scoring. This study uses the document-level
 scores for all analyses.  
-<!-- I forgot to do this part in time for integrative data project; IGNORE AUTOMATED INTEGRATIVE COMPLEXITY PARTS!
--->
 
 ### Violence 
 
