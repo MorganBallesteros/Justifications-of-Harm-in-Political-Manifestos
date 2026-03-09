@@ -80,7 +80,7 @@ if (length(missing_files) > 0) {
 
 if (!dir.exists("data/raw/pdfs")) {
   stop("The directory 'data/raw/pdfs' is missing. The document cannot regenerate processed scoring files.")
-}
+} 
 ```
 
 
