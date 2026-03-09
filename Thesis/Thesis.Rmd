@@ -359,7 +359,21 @@ ggplot2::ggplot(
   )
 ```
 
-Descriptive statistics were calculated to examine the prevalence of grouped linguistic indicators of harm justification across the manifesto corpus. Prevalence values represent occurrences of grouped markers per 1,000 words. Across all 31 manifestos, markers associated with hopelessness were the most common (M = 3.87, SD = 3.02), followed by role model status (M = 0.50, SD = 0.56), justification for violence (M = 0.27, SD = 0.37), martyrdom narratives (M = 0.24, SD = 0.43), dyadic harm language (M = 0.13, SD = 0.19), and references to violent actors or events (M = 0.12, SD = 0.45). Minimum and maximum prevalence values ranged from 0.00 to 12.11 depending on marker group.  
+```{r n-docs-setup, echo=FALSE, message=FALSE, warning=FALSE}
+n_docs <- length(unique(group_scores$doc_id))
+
+desc_stats <- group_scores %>%
+  group_by(marker_group) %>%
+  summarise(
+    mean = mean(prevalence, na.rm = TRUE),
+    sd = sd(prevalence, na.rm = TRUE),
+    min = min(prevalence, na.rm = TRUE),
+    max = max(prevalence, na.rm = TRUE),
+    .groups = "drop"
+  )
+```
+
+Descriptive statistics were calculated to examine the prevalence of grouped linguistic indicators of harm justification across the manifesto corpus. Prevalence values represent occurrences of grouped markers per 1,000 words. Across all `r n_docs` manifestos, markers associated with hopelessness were the most common (M = `r round(desc_stats$mean[desc_stats$marker_group == "hopelessness"], 2)`, SD = `r round(desc_stats$sd[desc_stats$marker_group == "hopelessness"], 2)`), followed by role model status (M = `r round(desc_stats$mean[desc_stats$marker_group == "role_model_status"], 2)`, SD = `r round(desc_stats$sd[desc_stats$marker_group == "role_model_status"], 2)`), justification for violence (M = `r round(desc_stats$mean[desc_stats$marker_group == "justification_for_violence"], 2)`, SD = `r round(desc_stats$sd[desc_stats$marker_group == "justification_for_violence"], 2)`), martyrdom narratives (M = `r round(desc_stats$mean[desc_stats$marker_group == "martyrdom_narrative"], 2)`, SD = `r round(desc_stats$sd[desc_stats$marker_group == "martyrdom_narrative"], 2)`), dyadic harm language (M = `r round(desc_stats$mean[desc_stats$marker_group == "dyadic_harm"], 2)`, SD = `r round(desc_stats$sd[desc_stats$marker_group == "dyadic_harm"], 2)`), and references to violent actors or events (M = `r round(desc_stats$mean[desc_stats$marker_group == "violent_reference"], 2)`, SD = `r round(desc_stats$sd[desc_stats$marker_group == "violent_reference"], 2)`). Minimum and maximum prevalence values ranged from `r round(min(desc_stats$min), 2)` to `r round(max(desc_stats$max), 2)` depending on marker group.  
 ```{r manifesto-descriptives, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
 # ------------------------------------------------------------
 # Descriptive statistics for manifesto categories
@@ -427,7 +441,18 @@ papaja::apa_table(
   note = "Values represent grouped marker prevalence per 1,000 words."
 )
 ```
-Mean marker prevalence also differed across manifesto categories (Table 2). Violent self-sacrificial manifestos exhibited the highest average prevalence of dyadic harm language (M = 0.19) and justification for violence (M = 0.46), whereas moderate manifestos displayed very low levels of these indicators (dyadic harm M = 0.01; justification for violence M = 0.16). Martyrdom narratives showed the most pronounced difference across categories, appearing most frequently in violent manifestos (M = 0.55) compared with extreme (M = 0.13) and moderate texts (M = 0.08). In contrast, markers associated with hopelessness were most prevalent in ideologically extreme manifestos (M = 5.15), followed by moderate manifestos (M = 3.40) and violent manifestos (M = 2.47). 
+```{r category-stats-setup, echo=FALSE, message=FALSE, warning=FALSE}
+marker_scores_with_cat <- marker_scores %>%
+  left_join(doc_meta, by = "doc_id")
+
+category_stats <- marker_scores_with_cat %>%
+  group_by(marker_group, category) %>%
+  summarise(
+    mean = mean(prevalence, na.rm = TRUE),
+    .groups = "drop"
+  )
+```
+Mean marker prevalence also differed across manifesto categories (Table \@ref(tab:manifesto-descriptives)). Violent self-sacrificial manifestos exhibited the highest average prevalence of dyadic harm language (M = `r manifesto_descriptives[["violent"]][manifesto_descriptives[["Marker Group"]] == "Dyadic Harm"]`) and justification for violence (M = `r manifesto_descriptives[["violent"]][manifesto_descriptives[["Marker Group"]] == "Justification For Violence"]`), whereas moderate manifestos displayed very low levels of these indicators (dyadic harm M = `r manifesto_descriptives[["moderate"]][manifesto_descriptives[["Marker Group"]] == "Dyadic Harm"]`; justification for violence M = `r manifesto_descriptives[["moderate"]][manifesto_descriptives[["Marker Group"]] == "Justification For Violence"]`). Martyrdom narratives showed the most pronounced difference across categories, appearing most frequently in violent manifestos (M = `r manifesto_descriptives[["violent"]][manifesto_descriptives[["Marker Group"]] == "Martyrdom Narrative"]`) compared with extreme (M = `r manifesto_descriptives[["extreme"]][manifesto_descriptives[["Marker Group"]] == "Martyrdom Narrative"]`) and moderate texts (M = `r manifesto_descriptives[["moderate"]][manifesto_descriptives[["Marker Group"]] == "Martyrdom Narrative"]`). In contrast, markers associated with hopelessness were most prevalent in ideologically extreme manifestos (M = `r manifesto_descriptives[["extreme"]][manifesto_descriptives[["Marker Group"]] == "Hopelessness"]`), followed by moderate manifestos (M = `r manifesto_descriptives[["moderate"]][manifesto_descriptives[["Marker Group"]] == "Hopelessness"]`) and violent manifestos (M = `r manifesto_descriptives[["violent"]][manifesto_descriptives[["Marker Group"]] == "Hopelessness"]`).
 
 ## Regression Analyses 
 
@@ -435,7 +460,8 @@ To examine whether manifesto category predicts the prevalence of harm-related li
 
 ### Dyadic Harm Language 
 
-The regression model predicting dyadic harm language indicated that manifesto category was marginally associated with variation in dyadic harm prevalence, F(2, 28) = 3.10, *p* = .061, R² = .18. Compared with moderate manifestos, ideologically extreme manifestos contained significantly higher levels of dyadic harm language (*b* = 0.16, SE = 0.08, *t* = 2.16, *p* = .040). Violent self-sacrificial manifestos also showed significantly higher prevalence of dyadic harm markers relative to moderate texts (*b* = 0.18, SE = 0.08, *t* = 2.21, *p* = .035). 
+The regression model predicting dyadic harm language indicated that manifesto category was marginally associated with variation in dyadic harm prevalence, F(2, 28) = 3.10, *p* = .061, R² = .18. Compared with moderate manifestos, ideologically extreme manifestos contained significantly higher levels of dyadic harm language (*b* = 0.16, SE = 0.08, *t* = 2.16, *p* = .040). Violent self-sacrificial manifestos also showed significantly higher prevalence of dyadic harm markers relative to moderate texts (*b* = 0.18, SE = 0.08, *t* = 2.21, *p* = .035).
+
 ```{r manifesto-regressions, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
 # ------------------------------------------------------------
 # Regression analyses predicting marker prevalence from
