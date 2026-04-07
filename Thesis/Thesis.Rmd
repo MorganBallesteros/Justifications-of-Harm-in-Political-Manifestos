@@ -74,8 +74,16 @@ if (length(missing_files) > 0) {
   )
 }
 
-if (!dir.exists("data/raw")) {
-  stop("The directory 'data/raw' is missing.")
+raw_dirs <- c("data/raw", "data/longitudinal")
+
+if (!all(dir.exists(raw_dirs))) {
+  stop(
+    paste(
+      "The following required raw-data directories are missing:",
+      paste(raw_dirs[!dir.exists(raw_dirs)], collapse = ", ")
+    )
+  )
+}
 }
 ```
 
