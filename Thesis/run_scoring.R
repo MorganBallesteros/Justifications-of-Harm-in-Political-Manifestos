@@ -60,28 +60,38 @@ if (length(markers) == 0) {
 }
 
 # ------------------------------------------------------------
-# Find all PDFs
+# Find all TXT files
 # ------------------------------------------------------------
-# ------------------------------------------------------------
-# Find all text files (.txt preferred, .pdf fallback)
-# ------------------------------------------------------------
-raw_dir <- here::here("Thesis", "data", "raw")
+nonlong_dir <- here::here("Thesis", "data", "raw")
+long_dir    <- here::here("Thesis", "data", "longitudinal")
 
-txt_paths <- list.files(
-  raw_dir,
+txt_paths_nonlong <- list.files(
+  nonlong_dir,
   pattern = "\\.txt$",
   full.names = TRUE,
   recursive = TRUE,
   ignore.case = TRUE
 )
 
-pdf_paths <- list.files(
-  raw_dir,
-  pattern = "\\.pdf$",
+txt_paths_long <- list.files(
+  long_dir,
+  pattern = "\\.txt$",
   full.names = TRUE,
   recursive = TRUE,
   ignore.case = TRUE
 )
+
+txt_paths <- c(txt_paths_nonlong, txt_paths_long)
+
+cat("Non-longitudinal directory:", nonlong_dir, "\n")
+cat("Longitudinal directory:", long_dir, "\n")
+cat("TXT files found (non-longitudinal):", length(txt_paths_nonlong), "\n")
+cat("TXT files found (longitudinal):", length(txt_paths_long), "\n")
+cat("TXT files found (total):", length(txt_paths), "\n")
+
+if (length(txt_paths) == 0) {
+  stop("No .txt files found in Thesis/data/raw or Thesis/data/longitudinal.")
+}
 
 cat("Raw directory:", raw_dir, "\n")
 cat("TXT files found:", length(txt_paths), "\n")
