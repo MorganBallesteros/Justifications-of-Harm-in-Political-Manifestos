@@ -70,6 +70,43 @@ score_manifestos <- function(input_type = c("text", "pdf", "txt"),
                              write_out = FALSE,
                              out_path = "Thesis/data/processed/manifesto_scores.csv",
                              quiet = TRUE) {
+} else if (input_type == "txt") {
+  
+  if (is.null(txt_paths) || !is.character(txt_paths) || length(txt_paths) == 0) {
+    stop("For input_type='txt', provide txt_paths (character vector).")
+  }
+  
+  doc_ids <- stringr::str_replace(basename(txt_paths), "\\.txt$", "")
+  texts <- character(length(txt_paths))
+  corpus <- character(length(txt_paths))
+  author <- character(length(txt_paths))
+  
+  for (i in seq_along(txt_paths)) {
+    if (!file.exists(txt_paths[i])) {
+      stop(paste0("TXT file not found: ", txt_paths[i]))
+    }
+    
+    texts[i] <- readr::read_file(txt_paths[i])
+    
+    path_norm <- normalizePath(txt_paths[i], winslash = "/", mustWork = FALSE)
+    
+    if (grepl("/data/longitudinal/", path_norm)) {
+      corpus[i] <- "longitudinal"
+      author[i] <- basename(dirname(txt_paths[i]))
+    } else {
+      corpus[i] <- "non_longitudinal"
+      author[i] <- NA_character_
+    }
+    
+    if (!quiet) message("Read TXT: ", doc_ids[i])
+  }
+  
+  docs <- tibble::tibble(
+    !!doc_id_col := doc_ids,
+    !!text_col := texts,
+    corpus = corpus,
+    author = author
+  )
   
   # Normalize argument choices to safe values.
   # match.arg() also provides automatic validation for allowed options.
@@ -219,6 +256,8 @@ score_manifestos <- function(input_type = c("text", "pdf", "txt"),
     segments_df <- docs_scoring %>%
       transmute(
         !!doc_id_col := .data[[doc_id_col]],
+        corpus,
+        author,
         segment_id = 1L,
         segment_text = .data[[text_col]],
         across(any_of(category_col), ~ .x)
@@ -230,6 +269,8 @@ score_manifestos <- function(input_type = c("text", "pdf", "txt"),
     segments_df <- docs_scoring %>%
       transmute(
         !!doc_id_col := .data[[doc_id_col]],
+        corpus,
+        author,
         raw_segments = str_split(.data[[text_col]], "\\n\\s*\\n+"),
         across(any_of(category_col), ~ .x)
       ) %>%
@@ -260,15 +301,15 @@ score_manifestos <- function(input_type = c("text", "pdf", "txt"),
     counts_list[[j]] <- segments_df %>%
       transmute(
         !!doc_id_col := .data[[doc_id_col]],
+        corpus,
+        author,
         segment_id,
         marker = m,
-        # Count occurrences using regex; ignore_case adds case-insensitivity
         count = str_count(segment_text, regex(pat, ignore_case = TRUE)),
         word_count,
         across(any_of(category_col), ~ .x)
       ) %>%
-      # Prevalence is scaled count per 'per' words (default 1000 words)
-      mutate(prevalence = if_else(word_count > 0, (count / word_count) * per, NA_real_)) 
+      mutate(prevalence = if_else(word_count > 0, (count / word_count) * per, NA_real_))
   }
   
   # Combine per-marker tables into one long tidy scoring table
