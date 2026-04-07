@@ -165,27 +165,6 @@ score_manifestos <- function(input_type = c("text", "pdf", "txt"),
     )
   }
     
-    # Derive doc_ids from filenames by stripping .pdf
-    # basename(): remove directory; str_replace(): remove extension
-    doc_ids <- stringr::str_replace(basename(pdf_paths), "\\.pdf$", "")
-    texts <- character(length(pdf_paths))
-    
-    # ----------------------------
-    # Control flow #2: loop over PDFs
-    # ----------------------------
-    # Extract PDF text one-by-one so errors can be tied to a specific file.
-    for (i in seq_along(pdf_paths)) {
-      texts[i] <- extract_pdf_text(pdf_paths[i])
-      if (!quiet) message("Extracted: ", doc_ids[i])
-    }
-    
-    # Build a tibble that matches the expected text_df structure.
-    # Use quasiquotation (!!) so doc_id_col/text_col can be customized by the user.
-    docs <- tibble::tibble(
-      !!doc_id_col := doc_ids,
-      !!text_col := texts
-    )
-  }
   
   # ----------------------------
   # Normalize text (stringr) + missing handling
