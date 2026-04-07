@@ -70,113 +70,98 @@ score_manifestos <- function(input_type = c("text", "pdf", "txt"),
                              write_out = FALSE,
                              out_path = "Thesis/data/processed/manifesto_scores.csv",
                              quiet = TRUE) {
-} else if (input_type == "txt") {
   
-  if (is.null(txt_paths) || !is.character(txt_paths) || length(txt_paths) == 0) {
-    stop("For input_type='txt', provide txt_paths (character vector).")
-  }
-  
-  doc_ids <- stringr::str_replace(basename(txt_paths), "\\.txt$", "")
-  texts <- character(length(txt_paths))
-  corpus <- character(length(txt_paths))
-  author <- character(length(txt_paths))
-  
-  for (i in seq_along(txt_paths)) {
-    if (!file.exists(txt_paths[i])) {
-      stop(paste0("TXT file not found: ", txt_paths[i]))
-    }
-    
-    texts[i] <- readr::read_file(txt_paths[i])
-    
-    path_norm <- normalizePath(txt_paths[i], winslash = "/", mustWork = FALSE)
-    
-    if (grepl("/data/longitudinal/", path_norm)) {
-      corpus[i] <- "longitudinal"
-      author[i] <- basename(dirname(txt_paths[i]))
-    } else {
-      corpus[i] <- "non_longitudinal"
-      author[i] <- NA_character_
-    }
-    
-    if (!quiet) message("Read TXT: ", doc_ids[i])
-  }
-  
-  docs <- tibble::tibble(
-    !!doc_id_col := doc_ids,
-    !!text_col := texts,
-    corpus = corpus,
-    author = author
-  )
-  
-  # Normalize argument choices to safe values.
-  # match.arg() also provides automatic validation for allowed options.
+  # ----------------------------
+  # Normalize arguments
+  # ----------------------------
   input_type <- match.arg(input_type)
   segment <- match.arg(segment)
   output <- match.arg(output)
   
   # ----------------------------
-  # Control flow #1: validation
+  # Validate markers
   # ----------------------------
-  if (missing(markers) || is.null(markers)) stop("Provide markers (character vector).")
-  if (!is.character(markers)) stop("markers must be a character vector.")
+  if (missing(markers) || is.null(markers)) stop("Provide markers.")
+  if (!is.character(markers)) stop("markers must be character.")
   if (length(markers) == 0) stop("markers is empty.")
   
   # ----------------------------
-  # Input mode A: input_type == "text"
+  # Input mode A: text_df
   # ----------------------------
   if (input_type == "text") {
-    if (is.null(text_df) || !is.data.frame(text_df)) stop("text_df must be a data frame.")
-    if (!doc_id_col %in% names(text_df)) stop("doc_id_col not found in text_df.")
-    if (!text_col %in% names(text_df)) stop("text_col not found in text_df.")
+    if (is.null(text_df) || !is.data.frame(text_df)) {
+      stop("text_df must be a data frame.")
+    }
+    if (!doc_id_col %in% names(text_df)) stop("doc_id_col missing.")
+    if (!text_col %in% names(text_df)) stop("text_col missing.")
+    
     docs <- tibble::as_tibble(text_df)
+  }
+  
+  # ----------------------------
+  # Input mode B: TXT
+  # ----------------------------
+  else if (input_type == "txt") {
     
-    # ----------------------------
-    # Input mode B: input_type == "txt"
-    # ----------------------------
-  } else if (input_type == "txt") {
-    
-    if (is.null(txt_paths) || !is.character(txt_paths) || length(txt_paths) == 0) {
-      stop("For input_type='txt', provide txt_paths (character vector).")
+    if (is.null(txt_paths) || length(txt_paths) == 0) {
+      stop("Provide txt_paths.")
     }
     
-    doc_ids <- stringr::str_replace(basename(txt_paths), "\\.txt$", "")
+    doc_ids <- str_replace(basename(txt_paths), "\\.txt$", "")
     texts <- character(length(txt_paths))
+    corpus <- character(length(txt_paths))
+    author <- character(length(txt_paths))
     
     for (i in seq_along(txt_paths)) {
       if (!file.exists(txt_paths[i])) {
-        stop(paste0("TXT file not found: ", txt_paths[i]))
+        stop(paste("Missing file:", txt_paths[i]))
       }
       
       texts[i] <- readr::read_file(txt_paths[i])
       
-      if (!quiet) message("Read TXT: ", doc_ids[i])
+      path_norm <- normalizePath(txt_paths[i], winslash = "/", mustWork = FALSE)
+      
+      if (grepl("/data/longitudinal/", path_norm)) {
+        corpus[i] <- "longitudinal"
+        author[i] <- basename(dirname(txt_paths[i]))
+      } else {
+        corpus[i] <- "non_longitudinal"
+        author[i] <- NA_character_
+      }
+      
+      if (!quiet) message("Read:", doc_ids[i])
     }
     
     docs <- tibble::tibble(
       !!doc_id_col := doc_ids,
-      !!text_col := texts
+      !!text_col := texts,
+      corpus = corpus,
+      author = author
     )
+  }
+  
+  # ----------------------------
+  # Input mode C: PDF
+  # ----------------------------
+  else if (input_type == "pdf") {
     
-    # ----------------------------
-    # Input mode C: input_type == "pdf"
-    # ----------------------------
-  } else if (input_type == "pdf") {
-    
-    if (is.null(pdf_paths) || !is.character(pdf_paths) || length(pdf_paths) == 0) {
-      stop("For input_type='pdf', provide pdf_paths (character vector).")
+    if (is.null(pdf_paths) || length(pdf_paths) == 0) {
+      stop("Provide pdf_paths.")
     }
     
-    doc_ids <- stringr::str_replace(basename(pdf_paths), "\\.pdf$", "")
+    doc_ids <- str_replace(basename(pdf_paths), "\\.pdf$", "")
     texts <- character(length(pdf_paths))
     
     for (i in seq_along(pdf_paths)) {
       texts[i] <- extract_pdf_text(pdf_paths[i])
-      if (!quiet) message("Extracted PDF: ", doc_ids[i])
+      if (!quiet) message("Extracted:", doc_ids[i])
     }
     
     docs <- tibble::tibble(
       !!doc_id_col := doc_ids,
-      !!text_col := texts
+      !!text_col := texts,
+      corpus = "non_longitudinal",
+      author = NA_character_
     )
   }
     

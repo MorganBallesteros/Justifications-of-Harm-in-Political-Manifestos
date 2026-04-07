@@ -15,7 +15,7 @@
 #       Thesis/data/processed/role_model_glorification_docs.csv
 #
 # Notes for reproducibility:
-#   - This script uses input_type = "pdf", which requires the 'pdftools' package.
+#   - This script uses input_type = "txt" (primary input mode)
 #   - The thesis Rmd can read the processed CSV files without re-extracting PDFs.
 #   - Scoring is done at the paragraph level so co-occurrence indicators can be built
 #     within segments rather than only at the whole-document level.
@@ -93,53 +93,19 @@ if (length(txt_paths) == 0) {
   stop("No .txt files found in Thesis/data/raw or Thesis/data/longitudinal.")
 }
 
-cat("Raw directory:", raw_dir, "\n")
-cat("TXT files found:", length(txt_paths), "\n")
-cat("PDF files found:", length(pdf_paths), "\n")
-
-if (length(txt_paths) == 0 && length(pdf_paths) == 0) {
-  stop("No .txt or .pdf files found in data/raw/")
-}
-
-cat("Raw directory:", raw_dir, "\n")
-cat("Directory exists?:", dir.exists(raw_dir), "\n")
-cat("Number of TXT files:", length(txt_paths), "\n")
-cat("Number of PDF files:", length(pdf_paths), "\n")
-
-if (length(pdf_paths) == 0) {
-  stop(
-    paste(
-      "No PDF files found in:",
-      pdf_dir,
-      "\nCheck the folder path and confirm the PDFs are present."
-    )
-  )
-}
 
 # ------------------------------------------------------------
 # Run scoring at the paragraph level
 # ------------------------------------------------------------
-if (length(txt_paths) > 0) {
-  res <- score_manifestos(
-    input_type = "txt",
-    txt_paths = txt_paths,
-    markers = markers,
-    segment = "paragraph",
-    output = "long",
-    write_out = FALSE,
-    quiet = FALSE
-  )
-} else {
-  res <- score_manifestos(
-    input_type = "pdf",
-    pdf_paths = pdf_paths,
-    markers = markers,
-    segment = "paragraph",
-    output = "long",
-    write_out = FALSE,
-    quiet = FALSE
-  )
-}
+res <- score_manifestos(
+  input_type = "txt",
+  txt_paths = txt_paths,
+  markers = markers,
+  segment = "paragraph",
+  output = "long",
+  write_out = FALSE,
+  quiet = FALSE
+)
 
 # Marker-level scored output
 scores_long <- res$scores
