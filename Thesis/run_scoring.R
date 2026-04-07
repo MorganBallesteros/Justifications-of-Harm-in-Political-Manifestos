@@ -166,6 +166,8 @@ if (any(is.na(scores_annotated$marker_group) | is.na(scores_annotated$marker_cat
 marker_scores <- scores_annotated %>%
   dplyr::select(
     doc_id,
+    corpus,
+    author,
     segment_id,
     marker,
     marker_group,
@@ -180,7 +182,7 @@ marker_scores <- scores_annotated %>%
 # Prevalence is recomputed from summed counts, not averaged from marker prevalences
 # ------------------------------------------------------------
 group_scores <- scores_annotated %>%
-  dplyr::group_by(doc_id, segment_id, marker_group, marker_category) %>%
+  dplyr::group_by(doc_id, corpus, author, segment_id, marker_group, marker_category) %>%
   dplyr::summarise(
     count = sum(count, na.rm = TRUE),
     word_count = max(word_count, na.rm = TRUE),
@@ -192,7 +194,7 @@ group_scores <- scores_annotated %>%
 # Category-level output
 # ------------------------------------------------------------
 category_scores <- scores_annotated %>%
-  dplyr::group_by(doc_id, segment_id, marker_category) %>%
+  dplyr::group_by(doc_id, corpus, author, segment_id, marker_category) %>%
   dplyr::summarise(
     count = sum(count, na.rm = TRUE),
     word_count = max(word_count, na.rm = TRUE),
@@ -205,7 +207,7 @@ category_scores <- scores_annotated %>%
 # violent reference + role model status within the same segment
 # ------------------------------------------------------------
 role_model_glorification_segments <- scores_annotated %>%
-  dplyr::group_by(doc_id, segment_id) %>%
+  dplyr::group_by(doc_id, corpus, author, segment_id) %>%
   dplyr::summarise(
     has_violent_reference = any(marker_group == "violent_reference" & count > 0, na.rm = TRUE),
     has_role_model_status = any(marker_group == "role_model_status" & count > 0, na.rm = TRUE),
@@ -217,7 +219,7 @@ role_model_glorification_segments <- scores_annotated %>%
   )
 
 role_model_glorification_docs <- role_model_glorification_segments %>%
-  dplyr::group_by(doc_id) %>%
+  dplyr::group_by(doc_id, corpus, author) %>%
   dplyr::summarise(
     any_role_model_glorification = any(role_model_glorification, na.rm = TRUE),
     n_glorification_segments = sum(role_model_glorification, na.rm = TRUE),
