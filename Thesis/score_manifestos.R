@@ -164,7 +164,9 @@ score_manifestos <- function(input_type = c("text", "pdf", "txt"),
       author = NA_character_
     )
   }
-    
+  
+  if (!"corpus" %in% names(docs)) docs$corpus <- NA_character_
+  if (!"author" %in% names(docs)) docs$author <- NA_character_
   
   # ----------------------------
   # Normalize text (stringr) + missing handling
