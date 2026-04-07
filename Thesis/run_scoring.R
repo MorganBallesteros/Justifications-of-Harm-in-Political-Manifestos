@@ -1,8 +1,8 @@
 # Purpose:
-#   Run the full scoring pipeline from raw PDF files to processed CSV outputs.
+# Run the full scoring pipeline from raw manifesto text files (.txt preferred, .pdf fallback)
 #
 # Expected inputs:
-#   - Raw PDFs stored in: Thesis/data/raw/pdfs/
+#   - Raw text files stored in: Thesis/data/raw/
 #   - Marker dictionary stored in: Thesis/data/markers/marker_dictionary.csv
 #
 # Expected outputs:
@@ -62,18 +62,39 @@ if (length(markers) == 0) {
 # ------------------------------------------------------------
 # Find all PDFs
 # ------------------------------------------------------------
-pdf_dir <- here::here("Thesis", "data", "raw", "pdfs")
+# ------------------------------------------------------------
+# Find all text files (.txt preferred, .pdf fallback)
+# ------------------------------------------------------------
+raw_dir <- here::here("Thesis", "data", "raw")
 
-pdf_paths <- list.files(
-  pdf_dir,
-  pattern = "\\.pdf$",
+txt_paths <- list.files(
+  raw_dir,
+  pattern = "\\.txt$",
   full.names = TRUE,
+  recursive = TRUE,
   ignore.case = TRUE
 )
 
-cat("PDF directory:", pdf_dir, "\n")
-cat("Directory exists?:", dir.exists(pdf_dir), "\n")
-cat("Number of PDFs found:", length(pdf_paths), "\n")
+pdf_paths <- list.files(
+  raw_dir,
+  pattern = "\\.pdf$",
+  full.names = TRUE,
+  recursive = TRUE,
+  ignore.case = TRUE
+)
+
+cat("Raw directory:", raw_dir, "\n")
+cat("TXT files found:", length(txt_paths), "\n")
+cat("PDF files found:", length(pdf_paths), "\n")
+
+if (length(txt_paths) == 0 && length(pdf_paths) == 0) {
+  stop("No .txt or .pdf files found in data/raw/")
+}
+
+cat("Raw directory:", raw_dir, "\n")
+cat("Directory exists?:", dir.exists(raw_dir), "\n")
+cat("Number of TXT files:", length(txt_paths), "\n")
+cat("Number of PDF files:", length(pdf_paths), "\n")
 
 if (length(pdf_paths) == 0) {
   stop(
@@ -88,15 +109,27 @@ if (length(pdf_paths) == 0) {
 # ------------------------------------------------------------
 # Run scoring at the paragraph level
 # ------------------------------------------------------------
-res <- score_manifestos(
-  input_type = "pdf",
-  pdf_paths = pdf_paths,
-  markers = markers,
-  segment = "paragraph",
-  output = "long",
-  write_out = FALSE,
-  quiet = FALSE
-)
+if (length(txt_paths) > 0) {
+  res <- score_manifestos(
+    input_type = "txt",
+    txt_paths = txt_paths,
+    markers = markers,
+    segment = "paragraph",
+    output = "long",
+    write_out = FALSE,
+    quiet = FALSE
+  )
+} else {
+  res <- score_manifestos(
+    input_type = "pdf",
+    pdf_paths = pdf_paths,
+    markers = markers,
+    segment = "paragraph",
+    output = "long",
+    write_out = FALSE,
+    quiet = FALSE
+  )
+}
 
 # Marker-level scored output
 scores_long <- res$scores
