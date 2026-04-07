@@ -54,10 +54,6 @@ suppressPackageStartupMessages({
 # Register bibliography for citations
 r_refs("r-references.bib")
 
-# Fail early if a required package for PDF extraction is missing.
-if (!requireNamespace("pdftools", quietly = TRUE)) {
-  stop("Package 'pdftools' is required to build processed scoring files. Please install it before knitting.")
-}
 
 # Reproducibility checks for key project files.
 required_files <- c(
@@ -78,8 +74,8 @@ if (length(missing_files) > 0) {
   )
 }
 
-if (!dir.exists("data/raw/pdfs")) {
-  stop("The directory 'data/raw/pdfs' is missing. The document cannot regenerate processed scoring files.")
+if (!dir.exists("data/raw")) {
+  stop("The directory 'data/raw' is missing.")
 }
 ```
 
@@ -95,8 +91,8 @@ if (!dir.exists("data/raw/pdfs")) {
 #
 # Reproducibility logic:
 #   If processed files are absent, run_scoring.R is executed automatically.
-#   This allows the manuscript to be rendered from a clean thesis directory
-#   by simply knitting the R Markdown file.
+#   The scoring pipeline should read the raw manifesto corpus from the
+#   project's text-first input structure and regenerate processed outputs.
 
 processed_file <- "data/processed/manifesto_scores_groups.csv"
 
