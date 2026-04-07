@@ -74,7 +74,7 @@ if (length(missing_files) > 0) {
   )
 }
 
-raw_dirs <- c("data/raw", "data/longitudinal")
+raw_dirs <- c("data/raw", "data/raw/longitudinal")
 
 if (!all(dir.exists(raw_dirs))) {
   stop(

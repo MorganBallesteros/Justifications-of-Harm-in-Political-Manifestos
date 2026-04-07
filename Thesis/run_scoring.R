@@ -29,13 +29,13 @@ suppressPackageStartupMessages({
 # ------------------------------------------------------------
 # Load scoring function
 # ------------------------------------------------------------
-source(here::here("Thesis", "score_manifestos.R"))
+source(here::here("score_manifestos.R"))
 
 # ------------------------------------------------------------
 # Read marker dictionary
 # ------------------------------------------------------------
 marker_dict <- readr::read_csv(
-  here::here("Thesis", "data", "markers", "marker_dictionary.csv"),
+  here::here("data", "markers", "marker_dictionary.csv"),
   show_col_types = FALSE
 )
 
@@ -62,8 +62,8 @@ if (length(markers) == 0) {
 # ------------------------------------------------------------
 # Find all TXT files
 # ------------------------------------------------------------
-nonlong_dir <- here::here("Thesis", "data", "raw")
-long_dir    <- here::here("Thesis", "data", "longitudinal")
+nonlong_dir <- here::here("data", "raw")
+long_dir    <- here::here("data", "longitudinal")
 
 txt_paths_nonlong <- list.files(
   nonlong_dir,
@@ -197,7 +197,7 @@ role_model_glorification_docs <- role_model_glorification_segments %>%
 # ------------------------------------------------------------
 # Ensure processed output directory exists
 # ------------------------------------------------------------
-processed_dir <- here::here("Thesis", "data", "processed")
+processed_dir <- here::here("data", "processed")
 dir.create(processed_dir, recursive = TRUE, showWarnings = FALSE)
 
 # ------------------------------------------------------------
@@ -205,27 +205,27 @@ dir.create(processed_dir, recursive = TRUE, showWarnings = FALSE)
 # ------------------------------------------------------------
 readr::write_csv(
   marker_scores,
-  here::here("Thesis", "data", "processed", "manifesto_scores_markers.csv")
+  here::here("data", "processed", "manifesto_scores_markers.csv")
 )
 
 readr::write_csv(
   group_scores,
-  here::here("Thesis", "data", "processed", "manifesto_scores_groups.csv")
+  here::here("data", "processed", "manifesto_scores_groups.csv")
 )
 
 readr::write_csv(
   category_scores,
-  here::here("Thesis", "data", "processed", "manifesto_scores_categories.csv")
+  here::here("data", "processed", "manifesto_scores_categories.csv")
 )
 
 readr::write_csv(
   role_model_glorification_segments,
-  here::here("Thesis", "data", "processed", "role_model_glorification_segments.csv")
+  here::here("data", "processed", "role_model_glorification_segments.csv")
 )
 
 readr::write_csv(
   role_model_glorification_docs,
-  here::here("Thesis", "data", "processed", "role_model_glorification_docs.csv")
+  here::here("data", "processed", "role_model_glorification_docs.csv")
 )
 
 # ------------------------------------------------------------

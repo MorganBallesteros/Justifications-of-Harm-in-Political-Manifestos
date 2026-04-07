@@ -24,7 +24,7 @@ suppressPackageStartupMessages({
 #   - "segment" option illustrates tidy reshaping (document vs paragraph)
 
 # Load helper functions (normalize_text, build_marker_regex)
-source(here::here("Thesis", "manifesto_helpers.R"))
+source(here::here("manifesto_helpers.R"))
 
 # ------------------------------------------------------------
 # extract_pdf_text()
@@ -68,7 +68,7 @@ score_manifestos <- function(input_type = c("text", "pdf", "txt"),
                              per = 1000,
                              output = c("long", "wide"),
                              write_out = FALSE,
-                             out_path = "Thesis/data/processed/manifesto_scores.csv",
+                             out_path = "data/processed/manifesto_scores.csv",
                              quiet = TRUE) {
   
   # ----------------------------
