@@ -10,8 +10,9 @@ suppressPackageStartupMessages({
 # Purpose:
 #   Define the main wrangling/scoring function for manifesto texts.
 #   Supports:
-#     - input_type = "text": score texts already loaded in a data frame
-#     - input_type = "pdf": extract text from PDFs, then score
+#     - input_type = "text"  (pre-loaded dataframe)
+#     - input_type = "txt"   (raw text files)
+#     - input_type = "pdf"   (PDF extraction fallback)
 #   Produces:
 #     - tidy long output by default (doc_id × marker × prevalence)
 #     - optional wide output (one marker per column)
@@ -55,9 +56,10 @@ extract_pdf_text <- function(pdf_path) {
 #   scores_long: always the long (tidy) table
 #   doc_summary: one row per doc (and optional category) summary
 #   problems: documents that had missing/empty text
-score_manifestos <- function(input_type = c("text", "pdf"),
+score_manifestos <- function(input_type = c("text", "pdf", "txt"),
                              text_df = NULL,
                              pdf_paths = NULL,
+                             txt_paths = NULL,
                              doc_id_col = "doc_id",
                              text_col = "text",
                              markers,
@@ -90,14 +92,56 @@ score_manifestos <- function(input_type = c("text", "pdf"),
     if (!doc_id_col %in% names(text_df)) stop("doc_id_col not found in text_df.")
     if (!text_col %in% names(text_df)) stop("text_col not found in text_df.")
     docs <- tibble::as_tibble(text_df)
-  } else {
+    
     # ----------------------------
-    # Input mode B: input_type == "pdf"
+    # Input mode B: input_type == "txt"
     # ----------------------------
-    # Validate pdf_paths input
+  } else if (input_type == "txt") {
+    
+    if (is.null(txt_paths) || !is.character(txt_paths) || length(txt_paths) == 0) {
+      stop("For input_type='txt', provide txt_paths (character vector).")
+    }
+    
+    doc_ids <- stringr::str_replace(basename(txt_paths), "\\.txt$", "")
+    texts <- character(length(txt_paths))
+    
+    for (i in seq_along(txt_paths)) {
+      if (!file.exists(txt_paths[i])) {
+        stop(paste0("TXT file not found: ", txt_paths[i]))
+      }
+      
+      texts[i] <- readr::read_file(txt_paths[i])
+      
+      if (!quiet) message("Read TXT: ", doc_ids[i])
+    }
+    
+    docs <- tibble::tibble(
+      !!doc_id_col := doc_ids,
+      !!text_col := texts
+    )
+    
+    # ----------------------------
+    # Input mode C: input_type == "pdf"
+    # ----------------------------
+  } else if (input_type == "pdf") {
+    
     if (is.null(pdf_paths) || !is.character(pdf_paths) || length(pdf_paths) == 0) {
       stop("For input_type='pdf', provide pdf_paths (character vector).")
     }
+    
+    doc_ids <- stringr::str_replace(basename(pdf_paths), "\\.pdf$", "")
+    texts <- character(length(pdf_paths))
+    
+    for (i in seq_along(pdf_paths)) {
+      texts[i] <- extract_pdf_text(pdf_paths[i])
+      if (!quiet) message("Extracted PDF: ", doc_ids[i])
+    }
+    
+    docs <- tibble::tibble(
+      !!doc_id_col := doc_ids,
+      !!text_col := texts
+    )
+  }
     
     # Derive doc_ids from filenames by stripping .pdf
     # basename(): remove directory; str_replace(): remove extension
