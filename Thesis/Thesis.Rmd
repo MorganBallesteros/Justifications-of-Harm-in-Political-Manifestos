@@ -272,10 +272,27 @@ doc_meta <- readr::read_csv(
 )
 ```
 
-```{r merge-doc-meta}
-doc_scores <- doc_scores |>
-  dplyr::left_join(doc_meta, by = "doc_id")
+```{r inspect-doc-meta, echo=TRUE}
+names(doc_meta)
+head(doc_meta)
+head(doc_scores$doc_id)
+head(doc_meta$doc_id)
 ```
+
+
+```{r merge-doc-meta, echo=FALSE, message=FALSE, warning=FALSE}
+doc_scores <- doc_scores |>
+  dplyr::left_join(
+    doc_meta |>
+      dplyr::select(doc_id, category),
+    by = "doc_id"
+  )
+```
+
+```{r check-category-merge, echo=TRUE}
+table(doc_scores$category, useNA = "ifany")
+```
+
 
 ```{r load-autoic, echo=FALSE, message=FALSE, warning=FALSE}
 autoic_nonlong <- readxl::read_excel(
