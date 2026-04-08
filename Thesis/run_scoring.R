@@ -97,17 +97,28 @@ if (length(txt_paths) == 0) {
 # ------------------------------------------------------------
 # Run scoring at the paragraph level
 # ------------------------------------------------------------
-res <- score_manifestos(
-  input_type = "txt",
-  txt_paths = txt_paths,
-  markers = markers,
-  segment = "paragraph",
-  output = "long",
-  write_out = FALSE,
-  quiet = FALSE
+res <- try(
+  score_manifestos(
+    input_type = "txt",
+    txt_paths = txt_paths,
+    markers = markers,
+    segment = "paragraph",
+    output = "long",
+    write_out = FALSE,
+    quiet = FALSE
+  ),
+  silent = FALSE
 )
 
-# Marker-level scored output
+print("CHECKPOINT: score_manifestos finished")
+print(class(res))
+
+if (inherits(res, "try-error")) {
+  stop("score_manifestos() failed before scores_long was created.")
+}
+
+print(names(res))
+
 scores_long <- res$scores
 
 print("CHECKPOINT: scores_long created")
