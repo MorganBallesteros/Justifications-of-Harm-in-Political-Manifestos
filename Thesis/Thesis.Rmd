@@ -324,6 +324,13 @@ autoic_long <- readxl::read_excel(
 names(autoic_nonlong)
 names(autoic_long)
 ```
+```{r check-autoic-integration}
+names(doc_scores)
+
+summary(doc_scores$ic)
+sum(is.na(doc_scores$ic))
+```
+
 
 ```{r factorize-category}
 doc_scores$category <- factor(
@@ -540,9 +547,28 @@ marker_groups <- c(
 )
 
 # Fit one regression per marker group
-models <- lapply(marker_groups, function(m) {
-  stats::lm(stats::as.formula(paste(m, "~ category")), data = doc_scores)
+ic_vars <- c(
+  "ic",
+  "dial",
+  "elab",
+  "ic_differentiation",
+  "ic_integration",
+  "dial_differentiation",
+  "dial_integration",
+  "elab_differentiation",
+  "elab_integration"
+)
+
+models_ic <- lapply(ic_vars, function(v) {
+  lm(
+    as.formula(
+      paste(v, "~ justification_for_violence + dyadic_harm + category")
+    ),
+    data = doc_scores
+  )
 })
+
+names(models_ic) <- ic_vars
 
 names(models) <- marker_groups
 
