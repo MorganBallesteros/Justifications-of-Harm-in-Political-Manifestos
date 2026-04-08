@@ -121,7 +121,7 @@ score_manifestos <- function(input_type = c("text", "pdf", "txt"),
       
       path_norm <- normalizePath(txt_paths[i], winslash = "/", mustWork = FALSE)
       
-      if (grepl("/data/longitudinal/", path_norm)) {
+      if (grepl("/data/raw/longitudinal/", path_norm)) {
         corpus[i] <- "longitudinal"
         author[i] <- basename(dirname(txt_paths[i]))
       } else {
