@@ -60,6 +60,46 @@
   \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
 \fi
 \makeatother
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 \usepackage{graphicx}
 \makeatletter
 \newsavebox\pandoc@box
@@ -305,13 +345,139 @@ markers of harm on said longitudinal sets.
 
 \section{Results}\label{results}
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{names}\NormalTok{(doc\_meta)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "doc_id"   "category"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(doc\_meta)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 2
+##   doc_id                           category
+##   <chr>                            <chr>   
+## 1 1160kennedyichbin                moderate
+## 2 142thunberg                      moderate
+## 3 1945labourpartymanifesto         moderate
+## 4 1949simonedebeauvoirthesecondsex moderate
+## 5 atlanticcharter                  moderate
+## 6 communistmanifesto               extreme
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(doc\_scores}\SpecialCharTok{$}\NormalTok{doc\_id, }\DecValTok{20}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "1160kennedyichbin"                                                                
+##  [2] "142thunberg"                                                                      
+##  [3] "1945labourpartymanifesto"                                                         
+##  [4] "1949simonedebeauvoirthesecondsex"                                                 
+##  [5] "acontributiontothehistoryofthenationalprogrammeinaustriaandinrussia251914"        
+##  [6] "adisgracefulresolution10181912"                                                   
+##  [7] "ahouseofmanymansions1940"                                                         
+##  [8] "ahushovereurope1939"                                                              
+##  [9] "anewchapterofworldhistory10211912"                                                
+## [10] "addresstojointsessionofuscongress1941"                                            
+## [11] "againstpessimism4151924"                                                          
+## [12] "againstpessimism4151924"                                                          
+## [13] "atlanticcharter"                                                                  
+## [14] "beyemenofvalour1940"                                                              
+## [15] "billontheequalityofnationsandthesafeguardingoftherightsofnationalminorities561914"
+## [16] "bloodtoiltearsandsweat1940"                                                       
+## [17] "bolshevismandimperialsedition1920"                                                
+## [18] "cadetsandnationalists10241912"                                                    
+## [19] "cadetsonthequestionoftheukraine7161913"                                           
+## [20] "clarityhasbeenachieved651914"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(doc\_meta}\SpecialCharTok{$}\NormalTok{doc\_id, }\DecValTok{20}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "1160kennedyichbin"                                          
+##  [2] "142thunberg"                                                
+##  [3] "1945labourpartymanifesto"                                   
+##  [4] "1949simonedebeauvoirthesecondsex"                           
+##  [5] "atlanticcharter"                                            
+##  [6] "communistmanifesto"                                         
+##  [7] "defeatingeurabia1"                                          
+##  [8] "earnestmanifesto042719"                                     
+##  [9] "fourfreedomsspeechfranklindelanoroosevelt1"                 
+## [10] "fulltextihaveadream"                                        
+## [11] "hitleradolfmeinkampf"                                       
+## [12] "imperiumyockey"                                             
+## [13] "maududisayyidabulalaaljihadfilislambysyedabulaalamaududi"   
+## [14] "piercewilliamlfreespeechessays19952002"                     
+## [15] "porthuronstatement"                                         
+## [16] "revoltagainstthemodernworldjuliusevola"                     
+## [17] "russianimperialmanifestoannouncingthestartofwarinaugust1914"
+## [18] "andersbreivik2083manifesto2011"                             
+## [19] "brentontarrantthegreatreplacementmanifesto"                 
+## [20] "chomanifesto11"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{table}\NormalTok{(doc\_scores}\SpecialCharTok{$}\NormalTok{category, }\AttributeTok{useNA =} \StringTok{"ifany"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  extreme moderate  violent     <NA> 
+##       10        9        8      265
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{names}\NormalTok{(autoic\_nonlong)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "document"             "chunk"                "complete"            
+##  [4] "paragraph"            "words"                "ic"                  
+##  [7] "dial"                 "elab"                 "ic_differentiation"  
+## [10] "ic_integration"       "dial_differentiation" "dial_integration"    
+## [13] "elab_differentiation" "elab_integration"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{names}\NormalTok{(autoic\_long)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "document"             "chunk"                "complete"            
+##  [4] "paragraph"            "words"                "ic"                  
+##  [7] "dial"                 "elab"                 "ic_differentiation"  
+## [10] "ic_integration"       "dial_differentiation" "dial_integration"    
+## [13] "elab_differentiation" "elab_integration"
+\end{verbatim}
+
 \subsection{Descriptive Statistics}\label{descriptive-statistics}
 
 \begin{figure}
 \includegraphics[width=0.82\linewidth]{Thesis_files/figure-latex/group-prevalence-plot-1} \caption{Mean prevalence of grouped linguistic indicators of harm justification. Note. Bars represent mean grouped marker prevalence per 1,000 words across documents. Error bars represent 95\% confidence intervals. Marker groups aggregate lexical indicators defined in the study's marker dictionary.}\label{fig:group-prevalence-plot}
 \end{figure}
 
-Descriptive statistics were calculated to examine the prevalence of grouped linguistic indicators of harm justification across the manifesto corpus. Prevalence values represent occurrences of grouped markers per 1,000 words. Across all 31 manifestos, markers associated with hopelessness were the most common (M = 3.87, SD = 3.02), followed by role model status (M = 0.50, SD = 0.56), justification for violence (M = 0.27, SD = 0.37), martyrdom narratives (M = 0.24, SD = 0.43), dyadic harm language (M = 0.13, SD = 0.19), and references to violent actors or events (M = 0.12, SD = 0.45). Minimum and maximum prevalence values ranged from 0 to 12.11 depending on marker group.
+Descriptive statistics were calculated to examine the prevalence of grouped linguistic indicators of harm justification across the manifesto corpus. Prevalence values represent occurrences of grouped markers per 1,000 words. Across all 251 manifestos, markers associated with hopelessness were the most common (M = 4.50, SD = 4.19), followed by role model status (M = 0.57, SD = 0.84), justification for violence (M = 0.30, SD = 0.71), martyrdom narratives (M = 0.16, SD = 0.40), dyadic harm language (M = 0.10, SD = 0.24), and references to violent actors or events (M = 0.09, SD = 0.46). Minimum and maximum prevalence values ranged from 0 to 26.32 depending on marker group.
 
 \begin{table}[tbp]
 
@@ -320,14 +486,14 @@ Descriptive statistics were calculated to examine the prevalence of grouped ling
 
 \caption{\label{tab:manifesto-descriptives}Mean prevalence of grouped linguistic indicators by manifesto category.}
 
-\begin{tabular}{llll}
+\begin{tabular}{lllll}
 \toprule
-Marker Group & \multicolumn{1}{c}{moderate} & \multicolumn{1}{c}{extreme} & \multicolumn{1}{c}{violent}\\
+Marker Group & \multicolumn{1}{c}{moderate} & \multicolumn{1}{c}{extreme} & \multicolumn{1}{c}{violent} & \multicolumn{1}{c}{NA}\\
 \midrule
-Dyadic Harm & 0.01 & 0.17 & 0.19\\
-Justification for Violence & 0.16 & 0.21 & 0.46\\
-Martyrdom Narrative & 0.08 & 0.13 & 0.55\\
-Hopelessness & 3.40 & 5.15 & 2.47\\
+Dyadic Harm & 0.01 & 0.18 & 0.18 & 0.10\\
+Justification for Violence & 0.16 & 0.18 & 0.47 & 0.31\\
+Martyrdom Narrative & 0.08 & 0.16 & 0.56 & 0.15\\
+Hopelessness & 3.45 & 5.17 & 2.30 & 4.58\\
 \bottomrule
 \addlinespace
 \end{tabular}
@@ -341,7 +507,7 @@ Hopelessness & 3.40 & 5.15 & 2.47\\
 
 \end{table}
 
-Mean marker prevalence also differed across manifesto categories (Table \ref{tab:manifesto-descriptives}). Violent self-sacrificial manifestos exhibited the highest average prevalence of dyadic harm language (M = 0.19) and justification for violence (M = ), whereas moderate manifestos displayed very low levels of these indicators (dyadic harm M = 0.01; justification for violence M = ). Martyrdom narratives showed the most pronounced difference across categories, appearing most frequently in violent manifestos (M = 0.55) compared with extreme (M = 0.13) and moderate texts (M = 0.08). In contrast, markers associated with hopelessness were most prevalent in ideologically extreme manifestos (M = 5.15), followed by moderate manifestos (M = 3.40) and violent manifestos (M = 2.47).
+Mean marker prevalence also differed across manifesto categories (Table \ref{tab:manifesto-descriptives}). Violent self-sacrificial manifestos exhibited the highest average prevalence of dyadic harm language (M = 0.18) and justification for violence (M = ), whereas moderate manifestos displayed very low levels of these indicators (dyadic harm M = 0.01; justification for violence M = ). Martyrdom narratives showed the most pronounced difference across categories, appearing most frequently in violent manifestos (M = 0.56) compared with extreme (M = 0.16) and moderate texts (M = 0.08). In contrast, markers associated with hopelessness were most prevalent in ideologically extreme manifestos (M = 5.17), followed by moderate manifestos (M = 3.45) and violent manifestos (M = 2.30).
 
 \subsection{Regression Analyses}\label{regression-analyses}
 
@@ -362,14 +528,14 @@ The regression model predicting dyadic harm language indicated that manifesto ca
 \toprule
 Outcome & \multicolumn{1}{c}{Contrast} & \multicolumn{1}{c}{B} & \multicolumn{1}{c}{SE} & \multicolumn{1}{c}{t} & \multicolumn{1}{c}{p}\\
 \midrule
-Dyadic Harm & Extreme vs. Moderate & 0.16 & 0.08 & 2.16 & 0.040\\
-Dyadic Harm & Violent vs. Moderate & 0.18 & 0.08 & 2.21 & 0.035\\
-Justification & Extreme vs. Moderate & 0.05 & 0.16 & 0.33 & 0.744\\
-Justification & Violent vs. Moderate & 0.30 & 0.17 & 1.78 & 0.085\\
-Martyrdom & Extreme vs. Moderate & 0.05 & 0.17 & 0.28 & 0.780\\
-Martyrdom & Violent vs. Moderate & 0.47 & 0.19 & 2.50 & 0.019\\
-Hopelessness & Extreme vs. Moderate & 1.75 & 1.25 & 1.41 & 0.171\\
-Hopelessness & Violent vs. Moderate & -0.93 & 1.36 & -0.69 & 0.497\\
+Dyadic Harm & Extreme vs. Moderate & 0.17 & 0.08 & 1.97 & 0.061\\
+Dyadic Harm & Violent vs. Moderate & 0.16 & 0.09 & 1.82 & 0.081\\
+Justification & Extreme vs. Moderate & 0.02 & 0.18 & 0.14 & 0.893\\
+Justification & Violent vs. Moderate & 0.32 & 0.18 & 1.71 & 0.100\\
+Martyrdom & Extreme vs. Moderate & 0.07 & 0.20 & 0.38 & 0.711\\
+Martyrdom & Violent vs. Moderate & 0.47 & 0.21 & 2.27 & 0.032\\
+Hopelessness & Extreme vs. Moderate & 1.72 & 1.22 & 1.41 & 0.172\\
+Hopelessness & Violent vs. Moderate & -1.16 & 1.29 & -0.90 & 0.379\\
 \bottomrule
 \addlinespace
 \end{tabular}
@@ -427,7 +593,7 @@ Taken together, the present findings represent an initial empirical test of the 
 
 \subsection{Data analysis}\label{data-analysis}
 
-I used R (Version 4.5.2; R Core Team, 2025) and the R-packages \emph{\}dplyr} {[}@\}R-dplyr{]}, \emph{forcats} (Version 1.0.1; Wickham, 2025a), \emph{ggplot2} (Version 4.0.2; Wickham, 2016), \emph{here} (Version 1.0.2; Müller, 2025), \emph{papaja} (Version 0.1.4; Aust \& Barth, 2025), \emph{readr} (Version 2.1.6; Wickham, Hester, \& Bryan, 2025), \emph{stringr} (Version 1.6.0; Wickham, 2025b), \emph{tidyr} (Version 1.3.2; Wickham, Vaughan, \& Girlich, 2025), and \emph{tinylabels} (Version 0.2.5; Barth, 2025) for all analyses. The raw manifesto texts extracted from PDF files are not stored in a tidy format because each document appears as a single character string containing many paragraphs and potential marker occurrences. In tidy data, each variable should occupy a column and each observational unit should occupy a row. For the present analysis, the relevant observational unit is a segment of text within a document. The text-processing pipeline therefore converts each document into paragraph-level segments and then expands these segments so that each row represents a document--segment--marker observation. This structure allows marker counts and prevalence rates to be computed using grouped operations and joined with the marker dictionary metadata.
+I used R (Version 4.5.2; R Core Team, 2025) and the R-packages \emph{\}dplyr} {[}@\}R-dplyr{]}, \emph{forcats} (Version 1.0.1; Wickham, 2025a), \emph{ggplot2} (Version 4.0.2; Wickham, 2016), \emph{here} (Version 1.0.2; Müller, 2025), \emph{janitor} (Version 2.2.1; Firke, 2024), \emph{papaja} (Version 0.1.4; Aust \& Barth, 2025), \emph{purrr} (Version 1.2.1; Wickham \& Henry, 2026), \emph{readr} (Version 2.1.6; Wickham, Hester, \& Bryan, 2025), \emph{readxl} (Version 1.4.5; Wickham \& Bryan, 2025), \emph{stringr} (Version 1.6.0; Wickham, 2025b), \emph{tidyr} (Version 1.3.2; Wickham, Vaughan, \& Girlich, 2025), and \emph{tinylabels} (Version 0.2.5; Barth, 2025) for all analyses. The raw manifesto texts extracted from PDF files are not stored in a tidy format because each document appears as a single character string containing many paragraphs and potential marker occurrences. In tidy data, each variable should occupy a column and each observational unit should occupy a row. For the present analysis, the relevant observational unit is a segment of text within a document. The text-processing pipeline therefore converts each document into paragraph-level segments and then expands these segments so that each row represents a document--segment--marker observation. This structure allows marker counts and prevalence rates to be computed using grouped operations and joined with the marker dictionary metadata.
 
 \newpage
 
@@ -459,6 +625,9 @@ Ebner, J., Kavanagh, C., \& Whitehouse, H. (2024). Measuring socio-psychological
 \bibitem[\citeproctext]{ref-ebner2025there}
 Ebner, J., Kavanagh, C., \& Whitehouse, H. (2025). Is there a language of terrorists? A comparative manifesto analysis. \emph{Studies in Conflict \& Terrorism}, \emph{48}(6), 601--628.
 
+\bibitem[\citeproctext]{ref-R-janitor}
+Firke, S. (2024). \emph{Janitor: Simple tools for examining and cleaning dirty data}. \url{https://doi.org/10.32614/CRAN.package.janitor}
+
 \bibitem[\citeproctext]{ref-R-here}
 Müller, K. (2025). \emph{Here: A simpler way to find your files}. \url{https://doi.org/10.32614/CRAN.package.here}
 
@@ -486,6 +655,12 @@ Wickham, H. (2025a). \emph{Forcats: Tools for working with categorical variables
 \bibitem[\citeproctext]{ref-R-stringr}
 Wickham, H. (2025b). \emph{Stringr: Simple, consistent wrappers for common string operations}. \url{https://doi.org/10.32614/CRAN.package.stringr}
 
+\bibitem[\citeproctext]{ref-R-readxl}
+Wickham, H., \& Bryan, J. (2025). \emph{Readxl: Read excel files}. \url{https://doi.org/10.32614/CRAN.package.readxl}
+
+\bibitem[\citeproctext]{ref-R-purrr}
+Wickham, H., \& Henry, L. (2026). \emph{Purrr: Functional programming tools}. \url{https://doi.org/10.32614/CRAN.package.purrr}
+
 \bibitem[\citeproctext]{ref-R-readr}
 Wickham, H., Hester, J., \& Bryan, J. (2025). \emph{Readr: Read rectangular text data}. \url{https://doi.org/10.32614/CRAN.package.readr}
 
@@ -511,12 +686,12 @@ Wickham, H., Vaughan, D., \& Girlich, M. (2025). \emph{Tidyr: Tidy messy data}. 
 \toprule
 Marker Group & \multicolumn{1}{c}{Documents} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{SD} & \multicolumn{1}{c}{Min} & \multicolumn{1}{c}{Max}\\
 \midrule
-Hopelessness & 31 & 3.87 & 3.02 & 0.00 & 12.11\\
-Role Model Status & 31 & 0.50 & 0.56 & 0.00 & 2.24\\
-Justification For Violence & 31 & 0.27 & 0.37 & 0.00 & 1.58\\
-Martyrdom Narrative & 31 & 0.24 & 0.43 & 0.00 & 2.26\\
-Dyadic Harm & 31 & 0.13 & 0.19 & 0.00 & 0.71\\
-Violent Reference & 31 & 0.12 & 0.45 & 0.00 & 2.48\\
+Hopelessness & 251 & 4.50 & 4.19 & 0.00 & 26.32\\
+Role Model Status & 251 & 0.57 & 0.84 & 0.00 & 5.02\\
+Justification For Violence & 251 & 0.30 & 0.71 & 0.00 & 7.58\\
+Martyrdom Narrative & 251 & 0.16 & 0.40 & 0.00 & 2.26\\
+Dyadic Harm & 251 & 0.10 & 0.24 & 0.00 & 2.44\\
+Violent Reference & 251 & 0.09 & 0.46 & 0.00 & 3.92\\
 \bottomrule
 \addlinespace
 \end{tabular}
@@ -547,10 +722,10 @@ Violent Reference & 31 & 0.12 & 0.45 & 0.00 & 2.48\\
 \toprule
 Outcome & \multicolumn{1}{c}{R2} & \multicolumn{1}{c}{Adj. R2} & \multicolumn{1}{c}{F} & \multicolumn{1}{c}{p}\\
 \midrule
-Dyadic Harm & 0.18 & 0.12 & 3.10 & 0.061\\
-Justification & 0.12 & 0.06 & 1.88 & 0.171\\
-Martyrdom & 0.22 & 0.16 & 3.94 & 0.031\\
-Hopelessness & 0.15 & 0.09 & 2.48 & 0.102\\
+Dyadic Harm & 0.17 & 0.10 & 2.41 & 0.111\\
+Justification & 0.13 & 0.06 & 1.80 & 0.187\\
+Martyrdom & 0.20 & 0.13 & 2.96 & 0.071\\
+Hopelessness & 0.18 & 0.12 & 2.68 & 0.089\\
 \bottomrule
 \addlinespace
 \end{tabular}

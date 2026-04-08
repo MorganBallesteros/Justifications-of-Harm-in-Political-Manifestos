@@ -275,12 +275,12 @@ doc_meta <- readr::read_csv(
 ```{r normalize-docids, echo=FALSE, message=FALSE, warning=FALSE}
 doc_scores <- doc_scores |>
   dplyr::mutate(
-    doc_id = tolower(gsub("[^a-z0-9]", "", doc_id))
+    doc_id = gsub("[^a-z0-9]", "", sub("pdf$", "", tolower(doc_id)))
   )
 
 doc_meta <- doc_meta |>
   dplyr::mutate(
-    doc_id = tolower(gsub("[^a-z0-9]", "", doc_id))
+    doc_id = gsub("[^a-z0-9]", "", tolower(doc_id))
   )
 ```
 
