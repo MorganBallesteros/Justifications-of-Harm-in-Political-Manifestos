@@ -49,6 +49,8 @@ suppressPackageStartupMessages({
   library(stringr)
   library(tinylabels)
   library(here)
+  library(readxl)
+  library(janitor)
 })
 
 # Register bibliography for citations
@@ -245,21 +247,18 @@ markers of harm on said longitudinal sets.
 # ------------------------------------------------------------
 # Construct document-level dataset for statistical analyses
 # ------------------------------------------------------------
-# The scoring pipeline produces segment-level data because markers
-# are counted within textual segments. However, the hypotheses of
-# this study concern entire manifestos. To avoid pseudoreplication,
-# the segment-level scores are aggregated to the document level.
-
-# Convert tidy long data to wide format (one column per marker)
-# This is useful for modeling or visualization but the long
-# structure remains the canonical tidy representation.
+# Aggregate grouped marker counts to the document level, then
+# recompute prevalence from summed counts and total word count.
 
 doc_scores <- group_scores |>
-  dplyr::group_by(doc_id, marker_group) |>
+  dplyr::group_by(doc_id, corpus, author, marker_group) |>
   dplyr::summarise(
-    prevalence = mean(prevalence, na.rm = TRUE),
+    count = sum(count, na.rm = TRUE),
+    word_count = max(word_count, na.rm = TRUE),
+    prevalence = (count / word_count) * 1000,
     .groups = "drop"
   ) |>
+  dplyr::select(doc_id, corpus, author, marker_group, prevalence) |>
   tidyr::pivot_wider(
     names_from = marker_group,
     values_from = prevalence
@@ -278,12 +277,31 @@ doc_scores <- doc_scores |>
   dplyr::left_join(doc_meta, by = "doc_id")
 ```
 
+```{r load-autoic, echo=FALSE, message=FALSE, warning=FALSE}
+autoic_nonlong <- readxl::read_excel(
+  "data/raw/autoic/coded_manifestos_part1.xlsx"
+) |>
+  janitor::clean_names()
+
+autoic_long <- readxl::read_excel(
+  "data/raw/autoic/coded-Gramsci_Longitudinal.xlsx"
+) |>
+  janitor::clean_names()
+
+```
+
+```{r inspect-autoic-columns, echo=TRUE}
+names(autoic_nonlong)
+names(autoic_long)
+```
+
 ```{r factorize-category}
 doc_scores$category <- factor(
   doc_scores$category,
   levels = c("moderate", "extreme", "violent")
 )
 ```
+
 
 ## Descriptive Statistics 
 
