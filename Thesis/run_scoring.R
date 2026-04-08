@@ -110,6 +110,11 @@ res <- score_manifestos(
 # Marker-level scored output
 scores_long <- res$scores
 
+print("CHECKPOINT: scores_long created")
+print(names(scores_long))
+print(head(scores_long))
+
+
 # ------------------------------------------------------------
 # Annotate scored rows with group/category metadata
 # ------------------------------------------------------------

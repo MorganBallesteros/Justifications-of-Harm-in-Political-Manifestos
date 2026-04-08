@@ -4,7 +4,7 @@ suppressPackageStartupMessages({
   library(stringr)
   library(readr)
   library(forcats)
-  library(purr)
+  library(purrr)
 })
 # score_manifestos.R
 # Purpose:
