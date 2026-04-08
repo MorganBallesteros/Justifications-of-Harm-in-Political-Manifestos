@@ -62,8 +62,8 @@ if (length(markers) == 0) {
 # ------------------------------------------------------------
 # Find all TXT files
 # ------------------------------------------------------------
-nonlong_dir <- here::here("data", "raw")
-long_dir    <- here::here("data", "longitudinal")
+nonlong_dir <- here::here("data", "raw", "pdfs")
+long_dir    <- here::here("data", "raw", "longitudinal")
 
 txt_paths_nonlong <- list.files(
   nonlong_dir,
