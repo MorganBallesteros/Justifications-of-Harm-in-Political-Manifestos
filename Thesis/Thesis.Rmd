@@ -320,7 +320,7 @@ autoic_long <- readxl::read_excel(
 
 ```
 
-```{r inspect-autoic-columns, echo=TRUE}
+```{r inspect-autoic-columns, echo=FALSE, message=FALSE, warning=FALSE}
 names(autoic_nonlong)
 names(autoic_long)
 ```
@@ -389,7 +389,7 @@ doc_scores_ic <- doc_scores |>
 ```
 
 
-```{r check-autoic-integration}
+```{r check-autoic-integration, echo=FALSE, message=FALSE, warning=FALSE}
 names(doc_scores)
 
 summary(doc_scores$ic)
@@ -397,7 +397,7 @@ sum(is.na(doc_scores$ic))
 ```
 
 
-```{r factorize-category}
+```{r factorize-category, echo=FALSE, message=FALSE, warning=FALSE}
 doc_scores$category <- factor(
   doc_scores$category,
   levels = c("moderate", "extreme", "violent")
@@ -405,7 +405,7 @@ doc_scores$category <- factor(
 ```
 
 
-```{r autoic-coverage, echo=TRUE}
+```{r autoic-coverage, echo=FALSE, message=FALSE, warning=FALSE}
 doc_scores |>
   dplyr::summarise(
     n_total = dplyr::n(),
