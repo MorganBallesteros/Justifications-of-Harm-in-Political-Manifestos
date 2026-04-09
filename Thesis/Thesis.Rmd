@@ -418,6 +418,34 @@ doc_scores_ic <- doc_scores |>
   dplyr::filter(!is.na(ic))
 ```
 
+```{r autoic-coverage, echo=TRUE}
+doc_scores |>
+  dplyr::summarise(
+    n_total = dplyr::n(),
+    n_with_ic = sum(!is.na(ic)),
+    n_missing_ic = sum(is.na(ic))
+  )
+
+doc_scores |>
+  dplyr::group_by(corpus) |>
+  dplyr::summarise(
+    n_total = dplyr::n(),
+    n_with_ic = sum(!is.na(ic)),
+    n_missing_ic = sum(is.na(ic)),
+    .groups = "drop"
+  )
+```
+
+```{r regression-ic, echo=TRUE, message=FALSE, warning=FALSE}
+model_ic <- lm(
+  ic ~ dyadic_harm + hopelessness + justification_for_violence +
+    martyrdom_narrative + role_model_status + violent_reference + category,
+  data = doc_scores_ic
+)
+
+summary(model_ic)
+```
+
 
 ## Descriptive Statistics 
 
