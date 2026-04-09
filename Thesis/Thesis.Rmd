@@ -385,11 +385,6 @@ normalize_id <- function(x) {
 }
 ```
 
-```{r autoic-document-level, echo=TRUE, message=FALSE, warning=FALSE}
-autoic_all |>
-  dplyr::count(doc_id) |>
-  dplyr::filter(n > 1)
-```
 
 ```{r inspect-autoic-doc, echo=TRUE}
 nrow(autoic_doc)
@@ -397,6 +392,12 @@ names(autoic_doc)
 head(autoic_doc$doc_id, 20)
 summary(autoic_doc$ic)
 ```
+```{r autoic-document-level, echo=TRUE, message=FALSE, warning=FALSE}
+autoic_all |>
+  dplyr::count(doc_id) |>
+  dplyr::filter(n > 1)
+```
+
 
 ```{r merge-autoic, echo=FALSE, message=FALSE, warning=FALSE}
 doc_scores <- doc_scores |>
