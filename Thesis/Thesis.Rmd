@@ -368,7 +368,8 @@ doc_scores <- doc_scores |>
   )
 ```
 
-```{r}
+
+```{r clean-doc-scores, echo=FALSE, message=FALSE, warning=FALSE}
 doc_scores <- doc_scores |>
   dplyr::select(
     doc_id, corpus, author,
@@ -379,15 +380,6 @@ doc_scores <- doc_scores |>
     ic_differentiation, ic_integration,
     dial_differentiation, dial_integration,
     elab_differentiation, elab_integration
-  )
-```
-
-
-```{r clean-doc-scores, echo=FALSE, message=FALSE, warning=FALSE}
-doc_scores <- doc_scores |>
-  dplyr::select(
-    -dplyr::ends_with(".x"),
-    -dplyr::ends_with(".y")
   )
 ```
 
