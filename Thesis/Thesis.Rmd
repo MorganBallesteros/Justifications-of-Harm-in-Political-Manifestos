@@ -368,6 +368,15 @@ doc_scores <- doc_scores |>
   )
 ```
 
+```{r clean-doc-scores, echo=FALSE, message=FALSE, warning=FALSE}
+doc_scores <- doc_scores |>
+  dplyr::select(
+    -dplyr::ends_with(".x"),
+    -dplyr::ends_with(".y")
+  )
+```
+
+
 ```{r check-autoic-integration}
 names(doc_scores)
 
