@@ -350,20 +350,20 @@ length(autoic_files)
 basename(autoic_files)
 ```
 
-```{r}
-# build-autoic-all
+```{r inspect-sheets, echo=TRUE}
+autoic_files[1]
+readxl::excel_sheets(autoic_files[1])
+```
+
+
+```{r inspect-autoic-columns, echo=FALSE, message=FALSE, warning=FALSE}
+names(autoic_nonlong)
+names(autoic_long)
+```
+
+```{r build-autoic-all, echo=FALSE, message=FALSE, warning=FALSE}
 read_autoic_file <- function(path) {
-  ext <- tools::file_ext(path)
-
-  if (ext %in% c("xlsx", "xls")) {
-    out <- readxl::read_excel(path)
-  } else if (ext == "csv") {
-    out <- readr::read_csv(path, show_col_types = FALSE)
-  } else {
-    stop("Unsupported file type: ", path)
-  }
-
-  out |>
+  readxl::read_excel(path, sheet = "Document") |>
     dplyr::mutate(source_file = basename(path))
 }
 
@@ -374,46 +374,21 @@ names(autoic_all)
 dplyr::count(autoic_all, source_file)
 ```
 
-
-```{r inspect-autoic-columns, echo=FALSE, message=FALSE, warning=FALSE}
-names(autoic_nonlong)
-names(autoic_long)
+```{r normalize-autoic-docid, echo=TRUE, message=FALSE, warning=FALSE}
+normalize_id <- function(x) {
+  x |>
+    tolower() |>
+    stringr::str_replace_all("\\.pdf$|\\.csv$|\\.txt$|\\.xlsx$|\\.xls$", "") |>
+    stringr::str_replace_all("pdfbookone$", "") |>
+    stringr::str_replace_all("pdf$", "") |>
+    stringr::str_replace_all("[^a-z0-9]", "")
+}
 ```
 
-```{r build-autoic-all, echo=FALSE, message=FALSE, warning=FALSE}
-autoic_all <- dplyr::bind_rows(
-  autoic_nonlong |> dplyr::mutate(corpus = "non_longitudinal"),
-  autoic_long |> dplyr::mutate(corpus = "longitudinal")
-)
-```
-
-```{r normalize-autoic-docid, echo=FALSE, message=FALSE, warning=FALSE}
-autoic_all <- autoic_all |>
-  dplyr::mutate(
-    doc_id = tolower(document),
-    doc_id = sub("\\.pdf\\.txt$", "", doc_id),
-    doc_id = sub("\\.txt$", "", doc_id),
-    doc_id = sub("\\.pdf$", "", doc_id),
-    doc_id = sub("pdf$", "", doc_id),
-    doc_id = gsub("[^a-z0-9]", "", doc_id)
-  )
-```
-
-```{r autoic-document-level, echo=FALSE, message=FALSE, warning=FALSE}
-autoic_doc <- autoic_all |>
-  dplyr::group_by(doc_id, corpus) |>
-  dplyr::summarise(
-    ic = mean(ic, na.rm = TRUE),
-    dial = mean(dial, na.rm = TRUE),
-    elab = mean(elab, na.rm = TRUE),
-    ic_differentiation = mean(ic_differentiation, na.rm = TRUE),
-    ic_integration = mean(ic_integration, na.rm = TRUE),
-    dial_differentiation = mean(dial_differentiation, na.rm = TRUE),
-    dial_integration = mean(dial_integration, na.rm = TRUE),
-    elab_differentiation = mean(elab_differentiation, na.rm = TRUE),
-    elab_integration = mean(elab_integration, na.rm = TRUE),
-    .groups = "drop"
-  )
+```{r autoic-document-level, echo=TRUE, message=FALSE, warning=FALSE}
+autoic_all |>
+  dplyr::count(doc_id) |>
+  dplyr::filter(n > 1)
 ```
 
 ```{r inspect-autoic-doc, echo=TRUE}
