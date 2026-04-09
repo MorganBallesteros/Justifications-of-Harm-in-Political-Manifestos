@@ -460,17 +460,27 @@ doc_scores <- doc_scores |>
   )
 ```
 
-```{r factorize-category, echo=FALSE, message=FALSE, warning=FALSE}
-doc_scores$category <- factor(
-  doc_scores$category,
-  levels = c("moderate", "extreme", "violent")
-)
+```{r prepare-analysis-data, echo=FALSE, message=FALSE, warning=FALSE}
+doc_scores <- doc_scores |>
+  dplyr::mutate(
+    category = factor(category, levels = c("moderate", "extreme", "violent"))
+  )
+
+doc_scores_ic <- doc_scores |>
+  dplyr::filter(
+    !is.na(ic),
+    !is.na(category)
+  )
 ```
 
-
-```{r prepare-analysis-data, echo=FALSE, message=FALSE, warning=FALSE}
-doc_scores_ic <- doc_scores |>
-  dplyr::filter(!is.na(ic))
+```{r inspect-analysis-data, echo=TRUE}
+doc_scores_ic |>
+  dplyr::summarise(
+    n_rows = dplyr::n(),
+    n_missing_ic = sum(is.na(ic)),
+    n_missing_category = sum(is.na(category)),
+    n_category_levels_observed = dplyr::n_distinct(category, na.rm = TRUE)
+  )
 ```
 
 
@@ -537,32 +547,15 @@ print(bad_factors)
 ```
 
 ```{r regression-ic, echo=TRUE, message=FALSE, warning=FALSE}
-# Start from doc_scores each time to avoid ordering/type surprises
-doc_scores_ic <- doc_scores |>
-  dplyr::filter(!is.na(ic)) |>
-  dplyr::mutate(
-    category = factor(category, levels = c("moderate", "extreme", "violent"))
-  ) |>
-  # If missing marker prevalence should mean "0 occurrences", replace NA with 0
-  dplyr::mutate(
-    dplyr::across(
-      c(dyadic_harm, hopelessness, justification_for_violence,
-        martyrdom_narrative, role_model_status, violent_reference),
-      \(x) tidyr::replace_na(x, 0)
-    )
-  )
-
 form_ic <- ic ~ dyadic_harm + hopelessness + justification_for_violence +
   martyrdom_narrative + role_model_status + violent_reference + category
 
-# Build the actual model frame (this is what lm() effectively uses)
 mf <- model.frame(form_ic, data = doc_scores_ic, na.action = na.omit, drop.unused.levels = TRUE)
 
 cat("n used by lm after na.omit =", nrow(mf), "\n")
 cat("category distribution in modeling data:\n")
 print(table(mf$category, useNA = "ifany"))
 
-# Drop single-level factors automatically (prevents contrasts error)
 single_level <- names(mf)[sapply(mf, \(x) is.factor(x) && nlevels(x) < 2)]
 
 form_ic2 <- form_ic
