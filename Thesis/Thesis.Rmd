@@ -339,15 +339,7 @@ head(doc_meta$doc_id, 20)
 # 1) ONE stable normalizer: define once, use everywhere.
 #    (If you keep your setup() definition, replace it with this version and
 #     DO NOT redefine normalize_id later.)
-normalize_id <- function(x) {
-  x |>
-    as.character() |>
-    tolower() |>
-    stringr::str_replace_all("\\.(pdf|csv|txt|xlsx|xls)$", "") |>
-    stringr::str_replace_all("pdfbookone$", "") |>
-    stringr::str_replace_all("pdf$", "") |>
-    stringr::str_replace_all("[^a-z0-9]", "")
-}
+
 
 # 2) Discover AutoIC files from all relevant folders
 autoic_dirs <- c(
@@ -431,6 +423,13 @@ autoic_doc <- autoic_all |>
 
 ```
 
+```{r merge-autoic, echo=FALSE, message=FALSE, warning=FALSE}
+doc_scores <- doc_scores |>
+  dplyr::left_join(
+    autoic_doc,
+    by = c("doc_id", "corpus")
+  )
+```
 
 
 ```{r inspect-sheets, echo=TRUE}
