@@ -499,13 +499,78 @@ doc_scores |>
   )
 ```
 
-```{r regression-ic, echo=TRUE, message=FALSE, warning=FALSE}
-model_ic <- lm(
-  ic ~ dyadic_harm + hopelessness + justification_for_violence +
-    martyrdom_narrative + role_model_status + violent_reference + category,
-  data = doc_scores_ic
-)
+```{r diagnose-ic-contrasts, echo=TRUE, message=FALSE, warning=FALSE}
+form_ic <- ic ~ dyadic_harm + hopelessness + justification_for_violence +
+  martyrdom_narrative + role_model_status + violent_reference + category
 
+vars <- all.vars(form_ic)
+
+cat("---- Types in doc_scores_ic ----\n")
+print(sapply(doc_scores_ic[, vars, drop = FALSE], class))
+
+cat("\n---- Unique non-NA counts in doc_scores_ic ----\n")
+uniq_non_na <- sapply(doc_scores_ic[, vars, drop = FALSE], \(x) dplyr::n_distinct(x, na.rm = TRUE))
+print(uniq_non_na)
+
+cat("\n---- Category distribution in doc_scores_ic ----\n")
+print(table(doc_scores_ic$category, useNA = "ifany"))
+
+# Mimic what lm() will effectively do: build a model frame and drop NA rows.
+# Force category into a factor for inspection, but do not assume it has 2+ observed levels.
+tmp <- doc_scores_ic |>
+  dplyr::mutate(category = factor(category, levels = c("moderate","extreme","violent")))
+
+mf <- model.frame(form_ic, data = tmp, na.action = na.omit, drop.unused.levels = TRUE)
+
+cat("\n---- Rows used by lm after na.omit ----\n")
+cat("nrow(model frame) =", nrow(mf), "\n")
+
+cat("\n---- Category distribution in the model frame ----\n")
+print(table(mf$category, useNA = "ifany"))
+
+bad_factors <- names(mf)[sapply(mf, \(x) is.factor(x) && nlevels(x) < 2)]
+cat("\n---- Factor predictors with <2 levels in model frame ----\n")
+print(bad_factors)
+
+```
+
+```{r regression-ic, echo=TRUE, message=FALSE, warning=FALSE}
+# Start from doc_scores each time to avoid ordering/type surprises
+doc_scores_ic <- doc_scores |>
+  dplyr::filter(!is.na(ic)) |>
+  dplyr::mutate(
+    category = factor(category, levels = c("moderate", "extreme", "violent"))
+  ) |>
+  # If missing marker prevalence should mean "0 occurrences", replace NA with 0
+  dplyr::mutate(
+    dplyr::across(
+      c(dyadic_harm, hopelessness, justification_for_violence,
+        martyrdom_narrative, role_model_status, violent_reference),
+      \(x) tidyr::replace_na(x, 0)
+    )
+  )
+
+form_ic <- ic ~ dyadic_harm + hopelessness + justification_for_violence +
+  martyrdom_narrative + role_model_status + violent_reference + category
+
+# Build the actual model frame (this is what lm() effectively uses)
+mf <- model.frame(form_ic, data = doc_scores_ic, na.action = na.omit, drop.unused.levels = TRUE)
+
+cat("n used by lm after na.omit =", nrow(mf), "\n")
+cat("category distribution in modeling data:\n")
+print(table(mf$category, useNA = "ifany"))
+
+# Drop single-level factors automatically (prevents contrasts error)
+single_level <- names(mf)[sapply(mf, \(x) is.factor(x) && nlevels(x) < 2)]
+
+form_ic2 <- form_ic
+if ("category" %in% single_level) {
+  warning("`category` has <2 observed levels after filtering/NA-omission; dropping `category` from the model.")
+  form_ic2 <- update(form_ic2, . ~ . - category)
+  mf <- model.frame(form_ic2, data = doc_scores_ic, na.action = na.omit, drop.unused.levels = TRUE)
+}
+
+model_ic <- lm(form_ic2, data = mf)
 summary(model_ic)
 ```
 
