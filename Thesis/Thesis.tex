@@ -347,6 +347,143 @@ markers of harm on said longitudinal sets.
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\FunctionTok{table}\NormalTok{(doc\_scores}\SpecialCharTok{$}\NormalTok{category, }\AttributeTok{useNA =} \StringTok{"ifany"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  extreme moderate  violent     <NA> 
+##       10        9        8      265
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{nrow}\NormalTok{(doc\_meta)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 31
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{nrow}\NormalTok{(doc\_scores)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 292
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(doc\_meta}\SpecialCharTok{$}\NormalTok{doc\_id, }\DecValTok{20}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "1160kennedyichbin"                                          
+##  [2] "142thunberg"                                                
+##  [3] "1945labourpartymanifesto"                                   
+##  [4] "1949simonedebeauvoirthesecondsex"                           
+##  [5] "atlanticcharter"                                            
+##  [6] "communistmanifesto"                                         
+##  [7] "defeatingeurabia1"                                          
+##  [8] "earnestmanifesto042719"                                     
+##  [9] "fourfreedomsspeechfranklindelanoroosevelt1"                 
+## [10] "fulltextihaveadream"                                        
+## [11] "hitleradolfmeinkampf"                                       
+## [12] "imperiumyockey"                                             
+## [13] "maududisayyidabulalaaljihadfilislambysyedabulaalamaududi"   
+## [14] "piercewilliamlfreespeechessays19952002"                     
+## [15] "porthuronstatement"                                         
+## [16] "revoltagainstthemodernworldjuliusevola"                     
+## [17] "russianimperialmanifestoannouncingthestartofwarinaugust1914"
+## [18] "andersbreivik2083manifesto2011"                             
+## [19] "brentontarrantthegreatreplacementmanifesto"                 
+## [20] "chomanifesto11"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(doc\_scores}\SpecialCharTok{$}\NormalTok{doc\_id, }\DecValTok{20}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "1160kennedyichbin"                                                                
+##  [2] "142thunberg"                                                                      
+##  [3] "1945labourpartymanifesto"                                                         
+##  [4] "1949simonedebeauvoirthesecondsex"                                                 
+##  [5] "acontributiontothehistoryofthenationalprogrammeinaustriaandinrussia251914"        
+##  [6] "adisgracefulresolution10181912"                                                   
+##  [7] "ahouseofmanymansions1940"                                                         
+##  [8] "ahushovereurope1939"                                                              
+##  [9] "anewchapterofworldhistory10211912"                                                
+## [10] "addresstojointsessionofuscongress1941"                                            
+## [11] "againstpessimism4151924"                                                          
+## [12] "againstpessimism4151924"                                                          
+## [13] "atlanticcharter"                                                                  
+## [14] "beyemenofvalour1940"                                                              
+## [15] "billontheequalityofnationsandthesafeguardingoftherightsofnationalminorities561914"
+## [16] "bloodtoiltearsandsweat1940"                                                       
+## [17] "bolshevismandimperialsedition1920"                                                
+## [18] "cadetsandnationalists10241912"                                                    
+## [19] "cadetsonthequestionoftheukraine7161913"                                           
+## [20] "clarityhasbeenachieved651914"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{table}\NormalTok{(doc\_scores}\SpecialCharTok{$}\NormalTok{category, }\AttributeTok{useNA =} \StringTok{"ifany"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  extreme moderate  violent     <NA> 
+##       10        9        8      265
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{doc\_scores }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{filter}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(category)) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(doc\_id, corpus, author) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{head}\NormalTok{(}\DecValTok{20}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 20 x 3
+##    doc_id                                                          corpus author
+##    <chr>                                                           <chr>  <chr> 
+##  1 acontributiontothehistoryofthenationalprogrammeinaustriaandinr~ longi~ lenin 
+##  2 adisgracefulresolution10181912                                  longi~ lenin 
+##  3 ahouseofmanymansions1940                                        longi~ churc~
+##  4 ahushovereurope1939                                             longi~ churc~
+##  5 anewchapterofworldhistory10211912                               longi~ lenin 
+##  6 addresstojointsessionofuscongress1941                           longi~ churc~
+##  7 againstpessimism4151924                                         longi~ grams~
+##  8 againstpessimism4151924                                         non_l~ <NA>  
+##  9 beyemenofvalour1940                                             longi~ churc~
+## 10 billontheequalityofnationsandthesafeguardingoftherightsofnatio~ longi~ lenin 
+## 11 bloodtoiltearsandsweat1940                                      longi~ churc~
+## 12 bolshevismandimperialsedition1920                               longi~ churc~
+## 13 cadetsandnationalists10241912                                   longi~ lenin 
+## 14 cadetsonthequestionoftheukraine7161913                          longi~ lenin 
+## 15 clarityhasbeenachieved651914                                    longi~ lenin 
+## 16 classwarindublin8291913                                         longi~ lenin 
+## 17 concerningcertainspeechesbyworkersdeputies111912                longi~ lenin 
+## 18 concerningtheworkersdeputiestothedumaandtheirdeclaration111912  longi~ lenin 
+## 19 corruptingtheworkerswithrefinednationalism5101914               longi~ lenin 
+## 20 doyourworstwelldoourbest1941                                    longi~ churc~
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \FunctionTok{names}\NormalTok{(doc\_meta)}
 \end{Highlighting}
 \end{Shaded}
@@ -431,32 +568,83 @@ markers of harm on said longitudinal sets.
 ## [20] "chomanifesto11"
 \end{verbatim}
 
+\begin{verbatim}
+##  [1] "document"             "chunk"                "complete"            
+##  [4] "paragraph"            "words"                "ic"                  
+##  [7] "dial"                 "elab"                 "ic_differentiation"  
+## [10] "ic_integration"       "dial_differentiation" "dial_integration"    
+## [13] "elab_differentiation" "elab_integration"
+\end{verbatim}
+
+\begin{verbatim}
+##  [1] "document"             "chunk"                "complete"            
+##  [4] "paragraph"            "words"                "ic"                  
+##  [7] "dial"                 "elab"                 "ic_differentiation"  
+## [10] "ic_integration"       "dial_differentiation" "dial_integration"    
+## [13] "elab_differentiation" "elab_integration"
+\end{verbatim}
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{table}\NormalTok{(doc\_scores}\SpecialCharTok{$}\NormalTok{category, }\AttributeTok{useNA =} \StringTok{"ifany"}\NormalTok{)}
+\FunctionTok{nrow}\NormalTok{(autoic\_doc)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## 
-##  extreme moderate  violent     <NA> 
-##       10        9        8      265
+## [1] 51
 \end{verbatim}
 
-\begin{verbatim}
-##  [1] "document"             "chunk"                "complete"            
-##  [4] "paragraph"            "words"                "ic"                  
-##  [7] "dial"                 "elab"                 "ic_differentiation"  
-## [10] "ic_integration"       "dial_differentiation" "dial_integration"    
-## [13] "elab_differentiation" "elab_integration"
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{names}\NormalTok{(autoic\_doc)}
+\end{Highlighting}
+\end{Shaded}
 
 \begin{verbatim}
-##  [1] "document"             "chunk"                "complete"            
-##  [4] "paragraph"            "words"                "ic"                  
-##  [7] "dial"                 "elab"                 "ic_differentiation"  
-## [10] "ic_integration"       "dial_differentiation" "dial_integration"    
-## [13] "elab_differentiation" "elab_integration"
+##  [1] "doc_id"               "corpus"               "ic"                  
+##  [4] "dial"                 "elab"                 "ic_differentiation"  
+##  [7] "ic_integration"       "dial_differentiation" "dial_integration"    
+## [10] "elab_differentiation" "elab_integration"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(autoic\_doc}\SpecialCharTok{$}\NormalTok{doc\_id, }\DecValTok{20}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "1160kennedyichbin"                           
+##  [2] "142thunberg"                                 
+##  [3] "1945labourpartymanifesto"                    
+##  [4] "1949simonedebeauvoirthesecondsex"            
+##  [5] "againstpessimism4151924"                     
+##  [6] "andersbreivik2083manifesto2011pdfbookone"    
+##  [7] "atlanticcharter"                             
+##  [8] "brentontarrantthegreatreplacementmanifesto"  
+##  [9] "character331917"                             
+## [10] "chomanifesto11"                              
+## [11] "chroniclesoftheneworder9131919"              
+## [12] "communistmanifesto"                          
+## [13] "earnestmanifesto042719"                      
+## [14] "foranideologicalpreparationofthemasses341925"
+## [15] "lessons551922"                               
+## [16] "maximalismandextremism721925"                
+## [17] "menoffleshandblood581921"                    
+## [18] "menormachines12241916"                       
+## [19] "neitherfascismnorliberalismsovietism1071924" 
+## [20] "newspapersandtheworkers12221916"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(autoic\_doc}\SpecialCharTok{$}\NormalTok{ic)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   1.420   1.794   1.922   2.046   2.192   5.359
 \end{verbatim}
 
 \begin{verbatim}
