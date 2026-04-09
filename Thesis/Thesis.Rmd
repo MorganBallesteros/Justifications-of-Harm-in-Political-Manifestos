@@ -297,6 +297,15 @@ doc_scores <- doc_scores |>
   )
 ```
 
+```{r restrict-to-thesis-docs, echo=TRUE, message=FALSE, warning=FALSE}
+doc_scores <- doc_scores |>
+  dplyr::filter(!is.na(category))
+
+nrow(doc_scores)
+table(doc_scores$category, useNA = "ifany")
+```
+
+
 ```{r check-category-merge, echo=TRUE}
 table(doc_scores$category, useNA = "ifany")
 ```
@@ -329,17 +338,42 @@ head(doc_meta$doc_id, 20)
 
 
 ```{r load-autoic, echo=FALSE, message=FALSE, warning=FALSE}
-autoic_nonlong <- readxl::read_excel(
-  "data/raw/autoic/coded_manifestos_part1.xlsx"
-) |>
-  janitor::clean_names()
+# AutoIC: load all workbook files from the folder
+autoic_files <- list.files(
+  here::here("data/raw/autoic"),   # adjust folder if needed
+  pattern = "\\.(xlsx|xls|csv)$",
+  full.names = TRUE
+)
 
-autoic_long <- readxl::read_excel(
-  "data/raw/autoic/coded-Gramsci_Longitudinal.xlsx"
-) |>
-  janitor::clean_names()
-
+autoic_files
+length(autoic_files)
+basename(autoic_files)
 ```
+
+```{r}
+# build-autoic-all
+read_autoic_file <- function(path) {
+  ext <- tools::file_ext(path)
+
+  if (ext %in% c("xlsx", "xls")) {
+    out <- readxl::read_excel(path)
+  } else if (ext == "csv") {
+    out <- readr::read_csv(path, show_col_types = FALSE)
+  } else {
+    stop("Unsupported file type: ", path)
+  }
+
+  out |>
+    dplyr::mutate(source_file = basename(path))
+}
+
+autoic_all <- purrr::map_dfr(autoic_files, read_autoic_file)
+
+dim(autoic_all)
+names(autoic_all)
+dplyr::count(autoic_all, source_file)
+```
+
 
 ```{r inspect-autoic-columns, echo=FALSE, message=FALSE, warning=FALSE}
 names(autoic_nonlong)

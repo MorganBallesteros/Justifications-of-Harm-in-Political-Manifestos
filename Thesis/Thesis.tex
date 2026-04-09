@@ -347,14 +347,39 @@ markers of harm on said longitudinal sets.
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\NormalTok{doc\_scores }\OtherTok{\textless{}{-}}\NormalTok{ doc\_scores }\SpecialCharTok{|\textgreater{}}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(category))}
+
+\FunctionTok{nrow}\NormalTok{(doc\_scores)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 27
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \FunctionTok{table}\NormalTok{(doc\_scores}\SpecialCharTok{$}\NormalTok{category, }\AttributeTok{useNA =} \StringTok{"ifany"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
 ## 
-##  extreme moderate  violent     <NA> 
-##       10        9        8      265
+##  extreme moderate  violent 
+##       10        9        8
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{table}\NormalTok{(doc\_scores}\SpecialCharTok{$}\NormalTok{category, }\AttributeTok{useNA =} \StringTok{"ifany"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  extreme moderate  violent 
+##       10        9        8
 \end{verbatim}
 
 \begin{Shaded}
@@ -374,7 +399,7 @@ markers of harm on said longitudinal sets.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 292
+## [1] 27
 \end{verbatim}
 
 \begin{Shaded}
@@ -413,26 +438,26 @@ markers of harm on said longitudinal sets.
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] "1160kennedyichbin"                                                                
-##  [2] "142thunberg"                                                                      
-##  [3] "1945labourpartymanifesto"                                                         
-##  [4] "1949simonedebeauvoirthesecondsex"                                                 
-##  [5] "acontributiontothehistoryofthenationalprogrammeinaustriaandinrussia251914"        
-##  [6] "adisgracefulresolution10181912"                                                   
-##  [7] "ahouseofmanymansions1940"                                                         
-##  [8] "ahushovereurope1939"                                                              
-##  [9] "anewchapterofworldhistory10211912"                                                
-## [10] "addresstojointsessionofuscongress1941"                                            
-## [11] "againstpessimism4151924"                                                          
-## [12] "againstpessimism4151924"                                                          
-## [13] "atlanticcharter"                                                                  
-## [14] "beyemenofvalour1940"                                                              
-## [15] "billontheequalityofnationsandthesafeguardingoftherightsofnationalminorities561914"
-## [16] "bloodtoiltearsandsweat1940"                                                       
-## [17] "bolshevismandimperialsedition1920"                                                
-## [18] "cadetsandnationalists10241912"                                                    
-## [19] "cadetsonthequestionoftheukraine7161913"                                           
-## [20] "clarityhasbeenachieved651914"
+##  [1] "1160kennedyichbin"                                          
+##  [2] "142thunberg"                                                
+##  [3] "1945labourpartymanifesto"                                   
+##  [4] "1949simonedebeauvoirthesecondsex"                           
+##  [5] "atlanticcharter"                                            
+##  [6] "communistmanifesto"                                         
+##  [7] "defeatingeurabia1"                                          
+##  [8] "earnestmanifesto042719"                                     
+##  [9] "fourfreedomsspeechfranklindelanoroosevelt1"                 
+## [10] "fulltextihaveadream"                                        
+## [11] "hitleradolfmeinkampf"                                       
+## [12] "imperiumyockey"                                             
+## [13] "maududisayyidabulalaaljihadfilislambysyedabulaalamaududi"   
+## [14] "porthuronstatement"                                         
+## [15] "revoltagainstthemodernworldjuliusevola"                     
+## [16] "russianimperialmanifestoannouncingthestartofwarinaugust1914"
+## [17] "brentontarrantthegreatreplacementmanifesto"                 
+## [18] "chomanifesto11"                                             
+## [19] "milestonesf1"                                               
+## [20] "patrickcrusiustheinconvenienttruthaboutme"
 \end{verbatim}
 
 \begin{Shaded}
@@ -443,8 +468,8 @@ markers of harm on said longitudinal sets.
 
 \begin{verbatim}
 ## 
-##  extreme moderate  violent     <NA> 
-##       10        9        8      265
+##  extreme moderate  violent 
+##       10        9        8
 \end{verbatim}
 
 \begin{Shaded}
@@ -457,29 +482,8 @@ markers of harm on said longitudinal sets.
 \end{Shaded}
 
 \begin{verbatim}
-## # A tibble: 20 x 3
-##    doc_id                                                          corpus author
-##    <chr>                                                           <chr>  <chr> 
-##  1 acontributiontothehistoryofthenationalprogrammeinaustriaandinr~ longi~ lenin 
-##  2 adisgracefulresolution10181912                                  longi~ lenin 
-##  3 ahouseofmanymansions1940                                        longi~ churc~
-##  4 ahushovereurope1939                                             longi~ churc~
-##  5 anewchapterofworldhistory10211912                               longi~ lenin 
-##  6 addresstojointsessionofuscongress1941                           longi~ churc~
-##  7 againstpessimism4151924                                         longi~ grams~
-##  8 againstpessimism4151924                                         non_l~ <NA>  
-##  9 beyemenofvalour1940                                             longi~ churc~
-## 10 billontheequalityofnationsandthesafeguardingoftherightsofnatio~ longi~ lenin 
-## 11 bloodtoiltearsandsweat1940                                      longi~ churc~
-## 12 bolshevismandimperialsedition1920                               longi~ churc~
-## 13 cadetsandnationalists10241912                                   longi~ lenin 
-## 14 cadetsonthequestionoftheukraine7161913                          longi~ lenin 
-## 15 clarityhasbeenachieved651914                                    longi~ lenin 
-## 16 classwarindublin8291913                                         longi~ lenin 
-## 17 concerningcertainspeechesbyworkersdeputies111912                longi~ lenin 
-## 18 concerningtheworkersdeputiestothedumaandtheirdeclaration111912  longi~ lenin 
-## 19 corruptingtheworkerswithrefinednationalism5101914               longi~ lenin 
-## 20 doyourworstwelldoourbest1941                                    longi~ churc~
+## # A tibble: 0 x 3
+## # i 3 variables: doc_id <chr>, corpus <chr>, author <chr>
 \end{verbatim}
 
 \begin{Shaded}
@@ -517,26 +521,26 @@ markers of harm on said longitudinal sets.
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] "1160kennedyichbin"                                                                
-##  [2] "142thunberg"                                                                      
-##  [3] "1945labourpartymanifesto"                                                         
-##  [4] "1949simonedebeauvoirthesecondsex"                                                 
-##  [5] "acontributiontothehistoryofthenationalprogrammeinaustriaandinrussia251914"        
-##  [6] "adisgracefulresolution10181912"                                                   
-##  [7] "ahouseofmanymansions1940"                                                         
-##  [8] "ahushovereurope1939"                                                              
-##  [9] "anewchapterofworldhistory10211912"                                                
-## [10] "addresstojointsessionofuscongress1941"                                            
-## [11] "againstpessimism4151924"                                                          
-## [12] "againstpessimism4151924"                                                          
-## [13] "atlanticcharter"                                                                  
-## [14] "beyemenofvalour1940"                                                              
-## [15] "billontheequalityofnationsandthesafeguardingoftherightsofnationalminorities561914"
-## [16] "bloodtoiltearsandsweat1940"                                                       
-## [17] "bolshevismandimperialsedition1920"                                                
-## [18] "cadetsandnationalists10241912"                                                    
-## [19] "cadetsonthequestionoftheukraine7161913"                                           
-## [20] "clarityhasbeenachieved651914"
+##  [1] "1160kennedyichbin"                                          
+##  [2] "142thunberg"                                                
+##  [3] "1945labourpartymanifesto"                                   
+##  [4] "1949simonedebeauvoirthesecondsex"                           
+##  [5] "atlanticcharter"                                            
+##  [6] "communistmanifesto"                                         
+##  [7] "defeatingeurabia1"                                          
+##  [8] "earnestmanifesto042719"                                     
+##  [9] "fourfreedomsspeechfranklindelanoroosevelt1"                 
+## [10] "fulltextihaveadream"                                        
+## [11] "hitleradolfmeinkampf"                                       
+## [12] "imperiumyockey"                                             
+## [13] "maududisayyidabulalaaljihadfilislambysyedabulaalamaududi"   
+## [14] "porthuronstatement"                                         
+## [15] "revoltagainstthemodernworldjuliusevola"                     
+## [16] "russianimperialmanifestoannouncingthestartofwarinaugust1914"
+## [17] "brentontarrantthegreatreplacementmanifesto"                 
+## [18] "chomanifesto11"                                             
+## [19] "milestonesf1"                                               
+## [20] "patrickcrusiustheinconvenienttruthaboutme"
 \end{verbatim}
 
 \begin{Shaded}
@@ -662,26 +666,25 @@ markers of harm on said longitudinal sets.
 
 \begin{verbatim}
 ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-##   1.420   1.794   1.922   2.046   2.192   5.359     241
+##   1.420   1.700   1.975   2.254   2.125   5.359      18
 \end{verbatim}
 
 \begin{verbatim}
-## [1] 241
+## [1] 18
 \end{verbatim}
 
 \begin{verbatim}
 ## # A tibble: 1 x 3
 ##   n_total n_with_ic n_missing_ic
 ##     <int>     <int>        <int>
-## 1     292        51          241
+## 1      27         9           18
 \end{verbatim}
 
 \begin{verbatim}
-## # A tibble: 2 x 4
+## # A tibble: 1 x 4
 ##   corpus           n_total n_with_ic n_missing_ic
 ##   <chr>              <int>     <int>        <int>
-## 1 longitudinal         221        41          180
-## 2 non_longitudinal      71        10           61
+## 1 non_longitudinal      27         9           18
 \end{verbatim}
 
 \begin{Shaded}
@@ -719,7 +722,6 @@ markers of harm on said longitudinal sets.
 ## categoryviolent             -6.2253        NaN     NaN      NaN
 ## 
 ## Residual standard error: NaN on 0 degrees of freedom
-##   (42 observations deleted due to missingness)
 ## Multiple R-squared:      1,  Adjusted R-squared:    NaN 
 ## F-statistic:   NaN on 8 and 0 DF,  p-value: NA
 \end{verbatim}
@@ -739,14 +741,14 @@ Descriptive statistics were calculated to examine the prevalence of grouped ling
 
 \caption{\label{tab:manifesto-descriptives}Mean prevalence of grouped linguistic indicators by manifesto category.}
 
-\begin{tabular}{lllll}
+\begin{tabular}{llll}
 \toprule
-Marker Group & \multicolumn{1}{c}{moderate} & \multicolumn{1}{c}{extreme} & \multicolumn{1}{c}{violent} & \multicolumn{1}{c}{NA}\\
+Marker Group & \multicolumn{1}{c}{moderate} & \multicolumn{1}{c}{extreme} & \multicolumn{1}{c}{violent}\\
 \midrule
-Dyadic Harm & 0.01 & 0.18 & 0.18 & 0.10\\
-Justification for Violence & 0.16 & 0.18 & 0.47 & 0.31\\
-Martyrdom Narrative & 0.08 & 0.16 & 0.56 & 0.15\\
-Hopelessness & 3.45 & 5.17 & 2.30 & 4.58\\
+Dyadic Harm & 0.01 & 0.18 & 0.18\\
+Justification for Violence & 0.16 & 0.18 & 0.47\\
+Martyrdom Narrative & 0.08 & 0.16 & 0.56\\
+Hopelessness & 3.45 & 5.17 & 2.30\\
 \bottomrule
 \addlinespace
 \end{tabular}
