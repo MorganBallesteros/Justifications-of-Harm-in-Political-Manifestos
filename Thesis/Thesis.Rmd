@@ -278,14 +278,11 @@ doc_meta <- readr::read_csv(here::here("data/raw/doc_meta.csv")) |>
 
 ```{r normalize-docids, echo=FALSE, message=FALSE, warning=FALSE}
 doc_scores <- doc_scores |>
-  dplyr::mutate(
-    doc_id = gsub("[^a-z0-9]", "", sub("pdf$", "", tolower(doc_id)))
-  )
+  dplyr::mutate(doc_id = normalize_id(doc_id))
 
 doc_meta <- doc_meta |>
-  dplyr::mutate(
-    doc_id = gsub("[^a-z0-9]", "", tolower(doc_id))
-  )
+  dplyr::mutate(doc_id = normalize_id(doc_id))
+
 ```
 
 ```{r merge-doc-meta, echo=FALSE, message=FALSE, warning=FALSE}
@@ -334,83 +331,119 @@ head(doc_scores$doc_id, 20)
 head(doc_meta$doc_id, 20)
 ```
 
+```{r autoic-pipeline, echo=TRUE, message=FALSE, warning=FALSE}
+# ------------------------------------------------------------
+# AutoIC: single, coherent pipeline (import -> normalize -> doc table)
+# ------------------------------------------------------------
 
-
-
-```{r load-autoic, echo=FALSE, message=FALSE, warning=FALSE}
-# AutoIC: load all workbook files from the folder
-autoic_files <- list.files(
-  here::here("data/raw/autoic"),   # adjust folder if needed
-  pattern = "\\.(xlsx|xls|csv)$",
-  full.names = TRUE
-)
-
-autoic_files
-length(autoic_files)
-basename(autoic_files)
-```
-
-```{r inspect-sheets, echo=TRUE}
-autoic_files[1]
-readxl::excel_sheets(autoic_files[1])
-```
-
-
-```{r inspect-autoic-columns, echo=FALSE, message=FALSE, warning=FALSE}
-names(autoic_nonlong)
-names(autoic_long)
-```
-
-```{r build-autoic-all, echo=FALSE, message=FALSE, warning=FALSE}
-read_autoic_file <- function(path) {
-  readxl::read_excel(path, sheet = "Document") |>
-    dplyr::mutate(source_file = basename(path))
-}
-
-autoic_all <- purrr::map_dfr(autoic_files, read_autoic_file)
-
-dim(autoic_all)
-names(autoic_all)
-dplyr::count(autoic_all, source_file)
-```
-
-
-```{r normalize-autoic-docid, echo=TRUE, message=FALSE, warning=FALSE}
+# 1) ONE stable normalizer: define once, use everywhere.
+#    (If you keep your setup() definition, replace it with this version and
+#     DO NOT redefine normalize_id later.)
 normalize_id <- function(x) {
   x |>
+    as.character() |>
     tolower() |>
-    stringr::str_replace_all("\\.pdf$|\\.csv$|\\.txt$|\\.xlsx$|\\.xls$", "") |>
+    stringr::str_replace_all("\\.(pdf|csv|txt|xlsx|xls)$", "") |>
     stringr::str_replace_all("pdfbookone$", "") |>
     stringr::str_replace_all("pdf$", "") |>
     stringr::str_replace_all("[^a-z0-9]", "")
 }
 
-autoic_all <- autoic_all |>
-  janitor::clean_names() |>
-  dplyr::mutate(doc_id = normalize_id(source_file))
-```
+# 2) Discover AutoIC files from all relevant folders
+autoic_dirs <- c(
+  here::here("data/raw/autoic"),
+  here::here("data/raw/longitudinal/autoic")
+)
+autoic_dirs <- autoic_dirs[dir.exists(autoic_dirs)]
 
+autoic_files <- purrr::map(
+  autoic_dirs,
+  ~ list.files(.x, pattern = "\\.(xlsx|xls|csv)$", full.names = TRUE)
+) |>
+  unlist(use.names = FALSE)
 
-```{r inspect-autoic-doc, echo=TRUE}
-nrow(autoic_doc)
-names(autoic_doc)
-head(autoic_doc$doc_id, 20)
-summary(autoic_doc$ic)
-```
+if (length(autoic_files) == 0) {
+  stop("No AutoIC files found in: ", paste(autoic_dirs, collapse = ", "))
+}
 
-```{r autoic-document-level, echo=TRUE, message=FALSE, warning=FALSE}
-autoic_all |>
-  dplyr::count(doc_id) |>
-  dplyr::filter(n > 1)
-```
+# 3) Map AutoIC file paths to a corpus label that matches doc_scores$corpus
+doc_corpus_levels <- sort(unique(doc_scores$corpus))
 
+# Heuristic: find the label that contains "long"
+long_label <- doc_corpus_levels[stringr::str_detect(tolower(doc_corpus_levels), "long")]
+nonlong_label <- setdiff(doc_corpus_levels, long_label)
 
-```{r merge-autoic, echo=FALSE, message=FALSE, warning=FALSE}
-doc_scores <- doc_scores |>
-  dplyr::left_join(
-    autoic_doc,
-    by = c("doc_id", "corpus")
+# Fallbacks if the heuristic can't find exactly one of each
+if (length(long_label) != 1 || length(nonlong_label) != 1) {
+  long_label <- "longitudinal"
+  nonlong_label <- "non_longitudinal"
+}
+
+infer_corpus_from_path <- function(path) {
+  if (stringr::str_detect(tolower(path), paste0(.Platform$file.sep, "longitudinal", .Platform$file.sep))) {
+    long_label[1]
+  } else {
+    nonlong_label[1]
+  }
+}
+
+# 4) Robust reader: supports Excel and CSV.
+#    For Excel, prefer the sheet named "Document"; otherwise fall back to sheet 1.
+read_autoic_file <- function(path) {
+  ext <- tolower(tools::file_ext(path))
+
+  dat <- if (ext %in% c("xlsx", "xls")) {
+    sheets <- readxl::excel_sheets(path)
+    sheet_to_read <- if ("Document" %in% sheets) "Document" else sheets[1]
+    readxl::read_excel(path, sheet = sheet_to_read)
+  } else if (ext == "csv") {
+    readr::read_csv(path, show_col_types = FALSE)
+  } else {
+    stop("Unsupported AutoIC file type: ", path)
+  }
+
+  dat |>
+    janitor::clean_names() |>
+    dplyr::mutate(
+      source_path = path,
+      source_file = basename(path),
+      doc_id = normalize_id(source_file),
+      corpus = infer_corpus_from_path(path)
+    )
+}
+
+# 5) Build the row-level table (one row per file, often one row per doc)
+autoic_all <- purrr::map_dfr(autoic_files, read_autoic_file)
+
+# 6) Collapse to a key-unique document-level AutoIC table.
+#    This prevents left_join() from multiplying rows if there are duplicates.
+mean_or_na <- function(x) {
+  if (all(is.na(x))) NA_real_ else mean(x, na.rm = TRUE)
+}
+
+autoic_doc <- autoic_all |>
+  dplyr::group_by(doc_id, corpus) |>
+  dplyr::summarise(
+    dplyr::across(dplyr::where(is.numeric), mean_or_na),
+    source_file = dplyr::first(source_file),
+    .groups = "drop"
   )
+
+```
+
+
+
+```{r inspect-sheets, echo=TRUE}
+autoic_files[1]
+if (tolower(tools::file_ext(autoic_files[1])) %in% c("xlsx", "xls")) {
+  readxl::excel_sheets(autoic_files[1])
+}
+```
+
+
+```{r inspect-autoic-columns, echo=FALSE, message=FALSE, warning=FALSE}
+names(autoic_all)
+names(autoic_doc)
 ```
 
 
