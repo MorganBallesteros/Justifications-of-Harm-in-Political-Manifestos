@@ -334,19 +334,12 @@ autoic_all <- dplyr::bind_rows(
 ```{r normalize-autoic-docid, echo=FALSE, message=FALSE, warning=FALSE}
 autoic_all <- autoic_all |>
   dplyr::mutate(
-    doc_id = gsub(
-      "[^a-z0-9]",
-      "",
-      sub(
-        "\\.pdf$",
-        "",
-        sub(
-          "\\.txt$",
-          "",
-          sub("\\.pdf\\.txt$", "", tolower(document))
-        )
-      )
-    )
+    doc_id = tolower(document),
+    doc_id = sub("\\.pdf\\.txt$", "", doc_id),
+    doc_id = sub("\\.txt$", "", doc_id),
+    doc_id = sub("\\.pdf$", "", doc_id),
+    doc_id = sub("pdf$", "", doc_id),
+    doc_id = gsub("[^a-z0-9]", "", doc_id)
   )
 ```
 
