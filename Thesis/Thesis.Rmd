@@ -389,7 +389,6 @@ doc_scores_ic <- doc_scores |>
 ```
 
 
-
 ```{r check-autoic-integration}
 names(doc_scores)
 
@@ -619,33 +618,19 @@ The regression model predicting dyadic harm language indicated that manifesto ca
 
 ```{r manifesto-regressions, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
 # ------------------------------------------------------------
-# Regression analyses predicting marker prevalence from
-# manifesto category
+# Regression analyses predicting autoIC outcomes from
+# linguistic indicators and manifesto category
 # ------------------------------------------------------------
 # Purpose:
-#   Test whether manifesto category predicts the prevalence of each
-#   grouped linguistic indicator.
-#
-# Why this chunk exists:
-#   Separate linear models are estimated for each marker group using
-#   moderate manifestos as the reference category. To keep the table
-#   readable in APA manuscript format, only the category contrasts are
-#   shown in the main coefficient table. Intercepts and model-fit
-#   statistics are omitted here to reduce table width.
+#   Estimate whether grouped linguistic indicators and manifesto
+#   category predict document-level autoIC outcomes.
 #
 # Interpretation:
-#   Positive coefficients indicate that the marker group appears more
-#   frequently in the comparison category than in moderate manifestos.
+#   Positive coefficients indicate that higher prevalence of the
+#   predictor is associated with higher values on the corresponding
+#   autoIC outcome, controlling for the other predictors in the model.
 
-# Marker groups to model
-marker_groups <- c(
-  "dyadic_harm",
-  "justification_for_violence",
-  "martyrdom_narrative",
-  "hopelessness"
-)
-
-# Fit one regression per marker group
+# AutoIC outcomes to model
 ic_vars <- c(
   "ic",
   "dial",
@@ -658,22 +643,31 @@ ic_vars <- c(
   "elab_integration"
 )
 
+# Predictors to include in each model
+predictors <- c(
+  "justification_for_violence",
+  "dyadic_harm",
+  "category"
+)
+
+# Fit one regression per autoIC outcome
 models_ic <- lapply(ic_vars, function(v) {
-  lm(
-    as.formula(
-      paste(v, "~ justification_for_violence + dyadic_harm + category")
+  dat <- doc_scores |>
+    dplyr::filter(!is.na(.data[[v]]))
+
+  stats::lm(
+    stats::as.formula(
+      paste(v, "~", paste(predictors, collapse = " + "))
     ),
-    data = doc_scores
+    data = dat
   )
 })
 
 names(models_ic) <- ic_vars
 
-names(models) <- marker_groups
-
 # Build a compact coefficient table
-regression_table <- lapply(names(models), function(name) {
-  model_summary <- summary(models[[name]])
+regression_table <- lapply(names(models_ic), function(name) {
+  model_summary <- summary(models_ic[[name]])
   coefs <- as.data.frame(model_summary$coefficients)
   coefs$term <- rownames(coefs)
   rownames(coefs) <- NULL
@@ -682,13 +676,20 @@ regression_table <- lapply(names(models), function(name) {
     dplyr::filter(term != "(Intercept)") |>
     dplyr::transmute(
       Outcome = dplyr::case_when(
-        name == "dyadic_harm" ~ "Dyadic Harm",
-        name == "justification_for_violence" ~ "Justification",
-        name == "martyrdom_narrative" ~ "Martyrdom",
-        name == "hopelessness" ~ "Hopelessness",
+        name == "ic" ~ "IC",
+        name == "dial" ~ "Dial",
+        name == "elab" ~ "Elab",
+        name == "ic_differentiation" ~ "IC Differentiation",
+        name == "ic_integration" ~ "IC Integration",
+        name == "dial_differentiation" ~ "Dial Differentiation",
+        name == "dial_integration" ~ "Dial Integration",
+        name == "elab_differentiation" ~ "Elab Differentiation",
+        name == "elab_integration" ~ "Elab Integration",
         TRUE ~ name
       ),
-      Contrast = dplyr::case_when(
+      Predictor = dplyr::case_when(
+        term == "justification_for_violence" ~ "Justification for Violence",
+        term == "dyadic_harm" ~ "Dyadic Harm",
         term == "categoryextreme" ~ "Extreme vs. Moderate",
         term == "categoryviolent" ~ "Violent vs. Moderate",
         TRUE ~ term
@@ -709,8 +710,8 @@ regression_table <- lapply(names(models), function(name) {
 
 papaja::apa_table(
   regression_table,
-  caption = "Linear regression coefficients predicting grouped marker prevalence from manifesto category.",
-  note = "Moderate manifestos served as the reference category in all models. Coefficients therefore represent differences in grouped marker prevalence relative to moderate manifestos. Values represent grouped marker prevalence per 1,000 words."
+  caption = "Linear regression coefficients predicting document-level autoIC outcomes from linguistic indicators and manifesto category.",
+  note = "Moderate manifestos served as the reference category. Coefficients for linguistic predictors represent associations with document-level autoIC outcomes, controlling for the other predictors in the model."
 )
 ```
 
