@@ -467,11 +467,35 @@ doc_scores <- doc_scores |>
   )
 
 doc_scores_ic <- doc_scores |>
+  dplyr::mutate(
+    dplyr::across(
+      c(dyadic_harm, hopelessness, justification_for_violence,
+        martyrdom_narrative, role_model_status, violent_reference),
+      \(x) tidyr::replace_na(x, 0)
+    )
+  ) |>
   dplyr::filter(
     !is.na(ic),
     !is.na(category)
   )
 ```
+
+```{r inspect-analysis-data, echo=TRUE}
+doc_scores_ic |>
+  dplyr::summarise(
+    n_rows = dplyr::n(),
+    n_missing_ic = sum(is.na(ic)),
+    n_missing_category = sum(is.na(category)),
+    n_missing_dyadic_harm = sum(is.na(dyadic_harm)),
+    n_missing_hopelessness = sum(is.na(hopelessness)),
+    n_missing_justification = sum(is.na(justification_for_violence)),
+    n_missing_martyrdom = sum(is.na(martyrdom_narrative)),
+    n_missing_role_model = sum(is.na(role_model_status)),
+    n_missing_violent_reference = sum(is.na(violent_reference))
+  )
+```
+
+
 
 ```{r inspect-analysis-data, echo=TRUE}
 doc_scores_ic |>
