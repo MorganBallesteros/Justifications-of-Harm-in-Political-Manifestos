@@ -616,6 +616,59 @@ To examine whether manifesto category predicts the prevalence of harm-related li
 
 The regression model predicting dyadic harm language indicated that manifesto category was marginally associated with variation in dyadic harm prevalence, F(2, 28) = 3.10, *p* = .061, R² = .18. Compared with moderate manifestos, ideologically extreme manifestos contained significantly higher levels of dyadic harm language (*b* = 0.16, SE = 0.08, *t* = 2.16, *p* = .040). Violent self-sacrificial manifestos also showed significantly higher prevalence of dyadic harm markers relative to moderate texts (*b* = 0.18, SE = 0.08, *t* = 2.21, *p* = .035).
 
+```{r marker-group-regressions, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+marker_groups <- c(
+  "dyadic_harm",
+  "justification_for_violence",
+  "martyrdom_narrative",
+  "hopelessness"
+)
+
+models <- lapply(marker_groups, function(m) {
+  stats::lm(stats::as.formula(paste(m, "~ category")), data = doc_scores)
+})
+
+names(models) <- marker_groups
+
+regression_table <- lapply(names(models), function(name) {
+  model_summary <- summary(models[[name]])
+  coefs <- as.data.frame(model_summary$coefficients)
+  coefs$term <- rownames(coefs)
+  rownames(coefs) <- NULL
+
+  coefs |>
+    dplyr::filter(term != "(Intercept)") |>
+    dplyr::transmute(
+      Outcome = dplyr::case_when(
+        name == "dyadic_harm" ~ "Dyadic Harm",
+        name == "justification_for_violence" ~ "Justification",
+        name == "martyrdom_narrative" ~ "Martyrdom",
+        name == "hopelessness" ~ "Hopelessness",
+        TRUE ~ name
+      ),
+      Contrast = dplyr::case_when(
+        term == "categoryextreme" ~ "Extreme vs. Moderate",
+        term == "categoryviolent" ~ "Violent vs. Moderate",
+        TRUE ~ term
+      ),
+      B = round(Estimate, 3),
+      SE = round(`Std. Error`, 3),
+      t = round(`t value`, 2),
+      p = dplyr::case_when(
+        `Pr(>|t|)` < .001 ~ "< .001",
+        TRUE ~ sprintf("%.3f", `Pr(>|t|)`)
+      )
+    )
+}) |>
+  dplyr::bind_rows()
+
+papaja::apa_table(
+  regression_table,
+  caption = "Linear regression coefficients predicting grouped marker prevalence from manifesto category.",
+  note = "Moderate manifestos served as the reference category."
+)
+```
+
 ```{r manifesto-regressions, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
 # ------------------------------------------------------------
 # Regression analyses predicting autoIC outcomes from
