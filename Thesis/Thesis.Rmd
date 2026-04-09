@@ -404,10 +404,6 @@ doc_scores$category <- factor(
 )
 ```
 
-```{r prepare-analysis-data, echo=FALSE, message=FALSE, warning=FALSE}
-doc_scores_ic <- doc_scores |>
-  dplyr::filter(!is.na(ic))
-```
 
 ```{r autoic-coverage, echo=TRUE}
 doc_scores |>

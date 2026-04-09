@@ -471,6 +471,107 @@ markers of harm on said longitudinal sets.
 ## [13] "elab_differentiation" "elab_integration"
 \end{verbatim}
 
+\begin{verbatim}
+##  [1] "doc_id"                     "corpus"                    
+##  [3] "author"                     "dyadic_harm"               
+##  [5] "hopelessness"               "justification_for_violence"
+##  [7] "martyrdom_narrative"        "role_model_status"         
+##  [9] "violent_reference"          "category"                  
+## [11] "ic"                         "dial"                      
+## [13] "elab"                       "ic_differentiation"        
+## [15] "ic_integration"             "dial_differentiation"      
+## [17] "dial_integration"           "elab_differentiation"      
+## [19] "elab_integration"
+\end{verbatim}
+
+\begin{verbatim}
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+##   1.420   1.794   1.922   2.046   2.192   5.359     241
+\end{verbatim}
+
+\begin{verbatim}
+## [1] 241
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{doc\_scores }\SpecialCharTok{|\textgreater{}}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{n\_total =}\NormalTok{ dplyr}\SpecialCharTok{::}\FunctionTok{n}\NormalTok{(),}
+    \AttributeTok{n\_with\_ic =} \FunctionTok{sum}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(ic)),}
+    \AttributeTok{n\_missing\_ic =} \FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(ic))}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 3
+##   n_total n_with_ic n_missing_ic
+##     <int>     <int>        <int>
+## 1     292        51          241
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{doc\_scores }\SpecialCharTok{|\textgreater{}}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{group\_by}\NormalTok{(corpus) }\SpecialCharTok{|\textgreater{}}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{n\_total =}\NormalTok{ dplyr}\SpecialCharTok{::}\FunctionTok{n}\NormalTok{(),}
+    \AttributeTok{n\_with\_ic =} \FunctionTok{sum}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(ic)),}
+    \AttributeTok{n\_missing\_ic =} \FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(ic)),}
+    \AttributeTok{.groups =} \StringTok{"drop"}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 2 x 4
+##   corpus           n_total n_with_ic n_missing_ic
+##   <chr>              <int>     <int>        <int>
+## 1 longitudinal         221        41          180
+## 2 non_longitudinal      71        10           61
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model\_ic }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(}
+\NormalTok{  ic }\SpecialCharTok{\textasciitilde{}}\NormalTok{ dyadic\_harm }\SpecialCharTok{+}\NormalTok{ hopelessness }\SpecialCharTok{+}\NormalTok{ justification\_for\_violence }\SpecialCharTok{+}
+\NormalTok{    martyrdom\_narrative }\SpecialCharTok{+}\NormalTok{ role\_model\_status }\SpecialCharTok{+}\NormalTok{ violent\_reference }\SpecialCharTok{+}\NormalTok{ category,}
+  \AttributeTok{data =}\NormalTok{ doc\_scores\_ic}
+\NormalTok{)}
+
+\FunctionTok{summary}\NormalTok{(model\_ic)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = ic ~ dyadic_harm + hopelessness + justification_for_violence + 
+##     martyrdom_narrative + role_model_status + violent_reference + 
+##     category, data = doc_scores_ic)
+## 
+## Residuals:
+## ALL 9 residuals are 0: no residual degrees of freedom!
+## 
+## Coefficients:
+##                            Estimate Std. Error t value Pr(>|t|)
+## (Intercept)                 -1.3562        NaN     NaN      NaN
+## dyadic_harm                  7.5631        NaN     NaN      NaN
+## hopelessness                 0.1764        NaN     NaN      NaN
+## justification_for_violence   0.6846        NaN     NaN      NaN
+## martyrdom_narrative         14.9268        NaN     NaN      NaN
+## role_model_status            2.1013        NaN     NaN      NaN
+## violent_reference          -10.8732        NaN     NaN      NaN
+## categorymoderate             2.0548        NaN     NaN      NaN
+## categoryviolent             -6.2253        NaN     NaN      NaN
+## 
+## Residual standard error: NaN on 0 degrees of freedom
+##   (42 observations deleted due to missingness)
+## Multiple R-squared:      1,  Adjusted R-squared:    NaN 
+## F-statistic:   NaN on 8 and 0 DF,  p-value: NA
+\end{verbatim}
+
 \subsection{Descriptive Statistics}\label{descriptive-statistics}
 
 \begin{figure}
@@ -522,7 +623,7 @@ The regression model predicting dyadic harm language indicated that manifesto ca
 \begin{center}
 \begin{threeparttable}
 
-\caption{\label{tab:manifesto-regressions}Linear regression coefficients predicting grouped marker prevalence from manifesto category.}
+\caption{\label{tab:marker-group-regressions}Linear regression coefficients predicting grouped marker prevalence from manifesto category.}
 
 \begin{tabular}{llllll}
 \toprule
@@ -541,7 +642,67 @@ Hopelessness & Violent vs. Moderate & -1.16 & 1.29 & -0.90 & 0.379\\
 \end{tabular}
 
 \begin{tablenotes}[para]
-\normalsize{\textit{Note.} Moderate manifestos served as the reference category in all models. Coefficients therefore represent differences in grouped marker prevalence relative to moderate manifestos. Values represent grouped marker prevalence per 1,000 words.}
+\normalsize{\textit{Note.} Moderate manifestos served as the reference category.}
+\end{tablenotes}
+
+\end{threeparttable}
+\end{center}
+
+\end{table}
+
+\begin{table}[tbp]
+
+\begin{center}
+\begin{threeparttable}
+
+\caption{\label{tab:manifesto-regressions}Linear regression coefficients predicting document-level autoIC outcomes from linguistic indicators and manifesto category.}
+
+\begin{tabular}{llllll}
+\toprule
+Outcome & \multicolumn{1}{c}{Predictor} & \multicolumn{1}{c}{B} & \multicolumn{1}{c}{SE} & \multicolumn{1}{c}{t} & \multicolumn{1}{c}{p}\\
+\midrule
+IC & Justification for Violence & -0.07 & 1.07 & -0.06 & 0.954\\
+IC & Dyadic Harm & 1.18 & 2.65 & 0.44 & 0.680\\
+IC & Extreme vs. Moderate & -0.52 & 1.65 & -0.32 & 0.768\\
+IC & Violent vs. Moderate & -1.21 & 1.36 & -0.89 & 0.425\\
+Dial & Justification for Violence & -0.06 & 0.84 & -0.08 & 0.942\\
+Dial & Dyadic Harm & 0.87 & 2.09 & 0.42 & 0.699\\
+Dial & Extreme vs. Moderate & -0.45 & 1.30 & -0.35 & 0.746\\
+Dial & Violent vs. Moderate & -0.83 & 1.07 & -0.77 & 0.484\\
+Elab & Justification for Violence & 0.02 & 0.91 & 0.02 & 0.983\\
+Elab & Dyadic Harm & 0.90 & 2.25 & 0.40 & 0.709\\
+Elab & Extreme vs. Moderate & -0.50 & 1.40 & -0.36 & 0.738\\
+Elab & Violent vs. Moderate & -0.92 & 1.16 & -0.80 & 0.469\\
+IC Differentiation & Justification for Violence & -0.03 & 0.40 & -0.08 & 0.943\\
+IC Differentiation & Dyadic Harm & 0.69 & 1.00 & 0.69 & 0.526\\
+IC Differentiation & Extreme vs. Moderate & -0.25 & 0.62 & -0.41 & 0.706\\
+IC Differentiation & Violent vs. Moderate & -0.58 & 0.51 & -1.13 & 0.322\\
+IC Integration & Justification for Violence & -0.04 & 0.70 & -0.05 & 0.962\\
+IC Integration & Dyadic Harm & 0.49 & 1.73 & 0.28 & 0.793\\
+IC Integration & Extreme vs. Moderate & -0.28 & 1.08 & -0.26 & 0.811\\
+IC Integration & Violent vs. Moderate & -0.63 & 0.89 & -0.71 & 0.516\\
+Dial Differentiation & Justification for Violence & -0.04 & 0.50 & -0.09 & 0.936\\
+Dial Differentiation & Dyadic Harm & 0.63 & 1.22 & 0.51 & 0.634\\
+Dial Differentiation & Extreme vs. Moderate & -0.28 & 0.76 & -0.37 & 0.730\\
+Dial Differentiation & Violent vs. Moderate & -0.51 & 0.63 & -0.81 & 0.462\\
+Dial Integration & Justification for Violence & -0.03 & 0.36 & -0.08 & 0.941\\
+Dial Integration & Dyadic Harm & 0.24 & 0.90 & 0.26 & 0.805\\
+Dial Integration & Extreme vs. Moderate & -0.18 & 0.56 & -0.32 & 0.768\\
+Dial Integration & Violent vs. Moderate & -0.32 & 0.46 & -0.69 & 0.528\\
+Elab Differentiation & Justification for Violence & 0.02 & 0.49 & 0.05 & 0.962\\
+Elab Differentiation & Dyadic Harm & 0.60 & 1.21 & 0.50 & 0.645\\
+Elab Differentiation & Extreme vs. Moderate & -0.31 & 0.75 & -0.42 & 0.698\\
+Elab Differentiation & Violent vs. Moderate & -0.55 & 0.62 & -0.89 & 0.424\\
+Elab Integration & Justification for Violence & 0.00 & 0.42 & -0.01 & 0.996\\
+Elab Integration & Dyadic Harm & 0.32 & 1.04 & 0.30 & 0.778\\
+Elab Integration & Extreme vs. Moderate & -0.18 & 0.65 & -0.28 & 0.796\\
+Elab Integration & Violent vs. Moderate & -0.37 & 0.54 & -0.69 & 0.529\\
+\bottomrule
+\addlinespace
+\end{tabular}
+
+\begin{tablenotes}[para]
+\normalsize{\textit{Note.} Moderate manifestos served as the reference category. Coefficients for linguistic predictors represent associations with document-level autoIC outcomes, controlling for the other predictors in the model.}
 \end{tablenotes}
 
 \end{threeparttable}
