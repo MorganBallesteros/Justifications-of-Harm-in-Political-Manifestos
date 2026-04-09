@@ -374,6 +374,7 @@ names(autoic_all)
 dplyr::count(autoic_all, source_file)
 ```
 
+
 ```{r normalize-autoic-docid, echo=TRUE, message=FALSE, warning=FALSE}
 normalize_id <- function(x) {
   x |>
@@ -385,7 +386,8 @@ normalize_id <- function(x) {
 }
 
 autoic_all <- autoic_all |>
-  dplyr::mutate(doc_id = normalize_id(document))
+  janitor::clean_names() |>
+  dplyr::mutate(doc_id = normalize_id(source_file))
 ```
 
 
