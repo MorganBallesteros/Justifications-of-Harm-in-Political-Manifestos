@@ -383,6 +383,9 @@ normalize_id <- function(x) {
     stringr::str_replace_all("pdf$", "") |>
     stringr::str_replace_all("[^a-z0-9]", "")
 }
+
+autoic_all <- autoic_all |>
+  dplyr::mutate(doc_id = normalize_id(document))
 ```
 
 
@@ -392,6 +395,7 @@ names(autoic_doc)
 head(autoic_doc$doc_id, 20)
 summary(autoic_doc$ic)
 ```
+
 ```{r autoic-document-level, echo=TRUE, message=FALSE, warning=FALSE}
 autoic_all |>
   dplyr::count(doc_id) |>
