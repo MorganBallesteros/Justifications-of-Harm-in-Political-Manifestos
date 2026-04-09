@@ -443,12 +443,6 @@ markers of harm on said longitudinal sets.
 ##       10        9        8      265
 \end{verbatim}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{names}\NormalTok{(autoic\_nonlong)}
-\end{Highlighting}
-\end{Shaded}
-
 \begin{verbatim}
 ##  [1] "document"             "chunk"                "complete"            
 ##  [4] "paragraph"            "words"                "ic"                  
@@ -456,12 +450,6 @@ markers of harm on said longitudinal sets.
 ## [10] "ic_integration"       "dial_differentiation" "dial_integration"    
 ## [13] "elab_differentiation" "elab_integration"
 \end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{names}\NormalTok{(autoic\_long)}
-\end{Highlighting}
-\end{Shaded}
 
 \begin{verbatim}
 ##  [1] "document"             "chunk"                "complete"            
@@ -493,36 +481,12 @@ markers of harm on said longitudinal sets.
 ## [1] 241
 \end{verbatim}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{doc\_scores }\SpecialCharTok{|\textgreater{}}
-\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{summarise}\NormalTok{(}
-    \AttributeTok{n\_total =}\NormalTok{ dplyr}\SpecialCharTok{::}\FunctionTok{n}\NormalTok{(),}
-    \AttributeTok{n\_with\_ic =} \FunctionTok{sum}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(ic)),}
-    \AttributeTok{n\_missing\_ic =} \FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(ic))}
-\NormalTok{  )}
-\end{Highlighting}
-\end{Shaded}
-
 \begin{verbatim}
 ## # A tibble: 1 x 3
 ##   n_total n_with_ic n_missing_ic
 ##     <int>     <int>        <int>
 ## 1     292        51          241
 \end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{doc\_scores }\SpecialCharTok{|\textgreater{}}
-\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{group\_by}\NormalTok{(corpus) }\SpecialCharTok{|\textgreater{}}
-\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{summarise}\NormalTok{(}
-    \AttributeTok{n\_total =}\NormalTok{ dplyr}\SpecialCharTok{::}\FunctionTok{n}\NormalTok{(),}
-    \AttributeTok{n\_with\_ic =} \FunctionTok{sum}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(ic)),}
-    \AttributeTok{n\_missing\_ic =} \FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(ic)),}
-    \AttributeTok{.groups =} \StringTok{"drop"}
-\NormalTok{  )}
-\end{Highlighting}
-\end{Shaded}
 
 \begin{verbatim}
 ## # A tibble: 2 x 4
