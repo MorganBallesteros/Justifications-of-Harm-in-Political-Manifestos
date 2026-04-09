@@ -368,6 +368,21 @@ doc_scores <- doc_scores |>
   )
 ```
 
+```{r}
+doc_scores <- doc_scores |>
+  dplyr::select(
+    doc_id, corpus, author,
+    dyadic_harm, hopelessness, justification_for_violence,
+    martyrdom_narrative, role_model_status, violent_reference,
+    category,
+    ic, dial, elab,
+    ic_differentiation, ic_integration,
+    dial_differentiation, dial_integration,
+    elab_differentiation, elab_integration
+  )
+```
+
+
 ```{r clean-doc-scores, echo=FALSE, message=FALSE, warning=FALSE}
 doc_scores <- doc_scores |>
   dplyr::select(
