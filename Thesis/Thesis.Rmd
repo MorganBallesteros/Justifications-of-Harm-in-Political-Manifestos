@@ -86,6 +86,12 @@ if (!all(dir.exists(raw_dirs))) {
     )
   )
 }
+normalize_id <- function(x) {
+  x |>
+    tolower() |>
+    stringr::str_replace_all("\\.pdf$|\\.csv$|\\.txt$", "") |>
+    stringr::str_replace_all("[^a-z0-9]", "")
+}
 ```
 
 
@@ -266,10 +272,8 @@ doc_scores <- group_scores |>
 ```
 
 ```{r load-doc-meta}
-doc_meta <- readr::read_csv(
-  "data/raw/doc_meta.csv",
-  show_col_types = FALSE
-)
+doc_meta <- readr::read_csv(here::here("data/raw/doc_meta.csv")) |>
+  dplyr::mutate(doc_id = normalize_id(doc_id))
 ```
 
 ```{r normalize-docids, echo=FALSE, message=FALSE, warning=FALSE}
@@ -282,6 +286,12 @@ doc_meta <- doc_meta |>
   dplyr::mutate(
     doc_id = gsub("[^a-z0-9]", "", tolower(doc_id))
   )
+```
+
+```{r}
+head(doc_meta$doc_id, 10)
+head(doc_scores$doc_id, 10)
+head(autoic$doc_id, 10)
 ```
 
 
