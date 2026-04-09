@@ -270,7 +270,8 @@ doc_scores <- group_scores |>
   dplyr::select(doc_id, corpus, author, marker_group, prevalence) |>
   tidyr::pivot_wider(
     names_from = marker_group,
-    values_from = prevalence
+    values_from = prevalence,
+    values_fill = 0
   )
 ```
 
@@ -459,6 +460,14 @@ doc_scores <- doc_scores |>
   )
 ```
 
+```{r factorize-category, echo=FALSE, message=FALSE, warning=FALSE}
+doc_scores$category <- factor(
+  doc_scores$category,
+  levels = c("moderate", "extreme", "violent")
+)
+```
+
+
 ```{r prepare-analysis-data, echo=FALSE, message=FALSE, warning=FALSE}
 doc_scores_ic <- doc_scores |>
   dplyr::filter(!is.na(ic))
@@ -472,13 +481,6 @@ summary(doc_scores$ic)
 sum(is.na(doc_scores$ic))
 ```
 
-
-```{r factorize-category, echo=FALSE, message=FALSE, warning=FALSE}
-doc_scores$category <- factor(
-  doc_scores$category,
-  levels = c("moderate", "extreme", "violent")
-)
-```
 
 
 ```{r autoic-coverage, echo=FALSE, message=FALSE, warning=FALSE}
