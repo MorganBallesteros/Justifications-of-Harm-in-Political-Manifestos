@@ -324,6 +324,45 @@ autoic_long <- readxl::read_excel(
 names(autoic_nonlong)
 names(autoic_long)
 ```
+```{r build-autoic-all, echo=FALSE, message=FALSE, warning=FALSE}
+autoic_all <- dplyr::bind_rows(
+  autoic_nonlong |> dplyr::mutate(corpus = "non_longitudinal"),
+  autoic_long |> dplyr::mutate(corpus = "longitudinal")
+)
+```
+
+```{r normalize-autoic-docid, echo=FALSE, message=FALSE, warning=FALSE}
+autoic_all <- autoic_all |>
+  dplyr::mutate(
+    doc_id = gsub("[^a-z0-9]", "", sub("pdf$", "", tolower(document)))
+  )
+```
+
+```{r autoic-document-level, echo=FALSE, message=FALSE, warning=FALSE}
+autoic_doc <- autoic_all |>
+  dplyr::group_by(doc_id, corpus) |>
+  dplyr::summarise(
+    ic = mean(ic, na.rm = TRUE),
+    dial = mean(dial, na.rm = TRUE),
+    elab = mean(elab, na.rm = TRUE),
+    ic_differentiation = mean(ic_differentiation, na.rm = TRUE),
+    ic_integration = mean(ic_integration, na.rm = TRUE),
+    dial_differentiation = mean(dial_differentiation, na.rm = TRUE),
+    dial_integration = mean(dial_integration, na.rm = TRUE),
+    elab_differentiation = mean(elab_differentiation, na.rm = TRUE),
+    elab_integration = mean(elab_integration, na.rm = TRUE),
+    .groups = "drop"
+  )
+```
+
+```{r merge-autoic, echo=FALSE, message=FALSE, warning=FALSE}
+doc_scores <- doc_scores |>
+  dplyr::left_join(
+    autoic_doc,
+    by = c("doc_id", "corpus")
+  )
+```
+
 ```{r check-autoic-integration}
 names(doc_scores)
 
