@@ -974,7 +974,19 @@ ggplot2::ggplot(plotdat, ggplot2::aes(x = ic_z, y = p)) +
 
 
 ```{r logistic-diagnostics, echo=FALSE, include=FALSE}
-performance::check_model(m_full)
+# Optional lightweight diagnostics that do not require the `see` package
+
+# Predicted probabilities
+p_hat <- stats::fitted(m_full)
+
+# Check for extreme fitted values that may indicate separation
+range(p_hat, na.rm = TRUE)
+
+# Basic residual summary
+summary(stats::residuals(m_full, type = "deviance"))
+
+# Influence check
+summary(stats::cooks.distance(m_full))
 ```
 
 
