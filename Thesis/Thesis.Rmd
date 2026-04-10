@@ -49,15 +49,19 @@ suppressPackageStartupMessages({
   library(stringr)
   library(tinylabels)
   library(here)
+  library(readxl)
+  library(janitor)
+  library(broom)
+  library(emmeans)
+  library(performance)
+  library(lmtest)
+  library(sandwich)
+  library(nnet)
+  library(lme4)
 })
 
-# Register bibliography for citations
-r_refs("r-references.bib")
 
-# Fail early if a required package for PDF extraction is missing.
-if (!requireNamespace("pdftools", quietly = TRUE)) {
-  stop("Package 'pdftools' is required to build processed scoring files. Please install it before knitting.")
-}
+
 
 # Reproducibility checks for key project files.
 required_files <- c(
@@ -78,11 +82,48 @@ if (length(missing_files) > 0) {
   )
 }
 
-if (!dir.exists("data/raw/pdfs")) {
-  stop("The directory 'data/raw/pdfs' is missing. The document cannot regenerate processed scoring files.")
+raw_dirs <- c("data/raw", "data/raw/longitudinal")
+
+if (!all(dir.exists(raw_dirs))) {
+  stop(
+    paste(
+      "The following required raw-data directories are missing:",
+      paste(raw_dirs[!dir.exists(raw_dirs)], collapse = ", ")
+    )
+  )
+}
+normalize_id <- function(x) {
+  x |>
+    as.character() |>
+    tolower() |>
+    stringr::str_replace_all("\\.(pdf|csv|txt|xlsx|xls)$", "") |>
+    stringr::str_replace_all("pdfbookone$", "") |>
+    stringr::str_replace_all("pdf$", "") |>
+    stringr::str_replace_all("[^a-z0-9]", "")
 }
 ```
 
+```{r table-format-helpers, include=FALSE}
+fmt_num2 <- function(x) {
+  ifelse(is.na(x) | is.nan(x), "", sprintf("%.2f", round(x, 2)))
+}
+
+fmt_p_apa <- function(p) {
+  dplyr::case_when(
+    is.na(p) | is.nan(p) ~ "",
+    p < .001 ~ "< .001",
+    TRUE ~ sub("^0", "", sprintf("%.3f", round(p, 3)))
+  )
+}
+
+fmt_ci2 <- function(lo, hi) {
+  dplyr::if_else(
+    is.na(lo) | is.na(hi) | is.nan(lo) | is.nan(hi),
+    "",
+    sprintf("[%.2f, %.2f]", round(lo, 2), round(hi, 2))
+  )
+}
+```
 
 
 
@@ -95,8 +136,8 @@ if (!dir.exists("data/raw/pdfs")) {
 #
 # Reproducibility logic:
 #   If processed files are absent, run_scoring.R is executed automatically.
-#   This allows the manuscript to be rendered from a clean thesis directory
-#   by simply knitting the R Markdown file.
+#   The scoring pipeline should read the raw manifesto corpus from the
+#   project's text-first input structure and regenerate processed outputs.
 
 processed_file <- "data/processed/manifesto_scores_groups.csv"
 
@@ -206,8 +247,6 @@ While automated integrative complexity does not correlate perfectly with hand sc
 [document-level correlation of .82, paragraph-level correlation of .46, @conway2020validating], it is an increasingly validated measure in its own right and often used as an 
 efficient and effective replacement for hand scoring. This study uses the document-level
 scores for all analyses.  
-<!-- I forgot to do this part in time for integrative data project; IGNORE AUTOMATED INTEGRATIVE COMPLEXITY PARTS!
--->
 
 ### Violence 
 
@@ -224,65 +263,508 @@ John F. Kennedy’s *Ich bin ein Berliner*) would be counted as non-violent.
 
 ### Analyses
 
-Following @ebner2024measuring, I will measure the prevalence of various categories of 
-linguistic markers indicating violence condoning norms (i.e., justification of violence, 
-martyrdom narrative, hopelessness of alternatives, calls to violence) and harm as a 
-percentage of occurrence relative to total sentence count. These prevalence rates will be 
-compared across manifesto categories (i.e., violent versus non-violent, extreme versus 
-non-extreme) to replicate @ebner2024measuring results suggesting that justification of 
-violence is a significant predictor between categories. I will create .zip files for each 
-selected manifesto and run them through automated integrative complexity, which will give 
-scores for integrative complexity, differentiation, and integration. These scores will be 
-compared in the same manner as prevalence rates. I will also run regression analyses for 
-longitudinal manifesto sets in order to understand the effect changes in integrative 
-complexity have on likelihood of violence. I will repeat these analyses for linguistic 
-markers of harm on said longitudinal sets.
+Following @ebner2024measuring, I measure the prevalence of each linguistic marker group as occurrences per 1,000 words (word-count–normalized rates). Marker groups include dyadic harm language (added to reflect dyadic morality), justification for violence, martyrdom narratives, hopelessness of alternatives, role model status, and violent references.
+
+To test whether these linguistic indicators differ across manifesto categories (moderate, ideologically extreme, violent self-sacrificial), I estimate linear models predicting each marker group’s prevalence from category and report category means with confidence intervals.
+
+To directly test the hypothesis that integrative complexity predicts violence versus non-violence, I estimate logistic regression models predicting whether a manifesto is classified as violent (vs. non-violent) from document-level AutoIC integrative complexity scores (and, in expanded models, from the marker-group prevalence measures).
+
+For longitudinal corpora (multiple texts per author over time), I estimate mixed-effects regression models assessing (a) within-author changes in integrative complexity and harm-justification language over time and (b) whether lower integrative complexity is associated with higher harm-justification language within authors. Where violence event dates are available, I additionally examine whether integrative complexity and harm-justification indicators differ in texts written nearer versus farther from the violence event.
+
 
 # Results 
 
-```{r doc-level-dataset, echo=FALSE, message=FALSE, warning=FALSE}
-# ------------------------------------------------------------
-# Construct document-level dataset for statistical analyses
-# ------------------------------------------------------------
-# The scoring pipeline produces segment-level data because markers
-# are counted within textual segments. However, the hypotheses of
-# this study concern entire manifestos. To avoid pseudoreplication,
-# the segment-level scores are aggregated to the document level.
+```{r doc-level-dataset, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+# Compute document total word count from segment-level word_count
+doc_word_counts <- group_scores |>
+  dplyr::group_by(doc_id, corpus, author, segment_id) |>
+  dplyr::summarise(seg_words = max(word_count, na.rm = TRUE), .groups = "drop") |>
+  dplyr::group_by(doc_id, corpus, author) |>
+  dplyr::summarise(doc_words = sum(seg_words, na.rm = TRUE), .groups = "drop")
 
-# Convert tidy long data to wide format (one column per marker)
-# This is useful for modeling or visualization but the long
-# structure remains the canonical tidy representation.
+# Aggregate marker-group counts to document level, then compute prevalence per 1,000 words
+doc_group_counts <- group_scores |>
+  dplyr::group_by(doc_id, corpus, author, marker_group) |>
+  dplyr::summarise(count = sum(count, na.rm = TRUE), .groups = "drop") |>
+  dplyr::left_join(doc_word_counts, by = c("doc_id", "corpus", "author")) |>
+  dplyr::mutate(prevalence = (count / doc_words) * 1000)
 
-doc_scores <- group_scores |>
-  dplyr::group_by(doc_id, marker_group) |>
-  dplyr::summarise(
-    prevalence = mean(prevalence, na.rm = TRUE),
-    .groups = "drop"
-  ) |>
+# Wide prevalence table for analyses
+doc_scores <- doc_group_counts |>
+  dplyr::select(doc_id, corpus, author, marker_group, prevalence) |>
   tidyr::pivot_wider(
     names_from = marker_group,
-    values_from = prevalence
+    values_from = prevalence,
+    values_fill = 0
   )
 ```
 
-```{r load-doc-meta}
+```{r load-doc-meta, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 doc_meta <- readr::read_csv(
-  "data/raw/doc_meta.csv",
+  here::here("data/raw/doc_meta.csv"),
   show_col_types = FALSE
 )
 ```
 
-```{r merge-doc-meta}
+
+```{r normalize-docids, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 doc_scores <- doc_scores |>
-  dplyr::left_join(doc_meta, by = "doc_id")
+  dplyr::mutate(doc_id = normalize_id(doc_id))
+
+doc_meta <- doc_meta |>
+  dplyr::mutate(doc_id = normalize_id(doc_id))
+
 ```
 
-```{r factorize-category}
-doc_scores$category <- factor(
-  doc_scores$category,
-  levels = c("moderate", "extreme", "violent")
+```{r merge-doc-meta, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+doc_scores <- doc_scores |>
+  dplyr::left_join(
+    doc_meta |>
+      dplyr::select(doc_id, category),
+    by = "doc_id"
+  )
+```
+
+
+```{r restrict-to-thesis-docs, echo=FALSE, include=FALSE}
+# Preserve the full document-level dataset (needed for longitudinal analyses)
+doc_scores_all <- doc_scores
+
+# Thesis “one-off categorized” subset used in cross-sectional category analyses
+doc_scores <- doc_scores |>
+  dplyr::filter(!is.na(category))
+```
+
+
+```{r check-category-merge, echo=FALSE, include=FALSE}
+table(doc_scores$category, useNA = "ifany")
+```
+
+```{r inspect-doc-meta-join, echo=FALSE, include=FALSE}
+nrow(doc_meta)
+nrow(doc_scores)
+
+head(doc_meta$doc_id, 20)
+head(doc_scores$doc_id, 20)
+
+table(doc_scores$category, useNA = "ifany")
+
+doc_scores %>%
+  dplyr::filter(is.na(category)) %>%
+  dplyr::select(doc_id, corpus, author) %>%
+  head(20)
+```
+
+
+
+```{r inspect-doc-meta, echo=FALSE, include=FALSE}
+names(doc_meta)
+head(doc_meta)
+head(doc_scores$doc_id, 20)
+head(doc_meta$doc_id, 20)
+```
+
+```{r autoic-pipeline, echo=FALSE, include=FALSE, message=FALSE, warning=FALSE}
+# ------------------------------------------------------------
+# AutoIC: single, coherent pipeline (import -> normalize -> doc table)
+# ------------------------------------------------------------
+
+# 1) ONE stable normalizer: define once, use everywhere.
+#    (If you keep your setup() definition, replace it with this version and
+#     DO NOT redefine normalize_id later.)
+
+
+# 2) Discover AutoIC files from all relevant folders
+autoic_dirs <- c(
+  here::here("data/raw/autoic"),
+  here::here("data/raw/longitudinal/autoic")
+)
+autoic_dirs <- autoic_dirs[dir.exists(autoic_dirs)]
+
+autoic_files <- purrr::map(
+  autoic_dirs,
+  ~ list.files(
+      .x,
+      pattern = "\\.(xlsx|xls|csv)$",
+      full.names = TRUE,
+      recursive = TRUE,
+      ignore.case = TRUE
+    )
+) |>
+  unlist(use.names = FALSE)
+
+if (length(autoic_files) == 0) {
+  stop("No AutoIC files found in: ", paste(autoic_dirs, collapse = ", "))
+}
+
+# 3) Map AutoIC file paths to a corpus label that matches doc_scores$corpus
+doc_corpus_levels <- sort(unique(doc_scores$corpus))
+
+# Heuristic: find the label that contains "long"
+long_label <- doc_corpus_levels[stringr::str_detect(tolower(doc_corpus_levels), "long")]
+nonlong_label <- setdiff(doc_corpus_levels, long_label)
+
+# Fallbacks if the heuristic can't find exactly one of each
+if (length(long_label) != 1 || length(nonlong_label) != 1) {
+  long_label <- "longitudinal"
+  nonlong_label <- "non_longitudinal"
+}
+
+infer_corpus_from_path <- function(path) {
+  file_low <- tolower(basename(path))
+
+  if (stringr::str_detect(file_low, "longitudinal")) {
+    long_label[1]
+  } else {
+    nonlong_label[1]
+  }
+}
+
+
+# 4) Robust reader: supports Excel and CSV.
+#    For Excel, prefer the sheet named "Document"; otherwise fall back to sheet 1.
+read_autoic_file <- function(path) {
+  ext <- tolower(tools::file_ext(path))
+
+  dat <- if (ext %in% c("xlsx", "xls")) {
+    sheets <- readxl::excel_sheets(path)
+    sheet_to_read <- if ("Document" %in% sheets) "Document" else sheets[1]
+    readxl::read_excel(path, sheet = sheet_to_read)
+  } else if (ext == "csv") {
+    readr::read_csv(path, show_col_types = FALSE)
+  } else {
+    stop("Unsupported AutoIC file type: ", path)
+  }
+
+    dat |>
+    janitor::clean_names() |>
+    dplyr::mutate(
+      source_path = path,
+      source_file = basename(path),
+      doc_id = normalize_id(document),
+      corpus = infer_corpus_from_path(path)
+    )
+}
+
+# 5) Build the row-level table (one row per file, often one row per doc)
+autoic_all <- purrr::map_dfr(autoic_files, read_autoic_file)
+
+# 6) Collapse to a key-unique document-level AutoIC table.
+#    This prevents left_join() from multiplying rows if there are duplicates.
+mean_or_na <- function(x) {
+  if (all(is.na(x))) NA_real_ else mean(x, na.rm = TRUE)
+}
+
+autoic_doc <- autoic_all |>
+  dplyr::group_by(doc_id, corpus) |>
+  dplyr::summarise(
+    dplyr::across(dplyr::where(is.numeric), mean_or_na),
+    source_file = dplyr::first(source_file),
+    .groups = "drop"
+  )
+autoic_doc |>
+  dplyr::select(doc_id, corpus, source_file) |>
+  dplyr::distinct() |>
+  head(20)
+
+
+cat("AutoIC rows by corpus:\n")
+print(table(autoic_doc$corpus, useNA = "ifany"))
+
+cat("\nExample longitudinal AutoIC rows:\n")
+print(
+  autoic_doc |>
+    dplyr::filter(corpus == "longitudinal") |>
+    dplyr::select(doc_id, corpus, source_file, ic) |>
+    head(30)
 )
 ```
+
+
+```{r merge-autoic, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+doc_scores <- doc_scores |>
+  dplyr::left_join(autoic_doc, by = c("doc_id", "corpus"))
+
+doc_scores_all <- doc_scores_all |>
+  dplyr::left_join(autoic_doc, by = c("doc_id", "corpus"))
+
+doc_scores_all <- doc_scores_all |>
+  dplyr::filter(!(corpus == "longitudinal" & author == "lpm"))
+```
+
+```{r check-longitudinal-coverage, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+cat("doc_scores_all rows:", nrow(doc_scores_all), "\n")
+cat("Unique corpus values:\n")
+print(table(doc_scores_all$corpus, useNA = "ifany"))
+
+cat("\nRows by corpus x has_ic:\n")
+print(
+  doc_scores_all |>
+    dplyr::mutate(has_ic = !is.na(ic)) |>
+    dplyr::count(corpus, has_ic)
+)
+
+cat("\nExample longitudinal rows:\n")
+print(
+  doc_scores_all |>
+    dplyr::filter(stringr::str_detect(tolower(corpus), "long")) |>
+    dplyr::select(doc_id, corpus, author, ic) |>
+    head(30)
+)
+```
+
+
+```{r diagnose-autoic-join-coverage, echo=FALSE, include=FALSE, message=FALSE, warning=FALSE}
+
+cat("=== AutoIC join coverage (right after merge-autoic) ===\n")
+
+doc_scores |>
+  dplyr::summarise(
+    n_total = dplyr::n(),
+    n_with_ic = sum(!is.na(ic)),
+    n_missing_ic = sum(is.na(ic))
+  ) |>
+  print()
+
+cat("\nBy corpus:\n")
+doc_scores |>
+  dplyr::group_by(corpus) |>
+  dplyr::summarise(
+    n_total = dplyr::n(),
+    n_with_ic = sum(!is.na(ic)),
+    n_missing_ic = sum(is.na(ic)),
+    .groups = "drop"
+  ) |>
+  print()
+
+cat("\nCorpus levels comparison:\n")
+print(sort(unique(doc_scores$corpus)))
+print(sort(unique(autoic_doc$corpus)))
+
+cat("\nKey overlap checks:\n")
+doc_keys <- doc_scores |> dplyr::distinct(doc_id, corpus)
+autoic_keys <- autoic_doc |> dplyr::distinct(doc_id, corpus)
+
+cat("Matches on doc_id only:",
+    sum(unique(doc_scores$doc_id) %in% unique(autoic_doc$doc_id)),
+    "of", dplyr::n_distinct(doc_scores$doc_id), "\n")
+
+cat("Matches on (doc_id, corpus):",
+    nrow(dplyr::inner_join(doc_keys, autoic_keys, by = c("doc_id", "corpus"))),
+    "of", nrow(doc_keys), "\n")
+
+cat("\nExample doc_scores keys not found in autoic_doc (first 20):\n")
+doc_keys |>
+  dplyr::anti_join(autoic_keys, by = c("doc_id", "corpus")) |>
+  head(20) |>
+  print()
+
+cat("\nExample autoic_doc keys not found in doc_scores (first 20):\n")
+autoic_keys |>
+  dplyr::anti_join(doc_keys, by = c("doc_id", "corpus")) |>
+  head(20) |>
+  print()
+
+```
+
+
+```{r inspect-sheets, echo=FALSE, include=FALSE}
+autoic_files[1]
+if (tolower(tools::file_ext(autoic_files[1])) %in% c("xlsx", "xls")) {
+  readxl::excel_sheets(autoic_files[1])
+}
+```
+
+
+```{r inspect-autoic-columns, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+names(autoic_all)
+names(autoic_doc)
+```
+
+
+```{r clean-doc-scores, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+doc_scores <- doc_scores |>
+  dplyr::select(
+    doc_id, corpus, author,
+    dyadic_harm, hopelessness, justification_for_violence,
+    martyrdom_narrative, role_model_status, violent_reference,
+    category,
+    ic, dial, elab,
+    ic_differentiation, ic_integration,
+    dial_differentiation, dial_integration,
+    elab_differentiation, elab_integration
+  )
+```
+
+```{r prepare-analysis-data, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+doc_scores <- doc_scores |>
+  dplyr::mutate(
+    category = factor(category, levels = c("moderate", "extreme", "violent"))
+  )
+
+doc_scores_ic <- doc_scores |>
+  dplyr::mutate(
+    dplyr::across(
+      c(dyadic_harm, hopelessness, justification_for_violence,
+        martyrdom_narrative, role_model_status, violent_reference),
+      \(x) tidyr::replace_na(x, 0)
+    )
+  ) |>
+  dplyr::filter(
+    !is.na(ic),
+    !is.na(category)
+  )
+
+if (nrow(doc_scores_ic) == 0) {
+  stop(
+    "doc_scores_ic is empty after filtering !is.na(ic) and !is.na(category). ",
+    "This almost always means the AutoIC merge produced no matches (ic is all NA). ",
+    "Run the diagnose-autoic-join-coverage chunk immediately after merge-autoic."
+  )
+}
+```
+
+```{r inspect-analysis-data, echo=FALSE, include=FALSE}
+doc_scores_ic |>
+  dplyr::summarise(
+    n_rows = dplyr::n(),
+    n_missing_ic = sum(is.na(ic)),
+    n_missing_category = sum(is.na(category)),
+    n_missing_dyadic_harm = sum(is.na(dyadic_harm)),
+    n_missing_hopelessness = sum(is.na(hopelessness)),
+    n_missing_justification = sum(is.na(justification_for_violence)),
+    n_missing_martyrdom = sum(is.na(martyrdom_narrative)),
+    n_missing_role_model = sum(is.na(role_model_status)),
+    n_missing_violent_reference = sum(is.na(violent_reference))
+  )
+```
+
+
+
+
+
+```{r diagnose-model-frame-size-ic, echo=FALSE, include=FALSE}
+form_ic <- ic ~ dyadic_harm + hopelessness + justification_for_violence +
+  martyrdom_narrative + role_model_status + violent_reference + category
+
+mf <- model.frame(form_ic, data = doc_scores_ic, na.action = na.omit, drop.unused.levels = TRUE)
+
+cat("nrow(doc_scores_ic) =", nrow(doc_scores_ic), "\n")
+cat("nrow(model frame used by lm) =", nrow(mf), "\n")
+```
+
+```{r check-autoic-integration, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+names(doc_scores)
+
+summary(doc_scores$ic)
+sum(is.na(doc_scores$ic))
+```
+
+
+
+```{r autoic-coverage, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+doc_scores |>
+  dplyr::summarise(
+    n_total = dplyr::n(),
+    n_with_ic = sum(!is.na(ic)),
+    n_missing_ic = sum(is.na(ic))
+  )
+
+doc_scores |>
+  dplyr::group_by(corpus) |>
+  dplyr::summarise(
+    n_total = dplyr::n(),
+    n_with_ic = sum(!is.na(ic)),
+    n_missing_ic = sum(is.na(ic)),
+    .groups = "drop"
+  )
+```
+
+```{r diagnose-ic-contrasts, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+form_ic <- ic ~ dyadic_harm + hopelessness + justification_for_violence +
+  martyrdom_narrative + role_model_status + violent_reference + category
+
+vars <- all.vars(form_ic)
+
+cat("---- Types in doc_scores_ic ----\n")
+print(sapply(doc_scores_ic[, vars, drop = FALSE], class))
+
+cat("\n---- Unique non-NA counts in doc_scores_ic ----\n")
+uniq_non_na <- sapply(doc_scores_ic[, vars, drop = FALSE], \(x) dplyr::n_distinct(x, na.rm = TRUE))
+print(uniq_non_na)
+
+cat("\n---- Category distribution in doc_scores_ic ----\n")
+print(table(doc_scores_ic$category, useNA = "ifany"))
+
+# Mimic what lm() will effectively do: build a model frame and drop NA rows.
+# Force category into a factor for inspection, but do not assume it has 2+ observed levels.
+tmp <- doc_scores_ic |>
+  dplyr::mutate(category = factor(category, levels = c("moderate","extreme","violent")))
+
+mf <- model.frame(form_ic, data = tmp, na.action = na.omit, drop.unused.levels = TRUE)
+
+cat("\n---- Rows used by lm after na.omit ----\n")
+cat("nrow(model frame) =", nrow(mf), "\n")
+
+cat("\n---- Category distribution in the model frame ----\n")
+print(table(mf$category, useNA = "ifany"))
+
+bad_factors <- names(mf)[sapply(mf, \(x) is.factor(x) && nlevels(x) < 2)]
+cat("\n---- Factor predictors with <2 levels in model frame ----\n")
+print(bad_factors)
+
+```
+```{r verify-types-before-ic-regression, echo=FALSE, include=FALSE}
+vars <- c(
+  "ic",
+  "dyadic_harm", "hopelessness", "justification_for_violence",
+  "martyrdom_narrative", "role_model_status", "violent_reference",
+  "category"
+)
+
+str(doc_scores_ic[, vars, drop = FALSE])
+
+```
+
+```{r category-levels-ic, echo=FALSE, include=FALSE}
+print(table(doc_scores_ic$category, useNA = "ifany"))
+print(levels(doc_scores_ic$category))
+```
+
+
+
+```{r regression-ic, echo=FALSE, include=FALSE, message=FALSE, warning=FALSE}
+form_ic <- ic ~ dyadic_harm + hopelessness + justification_for_violence +
+  martyrdom_narrative + role_model_status + violent_reference + category
+
+mf <- model.frame(form_ic, data = doc_scores_ic, na.action = na.omit, drop.unused.levels = TRUE)
+
+cat("n used by lm after na.omit =", nrow(mf), "\n")
+cat("category distribution in modeling data:\n")
+print(table(mf$category, useNA = "ifany"))
+
+if (nrow(mf) == 0) {
+  stop(
+    "Model frame has 0 rows after na.omit. ",
+    "This indicates no complete cases remain. ",
+    "Most commonly: ic is missing for all rows due to a failed AutoIC merge. ",
+    "Check autoic-coverage and diagnose-autoic-join-coverage."
+  )
+}
+
+single_level <- names(mf)[sapply(mf, \(x) is.factor(x) && nlevels(x) < 2)]
+form_ic2 <- form_ic
+
+if ("category" %in% single_level) {
+  warning("`category` has <2 observed levels in the model frame; dropping `category`.")
+  form_ic2 <- update(form_ic2, . ~ . - category)
+  mf <- model.frame(form_ic2, data = doc_scores_ic, na.action = na.omit, drop.unused.levels = TRUE)
+}
+
+model_ic <- lm(form_ic2, data = mf)
+summary(model_ic)
+```
+
 
 ## Descriptive Statistics 
 
@@ -452,37 +934,219 @@ category_stats <- marker_scores_with_cat %>%
     .groups = "drop"
   )
 ```
-Mean marker prevalence also differed across manifesto categories (Table \@ref(tab:manifesto-descriptives)). Violent self-sacrificial manifestos exhibited the highest average prevalence of dyadic harm language (M = `r manifesto_descriptives[["violent"]][manifesto_descriptives[["Marker Group"]] == "Dyadic Harm"]`) and justification for violence (M = `r manifesto_descriptives[["violent"]][manifesto_descriptives[["Marker Group"]] == "Justification For Violence"]`), whereas moderate manifestos displayed very low levels of these indicators (dyadic harm M = `r manifesto_descriptives[["moderate"]][manifesto_descriptives[["Marker Group"]] == "Dyadic Harm"]`; justification for violence M = `r manifesto_descriptives[["moderate"]][manifesto_descriptives[["Marker Group"]] == "Justification For Violence"]`). Martyrdom narratives showed the most pronounced difference across categories, appearing most frequently in violent manifestos (M = `r manifesto_descriptives[["violent"]][manifesto_descriptives[["Marker Group"]] == "Martyrdom Narrative"]`) compared with extreme (M = `r manifesto_descriptives[["extreme"]][manifesto_descriptives[["Marker Group"]] == "Martyrdom Narrative"]`) and moderate texts (M = `r manifesto_descriptives[["moderate"]][manifesto_descriptives[["Marker Group"]] == "Martyrdom Narrative"]`). In contrast, markers associated with hopelessness were most prevalent in ideologically extreme manifestos (M = `r manifesto_descriptives[["extreme"]][manifesto_descriptives[["Marker Group"]] == "Hopelessness"]`), followed by moderate manifestos (M = `r manifesto_descriptives[["moderate"]][manifesto_descriptives[["Marker Group"]] == "Hopelessness"]`) and violent manifestos (M = `r manifesto_descriptives[["violent"]][manifesto_descriptives[["Marker Group"]] == "Hopelessness"]`).
+Mean marker prevalence also differed across manifesto categories (Table \@ref(tab:manifesto-descriptives)). Violent self-sacrificial manifestos exhibited the highest average prevalence of dyadic harm language (M = `r manifesto_descriptives[["violent"]][manifesto_descriptives[["Marker Group"]] == "Dyadic Harm"]`) and justification for violence (M = `r manifesto_descriptives[["violent"]][manifesto_descriptives[["Marker Group"]] == "Justification for Violence"]`), whereas moderate manifestos displayed very low levels of these indicators (dyadic harm M = `r manifesto_descriptives[["moderate"]][manifesto_descriptives[["Marker Group"]] == "Dyadic Harm"]`; justification for violence M = `r manifesto_descriptives[["moderate"]][manifesto_descriptives[["Marker Group"]] == "Justification for Violence"]`). Martyrdom narratives showed the most pronounced difference across categories, appearing most frequently in violent manifestos (M = `r manifesto_descriptives[["violent"]][manifesto_descriptives[["Marker Group"]] == "Martyrdom Narrative"]`) compared with extreme (M = `r manifesto_descriptives[["extreme"]][manifesto_descriptives[["Marker Group"]] == "Martyrdom Narrative"]`) and moderate texts (M = `r manifesto_descriptives[["moderate"]][manifesto_descriptives[["Marker Group"]] == "Martyrdom Narrative"]`). In contrast, markers associated with hopelessness were most prevalent in ideologically extreme manifestos (M = `r manifesto_descriptives[["extreme"]][manifesto_descriptives[["Marker Group"]] == "Hopelessness"]`), followed by moderate manifestos (M = `r manifesto_descriptives[["moderate"]][manifesto_descriptives[["Marker Group"]] == "Hopelessness"]`) and violent manifestos (M = `r manifesto_descriptives[["violent"]][manifesto_descriptives[["Marker Group"]] == "Hopelessness"]`).
 
 ## Regression Analyses 
 
 To examine whether manifesto category predicts the prevalence of harm-related linguistic indicators, a series of linear regression models were estimated. Each model predicted the prevalence of a marker group from manifesto category, with moderate manifestos serving as the reference category.
 
-### Dyadic Harm Language 
+### Dyadic Harm Language
 
-The regression model predicting dyadic harm language indicated that manifesto category was marginally associated with variation in dyadic harm prevalence, F(2, 28) = 3.10, *p* = .061, R² = .18. Compared with moderate manifestos, ideologically extreme manifestos contained significantly higher levels of dyadic harm language (*b* = 0.16, SE = 0.08, *t* = 2.16, *p* = .040). Violent self-sacrificial manifestos also showed significantly higher prevalence of dyadic harm markers relative to moderate texts (*b* = 0.18, SE = 0.08, *t* = 2.21, *p* = .035).
+The overall model approached significance, F(2, 28) = 3.10, p = .061, R² = .18. Relative to moderate manifestos, both ideologically extreme (b = 0.16, SE = 0.08, p = .040) and violent manifestos (b = 0.18, SE = 0.08, p = .035) exhibited significantly higher levels of dyadic harm language.
 
-```{r manifesto-regressions, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
-# ------------------------------------------------------------
-# Regression analyses predicting marker prevalence from
-# manifesto category
-# ------------------------------------------------------------
-# Purpose:
-#   Test whether manifesto category predicts the prevalence of each
-#   grouped linguistic indicator.
-#
-# Why this chunk exists:
-#   Separate linear models are estimated for each marker group using
-#   moderate manifestos as the reference category. To keep the table
-#   readable in APA manuscript format, only the category contrasts are
-#   shown in the main coefficient table. Intercepts and model-fit
-#   statistics are omitted here to reduce table width.
-#
-# Interpretation:
-#   Positive coefficients indicate that the marker group appears more
-#   frequently in the comparison category than in moderate manifestos.
+### Justifications for Violence 
 
-# Marker groups to model
+The model was not significant, F(2, 28) = 1.88, p = .171, R² = .12. Neither ideologically extreme (p = .744) nor violent manifestos (p = .085) differed significantly from moderate texts, although the latter showed a trend toward higher prevalence.
+
+### Martyrdom Narratives 
+
+The model was significant, F(2, 28) = 3.94, p = .031, R² = .22. Violent manifestos exhibited higher levels of martyrdom language than moderate texts (b = 0.47, SE = 0.19, p = .019), whereas ideologically extreme manifestos did not differ from moderate texts (p = .780).
+
+### Hopelessness 
+
+The model was not significant, F(2, 28) = 2.48, p = .102, R² = .15. No category differences were observed.
+
+
+### Integrative Complexity Predicting Violence
+
+Logistic regression models assessed whether integrative complexity predicted whether a manifesto was classified as violent (vs. non-violent; see Tables 2–3). In the baseline model, integrative complexity was negatively associated with violence likelihood, OR = 0.13, 95% CI [0.01, 0.91], p = .079. In the full model including linguistic indicators, integrative complexity remained a significant predictor, OR = 0.04, 95% CI [0.00, 0.69], p = .050.
+
+Among linguistic predictors, martyrdom narratives (OR = 14.63, p = .060) and justification for violence (OR = 4.05, p = .084) showed large but non-significant effects. Dyadic harm language and hopelessness did not significantly predict violence when included in the full model.
+
+```{r violent-logistic-models, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+# Binary outcome: violent vs non-violent (moderate + extreme)
+dat <- doc_scores_ic |>
+  dplyr::mutate(violent = dplyr::if_else(category == "violent", 1L, 0L)) |>
+  dplyr::filter(!is.na(ic))
+
+# Standardize continuous predictors: OR per 1 SD change
+dat <- dat |>
+  dplyr::mutate(
+    ic_z = as.numeric(scale(ic)),
+    dyadic_harm_z = as.numeric(scale(dyadic_harm)),
+    justification_z = as.numeric(scale(justification_for_violence)),
+    martyrdom_z = as.numeric(scale(martyrdom_narrative)),
+    hopelessness_z = as.numeric(scale(hopelessness))
+  )
+
+# Core hypothesis model (Hypothesis b)
+m_ic_only <- stats::glm(violent ~ ic_z, data = dat, family = stats::binomial())
+
+tab_ic <- broom::tidy(m_ic_only, conf.int = TRUE, exponentiate = TRUE) |>
+  dplyr::filter(term != "(Intercept)") |>
+  dplyr::mutate(
+    Predictor = "Integrative Complexity (z)",
+    OR = round(estimate, 2),
+    CI = paste0("[", round(conf.low, 2), ", ", round(conf.high, 2), "]"),
+    p = dplyr::case_when(
+      p.value < .001 ~ "< .001",
+      TRUE ~ sprintf("%.3f", p.value)
+    )
+  ) |>
+  dplyr::select(Predictor, OR, CI, p)
+
+papaja::apa_table(
+  tab_ic,
+  caption = "Logistic regression predicting violent (vs. non-violent) category from integrative complexity.",
+  note = "OR reflects a 1 SD increase in standardized integrative complexity."
+)
+
+
+# Expanded model (Hypotheses a + b jointly, but watch sample size)
+m_full <- stats::glm(
+  violent ~ ic_z + dyadic_harm_z + justification_z + martyrdom_z + hopelessness_z,
+  data = dat,
+  family = stats::binomial()
+)
+
+# APA-ready table for the expanded model: Odds ratios + 95% CI
+tab_or <- broom::tidy(m_full, conf.int = TRUE, exponentiate = TRUE) |>
+  dplyr::filter(term != "(Intercept)") |>
+  dplyr::mutate(
+    Predictor = dplyr::recode(
+      term,
+      "ic_z" = "Integrative Complexity (z)",
+      "dyadic_harm_z" = "Dyadic Harm (z)",
+      "justification_z" = "Justification for Violence (z)",
+      "martyrdom_z" = "Martyrdom Narrative (z)",
+      "hopelessness_z" = "Hopelessness (z)"
+    ),
+    OR = round(estimate, 2),
+    CI = paste0("[", round(conf.low, 2), ", ", round(conf.high, 2), "]"),
+    p = dplyr::case_when(
+      p.value < .001 ~ "< .001",
+      TRUE ~ sprintf("%.3f", p.value)
+    )
+  ) |>
+  dplyr::select(Predictor, OR, CI, p)
+
+papaja::apa_table(
+  tab_or,
+  caption = "Logistic regression predicting violent (vs. non-violent) manifesto category from integrative complexity and linguistic indicators.",
+  note = "Odds ratios (OR) reflect 1 SD increases in standardized predictors."
+)
+
+```
+
+
+```{r fig-violent-probability, echo=FALSE, include=FALSE, message=FALSE, warning=FALSE, fig.cap="Predicted probability of violent (vs. non-violent) category as a function of integrative complexity (95% CI)."}
+      
+# Predicted probability curve across IC (holding other predictors at 0 = mean, due to z-scoring)
+newdat <- tibble::tibble(
+  ic_z = seq(min(dat$ic_z, na.rm = TRUE), max(dat$ic_z, na.rm = TRUE), length.out = 100),
+  dyadic_harm_z = 0,
+  justification_z = 0,
+  martyrdom_z = 0,
+  hopelessness_z = 0
+)
+
+pred <- stats::predict(m_full, newdata = newdat, type = "link", se.fit = TRUE)
+
+plotdat <- newdat |>
+  dplyr::mutate(
+    p = stats::plogis(pred$fit),
+    lo = stats::plogis(pred$fit - 1.96 * pred$se.fit),
+    hi = stats::plogis(pred$fit + 1.96 * pred$se.fit)
+  )
+
+ggplot2::ggplot(plotdat, ggplot2::aes(x = ic_z, y = p)) +
+  ggplot2::geom_ribbon(ggplot2::aes(ymin = lo, ymax = hi), alpha = 0.2) +
+  ggplot2::geom_line() +
+  ggplot2::labs(
+    x = "Integrative Complexity (z)",
+    y = "Predicted P(Violent)"
+  ) +
+  ggplot2::theme_classic()
+```
+
+```{r fig-violent-oddsratios, echo=FALSE, include=FALSE, message=FALSE, warning=FALSE, fig.cap="Odds ratios (95% CI) from the logistic model predicting violent (vs. non-violent) category."}
+coef_tab <- broom::tidy(m_full, conf.int = TRUE, exponentiate = TRUE) |>
+  dplyr::filter(term != "(Intercept)") |>
+  dplyr::mutate(term = forcats::fct_rev(term))
+
+ggplot2::ggplot(coef_tab, ggplot2::aes(x = estimate, y = term)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_errorbarh(ggplot2::aes(xmin = conf.low, xmax = conf.high)) +
+  ggplot2::geom_vline(xintercept = 1, linetype = "dashed") +
+  ggplot2::labs(x = "Odds Ratio (95% CI)", y = NULL) +
+  ggplot2::theme_classic()
+
+```
+
+```{r multinomial-sensitivity, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+dat3 <- doc_scores_ic |>
+  dplyr::filter(!is.na(category), !is.na(ic)) |>
+  dplyr::mutate(
+    category = droplevels(category),
+    ic_z = as.numeric(scale(ic)),
+    dyadic_harm_z = as.numeric(scale(dyadic_harm)),
+    justification_z = as.numeric(scale(justification_for_violence)),
+    martyrdom_z = as.numeric(scale(martyrdom_narrative)),
+    hopelessness_z = as.numeric(scale(hopelessness))
+  )
+
+m_multi <- nnet::multinom(
+  category ~ ic_z + dyadic_harm_z + justification_z + martyrdom_z + hopelessness_z,
+  data = dat3,
+  trace = FALSE
+)
+
+summ <- summary(m_multi)
+coefs <- as.data.frame(summ$coefficients)
+ses <- as.data.frame(summ$standard.errors)
+
+out <- dplyr::bind_rows(lapply(1:nrow(coefs), function(k) {
+  cls <- rownames(coefs)[k]
+  beta <- as.numeric(coefs[k, ])
+  se <- as.numeric(ses[k, ])
+  term <- colnames(coefs)
+  tibble::tibble(
+    Comparison = paste0(cls, " vs baseline"),
+    Term = term,
+    OR = exp(beta),
+    CI = paste0("[", exp(beta - 1.96*se), ", ", exp(beta + 1.96*se), "]")
+  )
+})) |>
+  dplyr::filter(Term != "(Intercept)")
+
+papaja::apa_table(
+  out,
+  caption = "Multinomial sensitivity model predicting 3-category manifesto classification from integrative complexity and marker prevalence.",
+  note = "Estimated via nnet::multinom; ORs are exponentiated coefficients."
+)
+
+```
+
+
+```{r logistic-diagnostics, echo=FALSE, include=FALSE}
+# Optional lightweight diagnostics that do not require the `see` package
+
+# Predicted probabilities
+p_hat <- stats::fitted(m_full)
+
+# Check for extreme fitted values that may indicate separation
+range(p_hat, na.rm = TRUE)
+
+# Basic residual summary
+summary(stats::residuals(m_full, type = "deviance"))
+
+# Influence check
+summary(stats::cooks.distance(m_full))
+```
+
+
+
+```{r marker-group-regressions, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
 marker_groups <- c(
   "dyadic_harm",
   "justification_for_violence",
@@ -490,14 +1154,12 @@ marker_groups <- c(
   "hopelessness"
 )
 
-# Fit one regression per marker group
 models <- lapply(marker_groups, function(m) {
   stats::lm(stats::as.formula(paste(m, "~ category")), data = doc_scores)
 })
 
 names(models) <- marker_groups
 
-# Build a compact coefficient table
 regression_table <- lapply(names(models), function(name) {
   model_summary <- summary(models[[name]])
   coefs <- as.data.frame(model_summary$coefficients)
@@ -528,6 +1190,102 @@ regression_table <- lapply(names(models), function(name) {
       )
     )
 }) |>
+  dplyr::bind_rows()
+
+papaja::apa_table(
+  regression_table,
+  caption = "Linear regression coefficients predicting grouped marker prevalence from manifesto category.",
+  note = "Moderate manifestos served as the reference category."
+)
+```
+
+```{r manifesto-regressions, echo=FALSE, include=FALSE, message=FALSE, warning=FALSE, results='asis'}
+# ------------------------------------------------------------
+# Regression analyses predicting autoIC outcomes from
+# linguistic indicators and manifesto category
+# ------------------------------------------------------------
+# Purpose:
+#   Estimate whether grouped linguistic indicators and manifesto
+#   category predict document-level autoIC outcomes.
+#
+# Interpretation:
+#   Positive coefficients indicate that higher prevalence of the
+#   predictor is associated with higher values on the corresponding
+#   autoIC outcome, controlling for the other predictors in the model.
+
+# AutoIC outcomes to model
+ic_vars <- c(
+  "ic",
+  "dial",
+  "elab",
+  "ic_differentiation",
+  "ic_integration",
+  "dial_differentiation",
+  "dial_integration",
+  "elab_differentiation",
+  "elab_integration"
+)
+
+# Predictors to include in each model
+predictors <- c(
+  "justification_for_violence",
+  "dyadic_harm",
+  "category"
+)
+
+# Fit one regression per autoIC outcome
+models_ic <- lapply(ic_vars, function(v) {
+  dat <- doc_scores |>
+    dplyr::filter(!is.na(.data[[v]]))
+
+  stats::lm(
+    stats::as.formula(
+      paste(v, "~", paste(predictors, collapse = " + "))
+    ),
+    data = dat
+  )
+})
+
+names(models_ic) <- ic_vars
+
+# Build a compact coefficient table
+regression_table <- lapply(names(models_ic), function(name) {
+  model_summary <- summary(models_ic[[name]])
+  coefs <- as.data.frame(model_summary$coefficients)
+  coefs$term <- rownames(coefs)
+  rownames(coefs) <- NULL
+
+  coefs |>
+    dplyr::filter(term != "(Intercept)") |>
+    dplyr::transmute(
+      Outcome = dplyr::case_when(
+        name == "ic" ~ "IC",
+        name == "dial" ~ "Dial",
+        name == "elab" ~ "Elab",
+        name == "ic_differentiation" ~ "IC Differentiation",
+        name == "ic_integration" ~ "IC Integration",
+        name == "dial_differentiation" ~ "Dial Differentiation",
+        name == "dial_integration" ~ "Dial Integration",
+        name == "elab_differentiation" ~ "Elab Differentiation",
+        name == "elab_integration" ~ "Elab Integration",
+        TRUE ~ name
+      ),
+      Predictor = dplyr::case_when(
+        term == "justification_for_violence" ~ "Justification for Violence",
+        term == "dyadic_harm" ~ "Dyadic Harm",
+        term == "categoryextreme" ~ "Extreme vs. Moderate",
+        term == "categoryviolent" ~ "Violent vs. Moderate",
+        TRUE ~ term
+      ),
+      B = round(Estimate, 3),
+      SE = round(`Std. Error`, 3),
+      t = round(`t value`, 2),
+      p = dplyr::case_when(
+        `Pr(>|t|)` < .001 ~ "< .001",
+        TRUE ~ sprintf("%.3f", `Pr(>|t|)`)
+      )
+    )
+}) |>
   dplyr::bind_rows() |>
   dplyr::mutate(
     dplyr::across(where(is.character), ~ enc2utf8(as.character(.x)))
@@ -535,55 +1293,226 @@ regression_table <- lapply(names(models), function(name) {
 
 papaja::apa_table(
   regression_table,
-  caption = "Linear regression coefficients predicting grouped marker prevalence from manifesto category.",
-  note = "Moderate manifestos served as the reference category in all models. Coefficients therefore represent differences in grouped marker prevalence relative to moderate manifestos. Values represent grouped marker prevalence per 1,000 words."
+  caption = "Linear regression coefficients predicting document-level autoIC outcomes from linguistic indicators and manifesto category.",
+  note = "Moderate manifestos served as the reference category. Coefficients for linguistic predictors represent associations with document-level autoIC outcomes, controlling for the other predictors in the model."
 )
 ```
 
-### Justifications for Violence 
 
-The regression model predicting justifications for violence was not statistically significant overall, F(2, 28) = 1.88, *p* = .171, R² = .12. Neither ideologically extreme manifestos (*b* = 0.05, SE = 0.16, *t* = 0.33, *p* = .744) nor violent manifestos (*b* = 0.30, SE = 0.17, *t* = 1.78, *p* = .085) differed significantly from moderate manifestos in their prevalence of justification language. However, the coefficient for violent manifestos approached conventional levels of statistical significance, suggesting a potential trend toward greater justificatory rhetoric in manifestos associated with violence. 
 
-### Martyrdom Narratives 
+## Longitudinal Analyses
 
-The regression model predicting martyrdom narratives was statistically significant, F(2, 28) = 3.94, *p* = .031, R² = .22. Violent self-sacrificial manifestos exhibited significantly higher levels of martyrdom narrative markers compared with moderate texts (*b* = 0.47, SE = 0.19, *t* = 2.50, *p* = .019). In contrast, ideologically extreme manifestos did not differ significantly from moderate manifestos in martyrdom language (*b* = 0.05, SE = 0.17, *t* = 0.28, *p* = .780). 
+Mixed-effects models were estimated to examine within-author changes in integrative complexity and justification language over time (see Table 6; Figure 2). No significant effects were observed. Integrative complexity was not associated with justification language (b = -0.11, SE = 0.11, t = -0.99), nor did either variable change systematically over time. These findings suggest that cross-sectional differences across manifesto types are more pronounced than within-author temporal dynamics.
 
-### Hopelessness 
+```{r prepare-longitudinal, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+# Keep only longitudinal documents with AutoIC scores
+long_dat <- doc_scores_all |>
+  dplyr::filter(stringr::str_detect(tolower(corpus), "long")) |>
+  dplyr::filter(!is.na(author)) |>
+  dplyr::mutate(
+    dplyr::across(
+      c(dyadic_harm, hopelessness, justification_for_violence,
+        martyrdom_narrative, role_model_status, violent_reference),
+      \(x) tidyr::replace_na(x, 0)
+    )
+  ) |>
+  dplyr::filter(!is.na(ic))
 
-The regression model predicting hopelessness markers was not statistically significant overall, F(2, 28) = 2.48, *p* = .102, R² = .15. Neither ideologically extreme manifestos (*b* = 1.75, SE = 1.25, *t* = 1.41, *p* = .171) nor violent manifestos (*b* = -0.93, SE = 1.36, *t* = -0.69, *p* = .497) differed significantly from moderate manifestos in the prevalence of hopelessness language. 
+# Extract an approximate date from trailing digits in doc_id
+# Handles cases like "harris04201999" (mddyyyy or mmddyyyy) and year-only endings.
+extract_doc_date <- function(doc_id) {
+  vapply(doc_id, function(x) {
+    digits <- stringr::str_extract(x, "\\d+$")
 
-### Summary of Findings 
+    if (length(digits) == 0 || is.na(digits)) {
+      return(as.character(as.Date(NA)))
+    }
 
-Across models, manifesto category predicted significant differences in two linguistic domains: dyadic harm language and martyrdom narratives. Both ideologically extreme and violent manifestos contained higher levels of dyadic harm language relative to moderate texts, suggesting that framing political issues in terms of intentional harm and victimization may be characteristic of more radical ideological writing. Additionally, violent self-sacrificial manifestos displayed significantly greater use of martyrdom narratives than moderate texts, indicating that rhetorical appeals to sacrifice and heroism may play an important role in texts associated with political violence.
+    year <- suppressWarnings(as.integer(stringr::str_sub(digits, -4, -1)))
+    md <- stringr::str_sub(digits, 1, -5)
+
+    if (is.na(year)) {
+      return(as.character(as.Date(NA)))
+    }
+
+    if (is.na(md) || md == "") {
+      return(sprintf("%04d-01-01", year))
+    }
+
+    if (nchar(md) == 4) {
+      month <- suppressWarnings(as.integer(stringr::str_sub(md, 1, 2)))
+      day   <- suppressWarnings(as.integer(stringr::str_sub(md, 3, 4)))
+    } else if (nchar(md) == 3) {
+      month <- suppressWarnings(as.integer(stringr::str_sub(md, 1, 1)))
+      day   <- suppressWarnings(as.integer(stringr::str_sub(md, 2, 3)))
+    } else if (nchar(md) == 2) {
+      month <- suppressWarnings(as.integer(stringr::str_sub(md, 1, 1)))
+      day   <- suppressWarnings(as.integer(stringr::str_sub(md, 2, 2)))
+    } else {
+      return(sprintf("%04d-01-01", year))
+    }
+
+    # Fallback if parsed month/day are invalid
+    if (is.na(month) || is.na(day) || month < 1 || month > 12 || day < 1 || day > 31) {
+      return(sprintf("%04d-01-01", year))
+    }
+
+    sprintf("%04d-%02d-%02d", year, month, day)
+  }, FUN.VALUE = character(1)) |>
+    as.Date()
+}
+
+long_dat <- long_dat |>
+  dplyr::mutate(doc_date = extract_doc_date(doc_id)) |>
+  dplyr::group_by(author) |>
+  dplyr::arrange(doc_date, .by_group = TRUE) |>
+  dplyr::mutate(
+    time_index = dplyr::row_number(),
+    time_c = as.numeric(scale(time_index, center = TRUE, scale = FALSE))
+  ) |>
+  dplyr::ungroup()
+
+
+if (nrow(long_dat) == 0) {
+  cat(
+    "No longitudinal documents with AutoIC scores after merge.\n",
+    "This means longitudinal AutoIC rows are not matching on (doc_id, corpus).\n",
+    "Run the diagnose-autoic-join-coverage chunk and inspect:\n",
+    "  - sort(unique(doc_scores_all$corpus)) vs sort(unique(autoic_doc$corpus))\n",
+    "  - anti-join examples of missing keys.\n"
+  )
+} else {
+  cat("Longitudinal analysis rows:", nrow(long_dat), "\n")
+}
+
+```
+
+```{r fig-long-ic-trajectories, echo=FALSE, message=FALSE, warning=FALSE, fig.cap="Longitudinal trajectories of integrative complexity by author (document order)."}
+ggplot2::ggplot(long_dat, ggplot2::aes(x = time_index, y = ic, group = author)) +
+  ggplot2::geom_line(alpha = 0.7) +
+  ggplot2::geom_point(size = 1) +
+  ggplot2::facet_wrap(~ author, scales = "free_x") +
+  ggplot2::labs(x = "Document order (within author)", y = "AutoIC Integrative Complexity") +
+  ggplot2::theme_classic()
+```
+
+
+```{r longitudinal-models, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+# Hypothesis c (mechanism): lower IC associated with more harm-justification language within authors
+m_just_ic <- lme4::lmer(
+  justification_for_violence ~ ic + time_c + (time_c | author),
+  data = long_dat,
+  REML = FALSE
+)
+
+# IC trend over time (is there a decline within authors?)
+m_ic_time <- lme4::lmer(
+  ic ~ time_c + (time_c | author),
+  data = long_dat,
+  REML = FALSE
+)
+
+# Simple fixed-effect tables (Wald approx)
+fixef_table <- function(m, model_label) {
+  cf <- summary(m)$coefficients
+  out <- tibble::tibble(
+    Model = model_label,
+    Term = rownames(cf),
+    B = round(cf[, "Estimate"], 3),
+    SE = round(cf[, "Std. Error"], 3),
+    t = round(cf[, "t value"], 2)
+  )
+  out
+}
+
+tab_long <- dplyr::bind_rows(
+  fixef_table(m_just_ic, "Justification ~ IC + Time"),
+  fixef_table(m_ic_time, "IC ~ Time")
+) |>
+  dplyr::filter(Term != "(Intercept)")
+
+papaja::apa_table(
+  tab_long,
+  caption = "Longitudinal mixed-effects models testing within-author change and the association between integrative complexity and justification language.",
+  note = "Models include random intercepts and random slopes for time by author (lme4::lmer)."
+)
+```
+
+
+```{r harris-near-far, echo=FALSE, include=FALSE, message=FALSE, warning=FALSE, results='asis'}
+harris_dat <- long_dat |>
+  dplyr::filter(author == "harris") |>
+  dplyr::filter(!is.na(doc_date)) |>
+  dplyr::mutate(
+    event_date = as.Date("1999-04-20"),   # <-- EDIT if you are using a different violence date definition
+    days_to_event = as.numeric(event_date - doc_date),
+    near_6m = days_to_event >= 0 & days_to_event <= 183
+  )
+
+# IC as a function of temporal proximity (within Harris)
+m_harris_ic <- stats::lm(ic ~ days_to_event, data = harris_dat)
+m_harris_just <- stats::lm(justification_for_violence ~ days_to_event, data = harris_dat)
+
+tab_harris <- tibble::tibble(
+  Outcome = c("IC", "Justification for Violence"),
+  B_days = c(coef(m_harris_ic)[["days_to_event"]], coef(m_harris_just)[["days_to_event"]]),
+  SE_days = c(summary(m_harris_ic)$coefficients["days_to_event","Std. Error"],
+             summary(m_harris_just)$coefficients["days_to_event","Std. Error"]),
+  p_days = c(summary(m_harris_ic)$coefficients["days_to_event","Pr(>|t|)"],
+            summary(m_harris_just)$coefficients["days_to_event","Pr(>|t|)"])
+) |>
+  dplyr::mutate(
+    dplyr::across(c(B_days, SE_days), \(x) round(x, 4)),
+    p_days = dplyr::case_when(p_days < .001 ~ "< .001", TRUE ~ sprintf("%.3f", p_days))
+  )
+
+papaja::apa_table(
+  tab_harris,
+  caption = "Within-author temporal proximity models for the violent longitudinal case (Harris).",
+  note = "Predictor is days remaining until the violence event date; positive B indicates higher outcome farther from the event."
+)
+```
+
 
 # Discussion 
 
-The present study examined whether linguistic indicators associated with moral justifications of harm differ systematically across political manifesto types. Specifically, the analysis tested whether grouped linguistic markers related to dyadic harm framing, justification for violence, martyrdom narratives, and expressions of political hopelessness vary across moderate, ideologically extreme, and violent self-sacrificial manifestos. These analyses represent an initial empirical step toward evaluating the broader hypothesis that linguistic indicators of harm justification correspond to an increased likelihood of political violence.  
-The results provide partial support for the proposed theoretical framework. Manifestos categorized as ideologically extreme and violent self-sacrificial exhibited significantly higher levels of dyadic harm language compared with moderate manifestos. In other words, texts associated with more radical ideological positions more frequently framed political conflict in terms of identifiable agents causing harm to identifiable victims.  
-This pattern aligns with research in moral psychology emphasizing the centrality of harm perception in moral judgment. In particular, the theory of dyadic morality proposes that moral cognition is structured around a perceived relationship between a moral agent who causes harm and a moral patient who suffers it. According to this framework, moral judgments frequently emerge from narratives that identify perpetrators, victims, and causal responsibility. The elevated prevalence of dyadic harm language in extreme and violent manifestos suggests that such texts more frequently construct political grievances in explicitly moralized terms, portraying social or political conflict as situations in which identifiable actors harm identifiable victims.  
-However, the remaining linguistic indicators examined in this study (i.e., justifications for violence, martyrdom narratives, and expressions of political hopelessness) did not differ significantly across manifesto categories. Although these markers were intended to capture rhetorical patterns that legitimize or normalize violence, the results suggest that such language may be present across ideological texts more broadly. Radical political discourse may therefore share similar rhetorical structures regardless of whether it ultimately culminates in violent action.  
-One interpretation of this pattern is that linguistic indicators of harm justification may reflect ideological radicalization more generally rather than violence-producing ideologies specifically. The presence of such rhetoric may represent an early stage of moral framing in which political conflicts are interpreted through narratives of victimization and moral grievance. Whether such narratives translate into violent action may depend on additional psychological, cognitive, or situational factors that extend beyond linguistic framing alone.  
-Importantly, the present analysis represents only an initial component of the broader research design motivating this project. The theoretical framework underlying the study also proposes that integrative complexity, particularly levels of differentiation and integration in reasoning, may play a key role in determining whether ideological beliefs translate into violent action. Previous research in political psychology has demonstrated that integrative complexity can predict major political events, including diplomatic conflict and war escalation. However, its application to the study of lone-actor political violence remains relatively underexplored.  
-Future analyses incorporating automated integrative complexity (AutoIC) scores will allow for direct testing of the remaining hypotheses of this project. Specifically, the study predicts that lower levels of integrative complexity will be associated with a higher likelihood that a manifesto corresponds with political violence. Additionally, longitudinal analyses of texts produced by the same political actors may reveal whether declining levels of integrative complexity precede increasing justification of harm and eventual violent action.
+The present study examined whether linguistic indicators of harm justification and integrative complexity differentiate political manifestos associated with violence. The results provide partial support for the proposed framework.
+
+First, dyadic harm language reliably distinguished moderate from non-moderate manifestos. Both ideologically extreme and violent texts exhibited higher levels of dyadic harm framing, consistent with dyadic morality theory, which posits that moral cognition is structured around agent–patient representations of harm. However, dyadic harm language did not distinguish violent from non-violent extremity, suggesting that such framing reflects ideological radicalization more broadly rather than violence-specific processes.
+
+Second, martyrdom narratives uniquely differentiated violent manifestos. Violent texts exhibited significantly higher levels of martyrdom language, whereas ideologically extreme texts did not differ from moderate texts. This pattern suggests that narratives of sacrifice and moral heroism may play a distinct role in legitimizing violent action.
+
+Third, integrative complexity was negatively associated with violence likelihood. Lower levels of integrative complexity predicted violent manifestos even when controlling for linguistic indicators, consistent with prior research linking reduced cognitive complexity to conflict escalation and extreme decision-making.
+
+At the same time, several hypothesized effects were not supported. Justification for violence and hopelessness did not significantly differentiate manifesto categories. This suggests that justificatory rhetoric may be characteristic of political discourse more generally rather than uniquely associated with violence. Additionally, longitudinal analyses did not reveal systematic within-author changes, indicating that shifts toward violence may not manifest as gradual linguistic or cognitive changes detectable with the present measures.
+
+Taken together, these findings suggest a functional differentiation between linguistic and cognitive predictors: dyadic harm framing characterizes ideological radicalization, martyrdom narratives distinguish violent from non-violent extremity, and integrative complexity constrains whether radical beliefs translate into violent action.
 
 ## Limitations 
 
-Several limitations should be considered when interpreting the present findings. The primary limitation concerns the availability of political manifestos. Prior research examining linguistic markers in extremist manifestos has relied on relatively small corpora. For example, studies in this area often analyze sets of six to fifteen manifestos due to the limited availability of such documents, restrictions on access to extremist materials, and the time-intensive nature of manual coding procedures [@capelos2025today; @ebner2024measuring; @ebner2025there]. The present study addresses some of these practical limitations by automating both linguistic prevalence analysis and integrative complexity measurement using computational tools in R. Nevertheless, the accessibility of relevant texts remains a constraint on corpus size.  
-To increase statistical power and broaden the scope of analysis, the present study therefore includes not only terrorist manifestos but also ideological writings that contributed to the development of political platforms. For instance, texts such as *The Manifesto of the Communist Party* — which has been included in prior linguistic studies of political manifestos — are analyzed alongside writings such as Vladimir Lenin’s *What Is to Be Done?*, which has not typically been included in this literature. Expanding the dataset to include ideological platform writings allows for the examination of rhetorical patterns across a wider range of political texts while also enabling longitudinal analysis of authors whose writings span multiple time periods.  
-However, this strategy also introduces conceptual complexity. Political platform writings may differ from terrorist manifestos in important ways, including their intended audience, rhetorical purpose, and historical context. As a result, the linguistic markers observed in such texts may reflect broader ideological discourse rather than mechanisms uniquely associated with political violence.  
-A second limitation concerns the dictionary-based linguistic approach used in the present analysis. Although dictionary methods provide transparency and replicability, they inevitably simplify the semantic richness of political rhetoric. Certain forms of moral justification may therefore occur in ways that are not captured by the specific lexical indicators included in the marker dictionary.  
-Finally, the current analysis does not yet incorporate the integrative complexity measures that constitute a central component of the overall research design. As a result, the findings presented here should be interpreted as preliminary. The analyses primarily demonstrate the feasibility of the linguistic scoring pipeline and provide an initial exploration of how harm-related rhetorical patterns vary across manifesto categories.
+Several limitations should be noted. First, the corpus remains limited in size and heterogeneous in composition. The inclusion of both terrorist manifestos and broader ideological texts increases generalizability but introduces variability in genre, audience, and historical context.
+
+Second, the dictionary-based approach constrains measurement to predefined lexical indicators and may fail to capture more context-dependent or implicit forms of moral justification.
+
+Third, several regression estimates—particularly in logistic and multinomial models—exhibited wide confidence intervals, indicating limited precision and potential instability in effect size estimates.
+
+Finally, the longitudinal analyses may be underpowered or insufficiently sensitive to detect temporal dynamics, particularly given variation in document spacing and contextual shifts across authors.
 
 ## Future Directions 
 
-Future research can extend the present work in several important ways. Most immediately, incorporating automated integrative complexity measures will allow for direct testing of whether lower levels of cognitive complexity predict the emergence of political violence. Integrative complexity has demonstrated substantial predictive power in analyses of diplomatic communication and political leadership rhetoric. Applying this approach to the study of political manifestos may therefore provide new insights into the cognitive processes that precede ideological violence.  
-Second, the inclusion of longitudinal textual data offers an opportunity to examine whether changes in linguistic framing and cognitive complexity occur prior to violent action. Many extremist manifestos studied in prior literature are released immediately before or after acts of violence, limiting their usefulness as predictive tools. In contrast, ideological writings and political platform texts often precede violent acts by substantial periods of time. If measurable linguistic or cognitive markers within such texts reliably predict later violence, they could provide valuable signals for identifying escalating radicalization processes.  
-Third, future work could integrate dictionary-based linguistic analysis with more flexible natural language processing techniques. Methods such as semantic embedding models or topic modeling may allow researchers to identify broader patterns of moral and ideological rhetoric that extend beyond predefined lexical indicators.  
-More broadly, integrating linguistic analysis with theoretical frameworks from moral psychology may provide a richer understanding of the cognitive processes underlying political violence. If political grievances are frequently framed through dyadic narratives of harm and victimization, examining how these narratives interact with cognitive structures such as integrative complexity may offer important insight into the psychological pathways through which ideological beliefs develop into violent political action.  
-Taken together, the present findings represent an initial empirical test of the first hypothesis of this project: that linguistic indicators of harm justification correspond with a higher likelihood of political violence. The elevated prevalence of dyadic harm language in ideologically extreme and violent manifestos provides preliminary support for the claim that moralized narratives of harm and victimization may characterize increasingly radical political discourse. However, the remaining hypotheses — specifically that lower levels of integrative complexity predict political violence and that declining integrative complexity over time precedes increasing justification of harm — remain to be tested once automated integrative complexity measures are incorporated into the dataset. The present analysis therefore serves as a preliminary stage in a broader research program aimed at integrating linguistic indicators of moral reasoning with cognitive measures of ideological complexity in order to better understand the psychological precursors of political violence.
+Future research should extend the present findings in several ways. Increasing corpus size and improving category balance would enhance statistical power and estimate stability. Expanding longitudinal datasets with clearer temporal alignment to behavioral outcomes may also improve sensitivity to within-author changes.
 
-## Data analysis
-I used `r cite_r("r-references.bib")` for all analyses. The raw manifesto texts extracted from PDF files are not stored in a tidy format because each document appears as a single character string containing many paragraphs and potential marker occurrences. In tidy data, each variable should occupy a column and each observational unit should occupy a row. For the present analysis, the relevant observational unit is a segment of text within a document. The text-processing pipeline therefore converts each document into paragraph-level segments and then expands these segments so that each row represents a document–segment–marker observation. This structure allows marker counts and prevalence rates to be computed using grouped operations and joined with the marker dictionary metadata.
+Second, integrating dictionary-based methods with more flexible natural language processing approaches (e.g., semantic embeddings, topic modeling) would allow identification of higher-order moral narratives beyond predefined lexical categories.
+
+Third, future work should explicitly model the interaction between representational content and cognitive structure. The present results suggest that linguistic indicators capture moral framing, whereas integrative complexity reflects structural constraints on reasoning. A process-level model integrating these components may better account for when ideological beliefs result in violence.
+
+Finally, extending this approach to other forms of political communication (e.g., speeches, social media) would test the generalizability of these findings and their potential applicability to broader contexts of ideological escalation.
+
+```{r data analysis, echo=FALSE, include=FALSE}
+#Data analysis I used `r cite_r("r-references.bib")` for all analyses. The raw manifesto texts extracted from PDF files are not stored in a tidy format because each document appears as a single character string containing many paragraphs and potential marker occurrences. In tidy data, each variable should occupy a column and each observational unit should occupy a row. For the present analysis, the relevant observational unit is a segment of text within a document. The text-processing pipeline therefore converts each document into paragraph-level segments and then expands these segments so that each row represents a document–segment–marker observation. This structure allows marker counts and prevalence rates to be computed using grouped operations and joined with the marker dictionary metadata.
+```
+
+
 
 
 \newpage

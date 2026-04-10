@@ -1,8 +1,8 @@
 # Purpose:
-#   Run the full scoring pipeline from raw PDF files to processed CSV outputs.
+# Run the full scoring pipeline from raw manifesto text files (.txt preferred, .pdf fallback)
 #
 # Expected inputs:
-#   - Raw PDFs stored in: Thesis/data/raw/pdfs/
+#   - Raw text files stored in: Thesis/data/raw/
 #   - Marker dictionary stored in: Thesis/data/markers/marker_dictionary.csv
 #
 # Expected outputs:
@@ -15,7 +15,7 @@
 #       Thesis/data/processed/role_model_glorification_docs.csv
 #
 # Notes for reproducibility:
-#   - This script uses input_type = "pdf", which requires the 'pdftools' package.
+#   - This script uses input_type = "txt" (primary input mode)
 #   - The thesis Rmd can read the processed CSV files without re-extracting PDFs.
 #   - Scoring is done at the paragraph level so co-occurrence indicators can be built
 #     within segments rather than only at the whole-document level.
@@ -29,13 +29,13 @@ suppressPackageStartupMessages({
 # ------------------------------------------------------------
 # Load scoring function
 # ------------------------------------------------------------
-source(here::here("Thesis", "score_manifestos.R"))
+source(here::here("score_manifestos.R"))
 
 # ------------------------------------------------------------
 # Read marker dictionary
 # ------------------------------------------------------------
 marker_dict <- readr::read_csv(
-  here::here("Thesis", "data", "markers", "marker_dictionary.csv"),
+  here::here("data", "markers", "marker_dictionary.csv"),
   show_col_types = FALSE
 )
 
@@ -60,46 +60,71 @@ if (length(markers) == 0) {
 }
 
 # ------------------------------------------------------------
-# Find all PDFs
+# Find all TXT files
 # ------------------------------------------------------------
-pdf_dir <- here::here("Thesis", "data", "raw", "pdfs")
+nonlong_dir <- here::here("data", "raw", "pdfs")
+long_dir    <- here::here("data", "raw", "longitudinal")
 
-pdf_paths <- list.files(
-  pdf_dir,
-  pattern = "\\.pdf$",
+txt_paths_nonlong <- list.files(
+  nonlong_dir,
+  pattern = "\\.txt$",
   full.names = TRUE,
+  recursive = TRUE,
   ignore.case = TRUE
 )
 
-cat("PDF directory:", pdf_dir, "\n")
-cat("Directory exists?:", dir.exists(pdf_dir), "\n")
-cat("Number of PDFs found:", length(pdf_paths), "\n")
+txt_paths_long <- list.files(
+  long_dir,
+  pattern = "\\.txt$",
+  full.names = TRUE,
+  recursive = TRUE,
+  ignore.case = TRUE
+)
 
-if (length(pdf_paths) == 0) {
-  stop(
-    paste(
-      "No PDF files found in:",
-      pdf_dir,
-      "\nCheck the folder path and confirm the PDFs are present."
-    )
-  )
+txt_paths <- c(txt_paths_nonlong, txt_paths_long)
+
+cat("Non-longitudinal directory:", nonlong_dir, "\n")
+cat("Longitudinal directory:", long_dir, "\n")
+cat("TXT files found (non-longitudinal):", length(txt_paths_nonlong), "\n")
+cat("TXT files found (longitudinal):", length(txt_paths_long), "\n")
+cat("TXT files found (total):", length(txt_paths), "\n")
+
+if (length(txt_paths) == 0) {
+  stop("No .txt files found in Thesis/data/raw or Thesis/data/longitudinal.")
 }
+
 
 # ------------------------------------------------------------
 # Run scoring at the paragraph level
 # ------------------------------------------------------------
-res <- score_manifestos(
-  input_type = "pdf",
-  pdf_paths = pdf_paths,
-  markers = markers,
-  segment = "paragraph",
-  output = "long",
-  write_out = FALSE,
-  quiet = FALSE
+res <- try(
+  score_manifestos(
+    input_type = "txt",
+    txt_paths = txt_paths,
+    markers = markers,
+    segment = "paragraph",
+    output = "long",
+    write_out = FALSE,
+    quiet = FALSE
+  ),
+  silent = FALSE
 )
 
-# Marker-level scored output
+print("CHECKPOINT: score_manifestos finished")
+print(class(res))
+
+if (inherits(res, "try-error")) {
+  stop("score_manifestos() failed before scores_long was created.")
+}
+
+print(names(res))
+
 scores_long <- res$scores
+
+print("CHECKPOINT: scores_long created")
+print(names(scores_long))
+print(head(scores_long))
+
 
 # ------------------------------------------------------------
 # Annotate scored rows with group/category metadata
@@ -123,6 +148,8 @@ if (any(is.na(scores_annotated$marker_group) | is.na(scores_annotated$marker_cat
 marker_scores <- scores_annotated %>%
   dplyr::select(
     doc_id,
+    corpus,
+    author,
     segment_id,
     marker,
     marker_group,
@@ -137,7 +164,7 @@ marker_scores <- scores_annotated %>%
 # Prevalence is recomputed from summed counts, not averaged from marker prevalences
 # ------------------------------------------------------------
 group_scores <- scores_annotated %>%
-  dplyr::group_by(doc_id, segment_id, marker_group, marker_category) %>%
+  dplyr::group_by(doc_id, corpus, author, segment_id, marker_group, marker_category) %>%
   dplyr::summarise(
     count = sum(count, na.rm = TRUE),
     word_count = max(word_count, na.rm = TRUE),
@@ -149,7 +176,7 @@ group_scores <- scores_annotated %>%
 # Category-level output
 # ------------------------------------------------------------
 category_scores <- scores_annotated %>%
-  dplyr::group_by(doc_id, segment_id, marker_category) %>%
+  dplyr::group_by(doc_id, corpus, author, segment_id, marker_category) %>%
   dplyr::summarise(
     count = sum(count, na.rm = TRUE),
     word_count = max(word_count, na.rm = TRUE),
@@ -162,7 +189,7 @@ category_scores <- scores_annotated %>%
 # violent reference + role model status within the same segment
 # ------------------------------------------------------------
 role_model_glorification_segments <- scores_annotated %>%
-  dplyr::group_by(doc_id, segment_id) %>%
+  dplyr::group_by(doc_id, corpus, author, segment_id) %>%
   dplyr::summarise(
     has_violent_reference = any(marker_group == "violent_reference" & count > 0, na.rm = TRUE),
     has_role_model_status = any(marker_group == "role_model_status" & count > 0, na.rm = TRUE),
@@ -174,7 +201,7 @@ role_model_glorification_segments <- scores_annotated %>%
   )
 
 role_model_glorification_docs <- role_model_glorification_segments %>%
-  dplyr::group_by(doc_id) %>%
+  dplyr::group_by(doc_id, corpus, author) %>%
   dplyr::summarise(
     any_role_model_glorification = any(role_model_glorification, na.rm = TRUE),
     n_glorification_segments = sum(role_model_glorification, na.rm = TRUE),
@@ -186,7 +213,7 @@ role_model_glorification_docs <- role_model_glorification_segments %>%
 # ------------------------------------------------------------
 # Ensure processed output directory exists
 # ------------------------------------------------------------
-processed_dir <- here::here("Thesis", "data", "processed")
+processed_dir <- here::here("data", "processed")
 dir.create(processed_dir, recursive = TRUE, showWarnings = FALSE)
 
 # ------------------------------------------------------------
@@ -194,27 +221,27 @@ dir.create(processed_dir, recursive = TRUE, showWarnings = FALSE)
 # ------------------------------------------------------------
 readr::write_csv(
   marker_scores,
-  here::here("Thesis", "data", "processed", "manifesto_scores_markers.csv")
+  here::here("data", "processed", "manifesto_scores_markers.csv")
 )
 
 readr::write_csv(
   group_scores,
-  here::here("Thesis", "data", "processed", "manifesto_scores_groups.csv")
+  here::here("data", "processed", "manifesto_scores_groups.csv")
 )
 
 readr::write_csv(
   category_scores,
-  here::here("Thesis", "data", "processed", "manifesto_scores_categories.csv")
+  here::here("data", "processed", "manifesto_scores_categories.csv")
 )
 
 readr::write_csv(
   role_model_glorification_segments,
-  here::here("Thesis", "data", "processed", "role_model_glorification_segments.csv")
+  here::here("data", "processed", "role_model_glorification_segments.csv")
 )
 
 readr::write_csv(
   role_model_glorification_docs,
-  here::here("Thesis", "data", "processed", "role_model_glorification_docs.csv")
+  here::here("data", "processed", "role_model_glorification_docs.csv")
 )
 
 # ------------------------------------------------------------
