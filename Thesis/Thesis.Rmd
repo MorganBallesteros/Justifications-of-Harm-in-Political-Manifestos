@@ -453,6 +453,28 @@ doc_scores_all <- doc_scores_all |>
   dplyr::left_join(autoic_doc, by = c("doc_id", "corpus"))
 ```
 
+```{r check-longitudinal-coverage, echo=TRUE, message=FALSE, warning=FALSE}
+cat("doc_scores_all rows:", nrow(doc_scores_all), "\n")
+cat("Unique corpus values:\n")
+print(table(doc_scores_all$corpus, useNA = "ifany"))
+
+cat("\nRows by corpus x has_ic:\n")
+print(
+  doc_scores_all |>
+    dplyr::mutate(has_ic = !is.na(ic)) |>
+    dplyr::count(corpus, has_ic)
+)
+
+cat("\nExample longitudinal rows:\n")
+print(
+  doc_scores_all |>
+    dplyr::filter(stringr::str_detect(tolower(corpus), "long")) |>
+    dplyr::select(doc_id, corpus, author, ic) |>
+    head(30)
+)
+```
+
+
 ```{r diagnose-autoic-join-coverage, echo=false, message=FALSE, include=false, warning=FALSE}
 cat("=== AutoIC join coverage (right after merge-autoic) ===\n")
 
@@ -1164,7 +1186,7 @@ Across models, manifesto category predicted significant differences in two lingu
 ```{r prepare-longitudinal, echo=FALSE, message=FALSE, warning=FALSE}
 # Keep only longitudinal documents with AutoIC scores
 long_dat <- doc_scores_all |>
-  dplyr::filter(corpus == "longitudinal") |>
+  dplyr::filter(stringr::str_detect(tolower(corpus), "long")) |>
   dplyr::filter(!is.na(author)) |>
   dplyr::mutate(
     dplyr::across(
