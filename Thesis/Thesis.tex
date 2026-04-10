@@ -335,7 +335,7 @@ Hopelessness & 3.45 & 5.17 & 2.30\\
 
 \end{table}
 
-Mean marker prevalence also differed across manifesto categories (Table \ref{tab:manifesto-descriptives}). Violent self-sacrificial manifestos exhibited the highest average prevalence of dyadic harm language (M = 0.18) and justification for violence (M = ), whereas moderate manifestos displayed very low levels of these indicators (dyadic harm M = 0.01; justification for violence M = ). Martyrdom narratives showed the most pronounced difference across categories, appearing most frequently in violent manifestos (M = 0.56) compared with extreme (M = 0.16) and moderate texts (M = 0.08). In contrast, markers associated with hopelessness were most prevalent in ideologically extreme manifestos (M = 5.17), followed by moderate manifestos (M = 3.45) and violent manifestos (M = 2.30).
+Mean marker prevalence also differed across manifesto categories (Table \ref{tab:manifesto-descriptives}). Violent self-sacrificial manifestos exhibited the highest average prevalence of dyadic harm language (M = 0.18) and justification for violence (M = 0.47), whereas moderate manifestos displayed very low levels of these indicators (dyadic harm M = 0.01; justification for violence M = 0.16). Martyrdom narratives showed the most pronounced difference across categories, appearing most frequently in violent manifestos (M = 0.56) compared with extreme (M = 0.16) and moderate texts (M = 0.08). In contrast, markers associated with hopelessness were most prevalent in ideologically extreme manifestos (M = 5.17), followed by moderate manifestos (M = 3.45) and violent manifestos (M = 2.30).
 
 \subsection{Regression Analyses}\label{regression-analyses}
 
@@ -346,6 +346,31 @@ To examine whether manifesto category predicts the prevalence of harm-related li
 The regression model predicting dyadic harm language indicated that manifesto category was marginally associated with variation in dyadic harm prevalence, F(2, 28) = 3.10, \emph{p} = .061, R² = .18. Compared with moderate manifestos, ideologically extreme manifestos contained significantly higher levels of dyadic harm language (\emph{b} = 0.16, SE = 0.08, \emph{t} = 2.16, \emph{p} = .040). Violent self-sacrificial manifestos also showed significantly higher prevalence of dyadic harm markers relative to moderate texts (\emph{b} = 0.18, SE = 0.08, \emph{t} = 2.21, \emph{p} = .035).
 
 \subsubsection{Integrative Complexity Predicting Violence}\label{integrative-complexity-predicting-violence}
+
+\begin{table}[tbp]
+
+\begin{center}
+\begin{threeparttable}
+
+\caption{\label{tab:violent-logistic-models}Logistic regression predicting violent (vs. non-violent) category from integrative complexity.}
+
+\begin{tabular}{llll}
+\toprule
+Predictor & \multicolumn{1}{c}{OR} & \multicolumn{1}{c}{CI} & \multicolumn{1}{c}{p}\\
+\midrule
+Integrative Complexity (z) & 0.13 & {}[0.01, 0.91] & 0.079\\
+\bottomrule
+\addlinespace
+\end{tabular}
+
+\begin{tablenotes}[para]
+\normalsize{\textit{Note.} OR reflects a 1 SD increase in standardized integrative complexity.}
+\end{tablenotes}
+
+\end{threeparttable}
+\end{center}
+
+\end{table}
 
 \begin{table}[tbp]
 
@@ -381,6 +406,46 @@ Hopelessness (z) & 0.57 & {}[0.05, 3.67] & 0.579\\
 \pandocbounded{\includegraphics[keepaspectratio]{Thesis_files/figure-latex/fig-violent-probability-1.pdf}}
 \caption{\label{fig:fig-violent-probability}Predicted probability of violent (vs.~non-violent) category as a function of integrative complexity (95\% CI).}
 \end{figure}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio]{Thesis_files/figure-latex/fig-violent-oddsratios-1.pdf}}
+\caption{\label{fig:fig-violent-oddsratios}Odds ratios (95\% CI) from the logistic model predicting violent (vs.~non-violent) category.}
+\end{figure}
+
+\begin{table}[tbp]
+
+\begin{center}
+\begin{threeparttable}
+
+\caption{\label{tab:multinomial-sensitivity}Multinomial sensitivity model predicting 3-category manifesto classification from integrative complexity and marker prevalence.}
+
+\begin{tabular}{llll}
+\toprule
+Comparison & \multicolumn{1}{c}{Term} & \multicolumn{1}{c}{OR} & \multicolumn{1}{c}{CI}\\
+\midrule
+extreme vs baseline & ic\_z & 0.23 & {}[0.0159032682591375, 3.24732714863127]\\
+extreme vs baseline & dyadic\_harm\_z & 2,054,041,625.51 & {}[0.000539095147968026, 7.82623812367963e+21]\\
+extreme vs baseline & justification\_z & 0.13 & {}[0.000158890501794173, 110.441068070037]\\
+extreme vs baseline & martyrdom\_z & 4.99 & {}[0.117824602159827, 211.657907604196]\\
+extreme vs baseline & hopelessness\_z & 4.85 & {}[0.478342032892777, 49.1434229778165]\\
+violent vs baseline & ic\_z & 0.00 & {}[2.35869164592185e-05, 0.384399191695469]\\
+violent vs baseline & dyadic\_harm\_z & 2,013,273,549.28 & {}[0.000521007215883218, 7.77968185592752e+21]\\
+violent vs baseline & justification\_z & 18.81 & {}[0.852329906802267, 414.991444017763]\\
+violent vs baseline & martyrdom\_z & 154.62 & {}[0.367709640495591, 65016.2234071372]\\
+violent vs baseline & hopelessness\_z & 0.43 & {}[0.00857681692014304, 21.4820210561382]\\
+\bottomrule
+\addlinespace
+\end{tabular}
+
+\begin{tablenotes}[para]
+\normalsize{\textit{Note.} Estimated via nnet::multinom; ORs are exponentiated coefficients.}
+\end{tablenotes}
+
+\end{threeparttable}
+\end{center}
+
+\end{table}
 
 \begin{table}[tbp]
 
