@@ -466,6 +466,9 @@ doc_scores <- doc_scores |>
 
 doc_scores_all <- doc_scores_all |>
   dplyr::left_join(autoic_doc, by = c("doc_id", "corpus"))
+
+doc_scores_all <- doc_scores_all |>
+  dplyr::filter(!(corpus == "longitudinal" & author == "lpm"))
 ```
 
 ```{r check-longitudinal-coverage, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
