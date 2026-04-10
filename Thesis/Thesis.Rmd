@@ -468,7 +468,7 @@ doc_scores_all <- doc_scores_all |>
   dplyr::left_join(autoic_doc, by = c("doc_id", "corpus"))
 ```
 
-```{r check-longitudinal-coverage, echo=TRUE, message=FALSE, warning=FALSE, include=FALSE}
+```{r check-longitudinal-coverage, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 cat("doc_scores_all rows:", nrow(doc_scores_all), "\n")
 cat("Unique corpus values:\n")
 print(table(doc_scores_all$corpus, useNA = "ifany"))
@@ -1344,11 +1344,6 @@ long_dat <- long_dat |>
   ) |>
   dplyr::ungroup()
 
-
-long_dat |>
-  dplyr::select(author, doc_id, doc_date) |>
-  dplyr::arrange(author, doc_date) |>
-  print(n = 50)
 
 if (nrow(long_dat) == 0) {
   cat(
