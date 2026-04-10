@@ -60,8 +60,7 @@ suppressPackageStartupMessages({
   library(lme4)
 })
 
-# Register bibliography for citations
-r_refs("r-references.bib")
+
 
 
 # Reproducibility checks for key project files.
