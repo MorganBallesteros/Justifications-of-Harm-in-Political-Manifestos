@@ -1387,6 +1387,55 @@ To examine whether manifesto category predicts the prevalence of harm-related li
 
 The regression model predicting dyadic harm language indicated that manifesto category was marginally associated with variation in dyadic harm prevalence, F(2, 28) = 3.10, \emph{p} = .061, R² = .18. Compared with moderate manifestos, ideologically extreme manifestos contained significantly higher levels of dyadic harm language (\emph{b} = 0.16, SE = 0.08, \emph{t} = 2.16, \emph{p} = .040). Violent self-sacrificial manifestos also showed significantly higher prevalence of dyadic harm markers relative to moderate texts (\emph{b} = 0.18, SE = 0.08, \emph{t} = 2.21, \emph{p} = .035).
 
+\begin{verbatim}
+## 
+## Call:
+## stats::glm(formula = violent ~ ic_z, family = stats::binomial(), 
+##     data = dat)
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(>|z|)  
+## (Intercept)   -1.270      0.543  -2.340   0.0193 *
+## ic_z          -2.077      1.183  -1.756   0.0790 .
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 32.815  on 26  degrees of freedom
+## Residual deviance: 28.426  on 25  degrees of freedom
+## AIC: 32.426
+## 
+## Number of Fisher Scoring iterations: 5
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Call:
+## stats::glm(formula = violent ~ ic_z + dyadic_harm_z + justification_z + 
+##     martyrdom_z + hopelessness_z, family = stats::binomial(), 
+##     data = dat)
+## 
+## Coefficients:
+##                 Estimate Std. Error z value Pr(>|z|)  
+## (Intercept)      -1.6689     0.8733  -1.911   0.0560 .
+## ic_z             -3.1052     1.5867  -1.957   0.0503 .
+## dyadic_harm_z     0.6673     0.5751   1.160   0.2459  
+## justification_z   1.3996     0.8112   1.725   0.0845 .
+## martyrdom_z       2.6833     1.4248   1.883   0.0597 .
+## hopelessness_z   -0.5595     1.0080  -0.555   0.5789  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 32.815  on 26  degrees of freedom
+## Residual deviance: 17.021  on 21  degrees of freedom
+## AIC: 29.021
+## 
+## Number of Fisher Scoring iterations: 7
+\end{verbatim}
+
 \begin{table}[tbp]
 
 \begin{center}
