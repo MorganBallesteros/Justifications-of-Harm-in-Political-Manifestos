@@ -390,10 +390,12 @@ if (length(long_label) != 1 || length(nonlong_label) != 1) {
 }
 
 infer_corpus_from_path <- function(path) {
-  if (stringr::str_detect(tolower(path), paste0(.Platform$file.sep, "longitudinal", .Platform$file.sep))) {
-    long_label[1]
+  file_low <- tolower(basename(path))
+
+  if (stringr::str_detect(file_low, "_longitudinal")) {
+    "longitudinal"
   } else {
-    nonlong_label[1]
+    "non_longitudinal"
   }
 }
 
@@ -443,7 +445,19 @@ autoic_doc |>
   dplyr::distinct() |>
   head(20)
 
+
+cat("AutoIC rows by corpus:\n")
+print(table(autoic_doc$corpus, useNA = "ifany"))
+
+cat("\nExample longitudinal AutoIC rows:\n")
+print(
+  autoic_doc |>
+    dplyr::filter(corpus == "longitudinal") |>
+    dplyr::select(doc_id, corpus, source_file, ic) |>
+    head(30)
+)
 ```
+
 
 ```{r merge-autoic, echo=FALSE, message=FALSE, warning=FALSE, include=false}
 doc_scores <- doc_scores |>
