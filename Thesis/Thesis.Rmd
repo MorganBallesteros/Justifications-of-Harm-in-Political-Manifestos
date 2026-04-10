@@ -253,20 +253,22 @@ markers of harm on said longitudinal sets.
 # Results 
 
 ```{r doc-level-dataset, echo=FALSE, message=FALSE, warning=FALSE}
-# ------------------------------------------------------------
-# Construct document-level dataset for statistical analyses
-# ------------------------------------------------------------
-# Aggregate grouped marker counts to the document level, then
-# recompute prevalence from summed counts and total word count.
+# Compute document total word count from segment-level word_count
+doc_word_counts <- group_scores |>
+  dplyr::group_by(doc_id, corpus, author, segment_id) |>
+  dplyr::summarise(seg_words = max(word_count, na.rm = TRUE), .groups = "drop") |>
+  dplyr::group_by(doc_id, corpus, author) |>
+  dplyr::summarise(doc_words = sum(seg_words, na.rm = TRUE), .groups = "drop")
 
-doc_scores <- group_scores |>
+# Aggregate marker-group counts to document level, then compute prevalence per 1,000 words
+doc_group_counts <- group_scores |>
   dplyr::group_by(doc_id, corpus, author, marker_group) |>
-  dplyr::summarise(
-    count = sum(count, na.rm = TRUE),
-    word_count = max(word_count, na.rm = TRUE),
-    prevalence = (count / word_count) * 1000,
-    .groups = "drop"
-  ) |>
+  dplyr::summarise(count = sum(count, na.rm = TRUE), .groups = "drop") |>
+  dplyr::left_join(doc_word_counts, by = c("doc_id", "corpus", "author")) |>
+  dplyr::mutate(prevalence = (count / doc_words) * 1000)
+
+# Wide prevalence table for analyses
+doc_scores <- doc_group_counts |>
   dplyr::select(doc_id, corpus, author, marker_group, prevalence) |>
   tidyr::pivot_wider(
     names_from = marker_group,
@@ -876,6 +878,40 @@ To examine whether manifesto category predicts the prevalence of harm-related li
 ### Dyadic Harm Language 
 
 The regression model predicting dyadic harm language indicated that manifesto category was marginally associated with variation in dyadic harm prevalence, F(2, 28) = 3.10, *p* = .061, R² = .18. Compared with moderate manifestos, ideologically extreme manifestos contained significantly higher levels of dyadic harm language (*b* = 0.16, SE = 0.08, *t* = 2.16, *p* = .040). Violent self-sacrificial manifestos also showed significantly higher prevalence of dyadic harm markers relative to moderate texts (*b* = 0.18, SE = 0.08, *t* = 2.21, *p* = .035).
+
+```{r}
+# Build binary outcomes from category
+dat <- doc_scores_ic |>
+  dplyr::mutate(
+    violent = dplyr::if_else(category == "violent", 1L, 0L)
+  ) |>
+  dplyr::filter(!is.na(ic))
+
+# Standardize continuous predictors for interpretability (OR per 1 SD)
+dat <- dat |>
+  dplyr::mutate(
+    ic_z = as.numeric(scale(ic)),
+    dyadic_harm_z = as.numeric(scale(dyadic_harm)),
+    justification_z = as.numeric(scale(justification_for_violence)),
+    martyrdom_z = as.numeric(scale(martyrdom_narrative)),
+    hopelessness_z = as.numeric(scale(hopelessness))
+  )
+
+# Core hypothesis model: IC predicts violence
+m_ic_only <- stats::glm(violent ~ ic_z, data = dat, family = stats::binomial())
+
+# Expanded model: IC + markers (watch N vs predictors!)
+m_full <- stats::glm(
+  violent ~ ic_z + dyadic_harm_z + justification_z + martyrdom_z + hopelessness_z,
+  data = dat,
+  family = stats::binomial()
+)
+
+summary(m_ic_only)
+summary(m_full)
+
+```
+
 
 ```{r marker-group-regressions, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
 marker_groups <- c(
