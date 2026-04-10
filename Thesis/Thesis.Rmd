@@ -1106,7 +1106,7 @@ summary(stats::cooks.distance(m_full))
 
 
 
-```{r marker-group-regressions, echo=FALSE, include=FALSE, message=FALSE, warning=FALSE, results='asis'}
+```{r marker-group-regressions, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
 marker_groups <- c(
   "dyadic_harm",
   "justification_for_violence",
@@ -1159,7 +1159,7 @@ papaja::apa_table(
 )
 ```
 
-```{r manifesto-regressions, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+```{r manifesto-regressions, echo=FALSE, include=FALSE, message=FALSE, warning=FALSE, results='asis'}
 # ------------------------------------------------------------
 # Regression analyses predicting autoIC outcomes from
 # linguistic indicators and manifesto category
