@@ -592,7 +592,13 @@ markers of harm on said longitudinal sets.
 
 \NormalTok{autoic\_files }\OtherTok{\textless{}{-}}\NormalTok{ purrr}\SpecialCharTok{::}\FunctionTok{map}\NormalTok{(}
 \NormalTok{  autoic\_dirs,}
-  \SpecialCharTok{\textasciitilde{}} \FunctionTok{list.files}\NormalTok{(.x, }\AttributeTok{pattern =} \StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{.(xlsx|xls|csv)$"}\NormalTok{, }\AttributeTok{full.names =} \ConstantTok{TRUE}\NormalTok{)}
+  \SpecialCharTok{\textasciitilde{}} \FunctionTok{list.files}\NormalTok{(}
+\NormalTok{      .x,}
+      \AttributeTok{pattern =} \StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{.(xlsx|xls|csv)$"}\NormalTok{,}
+      \AttributeTok{full.names =} \ConstantTok{TRUE}\NormalTok{,}
+      \AttributeTok{recursive =} \ConstantTok{TRUE}\NormalTok{,}
+      \AttributeTok{ignore.case =} \ConstantTok{TRUE}
+\NormalTok{    )}
 \NormalTok{) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{unlist}\NormalTok{(}\AttributeTok{use.names =} \ConstantTok{FALSE}\NormalTok{)}
 

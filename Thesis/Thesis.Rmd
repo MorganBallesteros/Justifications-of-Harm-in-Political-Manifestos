@@ -357,7 +357,13 @@ autoic_dirs <- autoic_dirs[dir.exists(autoic_dirs)]
 
 autoic_files <- purrr::map(
   autoic_dirs,
-  ~ list.files(.x, pattern = "\\.(xlsx|xls|csv)$", full.names = TRUE)
+  ~ list.files(
+      .x,
+      pattern = "\\.(xlsx|xls|csv)$",
+      full.names = TRUE,
+      recursive = TRUE,
+      ignore.case = TRUE
+    )
 ) |>
   unlist(use.names = FALSE)
 
