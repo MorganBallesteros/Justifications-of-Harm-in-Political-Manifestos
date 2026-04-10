@@ -1273,8 +1273,17 @@ long_dat |>
   dplyr::arrange(author, doc_date) |>
   print(n = 50)
 
-# Quick check (silently stops if empty)
-stopifnot(nrow(long_dat) > 0)
+if (nrow(long_dat) == 0) {
+  cat(
+    "No longitudinal documents with AutoIC scores after merge.\n",
+    "This means longitudinal AutoIC rows are not matching on (doc_id, corpus).\n",
+    "Run the diagnose-autoic-join-coverage chunk and inspect:\n",
+    "  - sort(unique(doc_scores_all$corpus)) vs sort(unique(autoic_doc$corpus))\n",
+    "  - anti-join examples of missing keys.\n"
+  )
+} else {
+  cat("Longitudinal analysis rows:", nrow(long_dat), "\n")
+}
 
 ```
 
