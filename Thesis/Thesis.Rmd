@@ -104,30 +104,23 @@ normalize_id <- function(x) {
 ```
 
 ```{r table-format-helpers, include=FALSE}
-fmt_num <- function(x, digits = 2) {
-  dplyr::if_else(
-    is.na(x) | is.nan(x),
-    "",
-    sprintf(paste0("%.", digits, "f"), round(x, digits))
-  )
+fmt_num2 <- function(x) {
+  ifelse(is.na(x) | is.nan(x), "", sprintf("%.2f", round(x, 2)))
 }
 
-fmt_p <- function(x) {
+fmt_p_apa <- function(p) {
   dplyr::case_when(
-    is.na(x) | is.nan(x) ~ "",
-    x < .001 ~ "< .001",
-    TRUE ~ sub("^0", "", sprintf("%.3f", round(x, 3)))
+    is.na(p) | is.nan(p) ~ "",
+    p < .001 ~ "< .001",
+    TRUE ~ sub("^0", "", sprintf("%.3f", round(p, 3)))
   )
 }
 
-fmt_ci <- function(lo, hi, digits = 2) {
+fmt_ci2 <- function(lo, hi) {
   dplyr::if_else(
     is.na(lo) | is.na(hi) | is.nan(lo) | is.nan(hi),
     "",
-    sprintf(
-      paste0("[%.", digits, "f, %.", digits, "f]"),
-      round(lo, digits), round(hi, digits)
-    )
+    sprintf("[%.2f, %.2f]", round(lo, 2), round(hi, 2))
   )
 }
 ```
