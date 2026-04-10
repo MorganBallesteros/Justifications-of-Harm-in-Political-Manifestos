@@ -51,6 +51,13 @@ suppressPackageStartupMessages({
   library(here)
   library(readxl)
   library(janitor)
+  library(broom)
+  library(emmeans)
+  library(performance)
+  library(lmtest)
+  library(sandwich)
+  library(nnet)
+  library(lme4)
 })
 
 # Register bibliography for citations
@@ -236,19 +243,14 @@ John F. Kennedy’s *Ich bin ein Berliner*) would be counted as non-violent.
 
 ### Analyses
 
-Following @ebner2024measuring, I will measure the prevalence of various categories of 
-linguistic markers indicating violence condoning norms (i.e., justification of violence, 
-martyrdom narrative, hopelessness of alternatives, calls to violence) and harm as a 
-percentage of occurrence relative to total sentence count. These prevalence rates will be 
-compared across manifesto categories (i.e., violent versus non-violent, extreme versus 
-non-extreme) to replicate @ebner2024measuring results suggesting that justification of 
-violence is a significant predictor between categories. I will create .zip files for each 
-selected manifesto and run them through automated integrative complexity, which will give 
-scores for integrative complexity, differentiation, and integration. These scores will be 
-compared in the same manner as prevalence rates. I will also run regression analyses for 
-longitudinal manifesto sets in order to understand the effect changes in integrative 
-complexity have on likelihood of violence. I will repeat these analyses for linguistic 
-markers of harm on said longitudinal sets.
+Following @ebner2024measuring, I measure the prevalence of each linguistic marker group as occurrences per 1,000 words (word-count–normalized rates). Marker groups include dyadic harm language (added to reflect dyadic morality), justification for violence, martyrdom narratives, hopelessness of alternatives, role model status, and violent references.
+
+To test whether these linguistic indicators differ across manifesto categories (moderate, ideologically extreme, violent self-sacrificial), I estimate linear models predicting each marker group’s prevalence from category and report category means with confidence intervals.
+
+To directly test the hypothesis that integrative complexity predicts violence versus non-violence, I estimate logistic regression models predicting whether a manifesto is classified as violent (vs. non-violent) from document-level AutoIC integrative complexity scores (and, in expanded models, from the marker-group prevalence measures).
+
+For longitudinal corpora (multiple texts per author over time), I estimate mixed-effects regression models assessing (a) within-author changes in integrative complexity and harm-justification language over time and (b) whether lower integrative complexity is associated with higher harm-justification language within authors. Where violence event dates are available, I additionally examine whether integrative complexity and harm-justification indicators differ in texts written nearer versus farther from the violence event.
+
 
 # Results 
 
@@ -303,20 +305,22 @@ doc_scores <- doc_scores |>
   )
 ```
 
-```{r restrict-to-thesis-docs, echo=TRUE, message=FALSE, warning=FALSE}
+
+```{r restrict-to-thesis-docs, echo=FALSE, include=FALSE}
+# Preserve the full document-level dataset (needed for longitudinal analyses)
+doc_scores_all <- doc_scores
+
+# Thesis “one-off categorized” subset used in cross-sectional category analyses
 doc_scores <- doc_scores |>
   dplyr::filter(!is.na(category))
-
-nrow(doc_scores)
-table(doc_scores$category, useNA = "ifany")
 ```
 
 
-```{r check-category-merge, echo=TRUE}
+```{r check-category-merge, echo=false, include=false}
 table(doc_scores$category, useNA = "ifany")
 ```
 
-```{r inspect-doc-meta-join, echo=TRUE}
+```{r inspect-doc-meta-join, echo=false, include=false}
 nrow(doc_meta)
 nrow(doc_scores)
 
@@ -333,14 +337,14 @@ doc_scores %>%
 
 
 
-```{r inspect-doc-meta, echo=TRUE}
+```{r inspect-doc-meta, echo=false, include=false}
 names(doc_meta)
 head(doc_meta)
 head(doc_scores$doc_id, 20)
 head(doc_meta$doc_id, 20)
 ```
 
-```{r autoic-pipeline, echo=TRUE, message=FALSE, warning=FALSE}
+```{r autoic-pipeline, echo=false, include=false, message=FALSE, warning=FALSE}
 # ------------------------------------------------------------
 # AutoIC: single, coherent pipeline (import -> normalize -> doc table)
 # ------------------------------------------------------------
@@ -442,15 +446,15 @@ autoic_doc |>
 
 ```
 
-```{r merge-autoic, echo=FALSE, message=FALSE, warning=FALSE}
+```{r merge-autoic, echo=FALSE, message=FALSE, warning=FALSE, include=false}
 doc_scores <- doc_scores |>
-  dplyr::left_join(
-    autoic_doc,
-    by = c("doc_id", "corpus")
-  )
+  dplyr::left_join(autoic_doc, by = c("doc_id", "corpus"))
+
+doc_scores_all <- doc_scores_all |>
+  dplyr::left_join(autoic_doc, by = c("doc_id", "corpus"))
 ```
 
-```{r diagnose-autoic-join-coverage, echo=TRUE, message=FALSE, warning=FALSE}
+```{r diagnose-autoic-join-coverage, echo=false, message=FALSE, include=false, warning=FALSE}
 cat("=== AutoIC join coverage (right after merge-autoic) ===\n")
 
 doc_scores |>
@@ -503,7 +507,7 @@ autoic_keys |>
 ```
 
 
-```{r inspect-sheets, echo=TRUE}
+```{r inspect-sheets, echo=false, include=false}
 autoic_files[1]
 if (tolower(tools::file_ext(autoic_files[1])) %in% c("xlsx", "xls")) {
   readxl::excel_sheets(autoic_files[1])
@@ -511,13 +515,13 @@ if (tolower(tools::file_ext(autoic_files[1])) %in% c("xlsx", "xls")) {
 ```
 
 
-```{r inspect-autoic-columns, echo=FALSE, message=FALSE, warning=FALSE}
+```{r inspect-autoic-columns, echo=FALSE, message=FALSE, warning=FALSE, include=false}
 names(autoic_all)
 names(autoic_doc)
 ```
 
 
-```{r clean-doc-scores, echo=FALSE, message=FALSE, warning=FALSE}
+```{r clean-doc-scores, echo=FALSE, message=FALSE, warning=FALSE, include=false}
 doc_scores <- doc_scores |>
   dplyr::select(
     doc_id, corpus, author,
@@ -531,7 +535,7 @@ doc_scores <- doc_scores |>
   )
 ```
 
-```{r prepare-analysis-data, echo=FALSE, message=FALSE, warning=FALSE}
+```{r prepare-analysis-data, echo=FALSE, message=FALSE, warning=FALSE, include=false}
 doc_scores <- doc_scores |>
   dplyr::mutate(
     category = factor(category, levels = c("moderate", "extreme", "violent"))
@@ -559,7 +563,7 @@ if (nrow(doc_scores_ic) == 0) {
 }
 ```
 
-```{r inspect-analysis-data, echo=TRUE}
+```{r inspect-analysis-data, echo=false, include=false}
 doc_scores_ic |>
   dplyr::summarise(
     n_rows = dplyr::n(),
@@ -578,7 +582,7 @@ doc_scores_ic |>
 
 
 
-```{r diagnose-model-frame-size-ic, echo=TRUE}
+```{r diagnose-model-frame-size-ic, echo=false, include=false}
 form_ic <- ic ~ dyadic_harm + hopelessness + justification_for_violence +
   martyrdom_narrative + role_model_status + violent_reference + category
 
@@ -588,7 +592,7 @@ cat("nrow(doc_scores_ic) =", nrow(doc_scores_ic), "\n")
 cat("nrow(model frame used by lm) =", nrow(mf), "\n")
 ```
 
-```{r check-autoic-integration, echo=FALSE, message=FALSE, warning=FALSE}
+```{r check-autoic-integration, echo=FALSE, message=FALSE, warning=FALSE, include=false}
 names(doc_scores)
 
 summary(doc_scores$ic)
@@ -597,7 +601,7 @@ sum(is.na(doc_scores$ic))
 
 
 
-```{r autoic-coverage, echo=FALSE, message=FALSE, warning=FALSE}
+```{r autoic-coverage, echo=FALSE, message=FALSE, warning=FALSE, include=false}
 doc_scores |>
   dplyr::summarise(
     n_total = dplyr::n(),
@@ -615,7 +619,7 @@ doc_scores |>
   )
 ```
 
-```{r diagnose-ic-contrasts, echo=TRUE, message=FALSE, warning=FALSE}
+```{r diagnose-ic-contrasts, echo=false, message=FALSE, warning=FALSE, include=false}
 form_ic <- ic ~ dyadic_harm + hopelessness + justification_for_violence +
   martyrdom_narrative + role_model_status + violent_reference + category
 
@@ -649,7 +653,7 @@ cat("\n---- Factor predictors with <2 levels in model frame ----\n")
 print(bad_factors)
 
 ```
-```{r verify-types-before-ic-regression, echo=TRUE}
+```{r verify-types-before-ic-regression, echo=false, include=false}
 vars <- c(
   "ic",
   "dyadic_harm", "hopelessness", "justification_for_violence",
@@ -661,14 +665,14 @@ str(doc_scores_ic[, vars, drop = FALSE])
 
 ```
 
-```{r category-levels-ic, echo=TRUE}
+```{r category-levels-ic, echo=false, include=false}
 print(table(doc_scores_ic$category, useNA = "ifany"))
 print(levels(doc_scores_ic$category))
 ```
 
 
 
-```{r regression-ic, echo=TRUE, message=FALSE, warning=FALSE}
+```{r regression-ic, echo=false, include=false, message=FALSE, warning=FALSE}
 form_ic <- ic ~ dyadic_harm + hopelessness + justification_for_violence +
   martyrdom_narrative + role_model_status + violent_reference + category
 
@@ -879,15 +883,16 @@ To examine whether manifesto category predicts the prevalence of harm-related li
 
 The regression model predicting dyadic harm language indicated that manifesto category was marginally associated with variation in dyadic harm prevalence, F(2, 28) = 3.10, *p* = .061, R² = .18. Compared with moderate manifestos, ideologically extreme manifestos contained significantly higher levels of dyadic harm language (*b* = 0.16, SE = 0.08, *t* = 2.16, *p* = .040). Violent self-sacrificial manifestos also showed significantly higher prevalence of dyadic harm markers relative to moderate texts (*b* = 0.18, SE = 0.08, *t* = 2.21, *p* = .035).
 
-```{r}
-# Build binary outcomes from category
+### Integrative Complexity Predicting Violence
+
+
+```{r violent-logistic-models, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+# Binary outcome: violent vs non-violent (moderate + extreme)
 dat <- doc_scores_ic |>
-  dplyr::mutate(
-    violent = dplyr::if_else(category == "violent", 1L, 0L)
-  ) |>
+  dplyr::mutate(violent = dplyr::if_else(category == "violent", 1L, 0L)) |>
   dplyr::filter(!is.na(ic))
 
-# Standardize continuous predictors for interpretability (OR per 1 SD)
+# Standardize continuous predictors: OR per 1 SD change
 dat <- dat |>
   dplyr::mutate(
     ic_z = as.numeric(scale(ic)),
@@ -897,20 +902,82 @@ dat <- dat |>
     hopelessness_z = as.numeric(scale(hopelessness))
   )
 
-# Core hypothesis model: IC predicts violence
+# Core hypothesis model (Hypothesis b)
 m_ic_only <- stats::glm(violent ~ ic_z, data = dat, family = stats::binomial())
 
-# Expanded model: IC + markers (watch N vs predictors!)
+# Expanded model (Hypotheses a + b jointly, but watch sample size)
 m_full <- stats::glm(
   violent ~ ic_z + dyadic_harm_z + justification_z + martyrdom_z + hopelessness_z,
   data = dat,
   family = stats::binomial()
 )
 
-summary(m_ic_only)
-summary(m_full)
+# APA-ready table for the expanded model: Odds ratios + 95% CI
+tab_or <- broom::tidy(m_full, conf.int = TRUE, exponentiate = TRUE) |>
+  dplyr::filter(term != "(Intercept)") |>
+  dplyr::mutate(
+    Predictor = dplyr::recode(
+      term,
+      "ic_z" = "Integrative Complexity (z)",
+      "dyadic_harm_z" = "Dyadic Harm (z)",
+      "justification_z" = "Justification for Violence (z)",
+      "martyrdom_z" = "Martyrdom Narrative (z)",
+      "hopelessness_z" = "Hopelessness (z)"
+    ),
+    OR = round(estimate, 2),
+    CI = paste0("[", round(conf.low, 2), ", ", round(conf.high, 2), "]"),
+    p = dplyr::case_when(
+      p.value < .001 ~ "< .001",
+      TRUE ~ sprintf("%.3f", p.value)
+    )
+  ) |>
+  dplyr::select(Predictor, OR, CI, p)
+
+papaja::apa_table(
+  tab_or,
+  caption = "Logistic regression predicting violent (vs. non-violent) manifesto category from integrative complexity and linguistic indicators.",
+  note = "Odds ratios (OR) reflect 1 SD increases in standardized predictors."
+)
 
 ```
+
+
+```{r fig-violent-probability, echo=FALSE, message=FALSE, warning=FALSE, fig.cap="Predicted probability of violent (vs. non-violent) category as a function of integrative complexity (95% CI)."}
+      
+# Predicted probability curve across IC (holding other predictors at 0 = mean, due to z-scoring)
+newdat <- tibble::tibble(
+  ic_z = seq(min(dat$ic_z, na.rm = TRUE), max(dat$ic_z, na.rm = TRUE), length.out = 100),
+  dyadic_harm_z = 0,
+  justification_z = 0,
+  martyrdom_z = 0,
+  hopelessness_z = 0
+)
+
+pred <- stats::predict(m_full, newdata = newdat, type = "link", se.fit = TRUE)
+
+plotdat <- newdat |>
+  dplyr::mutate(
+    p = stats::plogis(pred$fit),
+    lo = stats::plogis(pred$fit - 1.96 * pred$se.fit),
+    hi = stats::plogis(pred$fit + 1.96 * pred$se.fit)
+  )
+
+ggplot2::ggplot(plotdat, ggplot2::aes(x = ic_z, y = p)) +
+  ggplot2::geom_ribbon(ggplot2::aes(ymin = lo, ymax = hi), alpha = 0.2) +
+  ggplot2::geom_line() +
+  ggplot2::labs(
+    x = "Integrative Complexity (z)",
+    y = "Predicted P(Violent)"
+  ) +
+  ggplot2::theme_classic()
+```
+
+
+
+```{r logistic-diagnostics, echo=FALSE, include=FALSE}
+performance::check_model(m_full)
+```
+
 
 
 ```{r marker-group-regressions, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
@@ -1080,6 +1147,152 @@ The regression model predicting hopelessness markers was not statistically signi
 ### Summary of Findings 
 
 Across models, manifesto category predicted significant differences in two linguistic domains: dyadic harm language and martyrdom narratives. Both ideologically extreme and violent manifestos contained higher levels of dyadic harm language relative to moderate texts, suggesting that framing political issues in terms of intentional harm and victimization may be characteristic of more radical ideological writing. Additionally, violent self-sacrificial manifestos displayed significantly greater use of martyrdom narratives than moderate texts, indicating that rhetorical appeals to sacrifice and heroism may play an important role in texts associated with political violence.
+
+## Longitudinal Analyses
+
+```{r prepare-longitudinal, echo=FALSE, message=FALSE, warning=FALSE}
+# Keep only longitudinal documents with AutoIC scores
+long_dat <- doc_scores_all |>
+  dplyr::filter(corpus == "longitudinal") |>
+  dplyr::filter(!is.na(author)) |>
+  dplyr::mutate(
+    dplyr::across(
+      c(dyadic_harm, hopelessness, justification_for_violence,
+        martyrdom_narrative, role_model_status, violent_reference),
+      \(x) tidyr::replace_na(x, 0)
+    )
+  ) |>
+  dplyr::filter(!is.na(ic))
+
+# Extract an approximate date from trailing digits in doc_id
+# Handles cases like "harris04201999" (mddyyyy or mmddyyyy) and year-only endings.
+extract_doc_date <- function(doc_id) {
+  digits <- stringr::str_extract(doc_id, "\\\\d+$")
+  if (is.na(digits)) return(as.Date(NA))
+  year <- as.integer(stringr::str_sub(digits, -4, -1))
+  md <- stringr::str_sub(digits, 1, -5)
+
+  if (is.na(year)) return(as.Date(NA))
+  if (md == "" || is.na(md)) return(as.Date(sprintf("%04d-01-01", year)))
+
+  # md can be 1–4 digits depending on whether month/day have leading zeros
+  if (nchar(md) == 4) {
+    month <- as.integer(stringr::str_sub(md, 1, 2))
+    day <- as.integer(stringr::str_sub(md, 3, 4))
+  } else if (nchar(md) == 3) {
+    month <- as.integer(stringr::str_sub(md, 1, 1))
+    day <- as.integer(stringr::str_sub(md, 2, 3))
+  } else if (nchar(md) == 2) {
+    month <- as.integer(stringr::str_sub(md, 1, 1))
+    day <- as.integer(stringr::str_sub(md, 2, 2))
+  } else {
+    return(as.Date(sprintf("%04d-01-01", year)))
+  }
+
+  as.Date(sprintf("%04d-%02d-%02d", year, month, day))
+}
+
+long_dat <- long_dat |>
+  dplyr::mutate(doc_date = extract_doc_date(doc_id)) |>
+  dplyr::group_by(author) |>
+  dplyr::arrange(doc_date, .by_group = TRUE) |>
+  dplyr::mutate(
+    time_index = dplyr::row_number(),
+    time_c = as.numeric(scale(time_index, center = TRUE, scale = FALSE))
+  ) |>
+  dplyr::ungroup()
+
+# Quick check (silently stops if empty)
+stopifnot(nrow(long_dat) > 0)
+
+```
+
+```{r fig-long-ic-trajectories, echo=FALSE, message=FALSE, warning=FALSE, fig.cap="Longitudinal trajectories of integrative complexity by author (document order)."}
+ggplot2::ggplot(long_dat, ggplot2::aes(x = time_index, y = ic, group = author)) +
+  ggplot2::geom_line(alpha = 0.7) +
+  ggplot2::geom_point(size = 1) +
+  ggplot2::facet_wrap(~ author, scales = "free_x") +
+  ggplot2::labs(x = "Document order (within author)", y = "AutoIC Integrative Complexity") +
+  ggplot2::theme_classic()
+```
+
+
+```{r longitudinal-models, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+# Hypothesis c (mechanism): lower IC associated with more harm-justification language within authors
+m_just_ic <- lme4::lmer(
+  justification_for_violence ~ ic + time_c + (time_c | author),
+  data = long_dat,
+  REML = FALSE
+)
+
+# IC trend over time (is there a decline within authors?)
+m_ic_time <- lme4::lmer(
+  ic ~ time_c + (time_c | author),
+  data = long_dat,
+  REML = FALSE
+)
+
+# Simple fixed-effect tables (Wald approx)
+fixef_table <- function(m, model_label) {
+  cf <- summary(m)$coefficients
+  out <- tibble::tibble(
+    Model = model_label,
+    Term = rownames(cf),
+    B = round(cf[, "Estimate"], 3),
+    SE = round(cf[, "Std. Error"], 3),
+    t = round(cf[, "t value"], 2)
+  )
+  out
+}
+
+tab_long <- dplyr::bind_rows(
+  fixef_table(m_just_ic, "Justification ~ IC + Time"),
+  fixef_table(m_ic_time, "IC ~ Time")
+) |>
+  dplyr::filter(Term != "(Intercept)")
+
+papaja::apa_table(
+  tab_long,
+  caption = "Longitudinal mixed-effects models testing within-author change and the association between integrative complexity and justification language.",
+  note = "Models include random intercepts and random slopes for time by author (lme4::lmer)."
+)
+```
+
+
+```{r harris-near-far, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+harris_dat <- long_dat |>
+  dplyr::filter(author == "harris") |>
+  dplyr::filter(!is.na(doc_date)) |>
+  dplyr::mutate(
+    event_date = as.Date("1999-04-20"),   # <-- EDIT if you are using a different violence date definition
+    days_to_event = as.numeric(event_date - doc_date),
+    near_6m = days_to_event >= 0 & days_to_event <= 183
+  )
+
+# IC as a function of temporal proximity (within Harris)
+m_harris_ic <- stats::lm(ic ~ days_to_event, data = harris_dat)
+m_harris_just <- stats::lm(justification_for_violence ~ days_to_event, data = harris_dat)
+
+tab_harris <- tibble::tibble(
+  Outcome = c("IC", "Justification for Violence"),
+  B_days = c(coef(m_harris_ic)[["days_to_event"]], coef(m_harris_just)[["days_to_event"]]),
+  SE_days = c(summary(m_harris_ic)$coefficients["days_to_event","Std. Error"],
+             summary(m_harris_just)$coefficients["days_to_event","Std. Error"]),
+  p_days = c(summary(m_harris_ic)$coefficients["days_to_event","Pr(>|t|)"],
+            summary(m_harris_just)$coefficients["days_to_event","Pr(>|t|)"])
+) |>
+  dplyr::mutate(
+    dplyr::across(c(B_days, SE_days), \(x) round(x, 4)),
+    p_days = dplyr::case_when(p_days < .001 ~ "< .001", TRUE ~ sprintf("%.3f", p_days))
+  )
+
+papaja::apa_table(
+  tab_harris,
+  caption = "Within-author temporal proximity models for the violent longitudinal case (Harris).",
+  note = "Predictor is days remaining until the violence event date; positive B indicates higher outcome farther from the event."
+)
+```
+
 
 # Discussion 
 
