@@ -572,83 +572,437 @@ markers of harm on said longitudinal sets.
 ## [20] "chomanifesto11"
 \end{verbatim}
 
-\begin{verbatim}
-##  [1] "document"             "chunk"                "complete"            
-##  [4] "paragraph"            "words"                "ic"                  
-##  [7] "dial"                 "elab"                 "ic_differentiation"  
-## [10] "ic_integration"       "dial_differentiation" "dial_integration"    
-## [13] "elab_differentiation" "elab_integration"
-\end{verbatim}
-
-\begin{verbatim}
-##  [1] "document"             "chunk"                "complete"            
-##  [4] "paragraph"            "words"                "ic"                  
-##  [7] "dial"                 "elab"                 "ic_differentiation"  
-## [10] "ic_integration"       "dial_differentiation" "dial_integration"    
-## [13] "elab_differentiation" "elab_integration"
-\end{verbatim}
-
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{nrow}\NormalTok{(autoic\_doc)}
+\CommentTok{\# {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\# AutoIC: single, coherent pipeline (import {-}\textgreater{} normalize {-}\textgreater{} doc table)}
+\CommentTok{\# {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+
+\CommentTok{\# 1) ONE stable normalizer: define once, use everywhere.}
+\CommentTok{\#    (If you keep your setup() definition, replace it with this version and}
+\CommentTok{\#     DO NOT redefine normalize\_id later.)}
+
+
+\CommentTok{\# 2) Discover AutoIC files from all relevant folders}
+\NormalTok{autoic\_dirs }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}
+\NormalTok{  here}\SpecialCharTok{::}\FunctionTok{here}\NormalTok{(}\StringTok{"data/raw/autoic"}\NormalTok{),}
+\NormalTok{  here}\SpecialCharTok{::}\FunctionTok{here}\NormalTok{(}\StringTok{"data/raw/longitudinal/autoic"}\NormalTok{)}
+\NormalTok{)}
+\NormalTok{autoic\_dirs }\OtherTok{\textless{}{-}}\NormalTok{ autoic\_dirs[}\FunctionTok{dir.exists}\NormalTok{(autoic\_dirs)]}
+
+\NormalTok{autoic\_files }\OtherTok{\textless{}{-}}\NormalTok{ purrr}\SpecialCharTok{::}\FunctionTok{map}\NormalTok{(}
+\NormalTok{  autoic\_dirs,}
+  \SpecialCharTok{\textasciitilde{}} \FunctionTok{list.files}\NormalTok{(.x, }\AttributeTok{pattern =} \StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{.(xlsx|xls|csv)$"}\NormalTok{, }\AttributeTok{full.names =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{unlist}\NormalTok{(}\AttributeTok{use.names =} \ConstantTok{FALSE}\NormalTok{)}
+
+\ControlFlowTok{if}\NormalTok{ (}\FunctionTok{length}\NormalTok{(autoic\_files) }\SpecialCharTok{==} \DecValTok{0}\NormalTok{) \{}
+  \FunctionTok{stop}\NormalTok{(}\StringTok{"No AutoIC files found in: "}\NormalTok{, }\FunctionTok{paste}\NormalTok{(autoic\_dirs, }\AttributeTok{collapse =} \StringTok{", "}\NormalTok{))}
+\NormalTok{\}}
+
+\CommentTok{\# 3) Map AutoIC file paths to a corpus label that matches doc\_scores$corpus}
+\NormalTok{doc\_corpus\_levels }\OtherTok{\textless{}{-}} \FunctionTok{sort}\NormalTok{(}\FunctionTok{unique}\NormalTok{(doc\_scores}\SpecialCharTok{$}\NormalTok{corpus))}
+
+\CommentTok{\# Heuristic: find the label that contains "long"}
+\NormalTok{long\_label }\OtherTok{\textless{}{-}}\NormalTok{ doc\_corpus\_levels[stringr}\SpecialCharTok{::}\FunctionTok{str\_detect}\NormalTok{(}\FunctionTok{tolower}\NormalTok{(doc\_corpus\_levels), }\StringTok{"long"}\NormalTok{)]}
+\NormalTok{nonlong\_label }\OtherTok{\textless{}{-}} \FunctionTok{setdiff}\NormalTok{(doc\_corpus\_levels, long\_label)}
+
+\CommentTok{\# Fallbacks if the heuristic can\textquotesingle{}t find exactly one of each}
+\ControlFlowTok{if}\NormalTok{ (}\FunctionTok{length}\NormalTok{(long\_label) }\SpecialCharTok{!=} \DecValTok{1} \SpecialCharTok{||} \FunctionTok{length}\NormalTok{(nonlong\_label) }\SpecialCharTok{!=} \DecValTok{1}\NormalTok{) \{}
+\NormalTok{  long\_label }\OtherTok{\textless{}{-}} \StringTok{"longitudinal"}
+\NormalTok{  nonlong\_label }\OtherTok{\textless{}{-}} \StringTok{"non\_longitudinal"}
+\NormalTok{\}}
+
+\NormalTok{infer\_corpus\_from\_path }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(path) \{}
+  \ControlFlowTok{if}\NormalTok{ (stringr}\SpecialCharTok{::}\FunctionTok{str\_detect}\NormalTok{(}\FunctionTok{tolower}\NormalTok{(path), }\FunctionTok{paste0}\NormalTok{(.Platform}\SpecialCharTok{$}\NormalTok{file.sep, }\StringTok{"longitudinal"}\NormalTok{, .Platform}\SpecialCharTok{$}\NormalTok{file.sep))) \{}
+\NormalTok{    long\_label[}\DecValTok{1}\NormalTok{]}
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
+\NormalTok{    nonlong\_label[}\DecValTok{1}\NormalTok{]}
+\NormalTok{  \}}
+\NormalTok{\}}
+
+\CommentTok{\# 4) Robust reader: supports Excel and CSV.}
+\CommentTok{\#    For Excel, prefer the sheet named "Document"; otherwise fall back to sheet 1.}
+\NormalTok{read\_autoic\_file }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(path) \{}
+\NormalTok{  ext }\OtherTok{\textless{}{-}} \FunctionTok{tolower}\NormalTok{(tools}\SpecialCharTok{::}\FunctionTok{file\_ext}\NormalTok{(path))}
+
+\NormalTok{  dat }\OtherTok{\textless{}{-}} \ControlFlowTok{if}\NormalTok{ (ext }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"xlsx"}\NormalTok{, }\StringTok{"xls"}\NormalTok{)) \{}
+\NormalTok{    sheets }\OtherTok{\textless{}{-}}\NormalTok{ readxl}\SpecialCharTok{::}\FunctionTok{excel\_sheets}\NormalTok{(path)}
+\NormalTok{    sheet\_to\_read }\OtherTok{\textless{}{-}} \ControlFlowTok{if}\NormalTok{ (}\StringTok{"Document"} \SpecialCharTok{\%in\%}\NormalTok{ sheets) }\StringTok{"Document"} \ControlFlowTok{else}\NormalTok{ sheets[}\DecValTok{1}\NormalTok{]}
+\NormalTok{    readxl}\SpecialCharTok{::}\FunctionTok{read\_excel}\NormalTok{(path, }\AttributeTok{sheet =}\NormalTok{ sheet\_to\_read)}
+\NormalTok{  \} }\ControlFlowTok{else} \ControlFlowTok{if}\NormalTok{ (ext }\SpecialCharTok{==} \StringTok{"csv"}\NormalTok{) \{}
+\NormalTok{    readr}\SpecialCharTok{::}\FunctionTok{read\_csv}\NormalTok{(path, }\AttributeTok{show\_col\_types =} \ConstantTok{FALSE}\NormalTok{)}
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
+    \FunctionTok{stop}\NormalTok{(}\StringTok{"Unsupported AutoIC file type: "}\NormalTok{, path)}
+\NormalTok{  \}}
+
+\NormalTok{    dat }\SpecialCharTok{|\textgreater{}}
+\NormalTok{    janitor}\SpecialCharTok{::}\FunctionTok{clean\_names}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
+\NormalTok{    dplyr}\SpecialCharTok{::}\FunctionTok{mutate}\NormalTok{(}
+      \AttributeTok{source\_path =}\NormalTok{ path,}
+      \AttributeTok{source\_file =} \FunctionTok{basename}\NormalTok{(path),}
+      \AttributeTok{doc\_id =} \FunctionTok{normalize\_id}\NormalTok{(document),}
+      \AttributeTok{corpus =} \FunctionTok{infer\_corpus\_from\_path}\NormalTok{(path)}
+\NormalTok{    )}
+\NormalTok{\}}
+
+\CommentTok{\# 5) Build the row{-}level table (one row per file, often one row per doc)}
+\NormalTok{autoic\_all }\OtherTok{\textless{}{-}}\NormalTok{ purrr}\SpecialCharTok{::}\FunctionTok{map\_dfr}\NormalTok{(autoic\_files, read\_autoic\_file)}
+
+\CommentTok{\# 6) Collapse to a key{-}unique document{-}level AutoIC table.}
+\CommentTok{\#    This prevents left\_join() from multiplying rows if there are duplicates.}
+\NormalTok{mean\_or\_na }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x) \{}
+  \ControlFlowTok{if}\NormalTok{ (}\FunctionTok{all}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(x))) }\ConstantTok{NA\_real\_} \ControlFlowTok{else} \FunctionTok{mean}\NormalTok{(x, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{\}}
+
+\NormalTok{autoic\_doc }\OtherTok{\textless{}{-}}\NormalTok{ autoic\_all }\SpecialCharTok{|\textgreater{}}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{group\_by}\NormalTok{(doc\_id, corpus) }\SpecialCharTok{|\textgreater{}}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{summarise}\NormalTok{(}
+\NormalTok{    dplyr}\SpecialCharTok{::}\FunctionTok{across}\NormalTok{(dplyr}\SpecialCharTok{::}\FunctionTok{where}\NormalTok{(is.numeric), mean\_or\_na),}
+    \AttributeTok{source\_file =}\NormalTok{ dplyr}\SpecialCharTok{::}\FunctionTok{first}\NormalTok{(source\_file),}
+    \AttributeTok{.groups =} \StringTok{"drop"}
+\NormalTok{  )}
+\NormalTok{autoic\_doc }\SpecialCharTok{|\textgreater{}}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(doc\_id, corpus, source\_file) }\SpecialCharTok{|\textgreater{}}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{distinct}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{head}\NormalTok{(}\DecValTok{20}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 51
+## # A tibble: 20 x 3
+##    doc_id                                                     corpus source_file
+##    <chr>                                                      <chr>  <chr>      
+##  1 1160kennedyichbin                                          non_l~ coded_mani~
+##  2 142thunberg                                                non_l~ coded_mani~
+##  3 1945labourpartymanifesto                                   non_l~ coded_mani~
+##  4 1949simonedebeauvoirthesecondsex                           non_l~ coded_mani~
+##  5 acontributiontothehistoryofthenationalprogrammeinaustriaa~ non_l~ coded-Leni~
+##  6 addresstojointsessionofuscongress1941                      non_l~ coded-Chur~
+##  7 adisgracefulresolution10181912                             non_l~ coded-Leni~
+##  8 afantasy19991999                                           non_l~ coded-TedK~
+##  9 againstpessimism4151924                                    non_l~ coded-Gram~
+## 10 ahouseofmanymansions1940                                   non_l~ coded-Chur~
+## 11 ahushovereurope1939                                        non_l~ coded-Chur~
+## 12 americancivilization1945                                   non_l~ coded-Evol~
+## 13 andersbreivik2083manifesto2011pdfbookone                   non_l~ coded_mani~
+## 14 anewchapterofworldhistory10211912                          non_l~ coded-Leni~
+## 15 apologytowomen1996                                         non_l~ coded-TedK~
+## 16 ascientificamericanarticletheorizingatechinducedapocalyps~ non_l~ coded-TedK~
+## 17 ashifttowardshopefulness1996                               non_l~ coded-TedK~
+## 18 atlanticcharter                                            non_l~ coded_mani~
+## 19 beyemenofvalour1940                                        non_l~ coded-Chur~
+## 20 billontheequalityofnationsandthesafeguardingoftherightsof~ non_l~ coded-Leni~
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{names}\NormalTok{(autoic\_doc)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"=== AutoIC join coverage (right after merge{-}autoic) ===}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] "doc_id"               "corpus"               "ic"                  
-##  [4] "dial"                 "elab"                 "ic_differentiation"  
-##  [7] "ic_integration"       "dial_differentiation" "dial_integration"    
-## [10] "elab_differentiation" "elab_integration"
+## === AutoIC join coverage (right after merge-autoic) ===
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{head}\NormalTok{(autoic\_doc}\SpecialCharTok{$}\NormalTok{doc\_id, }\DecValTok{20}\NormalTok{)}
+\NormalTok{doc\_scores }\SpecialCharTok{|\textgreater{}}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{n\_total =}\NormalTok{ dplyr}\SpecialCharTok{::}\FunctionTok{n}\NormalTok{(),}
+    \AttributeTok{n\_with\_ic =} \FunctionTok{sum}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(ic)),}
+    \AttributeTok{n\_missing\_ic =} \FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(ic))}
+\NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{print}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] "1160kennedyichbin"                           
-##  [2] "142thunberg"                                 
-##  [3] "1945labourpartymanifesto"                    
-##  [4] "1949simonedebeauvoirthesecondsex"            
-##  [5] "againstpessimism4151924"                     
-##  [6] "andersbreivik2083manifesto2011pdfbookone"    
-##  [7] "atlanticcharter"                             
-##  [8] "brentontarrantthegreatreplacementmanifesto"  
-##  [9] "character331917"                             
-## [10] "chomanifesto11"                              
-## [11] "chroniclesoftheneworder9131919"              
-## [12] "communistmanifesto"                          
-## [13] "earnestmanifesto042719"                      
-## [14] "foranideologicalpreparationofthemasses341925"
-## [15] "lessons551922"                               
-## [16] "maximalismandextremism721925"                
-## [17] "menoffleshandblood581921"                    
-## [18] "menormachines12241916"                       
-## [19] "neitherfascismnorliberalismsovietism1071924" 
-## [20] "newspapersandtheworkers12221916"
+## # A tibble: 1 x 3
+##   n_total n_with_ic n_missing_ic
+##     <int>     <int>        <int>
+## 1      27        27            0
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{summary}\NormalTok{(autoic\_doc}\SpecialCharTok{$}\NormalTok{ic)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{By corpus:}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##   1.420   1.794   1.922   2.046   2.192   5.359
+## 
+## By corpus:
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{doc\_scores }\SpecialCharTok{|\textgreater{}}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{group\_by}\NormalTok{(corpus) }\SpecialCharTok{|\textgreater{}}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{n\_total =}\NormalTok{ dplyr}\SpecialCharTok{::}\FunctionTok{n}\NormalTok{(),}
+    \AttributeTok{n\_with\_ic =} \FunctionTok{sum}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(ic)),}
+    \AttributeTok{n\_missing\_ic =} \FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(ic)),}
+    \AttributeTok{.groups =} \StringTok{"drop"}
+\NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{print}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 4
+##   corpus           n_total n_with_ic n_missing_ic
+##   <chr>              <int>     <int>        <int>
+## 1 non_longitudinal      27        27            0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{Corpus levels comparison:}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Corpus levels comparison:
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{sort}\NormalTok{(}\FunctionTok{unique}\NormalTok{(doc\_scores}\SpecialCharTok{$}\NormalTok{corpus)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "non_longitudinal"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{sort}\NormalTok{(}\FunctionTok{unique}\NormalTok{(autoic\_doc}\SpecialCharTok{$}\NormalTok{corpus)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "non_longitudinal"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{Key overlap checks:}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Key overlap checks:
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{doc\_keys }\OtherTok{\textless{}{-}}\NormalTok{ doc\_scores }\SpecialCharTok{|\textgreater{}}\NormalTok{ dplyr}\SpecialCharTok{::}\FunctionTok{distinct}\NormalTok{(doc\_id, corpus)}
+\NormalTok{autoic\_keys }\OtherTok{\textless{}{-}}\NormalTok{ autoic\_doc }\SpecialCharTok{|\textgreater{}}\NormalTok{ dplyr}\SpecialCharTok{::}\FunctionTok{distinct}\NormalTok{(doc\_id, corpus)}
+
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Matches on doc\_id only:"}\NormalTok{,}
+    \FunctionTok{sum}\NormalTok{(}\FunctionTok{unique}\NormalTok{(doc\_scores}\SpecialCharTok{$}\NormalTok{doc\_id) }\SpecialCharTok{\%in\%} \FunctionTok{unique}\NormalTok{(autoic\_doc}\SpecialCharTok{$}\NormalTok{doc\_id)),}
+    \StringTok{"of"}\NormalTok{, dplyr}\SpecialCharTok{::}\FunctionTok{n\_distinct}\NormalTok{(doc\_scores}\SpecialCharTok{$}\NormalTok{doc\_id), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Matches on doc_id only: 27 of 27
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Matches on (doc\_id, corpus):"}\NormalTok{,}
+    \FunctionTok{nrow}\NormalTok{(dplyr}\SpecialCharTok{::}\FunctionTok{inner\_join}\NormalTok{(doc\_keys, autoic\_keys, }\AttributeTok{by =} \FunctionTok{c}\NormalTok{(}\StringTok{"doc\_id"}\NormalTok{, }\StringTok{"corpus"}\NormalTok{))),}
+    \StringTok{"of"}\NormalTok{, }\FunctionTok{nrow}\NormalTok{(doc\_keys), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Matches on (doc_id, corpus): 27 of 27
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{Example doc\_scores keys not found in autoic\_doc (first 20):}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Example doc_scores keys not found in autoic_doc (first 20):
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{doc\_keys }\SpecialCharTok{|\textgreater{}}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{anti\_join}\NormalTok{(autoic\_keys, }\AttributeTok{by =} \FunctionTok{c}\NormalTok{(}\StringTok{"doc\_id"}\NormalTok{, }\StringTok{"corpus"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{head}\NormalTok{(}\DecValTok{20}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{print}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 0 x 2
+## # i 2 variables: doc_id <chr>, corpus <chr>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{Example autoic\_doc keys not found in doc\_scores (first 20):}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Example autoic_doc keys not found in doc_scores (first 20):
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{autoic\_keys }\SpecialCharTok{|\textgreater{}}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{anti\_join}\NormalTok{(doc\_keys, }\AttributeTok{by =} \FunctionTok{c}\NormalTok{(}\StringTok{"doc\_id"}\NormalTok{, }\StringTok{"corpus"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{head}\NormalTok{(}\DecValTok{20}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{print}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 20 x 2
+##    doc_id                                                                 corpus
+##    <chr>                                                                  <chr> 
+##  1 acontributiontothehistoryofthenationalprogrammeinaustriaandinrussia25~ non_l~
+##  2 addresstojointsessionofuscongress1941                                  non_l~
+##  3 adisgracefulresolution10181912                                         non_l~
+##  4 afantasy19991999                                                       non_l~
+##  5 againstpessimism4151924                                                non_l~
+##  6 ahouseofmanymansions1940                                               non_l~
+##  7 ahushovereurope1939                                                    non_l~
+##  8 americancivilization1945                                               non_l~
+##  9 andersbreivik2083manifesto2011pdfbookone                               non_l~
+## 10 anewchapterofworldhistory10211912                                      non_l~
+## 11 apologytowomen1996                                                     non_l~
+## 12 ascientificamericanarticletheorizingatechinducedapocalypsetheunabombe~ non_l~
+## 13 ashifttowardshopefulness1996                                           non_l~
+## 14 beyemenofvalour1940                                                    non_l~
+## 15 billontheequalityofnationsandthesafeguardingoftherightsofnationalmino~ non_l~
+## 16 bloodtoiltearsandsweat1940                                             non_l~
+## 17 bolshevismandimperialsedition1920                                      non_l~
+## 18 cadetsandnationalists10241912                                          non_l~
+## 19 cadetsonthequestionoftheukraine7161913                                 non_l~
+## 20 character331917                                                        non_l~
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{autoic\_files[}\DecValTok{1}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "C:/Users/morga/OneDrive/Documents/Integrative-Data-Project/Thesis/data/raw/autoic/coded-Churchill_Longitudinal.xlsx"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{ (}\FunctionTok{tolower}\NormalTok{(tools}\SpecialCharTok{::}\FunctionTok{file\_ext}\NormalTok{(autoic\_files[}\DecValTok{1}\NormalTok{])) }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"xlsx"}\NormalTok{, }\StringTok{"xls"}\NormalTok{)) \{}
+\NormalTok{  readxl}\SpecialCharTok{::}\FunctionTok{excel\_sheets}\NormalTok{(autoic\_files[}\DecValTok{1}\NormalTok{])}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Paragraph" "Document"
+\end{verbatim}
+
+\begin{verbatim}
+##  [1] "document"                        "num_complete_chunks"            
+##  [3] "num_words_in_complete_chunks"    "percentage_of_words_scored"     
+##  [5] "ic"                              "dial"                           
+##  [7] "elab"                            "ic_differentiation"             
+##  [9] "ic_integration"                  "dial_differentiation"           
+## [11] "dial_integration"                "elab_differentiation"           
+## [13] "elab_integration"                "num_all_chunks"                 
+## [15] "num_words_in_all_chunks"         "mean_words_in_chunks"           
+## [17] "ic_all_chunks"                   "dial_all_chunks"                
+## [19] "elab_all_chunks"                 "ic_differentiation_all_chunks"  
+## [21] "ic_integration_all_chunks"       "dial_differentiation_all_chunks"
+## [23] "dial_integration_all_chunks"     "elab_differentiation_all_chunks"
+## [25] "elab_integration_all_chunks"     "source_path"                    
+## [27] "source_file"                     "doc_id"                         
+## [29] "corpus"
+\end{verbatim}
+
+\begin{verbatim}
+##  [1] "doc_id"                          "corpus"                         
+##  [3] "num_complete_chunks"             "num_words_in_complete_chunks"   
+##  [5] "percentage_of_words_scored"      "ic"                             
+##  [7] "dial"                            "elab"                           
+##  [9] "ic_differentiation"              "ic_integration"                 
+## [11] "dial_differentiation"            "dial_integration"               
+## [13] "elab_differentiation"            "elab_integration"               
+## [15] "num_all_chunks"                  "num_words_in_all_chunks"        
+## [17] "mean_words_in_chunks"            "ic_all_chunks"                  
+## [19] "dial_all_chunks"                 "elab_all_chunks"                
+## [21] "ic_differentiation_all_chunks"   "ic_integration_all_chunks"      
+## [23] "dial_differentiation_all_chunks" "dial_integration_all_chunks"    
+## [25] "elab_differentiation_all_chunks" "elab_integration_all_chunks"    
+## [27] "source_file"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{doc\_scores\_ic }\SpecialCharTok{|\textgreater{}}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{n\_rows =}\NormalTok{ dplyr}\SpecialCharTok{::}\FunctionTok{n}\NormalTok{(),}
+    \AttributeTok{n\_missing\_ic =} \FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(ic)),}
+    \AttributeTok{n\_missing\_category =} \FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(category)),}
+    \AttributeTok{n\_missing\_dyadic\_harm =} \FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(dyadic\_harm)),}
+    \AttributeTok{n\_missing\_hopelessness =} \FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(hopelessness)),}
+    \AttributeTok{n\_missing\_justification =} \FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(justification\_for\_violence)),}
+    \AttributeTok{n\_missing\_martyrdom =} \FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(martyrdom\_narrative)),}
+    \AttributeTok{n\_missing\_role\_model =} \FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(role\_model\_status)),}
+    \AttributeTok{n\_missing\_violent\_reference =} \FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(violent\_reference))}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 9
+##   n_rows n_missing_ic n_missing_category n_missing_dyadic_harm
+##    <int>        <int>              <int>                 <int>
+## 1     27            0                  0                     0
+## # i 5 more variables: n_missing_hopelessness <int>,
+## #   n_missing_justification <int>, n_missing_martyrdom <int>,
+## #   n_missing_role_model <int>, n_missing_violent_reference <int>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{form\_ic }\OtherTok{\textless{}{-}}\NormalTok{ ic }\SpecialCharTok{\textasciitilde{}}\NormalTok{ dyadic\_harm }\SpecialCharTok{+}\NormalTok{ hopelessness }\SpecialCharTok{+}\NormalTok{ justification\_for\_violence }\SpecialCharTok{+}
+\NormalTok{  martyrdom\_narrative }\SpecialCharTok{+}\NormalTok{ role\_model\_status }\SpecialCharTok{+}\NormalTok{ violent\_reference }\SpecialCharTok{+}\NormalTok{ category}
+
+\NormalTok{mf }\OtherTok{\textless{}{-}} \FunctionTok{model.frame}\NormalTok{(form\_ic, }\AttributeTok{data =}\NormalTok{ doc\_scores\_ic, }\AttributeTok{na.action =}\NormalTok{ na.omit, }\AttributeTok{drop.unused.levels =} \ConstantTok{TRUE}\NormalTok{)}
+
+\FunctionTok{cat}\NormalTok{(}\StringTok{"nrow(doc\_scores\_ic) ="}\NormalTok{, }\FunctionTok{nrow}\NormalTok{(doc\_scores\_ic), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## nrow(doc_scores_ic) = 27
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"nrow(model frame used by lm) ="}\NormalTok{, }\FunctionTok{nrow}\NormalTok{(mf), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## nrow(model frame used by lm) = 27
 \end{verbatim}
 
 \begin{verbatim}
@@ -665,36 +1019,290 @@ markers of harm on said longitudinal sets.
 \end{verbatim}
 
 \begin{verbatim}
-##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-##   1.420   1.700   1.975   2.254   2.125   5.359      18
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   1.158   1.840   2.083   2.105   2.176   5.365
 \end{verbatim}
 
 \begin{verbatim}
-## [1] 18
+## [1] 0
 \end{verbatim}
 
 \begin{verbatim}
 ## # A tibble: 1 x 3
 ##   n_total n_with_ic n_missing_ic
 ##     <int>     <int>        <int>
-## 1      27         9           18
+## 1      27        27            0
 \end{verbatim}
 
 \begin{verbatim}
 ## # A tibble: 1 x 4
 ##   corpus           n_total n_with_ic n_missing_ic
 ##   <chr>              <int>     <int>        <int>
-## 1 non_longitudinal      27         9           18
+## 1 non_longitudinal      27        27            0
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{model\_ic }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(}
-\NormalTok{  ic }\SpecialCharTok{\textasciitilde{}}\NormalTok{ dyadic\_harm }\SpecialCharTok{+}\NormalTok{ hopelessness }\SpecialCharTok{+}\NormalTok{ justification\_for\_violence }\SpecialCharTok{+}
-\NormalTok{    martyrdom\_narrative }\SpecialCharTok{+}\NormalTok{ role\_model\_status }\SpecialCharTok{+}\NormalTok{ violent\_reference }\SpecialCharTok{+}\NormalTok{ category,}
-  \AttributeTok{data =}\NormalTok{ doc\_scores\_ic}
+\NormalTok{form\_ic }\OtherTok{\textless{}{-}}\NormalTok{ ic }\SpecialCharTok{\textasciitilde{}}\NormalTok{ dyadic\_harm }\SpecialCharTok{+}\NormalTok{ hopelessness }\SpecialCharTok{+}\NormalTok{ justification\_for\_violence }\SpecialCharTok{+}
+\NormalTok{  martyrdom\_narrative }\SpecialCharTok{+}\NormalTok{ role\_model\_status }\SpecialCharTok{+}\NormalTok{ violent\_reference }\SpecialCharTok{+}\NormalTok{ category}
+
+\NormalTok{vars }\OtherTok{\textless{}{-}} \FunctionTok{all.vars}\NormalTok{(form\_ic)}
+
+\FunctionTok{cat}\NormalTok{(}\StringTok{"{-}{-}{-}{-} Types in doc\_scores\_ic {-}{-}{-}{-}}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## ---- Types in doc_scores_ic ----
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{sapply}\NormalTok{(doc\_scores\_ic[, vars, }\AttributeTok{drop =} \ConstantTok{FALSE}\NormalTok{], class))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                         ic                dyadic_harm 
+##                  "numeric"                  "numeric" 
+##               hopelessness justification_for_violence 
+##                  "numeric"                  "numeric" 
+##        martyrdom_narrative          role_model_status 
+##                  "numeric"                  "numeric" 
+##          violent_reference                   category 
+##                  "numeric"                   "factor"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{{-}{-}{-}{-} Unique non{-}NA counts in doc\_scores\_ic {-}{-}{-}{-}}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## ---- Unique non-NA counts in doc_scores_ic ----
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{uniq\_non\_na }\OtherTok{\textless{}{-}} \FunctionTok{sapply}\NormalTok{(doc\_scores\_ic[, vars, }\AttributeTok{drop =} \ConstantTok{FALSE}\NormalTok{], \textbackslash{}(x) dplyr}\SpecialCharTok{::}\FunctionTok{n\_distinct}\NormalTok{(x, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{))}
+\FunctionTok{print}\NormalTok{(uniq\_non\_na)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                         ic                dyadic_harm 
+##                         27                         16 
+##               hopelessness justification_for_violence 
+##                         27                         19 
+##        martyrdom_narrative          role_model_status 
+##                         20                         22 
+##          violent_reference                   category 
+##                          8                          3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{{-}{-}{-}{-} Category distribution in doc\_scores\_ic {-}{-}{-}{-}}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## ---- Category distribution in doc_scores_ic ----
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{table}\NormalTok{(doc\_scores\_ic}\SpecialCharTok{$}\NormalTok{category, }\AttributeTok{useNA =} \StringTok{"ifany"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## moderate  extreme  violent 
+##        9       10        8
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Mimic what lm() will effectively do: build a model frame and drop NA rows.}
+\CommentTok{\# Force category into a factor for inspection, but do not assume it has 2+ observed levels.}
+\NormalTok{tmp }\OtherTok{\textless{}{-}}\NormalTok{ doc\_scores\_ic }\SpecialCharTok{|\textgreater{}}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{mutate}\NormalTok{(}\AttributeTok{category =} \FunctionTok{factor}\NormalTok{(category, }\AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"moderate"}\NormalTok{,}\StringTok{"extreme"}\NormalTok{,}\StringTok{"violent"}\NormalTok{)))}
+
+\NormalTok{mf }\OtherTok{\textless{}{-}} \FunctionTok{model.frame}\NormalTok{(form\_ic, }\AttributeTok{data =}\NormalTok{ tmp, }\AttributeTok{na.action =}\NormalTok{ na.omit, }\AttributeTok{drop.unused.levels =} \ConstantTok{TRUE}\NormalTok{)}
+
+\FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{{-}{-}{-}{-} Rows used by lm after na.omit {-}{-}{-}{-}}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## ---- Rows used by lm after na.omit ----
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"nrow(model frame) ="}\NormalTok{, }\FunctionTok{nrow}\NormalTok{(mf), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## nrow(model frame) = 27
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{{-}{-}{-}{-} Category distribution in the model frame {-}{-}{-}{-}}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## ---- Category distribution in the model frame ----
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{table}\NormalTok{(mf}\SpecialCharTok{$}\NormalTok{category, }\AttributeTok{useNA =} \StringTok{"ifany"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## moderate  extreme  violent 
+##        9       10        8
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bad\_factors }\OtherTok{\textless{}{-}} \FunctionTok{names}\NormalTok{(mf)[}\FunctionTok{sapply}\NormalTok{(mf, \textbackslash{}(x) }\FunctionTok{is.factor}\NormalTok{(x) }\SpecialCharTok{\&\&} \FunctionTok{nlevels}\NormalTok{(x) }\SpecialCharTok{\textless{}} \DecValTok{2}\NormalTok{)]}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{{-}{-}{-}{-} Factor predictors with \textless{}2 levels in model frame {-}{-}{-}{-}}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## ---- Factor predictors with <2 levels in model frame ----
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(bad\_factors)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## character(0)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{vars }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}
+  \StringTok{"ic"}\NormalTok{,}
+  \StringTok{"dyadic\_harm"}\NormalTok{, }\StringTok{"hopelessness"}\NormalTok{, }\StringTok{"justification\_for\_violence"}\NormalTok{,}
+  \StringTok{"martyrdom\_narrative"}\NormalTok{, }\StringTok{"role\_model\_status"}\NormalTok{, }\StringTok{"violent\_reference"}\NormalTok{,}
+  \StringTok{"category"}
 \NormalTok{)}
 
+\FunctionTok{str}\NormalTok{(doc\_scores\_ic[, vars, }\AttributeTok{drop =} \ConstantTok{FALSE}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## tibble [27 x 8] (S3: tbl_df/tbl/data.frame)
+##  $ ic                        : num [1:27] 2.08 2.14 2.01 5.37 1.75 ...
+##  $ dyadic_harm               : num [1:27] 0 0 0 0.0971 0 ...
+##  $ hopelessness              : num [1:27] 7.236 8.086 2.731 0.923 1.931 ...
+##  $ justification_for_violence: num [1:27] 0 0 0 0.151 0.965 ...
+##  $ martyrdom_narrative       : num [1:27] 0 0 0 0.169 0 ...
+##  $ role_model_status         : num [1:27] 0 0 0.39 0.574 0 ...
+##  $ violent_reference         : num [1:27] 0 0 0 0.00571 0 ...
+##  $ category                  : Factor w/ 3 levels "moderate","extreme",..: 1 1 1 1 1 2 2 3 1 1 ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{table}\NormalTok{(doc\_scores\_ic}\SpecialCharTok{$}\NormalTok{category, }\AttributeTok{useNA =} \StringTok{"ifany"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## moderate  extreme  violent 
+##        9       10        8
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{levels}\NormalTok{(doc\_scores\_ic}\SpecialCharTok{$}\NormalTok{category))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "moderate" "extreme"  "violent"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{form\_ic }\OtherTok{\textless{}{-}}\NormalTok{ ic }\SpecialCharTok{\textasciitilde{}}\NormalTok{ dyadic\_harm }\SpecialCharTok{+}\NormalTok{ hopelessness }\SpecialCharTok{+}\NormalTok{ justification\_for\_violence }\SpecialCharTok{+}
+\NormalTok{  martyrdom\_narrative }\SpecialCharTok{+}\NormalTok{ role\_model\_status }\SpecialCharTok{+}\NormalTok{ violent\_reference }\SpecialCharTok{+}\NormalTok{ category}
+
+\NormalTok{mf }\OtherTok{\textless{}{-}} \FunctionTok{model.frame}\NormalTok{(form\_ic, }\AttributeTok{data =}\NormalTok{ doc\_scores\_ic, }\AttributeTok{na.action =}\NormalTok{ na.omit, }\AttributeTok{drop.unused.levels =} \ConstantTok{TRUE}\NormalTok{)}
+
+\FunctionTok{cat}\NormalTok{(}\StringTok{"n used by lm after na.omit ="}\NormalTok{, }\FunctionTok{nrow}\NormalTok{(mf), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## n used by lm after na.omit = 27
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"category distribution in modeling data:}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## category distribution in modeling data:
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{table}\NormalTok{(mf}\SpecialCharTok{$}\NormalTok{category, }\AttributeTok{useNA =} \StringTok{"ifany"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## moderate  extreme  violent 
+##        9       10        8
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{ (}\FunctionTok{nrow}\NormalTok{(mf) }\SpecialCharTok{==} \DecValTok{0}\NormalTok{) \{}
+  \FunctionTok{stop}\NormalTok{(}
+    \StringTok{"Model frame has 0 rows after na.omit. "}\NormalTok{,}
+    \StringTok{"This indicates no complete cases remain. "}\NormalTok{,}
+    \StringTok{"Most commonly: ic is missing for all rows due to a failed AutoIC merge. "}\NormalTok{,}
+    \StringTok{"Check autoic{-}coverage and diagnose{-}autoic{-}join{-}coverage."}
+\NormalTok{  )}
+\NormalTok{\}}
+
+\NormalTok{single\_level }\OtherTok{\textless{}{-}} \FunctionTok{names}\NormalTok{(mf)[}\FunctionTok{sapply}\NormalTok{(mf, \textbackslash{}(x) }\FunctionTok{is.factor}\NormalTok{(x) }\SpecialCharTok{\&\&} \FunctionTok{nlevels}\NormalTok{(x) }\SpecialCharTok{\textless{}} \DecValTok{2}\NormalTok{)]}
+\NormalTok{form\_ic2 }\OtherTok{\textless{}{-}}\NormalTok{ form\_ic}
+
+\ControlFlowTok{if}\NormalTok{ (}\StringTok{"category"} \SpecialCharTok{\%in\%}\NormalTok{ single\_level) \{}
+  \FunctionTok{warning}\NormalTok{(}\StringTok{"\textasciigrave{}category\textasciigrave{} has \textless{}2 observed levels in the model frame; dropping \textasciigrave{}category\textasciigrave{}."}\NormalTok{)}
+\NormalTok{  form\_ic2 }\OtherTok{\textless{}{-}} \FunctionTok{update}\NormalTok{(form\_ic2, . }\SpecialCharTok{\textasciitilde{}}\NormalTok{ . }\SpecialCharTok{{-}}\NormalTok{ category)}
+\NormalTok{  mf }\OtherTok{\textless{}{-}} \FunctionTok{model.frame}\NormalTok{(form\_ic2, }\AttributeTok{data =}\NormalTok{ doc\_scores\_ic, }\AttributeTok{na.action =}\NormalTok{ na.omit, }\AttributeTok{drop.unused.levels =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{\}}
+
+\NormalTok{model\_ic }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(form\_ic2, }\AttributeTok{data =}\NormalTok{ mf)}
 \FunctionTok{summary}\NormalTok{(model\_ic)}
 \end{Highlighting}
 \end{Shaded}
@@ -702,28 +1310,29 @@ markers of harm on said longitudinal sets.
 \begin{verbatim}
 ## 
 ## Call:
-## lm(formula = ic ~ dyadic_harm + hopelessness + justification_for_violence + 
-##     martyrdom_narrative + role_model_status + violent_reference + 
-##     category, data = doc_scores_ic)
+## lm(formula = form_ic2, data = mf)
 ## 
 ## Residuals:
-## ALL 9 residuals are 0: no residual degrees of freedom!
+##      Min       1Q   Median       3Q      Max 
+## -0.76750 -0.33257 -0.01632  0.10469  2.97720 
 ## 
 ## Coefficients:
-##                            Estimate Std. Error t value Pr(>|t|)
-## (Intercept)                 -1.3562        NaN     NaN      NaN
-## dyadic_harm                  7.5631        NaN     NaN      NaN
-## hopelessness                 0.1764        NaN     NaN      NaN
-## justification_for_violence   0.6846        NaN     NaN      NaN
-## martyrdom_narrative         14.9268        NaN     NaN      NaN
-## role_model_status            2.1013        NaN     NaN      NaN
-## violent_reference          -10.8732        NaN     NaN      NaN
-## categorymoderate             2.0548        NaN     NaN      NaN
-## categoryviolent             -6.2253        NaN     NaN      NaN
+##                             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)                 2.198512   0.436212   5.040 8.51e-05 ***
+## dyadic_harm                 0.610939   1.015045   0.602    0.555    
+## hopelessness               -0.013367   0.066218  -0.202    0.842    
+## justification_for_violence  0.281743   0.600263   0.469    0.644    
+## martyrdom_narrative         0.632965   0.921071   0.687    0.501    
+## role_model_status          -0.004876   0.331540  -0.015    0.988    
+## violent_reference          -0.699491   0.901671  -0.776    0.448    
+## categoryextreme            -0.179406   0.449009  -0.400    0.694    
+## categoryviolent            -0.652229   0.480784  -1.357    0.192    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: NaN on 0 degrees of freedom
-## Multiple R-squared:      1,  Adjusted R-squared:    NaN 
-## F-statistic:   NaN on 8 and 0 DF,  p-value: NA
+## Residual standard error: 0.8029 on 18 degrees of freedom
+## Multiple R-squared:  0.1247, Adjusted R-squared:  -0.2643 
+## F-statistic: 0.3205 on 8 and 18 DF,  p-value: 0.9476
 \end{verbatim}
 
 \subsection{Descriptive Statistics}\label{descriptive-statistics}
@@ -815,42 +1424,42 @@ Hopelessness & Violent vs. Moderate & -1.16 & 1.29 & -0.90 & 0.379\\
 \toprule
 Outcome & \multicolumn{1}{c}{Predictor} & \multicolumn{1}{c}{B} & \multicolumn{1}{c}{SE} & \multicolumn{1}{c}{t} & \multicolumn{1}{c}{p}\\
 \midrule
-IC & Justification for Violence & -0.07 & 1.07 & -0.06 & 0.954\\
-IC & Dyadic Harm & 1.18 & 2.65 & 0.44 & 0.680\\
-IC & Extreme vs. Moderate & -0.52 & 1.65 & -0.32 & 0.768\\
-IC & Violent vs. Moderate & -1.21 & 1.36 & -0.89 & 0.425\\
-Dial & Justification for Violence & -0.06 & 0.84 & -0.08 & 0.942\\
-Dial & Dyadic Harm & 0.87 & 2.09 & 0.42 & 0.699\\
-Dial & Extreme vs. Moderate & -0.45 & 1.30 & -0.35 & 0.746\\
-Dial & Violent vs. Moderate & -0.83 & 1.07 & -0.77 & 0.484\\
-Elab & Justification for Violence & 0.02 & 0.91 & 0.02 & 0.983\\
-Elab & Dyadic Harm & 0.90 & 2.25 & 0.40 & 0.709\\
-Elab & Extreme vs. Moderate & -0.50 & 1.40 & -0.36 & 0.738\\
-Elab & Violent vs. Moderate & -0.92 & 1.16 & -0.80 & 0.469\\
-IC Differentiation & Justification for Violence & -0.03 & 0.40 & -0.08 & 0.943\\
-IC Differentiation & Dyadic Harm & 0.69 & 1.00 & 0.69 & 0.526\\
-IC Differentiation & Extreme vs. Moderate & -0.25 & 0.62 & -0.41 & 0.706\\
-IC Differentiation & Violent vs. Moderate & -0.58 & 0.51 & -1.13 & 0.322\\
-IC Integration & Justification for Violence & -0.04 & 0.70 & -0.05 & 0.962\\
-IC Integration & Dyadic Harm & 0.49 & 1.73 & 0.28 & 0.793\\
-IC Integration & Extreme vs. Moderate & -0.28 & 1.08 & -0.26 & 0.811\\
-IC Integration & Violent vs. Moderate & -0.63 & 0.89 & -0.71 & 0.516\\
-Dial Differentiation & Justification for Violence & -0.04 & 0.50 & -0.09 & 0.936\\
-Dial Differentiation & Dyadic Harm & 0.63 & 1.22 & 0.51 & 0.634\\
-Dial Differentiation & Extreme vs. Moderate & -0.28 & 0.76 & -0.37 & 0.730\\
-Dial Differentiation & Violent vs. Moderate & -0.51 & 0.63 & -0.81 & 0.462\\
-Dial Integration & Justification for Violence & -0.03 & 0.36 & -0.08 & 0.941\\
-Dial Integration & Dyadic Harm & 0.24 & 0.90 & 0.26 & 0.805\\
-Dial Integration & Extreme vs. Moderate & -0.18 & 0.56 & -0.32 & 0.768\\
-Dial Integration & Violent vs. Moderate & -0.32 & 0.46 & -0.69 & 0.528\\
-Elab Differentiation & Justification for Violence & 0.02 & 0.49 & 0.05 & 0.962\\
-Elab Differentiation & Dyadic Harm & 0.60 & 1.21 & 0.50 & 0.645\\
-Elab Differentiation & Extreme vs. Moderate & -0.31 & 0.75 & -0.42 & 0.698\\
-Elab Differentiation & Violent vs. Moderate & -0.55 & 0.62 & -0.89 & 0.424\\
-Elab Integration & Justification for Violence & 0.00 & 0.42 & -0.01 & 0.996\\
-Elab Integration & Dyadic Harm & 0.32 & 1.04 & 0.30 & 0.778\\
-Elab Integration & Extreme vs. Moderate & -0.18 & 0.65 & -0.28 & 0.796\\
-Elab Integration & Violent vs. Moderate & -0.37 & 0.54 & -0.69 & 0.529\\
+IC & Justification for Violence & 0.12 & 0.40 & 0.30 & 0.768\\
+IC & Dyadic Harm & 0.50 & 0.82 & 0.61 & 0.551\\
+IC & Extreme vs. Moderate & -0.14 & 0.37 & -0.37 & 0.713\\
+IC & Violent vs. Moderate & -0.56 & 0.41 & -1.36 & 0.187\\
+Dial & Justification for Violence & 0.07 & 0.32 & 0.23 & 0.817\\
+Dial & Dyadic Harm & 0.43 & 0.65 & 0.67 & 0.509\\
+Dial & Extreme vs. Moderate & -0.04 & 0.29 & -0.16 & 0.878\\
+Dial & Violent vs. Moderate & -0.30 & 0.32 & -0.94 & 0.358\\
+Elab & Justification for Violence & 0.10 & 0.32 & 0.33 & 0.748\\
+Elab & Dyadic Harm & 0.39 & 0.66 & 0.60 & 0.557\\
+Elab & Extreme vs. Moderate & -0.29 & 0.30 & -0.97 & 0.341\\
+Elab & Violent vs. Moderate & -0.48 & 0.33 & -1.45 & 0.162\\
+IC Differentiation & Justification for Violence & 0.12 & 0.18 & 0.65 & 0.523\\
+IC Differentiation & Dyadic Harm & 0.40 & 0.37 & 1.08 & 0.290\\
+IC Differentiation & Extreme vs. Moderate & 0.02 & 0.16 & 0.14 & 0.889\\
+IC Differentiation & Violent vs. Moderate & -0.24 & 0.18 & -1.30 & 0.207\\
+IC Integration & Justification for Violence & 0.00 & 0.25 & 0.02 & 0.988\\
+IC Integration & Dyadic Harm & 0.10 & 0.50 & 0.20 & 0.844\\
+IC Integration & Extreme vs. Moderate & -0.16 & 0.23 & -0.72 & 0.482\\
+IC Integration & Violent vs. Moderate & -0.32 & 0.25 & -1.27 & 0.217\\
+Dial Differentiation & Justification for Violence & 0.08 & 0.20 & 0.38 & 0.709\\
+Dial Differentiation & Dyadic Harm & 0.35 & 0.42 & 0.84 & 0.408\\
+Dial Differentiation & Extreme vs. Moderate & 0.06 & 0.19 & 0.33 & 0.748\\
+Dial Differentiation & Violent vs. Moderate & -0.13 & 0.21 & -0.62 & 0.541\\
+Dial Integration & Justification for Violence & -0.01 & 0.13 & -0.07 & 0.947\\
+Dial Integration & Dyadic Harm & 0.09 & 0.26 & 0.35 & 0.728\\
+Dial Integration & Extreme vs. Moderate & -0.11 & 0.12 & -0.92 & 0.368\\
+Dial Integration & Violent vs. Moderate & -0.18 & 0.13 & -1.35 & 0.189\\
+Elab Differentiation & Justification for Violence & 0.08 & 0.18 & 0.46 & 0.647\\
+Elab Differentiation & Dyadic Harm & 0.35 & 0.36 & 0.98 & 0.338\\
+Elab Differentiation & Extreme vs. Moderate & -0.18 & 0.16 & -1.09 & 0.286\\
+Elab Differentiation & Violent vs. Moderate & -0.29 & 0.18 & -1.62 & 0.120\\
+Elab Integration & Justification for Violence & 0.02 & 0.15 & 0.15 & 0.880\\
+Elab Integration & Dyadic Harm & 0.05 & 0.30 & 0.16 & 0.872\\
+Elab Integration & Extreme vs. Moderate & -0.11 & 0.14 & -0.78 & 0.443\\
+Elab Integration & Violent vs. Moderate & -0.18 & 0.15 & -1.20 & 0.244\\
 \bottomrule
 \addlinespace
 \end{tabular}

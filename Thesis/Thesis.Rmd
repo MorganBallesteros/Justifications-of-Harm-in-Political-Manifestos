@@ -275,6 +275,13 @@ doc_scores <- group_scores |>
   )
 ```
 
+```{r load-doc-meta, echo=FALSE, message=FALSE, warning=FALSE}
+doc_meta <- readr::read_csv(
+  here::here("data/raw/doc_meta.csv"),
+  show_col_types = FALSE
+)
+```
+
 
 ```{r normalize-docids, echo=FALSE, message=FALSE, warning=FALSE}
 doc_scores <- doc_scores |>
