@@ -1002,7 +1002,7 @@ papaja::apa_table(
 ```
 
 
-```{r fig-violent-probability, echo=FALSE, message=FALSE, warning=FALSE, fig.cap="Predicted probability of violent (vs. non-violent) category as a function of integrative complexity (95% CI)."}
+```{r fig-violent-probability, echo=FALSE, include=FALSE, message=FALSE, warning=FALSE, fig.cap="Predicted probability of violent (vs. non-violent) category as a function of integrative complexity (95% CI)."}
       
 # Predicted probability curve across IC (holding other predictors at 0 = mean, due to z-scoring)
 newdat <- tibble::tibble(
@@ -1032,7 +1032,7 @@ ggplot2::ggplot(plotdat, ggplot2::aes(x = ic_z, y = p)) +
   ggplot2::theme_classic()
 ```
 
-```{r fig-violent-oddsratios, echo=FALSE, message=FALSE, warning=FALSE, fig.cap="Odds ratios (95% CI) from the logistic model predicting violent (vs. non-violent) category."}
+```{r fig-violent-oddsratios, echo=FALSE, include=FALSE, message=FALSE, warning=FALSE, fig.cap="Odds ratios (95% CI) from the logistic model predicting violent (vs. non-violent) category."}
 coef_tab <- broom::tidy(m_full, conf.int = TRUE, exponentiate = TRUE) |>
   dplyr::filter(term != "(Intercept)") |>
   dplyr::mutate(term = forcats::fct_rev(term))
