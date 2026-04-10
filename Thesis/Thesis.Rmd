@@ -394,12 +394,12 @@ read_autoic_file <- function(path) {
     stop("Unsupported AutoIC file type: ", path)
   }
 
-  dat |>
+    dat |>
     janitor::clean_names() |>
     dplyr::mutate(
       source_path = path,
       source_file = basename(path),
-      doc_id = normalize_id(source_file),
+      doc_id = normalize_id(document),
       corpus = infer_corpus_from_path(path)
     )
 }
@@ -420,6 +420,10 @@ autoic_doc <- autoic_all |>
     source_file = dplyr::first(source_file),
     .groups = "drop"
   )
+autoic_doc |>
+  dplyr::select(doc_id, corpus, source_file) |>
+  dplyr::distinct() |>
+  head(20)
 
 ```
 
@@ -429,6 +433,58 @@ doc_scores <- doc_scores |>
     autoic_doc,
     by = c("doc_id", "corpus")
   )
+```
+
+```{r diagnose-autoic-join-coverage, echo=TRUE, message=FALSE, warning=FALSE}
+cat("=== AutoIC join coverage (right after merge-autoic) ===\n")
+
+doc_scores |>
+  dplyr::summarise(
+    n_total = dplyr::n(),
+    n_with_ic = sum(!is.na(ic)),
+    n_missing_ic = sum(is.na(ic))
+  ) |>
+  print()
+
+cat("\nBy corpus:\n")
+doc_scores |>
+  dplyr::group_by(corpus) |>
+  dplyr::summarise(
+    n_total = dplyr::n(),
+    n_with_ic = sum(!is.na(ic)),
+    n_missing_ic = sum(is.na(ic)),
+    .groups = "drop"
+  ) |>
+  print()
+
+cat("\nCorpus levels comparison:\n")
+print(sort(unique(doc_scores$corpus)))
+print(sort(unique(autoic_doc$corpus)))
+
+cat("\nKey overlap checks:\n")
+doc_keys <- doc_scores |> dplyr::distinct(doc_id, corpus)
+autoic_keys <- autoic_doc |> dplyr::distinct(doc_id, corpus)
+
+cat("Matches on doc_id only:",
+    sum(unique(doc_scores$doc_id) %in% unique(autoic_doc$doc_id)),
+    "of", dplyr::n_distinct(doc_scores$doc_id), "\n")
+
+cat("Matches on (doc_id, corpus):",
+    nrow(dplyr::inner_join(doc_keys, autoic_keys, by = c("doc_id", "corpus"))),
+    "of", nrow(doc_keys), "\n")
+
+cat("\nExample doc_scores keys not found in autoic_doc (first 20):\n")
+doc_keys |>
+  dplyr::anti_join(autoic_keys, by = c("doc_id", "corpus")) |>
+  head(20) |>
+  print()
+
+cat("\nExample autoic_doc keys not found in doc_scores (first 20):\n")
+autoic_keys |>
+  dplyr::anti_join(doc_keys, by = c("doc_id", "corpus")) |>
+  head(20) |>
+  print()
+
 ```
 
 
@@ -478,6 +534,14 @@ doc_scores_ic <- doc_scores |>
     !is.na(ic),
     !is.na(category)
   )
+
+if (nrow(doc_scores_ic) == 0) {
+  stop(
+    "doc_scores_ic is empty after filtering !is.na(ic) and !is.na(category). ",
+    "This almost always means the AutoIC merge produced no matches (ic is all NA). ",
+    "Run the diagnose-autoic-join-coverage chunk immediately after merge-autoic."
+  )
+}
 ```
 
 ```{r inspect-analysis-data, echo=TRUE}
@@ -497,16 +561,17 @@ doc_scores_ic |>
 
 
 
-```{r inspect-analysis-data, echo=TRUE}
-doc_scores_ic |>
-  dplyr::summarise(
-    n_rows = dplyr::n(),
-    n_missing_ic = sum(is.na(ic)),
-    n_missing_category = sum(is.na(category)),
-    n_category_levels_observed = dplyr::n_distinct(category, na.rm = TRUE)
-  )
-```
 
+
+```{r diagnose-model-frame-size-ic, echo=TRUE}
+form_ic <- ic ~ dyadic_harm + hopelessness + justification_for_violence +
+  martyrdom_narrative + role_model_status + violent_reference + category
+
+mf <- model.frame(form_ic, data = doc_scores_ic, na.action = na.omit, drop.unused.levels = TRUE)
+
+cat("nrow(doc_scores_ic) =", nrow(doc_scores_ic), "\n")
+cat("nrow(model frame used by lm) =", nrow(mf), "\n")
+```
 
 ```{r check-autoic-integration, echo=FALSE, message=FALSE, warning=FALSE}
 names(doc_scores)
@@ -569,6 +634,24 @@ cat("\n---- Factor predictors with <2 levels in model frame ----\n")
 print(bad_factors)
 
 ```
+```{r verify-types-before-ic-regression, echo=TRUE}
+vars <- c(
+  "ic",
+  "dyadic_harm", "hopelessness", "justification_for_violence",
+  "martyrdom_narrative", "role_model_status", "violent_reference",
+  "category"
+)
+
+str(doc_scores_ic[, vars, drop = FALSE])
+
+```
+
+```{r category-levels-ic, echo=TRUE}
+print(table(doc_scores_ic$category, useNA = "ifany"))
+print(levels(doc_scores_ic$category))
+```
+
+
 
 ```{r regression-ic, echo=TRUE, message=FALSE, warning=FALSE}
 form_ic <- ic ~ dyadic_harm + hopelessness + justification_for_violence +
@@ -580,11 +663,20 @@ cat("n used by lm after na.omit =", nrow(mf), "\n")
 cat("category distribution in modeling data:\n")
 print(table(mf$category, useNA = "ifany"))
 
-single_level <- names(mf)[sapply(mf, \(x) is.factor(x) && nlevels(x) < 2)]
+if (nrow(mf) == 0) {
+  stop(
+    "Model frame has 0 rows after na.omit. ",
+    "This indicates no complete cases remain. ",
+    "Most commonly: ic is missing for all rows due to a failed AutoIC merge. ",
+    "Check autoic-coverage and diagnose-autoic-join-coverage."
+  )
+}
 
+single_level <- names(mf)[sapply(mf, \(x) is.factor(x) && nlevels(x) < 2)]
 form_ic2 <- form_ic
+
 if ("category" %in% single_level) {
-  warning("`category` has <2 observed levels after filtering/NA-omission; dropping `category` from the model.")
+  warning("`category` has <2 observed levels in the model frame; dropping `category`.")
   form_ic2 <- update(form_ic2, . ~ . - category)
   mf <- model.frame(form_ic2, data = doc_scores_ic, na.action = na.omit, drop.unused.levels = TRUE)
 }
