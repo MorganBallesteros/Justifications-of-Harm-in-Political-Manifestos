@@ -103,6 +103,34 @@ normalize_id <- function(x) {
 }
 ```
 
+```{r table-format-helpers, include=FALSE}
+fmt_num <- function(x, digits = 2) {
+  dplyr::if_else(
+    is.na(x) | is.nan(x),
+    "",
+    sprintf(paste0("%.", digits, "f"), round(x, digits))
+  )
+}
+
+fmt_p <- function(x) {
+  dplyr::case_when(
+    is.na(x) | is.nan(x) ~ "",
+    x < .001 ~ "< .001",
+    TRUE ~ sub("^0", "", sprintf("%.3f", round(x, 3)))
+  )
+}
+
+fmt_ci <- function(lo, hi, digits = 2) {
+  dplyr::if_else(
+    is.na(lo) | is.na(hi) | is.nan(lo) | is.nan(hi),
+    "",
+    sprintf(
+      paste0("[%.", digits, "f, %.", digits, "f]"),
+      round(lo, digits), round(hi, digits)
+    )
+  )
+}
+```
 
 
 
@@ -1414,7 +1442,7 @@ papaja::apa_table(
 ```
 
 
-```{r harris-near-far, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+```{r harris-near-far, echo=FALSE, include=FALSE, message=FALSE, warning=FALSE, results='asis'}
 harris_dat <- long_dat |>
   dplyr::filter(author == "harris") |>
   dplyr::filter(!is.na(doc_date)) |>
