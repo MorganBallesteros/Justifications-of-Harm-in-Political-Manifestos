@@ -910,7 +910,7 @@ category_stats <- marker_scores_with_cat %>%
     .groups = "drop"
   )
 ```
-Mean marker prevalence also differed across manifesto categories (Table \@ref(tab:manifesto-descriptives)). Violent self-sacrificial manifestos exhibited the highest average prevalence of dyadic harm language (M = `r manifesto_descriptives[["violent"]][manifesto_descriptives[["Marker Group"]] == "Dyadic Harm"]`) and justification for violence (M = `r manifesto_descriptives[["violent"]][manifesto_descriptives[["Marker Group"]] == "Justification For Violence"]`), whereas moderate manifestos displayed very low levels of these indicators (dyadic harm M = `r manifesto_descriptives[["moderate"]][manifesto_descriptives[["Marker Group"]] == "Dyadic Harm"]`; justification for violence M = `r manifesto_descriptives[["moderate"]][manifesto_descriptives[["Marker Group"]] == "Justification For Violence"]`). Martyrdom narratives showed the most pronounced difference across categories, appearing most frequently in violent manifestos (M = `r manifesto_descriptives[["violent"]][manifesto_descriptives[["Marker Group"]] == "Martyrdom Narrative"]`) compared with extreme (M = `r manifesto_descriptives[["extreme"]][manifesto_descriptives[["Marker Group"]] == "Martyrdom Narrative"]`) and moderate texts (M = `r manifesto_descriptives[["moderate"]][manifesto_descriptives[["Marker Group"]] == "Martyrdom Narrative"]`). In contrast, markers associated with hopelessness were most prevalent in ideologically extreme manifestos (M = `r manifesto_descriptives[["extreme"]][manifesto_descriptives[["Marker Group"]] == "Hopelessness"]`), followed by moderate manifestos (M = `r manifesto_descriptives[["moderate"]][manifesto_descriptives[["Marker Group"]] == "Hopelessness"]`) and violent manifestos (M = `r manifesto_descriptives[["violent"]][manifesto_descriptives[["Marker Group"]] == "Hopelessness"]`).
+Mean marker prevalence also differed across manifesto categories (Table \@ref(tab:manifesto-descriptives)). Violent self-sacrificial manifestos exhibited the highest average prevalence of dyadic harm language (M = `r manifesto_descriptives[["violent"]][manifesto_descriptives[["Marker Group"]] == "Dyadic Harm"]`) and justification for violence (M = `r manifesto_descriptives[["violent"]][manifesto_descriptives[["Marker Group"]] == "Justification for Violence"]`), whereas moderate manifestos displayed very low levels of these indicators (dyadic harm M = `r manifesto_descriptives[["moderate"]][manifesto_descriptives[["Marker Group"]] == "Dyadic Harm"]`; justification for violence M = `r manifesto_descriptives[["moderate"]][manifesto_descriptives[["Marker Group"]] == "Justification for Violence"]`). Martyrdom narratives showed the most pronounced difference across categories, appearing most frequently in violent manifestos (M = `r manifesto_descriptives[["violent"]][manifesto_descriptives[["Marker Group"]] == "Martyrdom Narrative"]`) compared with extreme (M = `r manifesto_descriptives[["extreme"]][manifesto_descriptives[["Marker Group"]] == "Martyrdom Narrative"]`) and moderate texts (M = `r manifesto_descriptives[["moderate"]][manifesto_descriptives[["Marker Group"]] == "Martyrdom Narrative"]`). In contrast, markers associated with hopelessness were most prevalent in ideologically extreme manifestos (M = `r manifesto_descriptives[["extreme"]][manifesto_descriptives[["Marker Group"]] == "Hopelessness"]`), followed by moderate manifestos (M = `r manifesto_descriptives[["moderate"]][manifesto_descriptives[["Marker Group"]] == "Hopelessness"]`) and violent manifestos (M = `r manifesto_descriptives[["violent"]][manifesto_descriptives[["Marker Group"]] == "Hopelessness"]`).
 
 ## Regression Analyses 
 
@@ -941,6 +941,26 @@ dat <- dat |>
 
 # Core hypothesis model (Hypothesis b)
 m_ic_only <- stats::glm(violent ~ ic_z, data = dat, family = stats::binomial())
+
+tab_ic <- broom::tidy(m_ic_only, conf.int = TRUE, exponentiate = TRUE) |>
+  dplyr::filter(term != "(Intercept)") |>
+  dplyr::mutate(
+    Predictor = "Integrative Complexity (z)",
+    OR = round(estimate, 2),
+    CI = paste0("[", round(conf.low, 2), ", ", round(conf.high, 2), "]"),
+    p = dplyr::case_when(
+      p.value < .001 ~ "< .001",
+      TRUE ~ sprintf("%.3f", p.value)
+    )
+  ) |>
+  dplyr::select(Predictor, OR, CI, p)
+
+papaja::apa_table(
+  tab_ic,
+  caption = "Logistic regression predicting violent (vs. non-violent) category from integrative complexity.",
+  note = "OR reflects a 1 SD increase in standardized integrative complexity."
+)
+
 
 # Expanded model (Hypotheses a + b jointly, but watch sample size)
 m_full <- stats::glm(
@@ -1009,6 +1029,63 @@ ggplot2::ggplot(plotdat, ggplot2::aes(x = ic_z, y = p)) +
   ggplot2::theme_classic()
 ```
 
+```{r fig-violent-oddsratios, echo=FALSE, message=FALSE, warning=FALSE, fig.cap="Odds ratios (95% CI) from the logistic model predicting violent (vs. non-violent) category."}
+coef_tab <- broom::tidy(m_full, conf.int = TRUE, exponentiate = TRUE) |>
+  dplyr::filter(term != "(Intercept)") |>
+  dplyr::mutate(term = forcats::fct_rev(term))
+
+ggplot2::ggplot(coef_tab, ggplot2::aes(x = estimate, y = term)) +
+  ggplot2::geom_point() +
+  ggplot2::geom_errorbarh(ggplot2::aes(xmin = conf.low, xmax = conf.high)) +
+  ggplot2::geom_vline(xintercept = 1, linetype = "dashed") +
+  ggplot2::labs(x = "Odds Ratio (95% CI)", y = NULL) +
+  ggplot2::theme_classic()
+
+```
+
+```{r multinomial-sensitivity, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+dat3 <- doc_scores_ic |>
+  dplyr::filter(!is.na(category), !is.na(ic)) |>
+  dplyr::mutate(
+    category = droplevels(category),
+    ic_z = as.numeric(scale(ic)),
+    dyadic_harm_z = as.numeric(scale(dyadic_harm)),
+    justification_z = as.numeric(scale(justification_for_violence)),
+    martyrdom_z = as.numeric(scale(martyrdom_narrative)),
+    hopelessness_z = as.numeric(scale(hopelessness))
+  )
+
+m_multi <- nnet::multinom(
+  category ~ ic_z + dyadic_harm_z + justification_z + martyrdom_z + hopelessness_z,
+  data = dat3,
+  trace = FALSE
+)
+
+summ <- summary(m_multi)
+coefs <- as.data.frame(summ$coefficients)
+ses <- as.data.frame(summ$standard.errors)
+
+out <- dplyr::bind_rows(lapply(1:nrow(coefs), function(k) {
+  cls <- rownames(coefs)[k]
+  beta <- as.numeric(coefs[k, ])
+  se <- as.numeric(ses[k, ])
+  term <- colnames(coefs)
+  tibble::tibble(
+    Comparison = paste0(cls, " vs baseline"),
+    Term = term,
+    OR = exp(beta),
+    CI = paste0("[", exp(beta - 1.96*se), ", ", exp(beta + 1.96*se), "]")
+  )
+})) |>
+  dplyr::filter(Term != "(Intercept)")
+
+papaja::apa_table(
+  out,
+  caption = "Multinomial sensitivity model predicting 3-category manifesto classification from integrative complexity and marker prevalence.",
+  note = "Estimated via nnet::multinom; ORs are exponentiated coefficients."
+)
+
+```
 
 
 ```{r logistic-diagnostics, echo=FALSE, include=FALSE}
