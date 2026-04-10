@@ -329,376 +329,116 @@ John F. Kennedy's \emph{Ich bin ein Berliner}) would be counted as non-violent.
 
 \subsubsection{Analyses}\label{analyses}
 
-Following Ebner et al. (2024), I will measure the prevalence of various categories of
-linguistic markers indicating violence condoning norms (i.e., justification of violence,
-martyrdom narrative, hopelessness of alternatives, calls to violence) and harm as a
-percentage of occurrence relative to total sentence count. These prevalence rates will be
-compared across manifesto categories (i.e., violent versus non-violent, extreme versus
-non-extreme) to replicate Ebner et al. (2024) results suggesting that justification of
-violence is a significant predictor between categories. I will create .zip files for each
-selected manifesto and run them through automated integrative complexity, which will give
-scores for integrative complexity, differentiation, and integration. These scores will be
-compared in the same manner as prevalence rates. I will also run regression analyses for
-longitudinal manifesto sets in order to understand the effect changes in integrative
-complexity have on likelihood of violence. I will repeat these analyses for linguistic
-markers of harm on said longitudinal sets.
+Following Ebner et al. (2024), I measure the prevalence of each linguistic marker group as occurrences per 1,000 words (word-count--normalized rates). Marker groups include dyadic harm language (added to reflect dyadic morality), justification for violence, martyrdom narratives, hopelessness of alternatives, role model status, and violent references.
+
+To test whether these linguistic indicators differ across manifesto categories (moderate, ideologically extreme, violent self-sacrificial), I estimate linear models predicting each marker group's prevalence from category and report category means with confidence intervals.
+
+To directly test the hypothesis that integrative complexity predicts violence versus non-violence, I estimate logistic regression models predicting whether a manifesto is classified as violent (vs.~non-violent) from document-level AutoIC integrative complexity scores (and, in expanded models, from the marker-group prevalence measures).
+
+For longitudinal corpora (multiple texts per author over time), I estimate mixed-effects regression models assessing (a) within-author changes in integrative complexity and harm-justification language over time and (b) whether lower integrative complexity is associated with higher harm-justification language within authors. Where violence event dates are available, I additionally examine whether integrative complexity and harm-justification indicators differ in texts written nearer versus farther from the violence event.
 
 \section{Results}\label{results}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{doc\_scores }\OtherTok{\textless{}{-}}\NormalTok{ doc\_scores }\SpecialCharTok{|\textgreater{}}
-\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(category))}
-
-\FunctionTok{nrow}\NormalTok{(doc\_scores)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"doc\_scores\_all rows:"}\NormalTok{, }\FunctionTok{nrow}\NormalTok{(doc\_scores\_all), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 27
+## doc_scores_all rows: 292
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{table}\NormalTok{(doc\_scores}\SpecialCharTok{$}\NormalTok{category, }\AttributeTok{useNA =} \StringTok{"ifany"}\NormalTok{)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Unique corpus values:}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## 
-##  extreme moderate  violent 
-##       10        9        8
+## Unique corpus values:
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{table}\NormalTok{(doc\_scores}\SpecialCharTok{$}\NormalTok{category, }\AttributeTok{useNA =} \StringTok{"ifany"}\NormalTok{)}
+\FunctionTok{print}\NormalTok{(}\FunctionTok{table}\NormalTok{(doc\_scores\_all}\SpecialCharTok{$}\NormalTok{corpus, }\AttributeTok{useNA =} \StringTok{"ifany"}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
 ## 
-##  extreme moderate  violent 
-##       10        9        8
+##     longitudinal non_longitudinal 
+##              221               71
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{nrow}\NormalTok{(doc\_meta)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 31
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{nrow}\NormalTok{(doc\_scores)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 27
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{head}\NormalTok{(doc\_meta}\SpecialCharTok{$}\NormalTok{doc\_id, }\DecValTok{20}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##  [1] "1160kennedyichbin"                                          
-##  [2] "142thunberg"                                                
-##  [3] "1945labourpartymanifesto"                                   
-##  [4] "1949simonedebeauvoirthesecondsex"                           
-##  [5] "atlanticcharter"                                            
-##  [6] "communistmanifesto"                                         
-##  [7] "defeatingeurabia1"                                          
-##  [8] "earnestmanifesto042719"                                     
-##  [9] "fourfreedomsspeechfranklindelanoroosevelt1"                 
-## [10] "fulltextihaveadream"                                        
-## [11] "hitleradolfmeinkampf"                                       
-## [12] "imperiumyockey"                                             
-## [13] "maududisayyidabulalaaljihadfilislambysyedabulaalamaududi"   
-## [14] "piercewilliamlfreespeechessays19952002"                     
-## [15] "porthuronstatement"                                         
-## [16] "revoltagainstthemodernworldjuliusevola"                     
-## [17] "russianimperialmanifestoannouncingthestartofwarinaugust1914"
-## [18] "andersbreivik2083manifesto2011"                             
-## [19] "brentontarrantthegreatreplacementmanifesto"                 
-## [20] "chomanifesto11"
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{head}\NormalTok{(doc\_scores}\SpecialCharTok{$}\NormalTok{doc\_id, }\DecValTok{20}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##  [1] "1160kennedyichbin"                                          
-##  [2] "142thunberg"                                                
-##  [3] "1945labourpartymanifesto"                                   
-##  [4] "1949simonedebeauvoirthesecondsex"                           
-##  [5] "atlanticcharter"                                            
-##  [6] "communistmanifesto"                                         
-##  [7] "defeatingeurabia1"                                          
-##  [8] "earnestmanifesto042719"                                     
-##  [9] "fourfreedomsspeechfranklindelanoroosevelt1"                 
-## [10] "fulltextihaveadream"                                        
-## [11] "hitleradolfmeinkampf"                                       
-## [12] "imperiumyockey"                                             
-## [13] "maududisayyidabulalaaljihadfilislambysyedabulaalamaududi"   
-## [14] "porthuronstatement"                                         
-## [15] "revoltagainstthemodernworldjuliusevola"                     
-## [16] "russianimperialmanifestoannouncingthestartofwarinaugust1914"
-## [17] "brentontarrantthegreatreplacementmanifesto"                 
-## [18] "chomanifesto11"                                             
-## [19] "milestonesf1"                                               
-## [20] "patrickcrusiustheinconvenienttruthaboutme"
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{table}\NormalTok{(doc\_scores}\SpecialCharTok{$}\NormalTok{category, }\AttributeTok{useNA =} \StringTok{"ifany"}\NormalTok{)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{Rows by corpus x has\_ic:}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
 ## 
-##  extreme moderate  violent 
-##       10        9        8
+## Rows by corpus x has_ic:
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{doc\_scores }\SpecialCharTok{\%\textgreater{}\%}
-\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{filter}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(category)) }\SpecialCharTok{\%\textgreater{}\%}
-\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(doc\_id, corpus, author) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{head}\NormalTok{(}\DecValTok{20}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## # A tibble: 0 x 3
-## # i 3 variables: doc_id <chr>, corpus <chr>, author <chr>
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{names}\NormalTok{(doc\_meta)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] "doc_id"   "category"
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{head}\NormalTok{(doc\_meta)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## # A tibble: 6 x 2
-##   doc_id                           category
-##   <chr>                            <chr>   
-## 1 1160kennedyichbin                moderate
-## 2 142thunberg                      moderate
-## 3 1945labourpartymanifesto         moderate
-## 4 1949simonedebeauvoirthesecondsex moderate
-## 5 atlanticcharter                  moderate
-## 6 communistmanifesto               extreme
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{head}\NormalTok{(doc\_scores}\SpecialCharTok{$}\NormalTok{doc\_id, }\DecValTok{20}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##  [1] "1160kennedyichbin"                                          
-##  [2] "142thunberg"                                                
-##  [3] "1945labourpartymanifesto"                                   
-##  [4] "1949simonedebeauvoirthesecondsex"                           
-##  [5] "atlanticcharter"                                            
-##  [6] "communistmanifesto"                                         
-##  [7] "defeatingeurabia1"                                          
-##  [8] "earnestmanifesto042719"                                     
-##  [9] "fourfreedomsspeechfranklindelanoroosevelt1"                 
-## [10] "fulltextihaveadream"                                        
-## [11] "hitleradolfmeinkampf"                                       
-## [12] "imperiumyockey"                                             
-## [13] "maududisayyidabulalaaljihadfilislambysyedabulaalamaududi"   
-## [14] "porthuronstatement"                                         
-## [15] "revoltagainstthemodernworldjuliusevola"                     
-## [16] "russianimperialmanifestoannouncingthestartofwarinaugust1914"
-## [17] "brentontarrantthegreatreplacementmanifesto"                 
-## [18] "chomanifesto11"                                             
-## [19] "milestonesf1"                                               
-## [20] "patrickcrusiustheinconvenienttruthaboutme"
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{head}\NormalTok{(doc\_meta}\SpecialCharTok{$}\NormalTok{doc\_id, }\DecValTok{20}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##  [1] "1160kennedyichbin"                                          
-##  [2] "142thunberg"                                                
-##  [3] "1945labourpartymanifesto"                                   
-##  [4] "1949simonedebeauvoirthesecondsex"                           
-##  [5] "atlanticcharter"                                            
-##  [6] "communistmanifesto"                                         
-##  [7] "defeatingeurabia1"                                          
-##  [8] "earnestmanifesto042719"                                     
-##  [9] "fourfreedomsspeechfranklindelanoroosevelt1"                 
-## [10] "fulltextihaveadream"                                        
-## [11] "hitleradolfmeinkampf"                                       
-## [12] "imperiumyockey"                                             
-## [13] "maududisayyidabulalaaljihadfilislambysyedabulaalamaududi"   
-## [14] "piercewilliamlfreespeechessays19952002"                     
-## [15] "porthuronstatement"                                         
-## [16] "revoltagainstthemodernworldjuliusevola"                     
-## [17] "russianimperialmanifestoannouncingthestartofwarinaugust1914"
-## [18] "andersbreivik2083manifesto2011"                             
-## [19] "brentontarrantthegreatreplacementmanifesto"                 
-## [20] "chomanifesto11"
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
-\CommentTok{\# AutoIC: single, coherent pipeline (import {-}\textgreater{} normalize {-}\textgreater{} doc table)}
-\CommentTok{\# {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
-
-\CommentTok{\# 1) ONE stable normalizer: define once, use everywhere.}
-\CommentTok{\#    (If you keep your setup() definition, replace it with this version and}
-\CommentTok{\#     DO NOT redefine normalize\_id later.)}
-
-
-\CommentTok{\# 2) Discover AutoIC files from all relevant folders}
-\NormalTok{autoic\_dirs }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}
-\NormalTok{  here}\SpecialCharTok{::}\FunctionTok{here}\NormalTok{(}\StringTok{"data/raw/autoic"}\NormalTok{),}
-\NormalTok{  here}\SpecialCharTok{::}\FunctionTok{here}\NormalTok{(}\StringTok{"data/raw/longitudinal/autoic"}\NormalTok{)}
+\FunctionTok{print}\NormalTok{(}
+\NormalTok{  doc\_scores\_all }\SpecialCharTok{|\textgreater{}}
+\NormalTok{    dplyr}\SpecialCharTok{::}\FunctionTok{mutate}\NormalTok{(}\AttributeTok{has\_ic =} \SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(ic)) }\SpecialCharTok{|\textgreater{}}
+\NormalTok{    dplyr}\SpecialCharTok{::}\FunctionTok{count}\NormalTok{(corpus, has\_ic)}
 \NormalTok{)}
-\NormalTok{autoic\_dirs }\OtherTok{\textless{}{-}}\NormalTok{ autoic\_dirs[}\FunctionTok{dir.exists}\NormalTok{(autoic\_dirs)]}
-
-\NormalTok{autoic\_files }\OtherTok{\textless{}{-}}\NormalTok{ purrr}\SpecialCharTok{::}\FunctionTok{map}\NormalTok{(}
-\NormalTok{  autoic\_dirs,}
-  \SpecialCharTok{\textasciitilde{}} \FunctionTok{list.files}\NormalTok{(}
-\NormalTok{      .x,}
-      \AttributeTok{pattern =} \StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{.(xlsx|xls|csv)$"}\NormalTok{,}
-      \AttributeTok{full.names =} \ConstantTok{TRUE}\NormalTok{,}
-      \AttributeTok{recursive =} \ConstantTok{TRUE}\NormalTok{,}
-      \AttributeTok{ignore.case =} \ConstantTok{TRUE}
-\NormalTok{    )}
-\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{unlist}\NormalTok{(}\AttributeTok{use.names =} \ConstantTok{FALSE}\NormalTok{)}
-
-\ControlFlowTok{if}\NormalTok{ (}\FunctionTok{length}\NormalTok{(autoic\_files) }\SpecialCharTok{==} \DecValTok{0}\NormalTok{) \{}
-  \FunctionTok{stop}\NormalTok{(}\StringTok{"No AutoIC files found in: "}\NormalTok{, }\FunctionTok{paste}\NormalTok{(autoic\_dirs, }\AttributeTok{collapse =} \StringTok{", "}\NormalTok{))}
-\NormalTok{\}}
-
-\CommentTok{\# 3) Map AutoIC file paths to a corpus label that matches doc\_scores$corpus}
-\NormalTok{doc\_corpus\_levels }\OtherTok{\textless{}{-}} \FunctionTok{sort}\NormalTok{(}\FunctionTok{unique}\NormalTok{(doc\_scores}\SpecialCharTok{$}\NormalTok{corpus))}
-
-\CommentTok{\# Heuristic: find the label that contains "long"}
-\NormalTok{long\_label }\OtherTok{\textless{}{-}}\NormalTok{ doc\_corpus\_levels[stringr}\SpecialCharTok{::}\FunctionTok{str\_detect}\NormalTok{(}\FunctionTok{tolower}\NormalTok{(doc\_corpus\_levels), }\StringTok{"long"}\NormalTok{)]}
-\NormalTok{nonlong\_label }\OtherTok{\textless{}{-}} \FunctionTok{setdiff}\NormalTok{(doc\_corpus\_levels, long\_label)}
-
-\CommentTok{\# Fallbacks if the heuristic can\textquotesingle{}t find exactly one of each}
-\ControlFlowTok{if}\NormalTok{ (}\FunctionTok{length}\NormalTok{(long\_label) }\SpecialCharTok{!=} \DecValTok{1} \SpecialCharTok{||} \FunctionTok{length}\NormalTok{(nonlong\_label) }\SpecialCharTok{!=} \DecValTok{1}\NormalTok{) \{}
-\NormalTok{  long\_label }\OtherTok{\textless{}{-}} \StringTok{"longitudinal"}
-\NormalTok{  nonlong\_label }\OtherTok{\textless{}{-}} \StringTok{"non\_longitudinal"}
-\NormalTok{\}}
-
-\NormalTok{infer\_corpus\_from\_path }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(path) \{}
-  \ControlFlowTok{if}\NormalTok{ (stringr}\SpecialCharTok{::}\FunctionTok{str\_detect}\NormalTok{(}\FunctionTok{tolower}\NormalTok{(path), }\FunctionTok{paste0}\NormalTok{(.Platform}\SpecialCharTok{$}\NormalTok{file.sep, }\StringTok{"longitudinal"}\NormalTok{, .Platform}\SpecialCharTok{$}\NormalTok{file.sep))) \{}
-\NormalTok{    long\_label[}\DecValTok{1}\NormalTok{]}
-\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
-\NormalTok{    nonlong\_label[}\DecValTok{1}\NormalTok{]}
-\NormalTok{  \}}
-\NormalTok{\}}
-
-\CommentTok{\# 4) Robust reader: supports Excel and CSV.}
-\CommentTok{\#    For Excel, prefer the sheet named "Document"; otherwise fall back to sheet 1.}
-\NormalTok{read\_autoic\_file }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(path) \{}
-\NormalTok{  ext }\OtherTok{\textless{}{-}} \FunctionTok{tolower}\NormalTok{(tools}\SpecialCharTok{::}\FunctionTok{file\_ext}\NormalTok{(path))}
-
-\NormalTok{  dat }\OtherTok{\textless{}{-}} \ControlFlowTok{if}\NormalTok{ (ext }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"xlsx"}\NormalTok{, }\StringTok{"xls"}\NormalTok{)) \{}
-\NormalTok{    sheets }\OtherTok{\textless{}{-}}\NormalTok{ readxl}\SpecialCharTok{::}\FunctionTok{excel\_sheets}\NormalTok{(path)}
-\NormalTok{    sheet\_to\_read }\OtherTok{\textless{}{-}} \ControlFlowTok{if}\NormalTok{ (}\StringTok{"Document"} \SpecialCharTok{\%in\%}\NormalTok{ sheets) }\StringTok{"Document"} \ControlFlowTok{else}\NormalTok{ sheets[}\DecValTok{1}\NormalTok{]}
-\NormalTok{    readxl}\SpecialCharTok{::}\FunctionTok{read\_excel}\NormalTok{(path, }\AttributeTok{sheet =}\NormalTok{ sheet\_to\_read)}
-\NormalTok{  \} }\ControlFlowTok{else} \ControlFlowTok{if}\NormalTok{ (ext }\SpecialCharTok{==} \StringTok{"csv"}\NormalTok{) \{}
-\NormalTok{    readr}\SpecialCharTok{::}\FunctionTok{read\_csv}\NormalTok{(path, }\AttributeTok{show\_col\_types =} \ConstantTok{FALSE}\NormalTok{)}
-\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
-    \FunctionTok{stop}\NormalTok{(}\StringTok{"Unsupported AutoIC file type: "}\NormalTok{, path)}
-\NormalTok{  \}}
-
-\NormalTok{    dat }\SpecialCharTok{|\textgreater{}}
-\NormalTok{    janitor}\SpecialCharTok{::}\FunctionTok{clean\_names}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
-\NormalTok{    dplyr}\SpecialCharTok{::}\FunctionTok{mutate}\NormalTok{(}
-      \AttributeTok{source\_path =}\NormalTok{ path,}
-      \AttributeTok{source\_file =} \FunctionTok{basename}\NormalTok{(path),}
-      \AttributeTok{doc\_id =} \FunctionTok{normalize\_id}\NormalTok{(document),}
-      \AttributeTok{corpus =} \FunctionTok{infer\_corpus\_from\_path}\NormalTok{(path)}
-\NormalTok{    )}
-\NormalTok{\}}
-
-\CommentTok{\# 5) Build the row{-}level table (one row per file, often one row per doc)}
-\NormalTok{autoic\_all }\OtherTok{\textless{}{-}}\NormalTok{ purrr}\SpecialCharTok{::}\FunctionTok{map\_dfr}\NormalTok{(autoic\_files, read\_autoic\_file)}
-
-\CommentTok{\# 6) Collapse to a key{-}unique document{-}level AutoIC table.}
-\CommentTok{\#    This prevents left\_join() from multiplying rows if there are duplicates.}
-\NormalTok{mean\_or\_na }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x) \{}
-  \ControlFlowTok{if}\NormalTok{ (}\FunctionTok{all}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(x))) }\ConstantTok{NA\_real\_} \ControlFlowTok{else} \FunctionTok{mean}\NormalTok{(x, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
-\NormalTok{\}}
-
-\NormalTok{autoic\_doc }\OtherTok{\textless{}{-}}\NormalTok{ autoic\_all }\SpecialCharTok{|\textgreater{}}
-\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{group\_by}\NormalTok{(doc\_id, corpus) }\SpecialCharTok{|\textgreater{}}
-\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{summarise}\NormalTok{(}
-\NormalTok{    dplyr}\SpecialCharTok{::}\FunctionTok{across}\NormalTok{(dplyr}\SpecialCharTok{::}\FunctionTok{where}\NormalTok{(is.numeric), mean\_or\_na),}
-    \AttributeTok{source\_file =}\NormalTok{ dplyr}\SpecialCharTok{::}\FunctionTok{first}\NormalTok{(source\_file),}
-    \AttributeTok{.groups =} \StringTok{"drop"}
-\NormalTok{  )}
-\NormalTok{autoic\_doc }\SpecialCharTok{|\textgreater{}}
-\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(doc\_id, corpus, source\_file) }\SpecialCharTok{|\textgreater{}}
-\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{distinct}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{head}\NormalTok{(}\DecValTok{20}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## # A tibble: 20 x 3
-##    doc_id                                                     corpus source_file
-##    <chr>                                                      <chr>  <chr>      
-##  1 1160kennedyichbin                                          non_l~ coded_mani~
-##  2 142thunberg                                                non_l~ coded_mani~
-##  3 1945labourpartymanifesto                                   non_l~ coded_mani~
-##  4 1949simonedebeauvoirthesecondsex                           non_l~ coded_mani~
-##  5 acontributiontothehistoryofthenationalprogrammeinaustriaa~ non_l~ coded-Leni~
-##  6 addresstojointsessionofuscongress1941                      non_l~ coded-Chur~
-##  7 adisgracefulresolution10181912                             non_l~ coded-Leni~
-##  8 afantasy19991999                                           non_l~ coded-TedK~
-##  9 againstpessimism4151924                                    non_l~ coded-Gram~
-## 10 ahouseofmanymansions1940                                   non_l~ coded-Chur~
-## 11 ahushovereurope1939                                        non_l~ coded-Chur~
-## 12 americancivilization1945                                   non_l~ coded-Evol~
-## 13 andersbreivik2083manifesto2011pdfbookone                   non_l~ coded_mani~
-## 14 anewchapterofworldhistory10211912                          non_l~ coded-Leni~
-## 15 apologytowomen1996                                         non_l~ coded-TedK~
-## 16 ascientificamericanarticletheorizingatechinducedapocalyps~ non_l~ coded-TedK~
-## 17 ashifttowardshopefulness1996                               non_l~ coded-TedK~
-## 18 atlanticcharter                                            non_l~ coded_mani~
-## 19 beyemenofvalour1940                                        non_l~ coded-Chur~
-## 20 billontheequalityofnationsandthesafeguardingoftherightsof~ non_l~ coded-Leni~
+## # A tibble: 4 x 3
+##   corpus           has_ic     n
+##   <chr>            <lgl>  <int>
+## 1 longitudinal     FALSE     27
+## 2 longitudinal     TRUE     194
+## 3 non_longitudinal FALSE     41
+## 4 non_longitudinal TRUE      30
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{Example longitudinal rows:}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Example longitudinal rows:
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}
+\NormalTok{  doc\_scores\_all }\SpecialCharTok{|\textgreater{}}
+\NormalTok{    dplyr}\SpecialCharTok{::}\FunctionTok{filter}\NormalTok{(stringr}\SpecialCharTok{::}\FunctionTok{str\_detect}\NormalTok{(}\FunctionTok{tolower}\NormalTok{(corpus), }\StringTok{"long"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+\NormalTok{    dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(doc\_id, corpus, author, ic) }\SpecialCharTok{|\textgreater{}}
+    \FunctionTok{head}\NormalTok{(}\DecValTok{30}\NormalTok{)}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 30 x 4
+##    doc_id                                                    corpus author    ic
+##    <chr>                                                     <chr>  <chr>  <dbl>
+##  1 1160kennedyichbin                                         non_l~ <NA>    2.08
+##  2 142thunberg                                               non_l~ <NA>    2.14
+##  3 1945labourpartymanifesto                                  non_l~ <NA>    2.01
+##  4 1949simonedebeauvoirthesecondsex                          non_l~ <NA>    5.37
+##  5 acontributiontothehistoryofthenationalprogrammeinaustria~ longi~ lenin   2.22
+##  6 adisgracefulresolution10181912                            longi~ lenin   2.38
+##  7 ahouseofmanymansions1940                                  longi~ churc~  1.87
+##  8 ahushovereurope1939                                       longi~ churc~  1.72
+##  9 anewchapterofworldhistory10211912                         longi~ lenin   2.81
+## 10 addresstojointsessionofuscongress1941                     longi~ churc~  1.84
+## # i 20 more rows
 \end{verbatim}
 
 \begin{Shaded}
@@ -790,7 +530,7 @@ markers of harm on said longitudinal sets.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] "non_longitudinal"
+## [1] "longitudinal"     "non_longitudinal"
 \end{verbatim}
 
 \begin{Shaded}
@@ -880,465 +620,26 @@ markers of harm on said longitudinal sets.
 ## # A tibble: 20 x 2
 ##    doc_id                                                                 corpus
 ##    <chr>                                                                  <chr> 
-##  1 acontributiontothehistoryofthenationalprogrammeinaustriaandinrussia25~ non_l~
-##  2 addresstojointsessionofuscongress1941                                  non_l~
-##  3 adisgracefulresolution10181912                                         non_l~
-##  4 afantasy19991999                                                       non_l~
-##  5 againstpessimism4151924                                                non_l~
-##  6 ahouseofmanymansions1940                                               non_l~
-##  7 ahushovereurope1939                                                    non_l~
-##  8 americancivilization1945                                               non_l~
+##  1 acontributiontothehistoryofthenationalprogrammeinaustriaandinrussia25~ longi~
+##  2 addresstojointsessionofuscongress1941                                  longi~
+##  3 adisgracefulresolution10181912                                         longi~
+##  4 afantasy19991999                                                       longi~
+##  5 againstpessimism4151924                                                longi~
+##  6 ahouseofmanymansions1940                                               longi~
+##  7 ahushovereurope1939                                                    longi~
+##  8 americancivilization1945                                               longi~
 ##  9 andersbreivik2083manifesto2011pdfbookone                               non_l~
-## 10 anewchapterofworldhistory10211912                                      non_l~
-## 11 apologytowomen1996                                                     non_l~
-## 12 ascientificamericanarticletheorizingatechinducedapocalypsetheunabombe~ non_l~
-## 13 ashifttowardshopefulness1996                                           non_l~
-## 14 beyemenofvalour1940                                                    non_l~
-## 15 billontheequalityofnationsandthesafeguardingoftherightsofnationalmino~ non_l~
-## 16 bloodtoiltearsandsweat1940                                             non_l~
-## 17 bolshevismandimperialsedition1920                                      non_l~
-## 18 cadetsandnationalists10241912                                          non_l~
-## 19 cadetsonthequestionoftheukraine7161913                                 non_l~
-## 20 character331917                                                        non_l~
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{autoic\_files[}\DecValTok{1}\NormalTok{]}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] "C:/Users/morga/OneDrive/Documents/Integrative-Data-Project/Thesis/data/raw/autoic/coded-Churchill_Longitudinal.xlsx"
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\ControlFlowTok{if}\NormalTok{ (}\FunctionTok{tolower}\NormalTok{(tools}\SpecialCharTok{::}\FunctionTok{file\_ext}\NormalTok{(autoic\_files[}\DecValTok{1}\NormalTok{])) }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"xlsx"}\NormalTok{, }\StringTok{"xls"}\NormalTok{)) \{}
-\NormalTok{  readxl}\SpecialCharTok{::}\FunctionTok{excel\_sheets}\NormalTok{(autoic\_files[}\DecValTok{1}\NormalTok{])}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] "Paragraph" "Document"
-\end{verbatim}
-
-\begin{verbatim}
-##  [1] "document"                        "num_complete_chunks"            
-##  [3] "num_words_in_complete_chunks"    "percentage_of_words_scored"     
-##  [5] "ic"                              "dial"                           
-##  [7] "elab"                            "ic_differentiation"             
-##  [9] "ic_integration"                  "dial_differentiation"           
-## [11] "dial_integration"                "elab_differentiation"           
-## [13] "elab_integration"                "num_all_chunks"                 
-## [15] "num_words_in_all_chunks"         "mean_words_in_chunks"           
-## [17] "ic_all_chunks"                   "dial_all_chunks"                
-## [19] "elab_all_chunks"                 "ic_differentiation_all_chunks"  
-## [21] "ic_integration_all_chunks"       "dial_differentiation_all_chunks"
-## [23] "dial_integration_all_chunks"     "elab_differentiation_all_chunks"
-## [25] "elab_integration_all_chunks"     "source_path"                    
-## [27] "source_file"                     "doc_id"                         
-## [29] "corpus"
-\end{verbatim}
-
-\begin{verbatim}
-##  [1] "doc_id"                          "corpus"                         
-##  [3] "num_complete_chunks"             "num_words_in_complete_chunks"   
-##  [5] "percentage_of_words_scored"      "ic"                             
-##  [7] "dial"                            "elab"                           
-##  [9] "ic_differentiation"              "ic_integration"                 
-## [11] "dial_differentiation"            "dial_integration"               
-## [13] "elab_differentiation"            "elab_integration"               
-## [15] "num_all_chunks"                  "num_words_in_all_chunks"        
-## [17] "mean_words_in_chunks"            "ic_all_chunks"                  
-## [19] "dial_all_chunks"                 "elab_all_chunks"                
-## [21] "ic_differentiation_all_chunks"   "ic_integration_all_chunks"      
-## [23] "dial_differentiation_all_chunks" "dial_integration_all_chunks"    
-## [25] "elab_differentiation_all_chunks" "elab_integration_all_chunks"    
-## [27] "source_file"
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{doc\_scores\_ic }\SpecialCharTok{|\textgreater{}}
-\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{summarise}\NormalTok{(}
-    \AttributeTok{n\_rows =}\NormalTok{ dplyr}\SpecialCharTok{::}\FunctionTok{n}\NormalTok{(),}
-    \AttributeTok{n\_missing\_ic =} \FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(ic)),}
-    \AttributeTok{n\_missing\_category =} \FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(category)),}
-    \AttributeTok{n\_missing\_dyadic\_harm =} \FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(dyadic\_harm)),}
-    \AttributeTok{n\_missing\_hopelessness =} \FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(hopelessness)),}
-    \AttributeTok{n\_missing\_justification =} \FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(justification\_for\_violence)),}
-    \AttributeTok{n\_missing\_martyrdom =} \FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(martyrdom\_narrative)),}
-    \AttributeTok{n\_missing\_role\_model =} \FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(role\_model\_status)),}
-    \AttributeTok{n\_missing\_violent\_reference =} \FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(violent\_reference))}
-\NormalTok{  )}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## # A tibble: 1 x 9
-##   n_rows n_missing_ic n_missing_category n_missing_dyadic_harm
-##    <int>        <int>              <int>                 <int>
-## 1     27            0                  0                     0
-## # i 5 more variables: n_missing_hopelessness <int>,
-## #   n_missing_justification <int>, n_missing_martyrdom <int>,
-## #   n_missing_role_model <int>, n_missing_violent_reference <int>
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{form\_ic }\OtherTok{\textless{}{-}}\NormalTok{ ic }\SpecialCharTok{\textasciitilde{}}\NormalTok{ dyadic\_harm }\SpecialCharTok{+}\NormalTok{ hopelessness }\SpecialCharTok{+}\NormalTok{ justification\_for\_violence }\SpecialCharTok{+}
-\NormalTok{  martyrdom\_narrative }\SpecialCharTok{+}\NormalTok{ role\_model\_status }\SpecialCharTok{+}\NormalTok{ violent\_reference }\SpecialCharTok{+}\NormalTok{ category}
-
-\NormalTok{mf }\OtherTok{\textless{}{-}} \FunctionTok{model.frame}\NormalTok{(form\_ic, }\AttributeTok{data =}\NormalTok{ doc\_scores\_ic, }\AttributeTok{na.action =}\NormalTok{ na.omit, }\AttributeTok{drop.unused.levels =} \ConstantTok{TRUE}\NormalTok{)}
-
-\FunctionTok{cat}\NormalTok{(}\StringTok{"nrow(doc\_scores\_ic) ="}\NormalTok{, }\FunctionTok{nrow}\NormalTok{(doc\_scores\_ic), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## nrow(doc_scores_ic) = 27
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{cat}\NormalTok{(}\StringTok{"nrow(model frame used by lm) ="}\NormalTok{, }\FunctionTok{nrow}\NormalTok{(mf), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## nrow(model frame used by lm) = 27
-\end{verbatim}
-
-\begin{verbatim}
-##  [1] "doc_id"                     "corpus"                    
-##  [3] "author"                     "dyadic_harm"               
-##  [5] "hopelessness"               "justification_for_violence"
-##  [7] "martyrdom_narrative"        "role_model_status"         
-##  [9] "violent_reference"          "category"                  
-## [11] "ic"                         "dial"                      
-## [13] "elab"                       "ic_differentiation"        
-## [15] "ic_integration"             "dial_differentiation"      
-## [17] "dial_integration"           "elab_differentiation"      
-## [19] "elab_integration"
-\end{verbatim}
-
-\begin{verbatim}
-##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##   1.158   1.840   2.083   2.105   2.176   5.365
-\end{verbatim}
-
-\begin{verbatim}
-## [1] 0
-\end{verbatim}
-
-\begin{verbatim}
-## # A tibble: 1 x 3
-##   n_total n_with_ic n_missing_ic
-##     <int>     <int>        <int>
-## 1      27        27            0
-\end{verbatim}
-
-\begin{verbatim}
-## # A tibble: 1 x 4
-##   corpus           n_total n_with_ic n_missing_ic
-##   <chr>              <int>     <int>        <int>
-## 1 non_longitudinal      27        27            0
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{form\_ic }\OtherTok{\textless{}{-}}\NormalTok{ ic }\SpecialCharTok{\textasciitilde{}}\NormalTok{ dyadic\_harm }\SpecialCharTok{+}\NormalTok{ hopelessness }\SpecialCharTok{+}\NormalTok{ justification\_for\_violence }\SpecialCharTok{+}
-\NormalTok{  martyrdom\_narrative }\SpecialCharTok{+}\NormalTok{ role\_model\_status }\SpecialCharTok{+}\NormalTok{ violent\_reference }\SpecialCharTok{+}\NormalTok{ category}
-
-\NormalTok{vars }\OtherTok{\textless{}{-}} \FunctionTok{all.vars}\NormalTok{(form\_ic)}
-
-\FunctionTok{cat}\NormalTok{(}\StringTok{"{-}{-}{-}{-} Types in doc\_scores\_ic {-}{-}{-}{-}}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## ---- Types in doc_scores_ic ----
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{print}\NormalTok{(}\FunctionTok{sapply}\NormalTok{(doc\_scores\_ic[, vars, }\AttributeTok{drop =} \ConstantTok{FALSE}\NormalTok{], class))}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##                         ic                dyadic_harm 
-##                  "numeric"                  "numeric" 
-##               hopelessness justification_for_violence 
-##                  "numeric"                  "numeric" 
-##        martyrdom_narrative          role_model_status 
-##                  "numeric"                  "numeric" 
-##          violent_reference                   category 
-##                  "numeric"                   "factor"
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{{-}{-}{-}{-} Unique non{-}NA counts in doc\_scores\_ic {-}{-}{-}{-}}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-## ---- Unique non-NA counts in doc_scores_ic ----
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{uniq\_non\_na }\OtherTok{\textless{}{-}} \FunctionTok{sapply}\NormalTok{(doc\_scores\_ic[, vars, }\AttributeTok{drop =} \ConstantTok{FALSE}\NormalTok{], \textbackslash{}(x) dplyr}\SpecialCharTok{::}\FunctionTok{n\_distinct}\NormalTok{(x, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{))}
-\FunctionTok{print}\NormalTok{(uniq\_non\_na)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##                         ic                dyadic_harm 
-##                         27                         16 
-##               hopelessness justification_for_violence 
-##                         27                         19 
-##        martyrdom_narrative          role_model_status 
-##                         20                         22 
-##          violent_reference                   category 
-##                          8                          3
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{{-}{-}{-}{-} Category distribution in doc\_scores\_ic {-}{-}{-}{-}}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-## ---- Category distribution in doc_scores_ic ----
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{print}\NormalTok{(}\FunctionTok{table}\NormalTok{(doc\_scores\_ic}\SpecialCharTok{$}\NormalTok{category, }\AttributeTok{useNA =} \StringTok{"ifany"}\NormalTok{))}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-## moderate  extreme  violent 
-##        9       10        8
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# Mimic what lm() will effectively do: build a model frame and drop NA rows.}
-\CommentTok{\# Force category into a factor for inspection, but do not assume it has 2+ observed levels.}
-\NormalTok{tmp }\OtherTok{\textless{}{-}}\NormalTok{ doc\_scores\_ic }\SpecialCharTok{|\textgreater{}}
-\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{mutate}\NormalTok{(}\AttributeTok{category =} \FunctionTok{factor}\NormalTok{(category, }\AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"moderate"}\NormalTok{,}\StringTok{"extreme"}\NormalTok{,}\StringTok{"violent"}\NormalTok{)))}
-
-\NormalTok{mf }\OtherTok{\textless{}{-}} \FunctionTok{model.frame}\NormalTok{(form\_ic, }\AttributeTok{data =}\NormalTok{ tmp, }\AttributeTok{na.action =}\NormalTok{ na.omit, }\AttributeTok{drop.unused.levels =} \ConstantTok{TRUE}\NormalTok{)}
-
-\FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{{-}{-}{-}{-} Rows used by lm after na.omit {-}{-}{-}{-}}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-## ---- Rows used by lm after na.omit ----
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{cat}\NormalTok{(}\StringTok{"nrow(model frame) ="}\NormalTok{, }\FunctionTok{nrow}\NormalTok{(mf), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## nrow(model frame) = 27
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{{-}{-}{-}{-} Category distribution in the model frame {-}{-}{-}{-}}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-## ---- Category distribution in the model frame ----
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{print}\NormalTok{(}\FunctionTok{table}\NormalTok{(mf}\SpecialCharTok{$}\NormalTok{category, }\AttributeTok{useNA =} \StringTok{"ifany"}\NormalTok{))}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-## moderate  extreme  violent 
-##        9       10        8
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{bad\_factors }\OtherTok{\textless{}{-}} \FunctionTok{names}\NormalTok{(mf)[}\FunctionTok{sapply}\NormalTok{(mf, \textbackslash{}(x) }\FunctionTok{is.factor}\NormalTok{(x) }\SpecialCharTok{\&\&} \FunctionTok{nlevels}\NormalTok{(x) }\SpecialCharTok{\textless{}} \DecValTok{2}\NormalTok{)]}
-\FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{{-}{-}{-}{-} Factor predictors with \textless{}2 levels in model frame {-}{-}{-}{-}}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-## ---- Factor predictors with <2 levels in model frame ----
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{print}\NormalTok{(bad\_factors)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## character(0)
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{vars }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}
-  \StringTok{"ic"}\NormalTok{,}
-  \StringTok{"dyadic\_harm"}\NormalTok{, }\StringTok{"hopelessness"}\NormalTok{, }\StringTok{"justification\_for\_violence"}\NormalTok{,}
-  \StringTok{"martyrdom\_narrative"}\NormalTok{, }\StringTok{"role\_model\_status"}\NormalTok{, }\StringTok{"violent\_reference"}\NormalTok{,}
-  \StringTok{"category"}
-\NormalTok{)}
-
-\FunctionTok{str}\NormalTok{(doc\_scores\_ic[, vars, }\AttributeTok{drop =} \ConstantTok{FALSE}\NormalTok{])}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## tibble [27 x 8] (S3: tbl_df/tbl/data.frame)
-##  $ ic                        : num [1:27] 2.08 2.14 2.01 5.37 1.75 ...
-##  $ dyadic_harm               : num [1:27] 0 0 0 0.0971 0 ...
-##  $ hopelessness              : num [1:27] 7.236 8.086 2.731 0.923 1.931 ...
-##  $ justification_for_violence: num [1:27] 0 0 0 0.151 0.965 ...
-##  $ martyrdom_narrative       : num [1:27] 0 0 0 0.169 0 ...
-##  $ role_model_status         : num [1:27] 0 0 0.39 0.574 0 ...
-##  $ violent_reference         : num [1:27] 0 0 0 0.00571 0 ...
-##  $ category                  : Factor w/ 3 levels "moderate","extreme",..: 1 1 1 1 1 2 2 3 1 1 ...
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{print}\NormalTok{(}\FunctionTok{table}\NormalTok{(doc\_scores\_ic}\SpecialCharTok{$}\NormalTok{category, }\AttributeTok{useNA =} \StringTok{"ifany"}\NormalTok{))}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-## moderate  extreme  violent 
-##        9       10        8
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{print}\NormalTok{(}\FunctionTok{levels}\NormalTok{(doc\_scores\_ic}\SpecialCharTok{$}\NormalTok{category))}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] "moderate" "extreme"  "violent"
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{form\_ic }\OtherTok{\textless{}{-}}\NormalTok{ ic }\SpecialCharTok{\textasciitilde{}}\NormalTok{ dyadic\_harm }\SpecialCharTok{+}\NormalTok{ hopelessness }\SpecialCharTok{+}\NormalTok{ justification\_for\_violence }\SpecialCharTok{+}
-\NormalTok{  martyrdom\_narrative }\SpecialCharTok{+}\NormalTok{ role\_model\_status }\SpecialCharTok{+}\NormalTok{ violent\_reference }\SpecialCharTok{+}\NormalTok{ category}
-
-\NormalTok{mf }\OtherTok{\textless{}{-}} \FunctionTok{model.frame}\NormalTok{(form\_ic, }\AttributeTok{data =}\NormalTok{ doc\_scores\_ic, }\AttributeTok{na.action =}\NormalTok{ na.omit, }\AttributeTok{drop.unused.levels =} \ConstantTok{TRUE}\NormalTok{)}
-
-\FunctionTok{cat}\NormalTok{(}\StringTok{"n used by lm after na.omit ="}\NormalTok{, }\FunctionTok{nrow}\NormalTok{(mf), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## n used by lm after na.omit = 27
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{cat}\NormalTok{(}\StringTok{"category distribution in modeling data:}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## category distribution in modeling data:
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{print}\NormalTok{(}\FunctionTok{table}\NormalTok{(mf}\SpecialCharTok{$}\NormalTok{category, }\AttributeTok{useNA =} \StringTok{"ifany"}\NormalTok{))}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-## moderate  extreme  violent 
-##        9       10        8
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\ControlFlowTok{if}\NormalTok{ (}\FunctionTok{nrow}\NormalTok{(mf) }\SpecialCharTok{==} \DecValTok{0}\NormalTok{) \{}
-  \FunctionTok{stop}\NormalTok{(}
-    \StringTok{"Model frame has 0 rows after na.omit. "}\NormalTok{,}
-    \StringTok{"This indicates no complete cases remain. "}\NormalTok{,}
-    \StringTok{"Most commonly: ic is missing for all rows due to a failed AutoIC merge. "}\NormalTok{,}
-    \StringTok{"Check autoic{-}coverage and diagnose{-}autoic{-}join{-}coverage."}
-\NormalTok{  )}
-\NormalTok{\}}
-
-\NormalTok{single\_level }\OtherTok{\textless{}{-}} \FunctionTok{names}\NormalTok{(mf)[}\FunctionTok{sapply}\NormalTok{(mf, \textbackslash{}(x) }\FunctionTok{is.factor}\NormalTok{(x) }\SpecialCharTok{\&\&} \FunctionTok{nlevels}\NormalTok{(x) }\SpecialCharTok{\textless{}} \DecValTok{2}\NormalTok{)]}
-\NormalTok{form\_ic2 }\OtherTok{\textless{}{-}}\NormalTok{ form\_ic}
-
-\ControlFlowTok{if}\NormalTok{ (}\StringTok{"category"} \SpecialCharTok{\%in\%}\NormalTok{ single\_level) \{}
-  \FunctionTok{warning}\NormalTok{(}\StringTok{"\textasciigrave{}category\textasciigrave{} has \textless{}2 observed levels in the model frame; dropping \textasciigrave{}category\textasciigrave{}."}\NormalTok{)}
-\NormalTok{  form\_ic2 }\OtherTok{\textless{}{-}} \FunctionTok{update}\NormalTok{(form\_ic2, . }\SpecialCharTok{\textasciitilde{}}\NormalTok{ . }\SpecialCharTok{{-}}\NormalTok{ category)}
-\NormalTok{  mf }\OtherTok{\textless{}{-}} \FunctionTok{model.frame}\NormalTok{(form\_ic2, }\AttributeTok{data =}\NormalTok{ doc\_scores\_ic, }\AttributeTok{na.action =}\NormalTok{ na.omit, }\AttributeTok{drop.unused.levels =} \ConstantTok{TRUE}\NormalTok{)}
-\NormalTok{\}}
-
-\NormalTok{model\_ic }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(form\_ic2, }\AttributeTok{data =}\NormalTok{ mf)}
-\FunctionTok{summary}\NormalTok{(model\_ic)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-## Call:
-## lm(formula = form_ic2, data = mf)
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -0.76750 -0.33257 -0.01632  0.10469  2.97720 
-## 
-## Coefficients:
-##                             Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)                 2.198512   0.436212   5.040 8.51e-05 ***
-## dyadic_harm                 0.610939   1.015045   0.602    0.555    
-## hopelessness               -0.013367   0.066218  -0.202    0.842    
-## justification_for_violence  0.281743   0.600263   0.469    0.644    
-## martyrdom_narrative         0.632965   0.921071   0.687    0.501    
-## role_model_status          -0.004876   0.331540  -0.015    0.988    
-## violent_reference          -0.699491   0.901671  -0.776    0.448    
-## categoryextreme            -0.179406   0.449009  -0.400    0.694    
-## categoryviolent            -0.652229   0.480784  -1.357    0.192    
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 0.8029 on 18 degrees of freedom
-## Multiple R-squared:  0.1247, Adjusted R-squared:  -0.2643 
-## F-statistic: 0.3205 on 8 and 18 DF,  p-value: 0.9476
+## 10 anewchapterofworldhistory10211912                                      longi~
+## 11 apologytowomen1996                                                     longi~
+## 12 ascientificamericanarticletheorizingatechinducedapocalypsetheunabombe~ longi~
+## 13 ashifttowardshopefulness1996                                           longi~
+## 14 beyemenofvalour1940                                                    longi~
+## 15 billontheequalityofnationsandthesafeguardingoftherightsofnationalmino~ longi~
+## 16 bloodtoiltearsandsweat1940                                             longi~
+## 17 bolshevismandimperialsedition1920                                      longi~
+## 18 cadetsandnationalists10241912                                          longi~
+## 19 cadetsonthequestionoftheukraine7161913                                 longi~
+## 20 character331917                                                        longi~
 \end{verbatim}
 
 \subsection{Descriptive Statistics}\label{descriptive-statistics}
@@ -1387,54 +688,42 @@ To examine whether manifesto category predicts the prevalence of harm-related li
 
 The regression model predicting dyadic harm language indicated that manifesto category was marginally associated with variation in dyadic harm prevalence, F(2, 28) = 3.10, \emph{p} = .061, R² = .18. Compared with moderate manifestos, ideologically extreme manifestos contained significantly higher levels of dyadic harm language (\emph{b} = 0.16, SE = 0.08, \emph{t} = 2.16, \emph{p} = .040). Violent self-sacrificial manifestos also showed significantly higher prevalence of dyadic harm markers relative to moderate texts (\emph{b} = 0.18, SE = 0.08, \emph{t} = 2.21, \emph{p} = .035).
 
-\begin{verbatim}
-## 
-## Call:
-## stats::glm(formula = violent ~ ic_z, family = stats::binomial(), 
-##     data = dat)
-## 
-## Coefficients:
-##             Estimate Std. Error z value Pr(>|z|)  
-## (Intercept)   -1.270      0.543  -2.340   0.0193 *
-## ic_z          -2.077      1.183  -1.756   0.0790 .
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## (Dispersion parameter for binomial family taken to be 1)
-## 
-##     Null deviance: 32.815  on 26  degrees of freedom
-## Residual deviance: 28.426  on 25  degrees of freedom
-## AIC: 32.426
-## 
-## Number of Fisher Scoring iterations: 5
-\end{verbatim}
+\subsubsection{Integrative Complexity Predicting Violence}\label{integrative-complexity-predicting-violence}
 
-\begin{verbatim}
-## 
-## Call:
-## stats::glm(formula = violent ~ ic_z + dyadic_harm_z + justification_z + 
-##     martyrdom_z + hopelessness_z, family = stats::binomial(), 
-##     data = dat)
-## 
-## Coefficients:
-##                 Estimate Std. Error z value Pr(>|z|)  
-## (Intercept)      -1.6689     0.8733  -1.911   0.0560 .
-## ic_z             -3.1052     1.5867  -1.957   0.0503 .
-## dyadic_harm_z     0.6673     0.5751   1.160   0.2459  
-## justification_z   1.3996     0.8112   1.725   0.0845 .
-## martyrdom_z       2.6833     1.4248   1.883   0.0597 .
-## hopelessness_z   -0.5595     1.0080  -0.555   0.5789  
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## (Dispersion parameter for binomial family taken to be 1)
-## 
-##     Null deviance: 32.815  on 26  degrees of freedom
-## Residual deviance: 17.021  on 21  degrees of freedom
-## AIC: 29.021
-## 
-## Number of Fisher Scoring iterations: 7
-\end{verbatim}
+\begin{table}[tbp]
+
+\begin{center}
+\begin{threeparttable}
+
+\caption{\label{tab:violent-logistic-models}Logistic regression predicting violent (vs. non-violent) manifesto category from integrative complexity and linguistic indicators.}
+
+\begin{tabular}{llll}
+\toprule
+Predictor & \multicolumn{1}{c}{OR} & \multicolumn{1}{c}{CI} & \multicolumn{1}{c}{p}\\
+\midrule
+Integrative Complexity (z) & 0.04 & {}[0, 0.69] & 0.050\\
+Dyadic Harm (z) & 1.95 & {}[0.7, 8.4] & 0.246\\
+Justification for Violence (z) & 4.05 & {}[0.93, 27.5] & 0.084\\
+Martyrdom Narrative (z) & 14.63 & {}[1.42, 612.63] & 0.060\\
+Hopelessness (z) & 0.57 & {}[0.05, 3.67] & 0.579\\
+\bottomrule
+\addlinespace
+\end{tabular}
+
+\begin{tablenotes}[para]
+\normalsize{\textit{Note.} Odds ratios (OR) reflect 1 SD increases in standardized predictors.}
+\end{tablenotes}
+
+\end{threeparttable}
+\end{center}
+
+\end{table}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio]{Thesis_files/figure-latex/fig-violent-probability-1.pdf}}
+\caption{\label{fig:fig-violent-probability}Predicted probability of violent (vs.~non-violent) category as a function of integrative complexity (95\% CI).}
+\end{figure}
 
 \begin{table}[tbp]
 
@@ -1543,6 +832,128 @@ The regression model predicting hopelessness markers was not statistically signi
 \subsubsection{Summary of Findings}\label{summary-of-findings}
 
 Across models, manifesto category predicted significant differences in two linguistic domains: dyadic harm language and martyrdom narratives. Both ideologically extreme and violent manifestos contained higher levels of dyadic harm language relative to moderate texts, suggesting that framing political issues in terms of intentional harm and victimization may be characteristic of more radical ideological writing. Additionally, violent self-sacrificial manifestos displayed significantly greater use of martyrdom narratives than moderate texts, indicating that rhetorical appeals to sacrifice and heroism may play an important role in texts associated with political violence.
+
+\subsection{Longitudinal Analyses}\label{longitudinal-analyses}
+
+\begin{verbatim}
+## # A tibble: 194 x 3
+##    author    doc_id                                                  doc_date  
+##    <chr>     <chr>                                                   <date>    
+##  1 churchill bolshevismandimperialsedition1920                       1920-01-01
+##  2 churchill masseffectsinmodernlife1925                             1925-01-01
+##  3 churchill fiftyyearshence1931                                     1931-01-01
+##  4 churchill pennyintheslotpolitics1934                              1934-01-01
+##  5 churchill ihavewatchedthisfamousisland1938                        1938-01-01
+##  6 churchill thelightsaregoingoutwemustarm1938                       1938-01-01
+##  7 churchill ahushovereurope1939                                     1939-01-01
+##  8 churchill warspeech1939                                           1939-01-01
+##  9 churchill ahouseofmanymansions1940                                1940-01-01
+## 10 churchill beyemenofvalour1940                                     1940-01-01
+## 11 churchill bloodtoiltearsandsweat1940                              1940-01-01
+## 12 churchill everymantohispost1940                                   1940-01-01
+## 13 churchill thefew1940                                              1940-01-01
+## 14 churchill theirfinesthour1940                                     1940-01-01
+## 15 churchill waroftheunknownwarriors1940                             1940-01-01
+## 16 churchill weshallfightonthebeaches1940                            1940-01-01
+## 17 churchill addresstojointsessionofuscongress1941                   1941-01-01
+## 18 churchill doyourworstwelldoourbest1941                            1941-01-01
+## 19 churchill giveusthetools1941                                      1941-01-01
+## 20 churchill nevergiveinnevernevernever1941                          1941-01-01
+## 21 churchill somechickensomeneck1941                                 1941-01-01
+## 22 churchill thefourthclimacteric1941                                1941-01-01
+## 23 churchill theoldlion1941                                          1941-01-01
+## 24 churchill winstonchurchillsbroadcastonthesovietgermanwar1941      1941-01-01
+## 25 churchill theinvasionoffrance1944                                 1944-01-01
+## 26 churchill thesinewsofpeace1946                                    1946-01-01
+## 27 churchill mitmidcenturyconvocation1949                            1949-01-01
+## 28 churchill thecouncilofeurope1949                                  1949-01-01
+## 29 evola     decadence1928                                           1928-01-01
+## 30 evola     fascism1928                                             1928-01-01
+## 31 evola     darkage1934                                             1934-01-01
+## 32 evola     jihad1934                                               1934-01-01
+## 33 evola     degeneration1938                                        1938-01-01
+## 34 evola     neopagans1942                                           1942-01-01
+## 35 evola     americancivilization1945                                1945-01-01
+## 36 evola     occult1953                                              1953-01-01
+## 37 gramsci   theeventsof23december19191261319                        1319-01-01
+## 38 gramsci   newspapersandtheworkers12221916                         1916-12-22
+## 39 gramsci   menormachines12241916                                   1916-12-24
+## 40 gramsci   character331917                                         1917-03-03
+## 41 gramsci   therevolutionagainstcapital12241917                     1917-12-24
+## 42 gramsci   oneyearofhistory3161918                                 1918-03-16
+## 43 gramsci   redink441919                                            1919-04-04
+## 44 gramsci   thepriceofhistory671919                                 1919-06-07
+## 45 gramsci   workersdemocracy6211919                                 1919-06-21
+## 46 gramsci   theconquestofthestate7121919                            1919-07-12
+## 47 gramsci   workersandpeasants821919                                1919-08-02
+## 48 gramsci   tothesectioncommissarsofthefiatbrevettiworkshops9131919 1919-09-13
+## 49 gramsci   chroniclesoftheneworder9131919                          1919-09-13
+## 50 gramsci   thedevelopmentoftherevolution9131919                    1919-09-13
+## # i 144 more rows
+\end{verbatim}
+
+\begin{verbatim}
+## Longitudinal analysis rows: 194
+\end{verbatim}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio]{Thesis_files/figure-latex/fig-long-ic-trajectories-1.pdf}}
+\caption{\label{fig:fig-long-ic-trajectories}Longitudinal trajectories of integrative complexity by author (document order).}
+\end{figure}
+
+\begin{table}[tbp]
+
+\begin{center}
+\begin{threeparttable}
+
+\caption{\label{tab:longitudinal-models}Longitudinal mixed-effects models testing within-author change and the association between integrative complexity and justification language.}
+
+\begin{tabular}{lllll}
+\toprule
+Model & \multicolumn{1}{c}{Term} & \multicolumn{1}{c}{B} & \multicolumn{1}{c}{SE} & \multicolumn{1}{c}{t}\\
+\midrule
+Justification \textasciitilde{} IC + Time & ic & -0.12 & 0.12 & -1.02\\
+Justification \textasciitilde{} IC + Time & time\_c & 0.00 & 0.00 & 0.78\\
+IC \textasciitilde{} Time & time\_c & 0.00 & 0.00 & 0.16\\
+\bottomrule
+\addlinespace
+\end{tabular}
+
+\begin{tablenotes}[para]
+\normalsize{\textit{Note.} Models include random intercepts and random slopes for time by author (lme4::lmer).}
+\end{tablenotes}
+
+\end{threeparttable}
+\end{center}
+
+\end{table}
+
+\begin{table}[tbp]
+
+\begin{center}
+\begin{threeparttable}
+
+\caption{\label{tab:harris-near-far}Within-author temporal proximity models for the violent longitudinal case (Harris).}
+
+\begin{tabular}{llll}
+\toprule
+Outcome & \multicolumn{1}{c}{B\_days} & \multicolumn{1}{c}{SE\_days} & \multicolumn{1}{c}{p\_days}\\
+\midrule
+IC & 0.00 & 0.00 & 0.637\\
+Justification for Violence & 0.00 & 0.00 & NaN\\
+\bottomrule
+\addlinespace
+\end{tabular}
+
+\begin{tablenotes}[para]
+\normalsize{\textit{Note.} Predictor is days remaining until the violence event date; positive B indicates higher outcome farther from the event.}
+\end{tablenotes}
+
+\end{threeparttable}
+\end{center}
+
+\end{table}
 
 \section{Discussion}\label{discussion}
 
