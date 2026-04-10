@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.3.8)  10 APR 2026 18:04
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.3.8)  10 APR 2026 18:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -661,28 +661,28 @@ LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 34
 (c:/Users/morga/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) [8]
-Overfull \hbox (90.7973pt too wide) in paragraph at lines 408--434
+Overfull \hbox (90.7973pt too wide) in paragraph at lines 424--450
  [] 
  []
 
+
+Underfull \vbox (badness 6380) has occurred while \output is active []
+
 [9{c:/Users/morga/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}] [10]
-<Thesis_files/figure-latex/fig-long-ic-trajectories-1.pdf, id=83, 469.755pt x 325.215pt>
+<Thesis_files/figure-latex/fig-long-ic-trajectories-1.pdf, id=82, 469.755pt x 325.215pt>
 File: Thesis_files/figure-latex/fig-long-ic-trajectories-1.pdf Graphic file (type pdf)
 <use Thesis_files/figure-latex/fig-long-ic-trajectories-1.pdf>
-Package pdftex.def Info: Thesis_files/figure-latex/fig-long-ic-trajectories-1.pdf  used on input line 490.
+Package pdftex.def Info: Thesis_files/figure-latex/fig-long-ic-trajectories-1.pdf  used on input line 492.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 [11] [12]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 1715) has occurred while \output is active []
 
-[13 <./Thesis_files/figure-latex/fig-long-ic-trajectories-1.pdf>]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+[13 <./Thesis_files/figure-latex/fig-long-ic-trajectories-1.pdf>] [14] [15] [16] [17
 
-[14] [15] [16]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-[17] [18] [19] [20] [21
-
-] AED endfloat: Processing end Figures and Tables [22
+] AED endfloat: Processing end Figures and Tables [18
 
 ] (./Thesis.aux)
  ***********
@@ -694,18 +694,18 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 16291 strings out of 469472
- 266322 string characters out of 5466874
- 702578 words of memory out of 5000000
- 44590 multiletter control sequences out of 15000+600000
+ 16257 strings out of 469472
+ 265850 string characters out of 5466874
+ 702086 words of memory out of 5000000
+ 44574 multiletter control sequences out of 15000+600000
  665556 words of font info for 74 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 83i,11n,93p,2245b,608s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 83i,11n,93p,2245b,567s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/Users/morga/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Users/morga/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/morga/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri12.pfb>
-Output written on Thesis.pdf (22 pages, 151142 bytes).
+Output written on Thesis.pdf (18 pages, 140147 bytes).
 PDF statistics:
- 313 PDF objects out of 1000 (max. 8388607)
- 275 compressed objects within 3 object streams
- 90 named destinations out of 1000 (max. 500000)
- 211 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 260 PDF objects out of 1000 (max. 8388607)
+ 226 compressed objects within 3 object streams
+ 72 named destinations out of 1000 (max. 500000)
+ 195 words of extra memory for PDF output out of 10000 (max. 10000000)
 

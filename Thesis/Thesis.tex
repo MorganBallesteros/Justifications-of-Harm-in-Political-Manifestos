@@ -343,9 +343,25 @@ To examine whether manifesto category predicts the prevalence of harm-related li
 
 \subsubsection{Dyadic Harm Language}\label{dyadic-harm-language}
 
-The regression model predicting dyadic harm language indicated that manifesto category was marginally associated with variation in dyadic harm prevalence, F(2, 28) = 3.10, \emph{p} = .061, R² = .18. Compared with moderate manifestos, ideologically extreme manifestos contained significantly higher levels of dyadic harm language (\emph{b} = 0.16, SE = 0.08, \emph{t} = 2.16, \emph{p} = .040). Violent self-sacrificial manifestos also showed significantly higher prevalence of dyadic harm markers relative to moderate texts (\emph{b} = 0.18, SE = 0.08, \emph{t} = 2.21, \emph{p} = .035).
+The overall model approached significance, F(2, 28) = 3.10, p = .061, R² = .18. Relative to moderate manifestos, both ideologically extreme (b = 0.16, SE = 0.08, p = .040) and violent manifestos (b = 0.18, SE = 0.08, p = .035) exhibited significantly higher levels of dyadic harm language.
+
+\subsubsection{Justifications for Violence}\label{justifications-for-violence}
+
+The model was not significant, F(2, 28) = 1.88, p = .171, R² = .12. Neither ideologically extreme (p = .744) nor violent manifestos (p = .085) differed significantly from moderate texts, although the latter showed a trend toward higher prevalence.
+
+\subsubsection{Martyrdom Narratives}\label{martyrdom-narratives}
+
+The model was significant, F(2, 28) = 3.94, p = .031, R² = .22. Violent manifestos exhibited higher levels of martyrdom language than moderate texts (b = 0.47, SE = 0.19, p = .019), whereas ideologically extreme manifestos did not differ from moderate texts (p = .780).
+
+\subsubsection{Hopelessness}\label{hopelessness}
+
+The model was not significant, F(2, 28) = 2.48, p = .102, R² = .15. No category differences were observed.
 
 \subsubsection{Integrative Complexity Predicting Violence}\label{integrative-complexity-predicting-violence}
+
+Logistic regression models assessed whether integrative complexity predicted whether a manifesto was classified as violent (vs.~non-violent; see Tables 2--3). In the baseline model, integrative complexity was negatively associated with violence likelihood, OR = 0.13, 95\% CI {[}0.01, 0.91{]}, p = .079. In the full model including linguistic indicators, integrative complexity remained a significant predictor, OR = 0.04, 95\% CI {[}0.00, 0.69{]}, p = .050.
+
+Among linguistic predictors, martyrdom narratives (OR = 14.63, p = .060) and justification for violence (OR = 4.05, p = .084) showed large but non-significant effects. Dyadic harm language and hopelessness did not significantly predict violence when included in the full model.
 
 \begin{table}[tbp]
 
@@ -467,23 +483,9 @@ Hopelessness & Violent vs. Moderate & -1.16 & 1.29 & -0.90 & 0.379\\
 
 \end{table}
 
-\subsubsection{Justifications for Violence}\label{justifications-for-violence}
-
-The regression model predicting justifications for violence was not statistically significant overall, F(2, 28) = 1.88, \emph{p} = .171, R² = .12. Neither ideologically extreme manifestos (\emph{b} = 0.05, SE = 0.16, \emph{t} = 0.33, \emph{p} = .744) nor violent manifestos (\emph{b} = 0.30, SE = 0.17, \emph{t} = 1.78, \emph{p} = .085) differed significantly from moderate manifestos in their prevalence of justification language. However, the coefficient for violent manifestos approached conventional levels of statistical significance, suggesting a potential trend toward greater justificatory rhetoric in manifestos associated with violence.
-
-\subsubsection{Martyrdom Narratives}\label{martyrdom-narratives}
-
-The regression model predicting martyrdom narratives was statistically significant, F(2, 28) = 3.94, \emph{p} = .031, R² = .22. Violent self-sacrificial manifestos exhibited significantly higher levels of martyrdom narrative markers compared with moderate texts (\emph{b} = 0.47, SE = 0.19, \emph{t} = 2.50, \emph{p} = .019). In contrast, ideologically extreme manifestos did not differ significantly from moderate manifestos in martyrdom language (\emph{b} = 0.05, SE = 0.17, \emph{t} = 0.28, \emph{p} = .780).
-
-\subsubsection{Hopelessness}\label{hopelessness}
-
-The regression model predicting hopelessness markers was not statistically significant overall, F(2, 28) = 2.48, \emph{p} = .102, R² = .15. Neither ideologically extreme manifestos (\emph{b} = 1.75, SE = 1.25, \emph{t} = 1.41, \emph{p} = .171) nor violent manifestos (\emph{b} = -0.93, SE = 1.36, \emph{t} = -0.69, \emph{p} = .497) differed significantly from moderate manifestos in the prevalence of hopelessness language.
-
-\subsubsection{Summary of Findings}\label{summary-of-findings}
-
-Across models, manifesto category predicted significant differences in two linguistic domains: dyadic harm language and martyrdom narratives. Both ideologically extreme and violent manifestos contained higher levels of dyadic harm language relative to moderate texts, suggesting that framing political issues in terms of intentional harm and victimization may be characteristic of more radical ideological writing. Additionally, violent self-sacrificial manifestos displayed significantly greater use of martyrdom narratives than moderate texts, indicating that rhetorical appeals to sacrifice and heroism may play an important role in texts associated with political violence.
-
 \subsection{Longitudinal Analyses}\label{longitudinal-analyses}
+
+Mixed-effects models were estimated to examine within-author changes in integrative complexity and justification language over time (see Table 6; Figure 2). No significant effects were observed. Integrative complexity was not associated with justification language (b = -0.11, SE = 0.11, t = -0.99), nor did either variable change systematically over time. These findings suggest that cross-sectional differences across manifesto types are more pronounced than within-author temporal dynamics.
 
 \begin{figure}
 \centering
@@ -520,33 +522,37 @@ IC \textasciitilde{} Time & time\_c & 0.00 & 0.00 & -0.03\\
 
 \section{Discussion}\label{discussion}
 
-The present study examined whether linguistic indicators associated with moral justifications of harm differ systematically across political manifesto types. Specifically, the analysis tested whether grouped linguistic markers related to dyadic harm framing, justification for violence, martyrdom narratives, and expressions of political hopelessness vary across moderate, ideologically extreme, and violent self-sacrificial manifestos. These analyses represent an initial empirical step toward evaluating the broader hypothesis that linguistic indicators of harm justification correspond to an increased likelihood of political violence.\\
-The results provide partial support for the proposed theoretical framework. Manifestos categorized as ideologically extreme and violent self-sacrificial exhibited significantly higher levels of dyadic harm language compared with moderate manifestos. In other words, texts associated with more radical ideological positions more frequently framed political conflict in terms of identifiable agents causing harm to identifiable victims.\\
-This pattern aligns with research in moral psychology emphasizing the centrality of harm perception in moral judgment. In particular, the theory of dyadic morality proposes that moral cognition is structured around a perceived relationship between a moral agent who causes harm and a moral patient who suffers it. According to this framework, moral judgments frequently emerge from narratives that identify perpetrators, victims, and causal responsibility. The elevated prevalence of dyadic harm language in extreme and violent manifestos suggests that such texts more frequently construct political grievances in explicitly moralized terms, portraying social or political conflict as situations in which identifiable actors harm identifiable victims.\\
-However, the remaining linguistic indicators examined in this study (i.e., justifications for violence, martyrdom narratives, and expressions of political hopelessness) did not differ significantly across manifesto categories. Although these markers were intended to capture rhetorical patterns that legitimize or normalize violence, the results suggest that such language may be present across ideological texts more broadly. Radical political discourse may therefore share similar rhetorical structures regardless of whether it ultimately culminates in violent action.\\
-One interpretation of this pattern is that linguistic indicators of harm justification may reflect ideological radicalization more generally rather than violence-producing ideologies specifically. The presence of such rhetoric may represent an early stage of moral framing in which political conflicts are interpreted through narratives of victimization and moral grievance. Whether such narratives translate into violent action may depend on additional psychological, cognitive, or situational factors that extend beyond linguistic framing alone.\\
-Importantly, the present analysis represents only an initial component of the broader research design motivating this project. The theoretical framework underlying the study also proposes that integrative complexity, particularly levels of differentiation and integration in reasoning, may play a key role in determining whether ideological beliefs translate into violent action. Previous research in political psychology has demonstrated that integrative complexity can predict major political events, including diplomatic conflict and war escalation. However, its application to the study of lone-actor political violence remains relatively underexplored.\\
-Future analyses incorporating automated integrative complexity (AutoIC) scores will allow for direct testing of the remaining hypotheses of this project. Specifically, the study predicts that lower levels of integrative complexity will be associated with a higher likelihood that a manifesto corresponds with political violence. Additionally, longitudinal analyses of texts produced by the same political actors may reveal whether declining levels of integrative complexity precede increasing justification of harm and eventual violent action.
+The present study examined whether linguistic indicators of harm justification and integrative complexity differentiate political manifestos associated with violence. The results provide partial support for the proposed framework.
+
+First, dyadic harm language reliably distinguished moderate from non-moderate manifestos. Both ideologically extreme and violent texts exhibited higher levels of dyadic harm framing, consistent with dyadic morality theory, which posits that moral cognition is structured around agent--patient representations of harm. However, dyadic harm language did not distinguish violent from non-violent extremity, suggesting that such framing reflects ideological radicalization more broadly rather than violence-specific processes.
+
+Second, martyrdom narratives uniquely differentiated violent manifestos. Violent texts exhibited significantly higher levels of martyrdom language, whereas ideologically extreme texts did not differ from moderate texts. This pattern suggests that narratives of sacrifice and moral heroism may play a distinct role in legitimizing violent action.
+
+Third, integrative complexity was negatively associated with violence likelihood. Lower levels of integrative complexity predicted violent manifestos even when controlling for linguistic indicators, consistent with prior research linking reduced cognitive complexity to conflict escalation and extreme decision-making.
+
+At the same time, several hypothesized effects were not supported. Justification for violence and hopelessness did not significantly differentiate manifesto categories. This suggests that justificatory rhetoric may be characteristic of political discourse more generally rather than uniquely associated with violence. Additionally, longitudinal analyses did not reveal systematic within-author changes, indicating that shifts toward violence may not manifest as gradual linguistic or cognitive changes detectable with the present measures.
+
+Taken together, these findings suggest a functional differentiation between linguistic and cognitive predictors: dyadic harm framing characterizes ideological radicalization, martyrdom narratives distinguish violent from non-violent extremity, and integrative complexity constrains whether radical beliefs translate into violent action.
 
 \subsection{Limitations}\label{limitations}
 
-Several limitations should be considered when interpreting the present findings. The primary limitation concerns the availability of political manifestos. Prior research examining linguistic markers in extremist manifestos has relied on relatively small corpora. For example, studies in this area often analyze sets of six to fifteen manifestos due to the limited availability of such documents, restrictions on access to extremist materials, and the time-intensive nature of manual coding procedures (Capelos et al., 2025; Ebner et al., 2024, 2025). The present study addresses some of these practical limitations by automating both linguistic prevalence analysis and integrative complexity measurement using computational tools in R. Nevertheless, the accessibility of relevant texts remains a constraint on corpus size.\\
-To increase statistical power and broaden the scope of analysis, the present study therefore includes not only terrorist manifestos but also ideological writings that contributed to the development of political platforms. For instance, texts such as \emph{The Manifesto of the Communist Party} --- which has been included in prior linguistic studies of political manifestos --- are analyzed alongside writings such as Vladimir Lenin's \emph{What Is to Be Done?}, which has not typically been included in this literature. Expanding the dataset to include ideological platform writings allows for the examination of rhetorical patterns across a wider range of political texts while also enabling longitudinal analysis of authors whose writings span multiple time periods.\\
-However, this strategy also introduces conceptual complexity. Political platform writings may differ from terrorist manifestos in important ways, including their intended audience, rhetorical purpose, and historical context. As a result, the linguistic markers observed in such texts may reflect broader ideological discourse rather than mechanisms uniquely associated with political violence.\\
-A second limitation concerns the dictionary-based linguistic approach used in the present analysis. Although dictionary methods provide transparency and replicability, they inevitably simplify the semantic richness of political rhetoric. Certain forms of moral justification may therefore occur in ways that are not captured by the specific lexical indicators included in the marker dictionary.\\
-Finally, the current analysis does not yet incorporate the integrative complexity measures that constitute a central component of the overall research design. As a result, the findings presented here should be interpreted as preliminary. The analyses primarily demonstrate the feasibility of the linguistic scoring pipeline and provide an initial exploration of how harm-related rhetorical patterns vary across manifesto categories.
+Several limitations should be noted. First, the corpus remains limited in size and heterogeneous in composition. The inclusion of both terrorist manifestos and broader ideological texts increases generalizability but introduces variability in genre, audience, and historical context.
+
+Second, the dictionary-based approach constrains measurement to predefined lexical indicators and may fail to capture more context-dependent or implicit forms of moral justification.
+
+Third, several regression estimates---particularly in logistic and multinomial models---exhibited wide confidence intervals, indicating limited precision and potential instability in effect size estimates.
+
+Finally, the longitudinal analyses may be underpowered or insufficiently sensitive to detect temporal dynamics, particularly given variation in document spacing and contextual shifts across authors.
 
 \subsection{Future Directions}\label{future-directions}
 
-Future research can extend the present work in several important ways. Most immediately, incorporating automated integrative complexity measures will allow for direct testing of whether lower levels of cognitive complexity predict the emergence of political violence. Integrative complexity has demonstrated substantial predictive power in analyses of diplomatic communication and political leadership rhetoric. Applying this approach to the study of political manifestos may therefore provide new insights into the cognitive processes that precede ideological violence.\\
-Second, the inclusion of longitudinal textual data offers an opportunity to examine whether changes in linguistic framing and cognitive complexity occur prior to violent action. Many extremist manifestos studied in prior literature are released immediately before or after acts of violence, limiting their usefulness as predictive tools. In contrast, ideological writings and political platform texts often precede violent acts by substantial periods of time. If measurable linguistic or cognitive markers within such texts reliably predict later violence, they could provide valuable signals for identifying escalating radicalization processes.\\
-Third, future work could integrate dictionary-based linguistic analysis with more flexible natural language processing techniques. Methods such as semantic embedding models or topic modeling may allow researchers to identify broader patterns of moral and ideological rhetoric that extend beyond predefined lexical indicators.\\
-More broadly, integrating linguistic analysis with theoretical frameworks from moral psychology may provide a richer understanding of the cognitive processes underlying political violence. If political grievances are frequently framed through dyadic narratives of harm and victimization, examining how these narratives interact with cognitive structures such as integrative complexity may offer important insight into the psychological pathways through which ideological beliefs develop into violent political action.\\
-Taken together, the present findings represent an initial empirical test of the first hypothesis of this project: that linguistic indicators of harm justification correspond with a higher likelihood of political violence. The elevated prevalence of dyadic harm language in ideologically extreme and violent manifestos provides preliminary support for the claim that moralized narratives of harm and victimization may characterize increasingly radical political discourse. However, the remaining hypotheses --- specifically that lower levels of integrative complexity predict political violence and that declining integrative complexity over time precedes increasing justification of harm --- remain to be tested once automated integrative complexity measures are incorporated into the dataset. The present analysis therefore serves as a preliminary stage in a broader research program aimed at integrating linguistic indicators of moral reasoning with cognitive measures of ideological complexity in order to better understand the psychological precursors of political violence.
+Future research should extend the present findings in several ways. Increasing corpus size and improving category balance would enhance statistical power and estimate stability. Expanding longitudinal datasets with clearer temporal alignment to behavioral outcomes may also improve sensitivity to within-author changes.
 
-\subsection{Data analysis}\label{data-analysis}
+Second, integrating dictionary-based methods with more flexible natural language processing approaches (e.g., semantic embeddings, topic modeling) would allow identification of higher-order moral narratives beyond predefined lexical categories.
 
-I used R (Version 4.5.2; R Core Team, 2025) and the R-packages \emph{\}dplyr} {[}@\}R-dplyr{]}, \emph{forcats} (Version 1.0.1; Wickham, 2025a), \emph{ggplot2} (Version 4.0.2; Wickham, 2016), \emph{here} (Version 1.0.2; Müller, 2025), \emph{janitor} (Version 2.2.1; Firke, 2024), \emph{papaja} (Version 0.1.4; Aust \& Barth, 2025), \emph{purrr} (Version 1.2.1; Wickham \& Henry, 2026), \emph{readr} (Version 2.1.6; Wickham, Hester, \& Bryan, 2025), \emph{readxl} (Version 1.4.5; Wickham \& Bryan, 2025), \emph{stringr} (Version 1.6.0; Wickham, 2025b), \emph{tidyr} (Version 1.3.2; Wickham, Vaughan, \& Girlich, 2025), and \emph{tinylabels} (Version 0.2.5; Barth, 2025) for all analyses. The raw manifesto texts extracted from PDF files are not stored in a tidy format because each document appears as a single character string containing many paragraphs and potential marker occurrences. In tidy data, each variable should occupy a column and each observational unit should occupy a row. For the present analysis, the relevant observational unit is a segment of text within a document. The text-processing pipeline therefore converts each document into paragraph-level segments and then expands these segments so that each row represents a document--segment--marker observation. This structure allows marker counts and prevalence rates to be computed using grouped operations and joined with the marker dictionary metadata.
+Third, future work should explicitly model the interaction between representational content and cognitive structure. The present results suggest that linguistic indicators capture moral framing, whereas integrative complexity reflects structural constraints on reasoning. A process-level model integrating these components may better account for when ideological beliefs result in violence.
+
+Finally, extending this approach to other forms of political communication (e.g., speeches, social media) would test the generalizability of these findings and their potential applicability to broader contexts of ideological escalation.
 
 \newpage
 
@@ -554,14 +560,8 @@ I used R (Version 4.5.2; R Core Team, 2025) and the R-packages \emph{\}dplyr} {[
 
 \phantomsection\label{refs}
 \begin{CSLReferences}{1}{0}
-\bibitem[\citeproctext]{ref-R-papaja}
-Aust, F., \& Barth, M. (2025). \emph{{papaja}: {Prepare} reproducible {APA} journal articles with {R Markdown}}. \url{https://doi.org/10.32614/CRAN.package.papaja}
-
 \bibitem[\citeproctext]{ref-ballesteros2025pcc}
 Ballesteros, M. (2025). \emph{Propositional cognitive complexity} (Master's thesis). Midwestern State University.
-
-\bibitem[\citeproctext]{ref-R-tinylabels}
-Barth, M. (2025). \emph{{tinylabels}: Lightweight variable labels}. \url{https://doi.org/10.32614/CRAN.package.tinylabels}
 
 \bibitem[\citeproctext]{ref-capelos2025today}
 Capelos, T., DaVisio, K., \& Salmela, M. (2025). {``Today i die like jesus christ''}: An analysis of ressentiment in perceptions, motivations and justifications of violent extremist manifestos. \emph{Terrorism and Political Violence}, \emph{37}(8), 1031--1047.
@@ -578,15 +578,6 @@ Ebner, J., Kavanagh, C., \& Whitehouse, H. (2024). Measuring socio-psychological
 \bibitem[\citeproctext]{ref-ebner2025there}
 Ebner, J., Kavanagh, C., \& Whitehouse, H. (2025). Is there a language of terrorists? A comparative manifesto analysis. \emph{Studies in Conflict \& Terrorism}, \emph{48}(6), 601--628.
 
-\bibitem[\citeproctext]{ref-R-janitor}
-Firke, S. (2024). \emph{Janitor: Simple tools for examining and cleaning dirty data}. \url{https://doi.org/10.32614/CRAN.package.janitor}
-
-\bibitem[\citeproctext]{ref-R-here}
-Müller, K. (2025). \emph{Here: A simpler way to find your files}. \url{https://doi.org/10.32614/CRAN.package.here}
-
-\bibitem[\citeproctext]{ref-R-base}
-R Core Team. (2025). \emph{R: A language and environment for statistical computing}. Vienna, Austria: R Foundation for Statistical Computing. Retrieved from \url{https://www.R-project.org/}
-
 \bibitem[\citeproctext]{ref-schein2018theory}
 Schein, C., \& Gray, K. (2018). The theory of dyadic morality: Reinventing moral judgment by redefining harm. \emph{Personality and Social Psychology Review}, \emph{22}(1), 32--70.
 
@@ -598,27 +589,6 @@ Suedfeld, P., Tetlock, P. E., \& Streufert, S. (1992). \emph{27 conceptual/integ
 
 \bibitem[\citeproctext]{ref-whitehouse2018dying}
 Whitehouse, H. (2018). Dying for the group: Towards a general theory of extreme self-sacrifice. \emph{Behavioral and Brain Sciences}, \emph{41}, e192.
-
-\bibitem[\citeproctext]{ref-R-ggplot2}
-Wickham, H. (2016). \emph{ggplot2: Elegant graphics for data analysis}. Springer-Verlag New York. Retrieved from \url{https://ggplot2.tidyverse.org}
-
-\bibitem[\citeproctext]{ref-R-forcats}
-Wickham, H. (2025a). \emph{Forcats: Tools for working with categorical variables (factors)}. \url{https://doi.org/10.32614/CRAN.package.forcats}
-
-\bibitem[\citeproctext]{ref-R-stringr}
-Wickham, H. (2025b). \emph{Stringr: Simple, consistent wrappers for common string operations}. \url{https://doi.org/10.32614/CRAN.package.stringr}
-
-\bibitem[\citeproctext]{ref-R-readxl}
-Wickham, H., \& Bryan, J. (2025). \emph{Readxl: Read excel files}. \url{https://doi.org/10.32614/CRAN.package.readxl}
-
-\bibitem[\citeproctext]{ref-R-purrr}
-Wickham, H., \& Henry, L. (2026). \emph{Purrr: Functional programming tools}. \url{https://doi.org/10.32614/CRAN.package.purrr}
-
-\bibitem[\citeproctext]{ref-R-readr}
-Wickham, H., Hester, J., \& Bryan, J. (2025). \emph{Readr: Read rectangular text data}. \url{https://doi.org/10.32614/CRAN.package.readr}
-
-\bibitem[\citeproctext]{ref-R-tidyr}
-Wickham, H., Vaughan, D., \& Girlich, M. (2025). \emph{Tidyr: Tidy messy data}. \url{https://doi.org/10.32614/CRAN.package.tidyr}
 
 \end{CSLReferences}
 
