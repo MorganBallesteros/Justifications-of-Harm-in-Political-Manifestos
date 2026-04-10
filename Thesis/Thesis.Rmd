@@ -1178,29 +1178,45 @@ long_dat <- doc_scores_all |>
 # Extract an approximate date from trailing digits in doc_id
 # Handles cases like "harris04201999" (mddyyyy or mmddyyyy) and year-only endings.
 extract_doc_date <- function(doc_id) {
-  digits <- stringr::str_extract(doc_id, "\\\\d+$")
-  if (is.na(digits)) return(as.Date(NA))
-  year <- as.integer(stringr::str_sub(digits, -4, -1))
-  md <- stringr::str_sub(digits, 1, -5)
+  vapply(doc_id, function(x) {
+    digits <- stringr::str_extract(x, "\\d+$")
 
-  if (is.na(year)) return(as.Date(NA))
-  if (md == "" || is.na(md)) return(as.Date(sprintf("%04d-01-01", year)))
+    if (length(digits) == 0 || is.na(digits)) {
+      return(as.character(as.Date(NA)))
+    }
 
-  # md can be 1–4 digits depending on whether month/day have leading zeros
-  if (nchar(md) == 4) {
-    month <- as.integer(stringr::str_sub(md, 1, 2))
-    day <- as.integer(stringr::str_sub(md, 3, 4))
-  } else if (nchar(md) == 3) {
-    month <- as.integer(stringr::str_sub(md, 1, 1))
-    day <- as.integer(stringr::str_sub(md, 2, 3))
-  } else if (nchar(md) == 2) {
-    month <- as.integer(stringr::str_sub(md, 1, 1))
-    day <- as.integer(stringr::str_sub(md, 2, 2))
-  } else {
-    return(as.Date(sprintf("%04d-01-01", year)))
-  }
+    year <- suppressWarnings(as.integer(stringr::str_sub(digits, -4, -1)))
+    md <- stringr::str_sub(digits, 1, -5)
 
-  as.Date(sprintf("%04d-%02d-%02d", year, month, day))
+    if (is.na(year)) {
+      return(as.character(as.Date(NA)))
+    }
+
+    if (is.na(md) || md == "") {
+      return(sprintf("%04d-01-01", year))
+    }
+
+    if (nchar(md) == 4) {
+      month <- suppressWarnings(as.integer(stringr::str_sub(md, 1, 2)))
+      day   <- suppressWarnings(as.integer(stringr::str_sub(md, 3, 4)))
+    } else if (nchar(md) == 3) {
+      month <- suppressWarnings(as.integer(stringr::str_sub(md, 1, 1)))
+      day   <- suppressWarnings(as.integer(stringr::str_sub(md, 2, 3)))
+    } else if (nchar(md) == 2) {
+      month <- suppressWarnings(as.integer(stringr::str_sub(md, 1, 1)))
+      day   <- suppressWarnings(as.integer(stringr::str_sub(md, 2, 2)))
+    } else {
+      return(sprintf("%04d-01-01", year))
+    }
+
+    # Fallback if parsed month/day are invalid
+    if (is.na(month) || is.na(day) || month < 1 || month > 12 || day < 1 || day > 31) {
+      return(sprintf("%04d-01-01", year))
+    }
+
+    sprintf("%04d-%02d-%02d", year, month, day)
+  }, FUN.VALUE = character(1)) |>
+    as.Date()
 }
 
 long_dat <- long_dat |>
@@ -1212,6 +1228,12 @@ long_dat <- long_dat |>
     time_c = as.numeric(scale(time_index, center = TRUE, scale = FALSE))
   ) |>
   dplyr::ungroup()
+
+
+long_dat |>
+  dplyr::select(author, doc_id, doc_date) |>
+  dplyr::arrange(author, doc_date) |>
+  print(n = 50)
 
 # Quick check (silently stops if empty)
 stopifnot(nrow(long_dat) > 0)
