@@ -315,11 +315,11 @@ doc_scores <- doc_scores |>
 ```
 
 
-```{r check-category-merge, echo=false, include=false}
+```{r check-category-merge, echo=FALSE, include=FALSE}
 table(doc_scores$category, useNA = "ifany")
 ```
 
-```{r inspect-doc-meta-join, echo=false, include=false}
+```{r inspect-doc-meta-join, echo=FALSE, include=FALSE}
 nrow(doc_meta)
 nrow(doc_scores)
 
@@ -336,14 +336,14 @@ doc_scores %>%
 
 
 
-```{r inspect-doc-meta, echo=false, include=false}
+```{r inspect-doc-meta, echo=FALSE, include=FALSE}
 names(doc_meta)
 head(doc_meta)
 head(doc_scores$doc_id, 20)
 head(doc_meta$doc_id, 20)
 ```
 
-```{r autoic-pipeline, echo=false, include=false, message=FALSE, warning=FALSE}
+```{r autoic-pipeline, echo=FALSE, include=FALSE, message=FALSE, warning=FALSE}
 # ------------------------------------------------------------
 # AutoIC: single, coherent pipeline (import -> normalize -> doc table)
 # ------------------------------------------------------------
@@ -460,7 +460,7 @@ print(
 ```
 
 
-```{r merge-autoic, echo=FALSE, message=FALSE, warning=FALSE, include=false}
+```{r merge-autoic, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 doc_scores <- doc_scores |>
   dplyr::left_join(autoic_doc, by = c("doc_id", "corpus"))
 
@@ -544,7 +544,7 @@ autoic_keys |>
 ```
 
 
-```{r inspect-sheets, echo=false, include=false}
+```{r inspect-sheets, echo=FALSE, include=FALSE}
 autoic_files[1]
 if (tolower(tools::file_ext(autoic_files[1])) %in% c("xlsx", "xls")) {
   readxl::excel_sheets(autoic_files[1])
@@ -552,13 +552,13 @@ if (tolower(tools::file_ext(autoic_files[1])) %in% c("xlsx", "xls")) {
 ```
 
 
-```{r inspect-autoic-columns, echo=FALSE, message=FALSE, warning=FALSE, include=false}
+```{r inspect-autoic-columns, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 names(autoic_all)
 names(autoic_doc)
 ```
 
 
-```{r clean-doc-scores, echo=FALSE, message=FALSE, warning=FALSE, include=false}
+```{r clean-doc-scores, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 doc_scores <- doc_scores |>
   dplyr::select(
     doc_id, corpus, author,
@@ -572,7 +572,7 @@ doc_scores <- doc_scores |>
   )
 ```
 
-```{r prepare-analysis-data, echo=FALSE, message=FALSE, warning=FALSE, include=false}
+```{r prepare-analysis-data, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 doc_scores <- doc_scores |>
   dplyr::mutate(
     category = factor(category, levels = c("moderate", "extreme", "violent"))
@@ -600,7 +600,7 @@ if (nrow(doc_scores_ic) == 0) {
 }
 ```
 
-```{r inspect-analysis-data, echo=false, include=false}
+```{r inspect-analysis-data, echo=FALSE, include=FALSE}
 doc_scores_ic |>
   dplyr::summarise(
     n_rows = dplyr::n(),
@@ -619,7 +619,7 @@ doc_scores_ic |>
 
 
 
-```{r diagnose-model-frame-size-ic, echo=false, include=false}
+```{r diagnose-model-frame-size-ic, echo=FALSE, include=FALSE}
 form_ic <- ic ~ dyadic_harm + hopelessness + justification_for_violence +
   martyrdom_narrative + role_model_status + violent_reference + category
 
@@ -629,7 +629,7 @@ cat("nrow(doc_scores_ic) =", nrow(doc_scores_ic), "\n")
 cat("nrow(model frame used by lm) =", nrow(mf), "\n")
 ```
 
-```{r check-autoic-integration, echo=FALSE, message=FALSE, warning=FALSE, include=false}
+```{r check-autoic-integration, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 names(doc_scores)
 
 summary(doc_scores$ic)
@@ -638,7 +638,7 @@ sum(is.na(doc_scores$ic))
 
 
 
-```{r autoic-coverage, echo=FALSE, message=FALSE, warning=FALSE, include=false}
+```{r autoic-coverage, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 doc_scores |>
   dplyr::summarise(
     n_total = dplyr::n(),
@@ -656,7 +656,7 @@ doc_scores |>
   )
 ```
 
-```{r diagnose-ic-contrasts, echo=false, message=FALSE, warning=FALSE, include=false}
+```{r diagnose-ic-contrasts, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 form_ic <- ic ~ dyadic_harm + hopelessness + justification_for_violence +
   martyrdom_narrative + role_model_status + violent_reference + category
 
@@ -690,7 +690,7 @@ cat("\n---- Factor predictors with <2 levels in model frame ----\n")
 print(bad_factors)
 
 ```
-```{r verify-types-before-ic-regression, echo=false, include=false}
+```{r verify-types-before-ic-regression, echo=FALSE, include=FALSE}
 vars <- c(
   "ic",
   "dyadic_harm", "hopelessness", "justification_for_violence",
@@ -702,14 +702,14 @@ str(doc_scores_ic[, vars, drop = FALSE])
 
 ```
 
-```{r category-levels-ic, echo=false, include=false}
+```{r category-levels-ic, echo=FALSE, include=FALSE}
 print(table(doc_scores_ic$category, useNA = "ifany"))
 print(levels(doc_scores_ic$category))
 ```
 
 
 
-```{r regression-ic, echo=false, include=false, message=FALSE, warning=FALSE}
+```{r regression-ic, echo=FALSE, include=FALSE, message=FALSE, warning=FALSE}
 form_ic <- ic ~ dyadic_harm + hopelessness + justification_for_violence +
   martyrdom_narrative + role_model_status + violent_reference + category
 
