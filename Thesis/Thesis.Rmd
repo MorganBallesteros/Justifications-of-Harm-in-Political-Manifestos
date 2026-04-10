@@ -253,7 +253,7 @@ For longitudinal corpora (multiple texts per author over time), I estimate mixed
 
 # Results 
 
-```{r doc-level-dataset, echo=FALSE, message=FALSE, warning=FALSE}
+```{r doc-level-dataset, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 # Compute document total word count from segment-level word_count
 doc_word_counts <- group_scores |>
   dplyr::group_by(doc_id, corpus, author, segment_id) |>
@@ -278,7 +278,7 @@ doc_scores <- doc_group_counts |>
   )
 ```
 
-```{r load-doc-meta, echo=FALSE, message=FALSE, warning=FALSE}
+```{r load-doc-meta, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 doc_meta <- readr::read_csv(
   here::here("data/raw/doc_meta.csv"),
   show_col_types = FALSE
@@ -286,7 +286,7 @@ doc_meta <- readr::read_csv(
 ```
 
 
-```{r normalize-docids, echo=FALSE, message=FALSE, warning=FALSE}
+```{r normalize-docids, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 doc_scores <- doc_scores |>
   dplyr::mutate(doc_id = normalize_id(doc_id))
 
@@ -295,7 +295,7 @@ doc_meta <- doc_meta |>
 
 ```
 
-```{r merge-doc-meta, echo=FALSE, message=FALSE, warning=FALSE}
+```{r merge-doc-meta, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 doc_scores <- doc_scores |>
   dplyr::left_join(
     doc_meta |>
@@ -468,7 +468,7 @@ doc_scores_all <- doc_scores_all |>
   dplyr::left_join(autoic_doc, by = c("doc_id", "corpus"))
 ```
 
-```{r check-longitudinal-coverage, echo=TRUE, message=FALSE, warning=FALSE}
+```{r check-longitudinal-coverage, echo=TRUE, message=FALSE, warning=FALSE, include=FALSE}
 cat("doc_scores_all rows:", nrow(doc_scores_all), "\n")
 cat("Unique corpus values:\n")
 print(table(doc_scores_all$corpus, useNA = "ifany"))
@@ -490,7 +490,7 @@ print(
 ```
 
 
-```{r diagnose-autoic-join-coverage, echo=TRUE, include=TRUE, message=FALSE, warning=FALSE}
+```{r diagnose-autoic-join-coverage, echo=FALSE, include=FALSE, message=FALSE, warning=FALSE}
 
 cat("=== AutoIC join coverage (right after merge-autoic) ===\n")
 
@@ -1199,7 +1199,7 @@ Across models, manifesto category predicted significant differences in two lingu
 
 ## Longitudinal Analyses
 
-```{r prepare-longitudinal, echo=FALSE, message=FALSE, warning=FALSE}
+```{r prepare-longitudinal, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 # Keep only longitudinal documents with AutoIC scores
 long_dat <- doc_scores_all |>
   dplyr::filter(stringr::str_detect(tolower(corpus), "long")) |>
