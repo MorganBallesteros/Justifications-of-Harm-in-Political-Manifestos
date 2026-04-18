@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.3.8)  10 APR 2026 18:24
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.3.8)  10 APR 2026 18:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -650,18 +650,24 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 222.
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1{c:/Users/morga/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{c:/Users/morga/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}
 
-] [2] [3] [4] [5] [6]
-<Thesis_files/figure-latex/group-prevalence-plot-1.pdf, id=42, 389.455pt x 237.88875pt>
+] [2] [3] [4] [5]
+<Thesis_files/figure-latex/group-prevalence-plot-1.pdf, id=36, 389.455pt x 237.88875pt>
 File: Thesis_files/figure-latex/group-prevalence-plot-1.pdf Graphic file (type pdf)
 <use Thesis_files/figure-latex/group-prevalence-plot-1.pdf>
-Package pdftex.def Info: Thesis_files/figure-latex/group-prevalence-plot-1.pdf  used on input line 305.
+Package pdftex.def Info: Thesis_files/figure-latex/group-prevalence-plot-1.pdf  used on input line 302.
 (pdftex.def)             Requested size: 385.20255pt x 235.30003pt.
-[7 <./Thesis_files/figure-latex/group-prevalence-plot-1.pdf>]
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 346.
+
+Underfull \vbox (badness 2189) has occurred while \output is active []
+
+[6] [7 <./Thesis_files/figure-latex/group-prevalence-plot-1.pdf>]
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 343.
 (c:/Users/morga/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) [8]
-Overfull \hbox (90.7973pt too wide) in paragraph at lines 424--450
+)
+Underfull \vbox (badness 1067) has occurred while \output is active []
+
+[8]
+Overfull \hbox (90.7973pt too wide) in paragraph at lines 421--447
  [] 
  []
 
@@ -672,7 +678,7 @@ Underfull \vbox (badness 6380) has occurred while \output is active []
 <Thesis_files/figure-latex/fig-long-ic-trajectories-1.pdf, id=82, 469.755pt x 325.215pt>
 File: Thesis_files/figure-latex/fig-long-ic-trajectories-1.pdf Graphic file (type pdf)
 <use Thesis_files/figure-latex/fig-long-ic-trajectories-1.pdf>
-Package pdftex.def Info: Thesis_files/figure-latex/fig-long-ic-trajectories-1.pdf  used on input line 492.
+Package pdftex.def Info: Thesis_files/figure-latex/fig-long-ic-trajectories-1.pdf  used on input line 489.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -702,7 +708,7 @@ Here is how much of TeX's memory you used:
  36 hyphenation exceptions out of 8191
  83i,11n,93p,2245b,567s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/Users/morga/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Users/morga/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/morga/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri12.pfb>
-Output written on Thesis.pdf (18 pages, 140147 bytes).
+Output written on Thesis.pdf (18 pages, 140133 bytes).
 PDF statistics:
  260 PDF objects out of 1000 (max. 8388607)
  226 compressed objects within 3 object streams
