@@ -974,28 +974,62 @@ dat <- dat |>
     hopelessness_z = as.numeric(scale(hopelessness))
   )
 
-# Core hypothesis model (Hypothesis b)
-m_ic_only <- stats::glm(violent ~ ic_z, data = dat, family = stats::binomial())
+# Helper: Wald-based OR table so OR, CI, and p-value come from the same inferential basis
+tidy_glm_wald_or <- function(model, predictor_labels = NULL) {
+  cf <- summary(model)$coefficients
 
-tab_ic <- broom::tidy(m_ic_only, conf.int = TRUE, exponentiate = TRUE) |>
-  dplyr::filter(term != "(Intercept)") |>
-  dplyr::mutate(
-    Predictor = "Integrative Complexity (z)",
-    OR = round(estimate, 2),
-    CI = paste0("[", round(conf.low, 2), ", ", round(conf.high, 2), "]"),
-    p = dplyr::case_when(
-      p.value < .001 ~ "< .001",
-      TRUE ~ sprintf("%.3f", p.value)
-    )
+  out <- tibble::tibble(
+    term = rownames(cf),
+    estimate = cf[, "Estimate"],
+    std_error = cf[, "Std. Error"],
+    p_value = cf[, "Pr(>|z|)"]
   ) |>
-  dplyr::select(Predictor, OR, CI, p)
+    dplyr::filter(term != "(Intercept)") |>
+    dplyr::mutate(
+      OR = exp(estimate),
+      conf.low = exp(estimate - 1.96 * std_error),
+      conf.high = exp(estimate + 1.96 * std_error)
+    )
+
+  if (!is.null(predictor_labels)) {
+    out <- out |>
+      dplyr::mutate(Predictor = dplyr::recode(term, !!!predictor_labels))
+  } else {
+    out <- out |>
+      dplyr::mutate(Predictor = term)
+  }
+
+  out |>
+    dplyr::mutate(
+      OR = round(OR, 2),
+      CI = paste0("[", round(conf.low, 2), ", ", round(conf.high, 2), "]"),
+      p = dplyr::case_when(
+        p_value < .001 ~ "< .001",
+        TRUE ~ sprintf("%.3f", p_value)
+      )
+    ) |>
+    dplyr::select(Predictor, OR, CI, p)
+}
+
+# Core hypothesis model (Hypothesis b)
+m_ic_only <- stats::glm(
+  violent ~ ic_z,
+  data = dat,
+  family = stats::binomial()
+)
+
+tab_ic <- tidy_glm_wald_or(
+  m_ic_only,
+  predictor_labels = c(
+    "ic_z" = "Integrative Complexity (z)"
+  )
+)
 
 papaja::apa_table(
   tab_ic,
   caption = "Logistic regression predicting violent (vs. non-violent) category from integrative complexity.",
-  note = "OR reflects a 1 SD increase in standardized integrative complexity."
+  note = "Odds ratios (OR), 95% confidence intervals, and p values are Wald-based. OR reflects a 1 SD increase in standardized integrative complexity."
 )
-
 
 # Expanded model (Hypotheses a + b jointly, but watch sample size)
 m_full <- stats::glm(
@@ -1004,31 +1038,21 @@ m_full <- stats::glm(
   family = stats::binomial()
 )
 
-# APA-ready table for the expanded model: Odds ratios + 95% CI
-tab_or <- broom::tidy(m_full, conf.int = TRUE, exponentiate = TRUE) |>
-  dplyr::filter(term != "(Intercept)") |>
-  dplyr::mutate(
-    Predictor = dplyr::recode(
-      term,
-      "ic_z" = "Integrative Complexity (z)",
-      "dyadic_harm_z" = "Dyadic Harm (z)",
-      "justification_z" = "Justification for Violence (z)",
-      "martyrdom_z" = "Martyrdom Narrative (z)",
-      "hopelessness_z" = "Hopelessness (z)"
-    ),
-    OR = round(estimate, 2),
-    CI = paste0("[", round(conf.low, 2), ", ", round(conf.high, 2), "]"),
-    p = dplyr::case_when(
-      p.value < .001 ~ "< .001",
-      TRUE ~ sprintf("%.3f", p.value)
-    )
-  ) |>
-  dplyr::select(Predictor, OR, CI, p)
+tab_or <- tidy_glm_wald_or(
+  m_full,
+  predictor_labels = c(
+    "ic_z" = "Integrative Complexity (z)",
+    "dyadic_harm_z" = "Dyadic Harm (z)",
+    "justification_z" = "Justification for Violence (z)",
+    "martyrdom_z" = "Martyrdom Narrative (z)",
+    "hopelessness_z" = "Hopelessness (z)"
+  )
+)
 
 papaja::apa_table(
   tab_or,
   caption = "Logistic regression predicting violent (vs. non-violent) manifesto category from integrative complexity and linguistic indicators.",
-  note = "Odds ratios (OR) reflect 1 SD increases in standardized predictors."
+  note = "Odds ratios (OR), 95% confidence intervals, and p values are Wald-based. OR reflects a 1 SD increase in each standardized predictor."
 )
 
 ```
@@ -1065,9 +1089,15 @@ ggplot2::ggplot(plotdat, ggplot2::aes(x = ic_z, y = p)) +
 ```
 
 ```{r fig-violent-oddsratios, echo=FALSE, include=FALSE, message=FALSE, warning=FALSE, fig.cap="Odds ratios (95% CI) from the logistic model predicting violent (vs. non-violent) category."}
-coef_tab <- broom::tidy(m_full, conf.int = TRUE, exponentiate = TRUE) |>
+coef_tab <- as.data.frame(summary(m_full)$coefficients) |>
+  tibble::rownames_to_column("term") |>
   dplyr::filter(term != "(Intercept)") |>
-  dplyr::mutate(term = forcats::fct_rev(term))
+  dplyr::transmute(
+    term = forcats::fct_rev(term),
+    estimate = exp(Estimate),
+    conf.low = exp(Estimate - 1.96 * `Std. Error`),
+    conf.high = exp(Estimate + 1.96 * `Std. Error`)
+  )
 
 ggplot2::ggplot(coef_tab, ggplot2::aes(x = estimate, y = term)) +
   ggplot2::geom_point() +
