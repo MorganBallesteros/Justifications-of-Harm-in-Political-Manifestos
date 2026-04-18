@@ -83,6 +83,18 @@ txt_paths_long <- list.files(
 
 txt_paths <- c(txt_paths_nonlong, txt_paths_long)
 
+cat("\nCHECKING TEDK PATHS INSIDE run_scoring.R\n")
+
+tedk_found <- grep(
+  "tedk|fantasy|morality|scientific|hopefulness|capability",
+  txt_paths,
+  value = TRUE,
+  ignore.case = TRUE
+)
+
+print(tedk_found)
+cat("Number of TedK paths found:", length(tedk_found), "\n\n")
+
 cat("Non-longitudinal directory:", nonlong_dir, "\n")
 cat("Longitudinal directory:", long_dir, "\n")
 cat("TXT files found (non-longitudinal):", length(txt_paths_nonlong), "\n")
@@ -120,6 +132,14 @@ if (inherits(res, "try-error")) {
 print(names(res))
 
 scores_long <- res$scores
+
+cat("\nCHECKING TEDK IN scores_long INSIDE run_scoring.R\n")
+
+print(
+  scores_long %>%
+    dplyr::filter(author == "tedk") %>%
+    dplyr::distinct(doc_id, corpus, author)
+)
 
 print("CHECKPOINT: scores_long created")
 print(names(scores_long))
