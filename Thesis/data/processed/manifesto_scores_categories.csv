@@ -1,30 +1,38 @@
 doc_id,corpus,author,segment_id,marker_category,count,word_count,prevalence
-1160_KennedyIchbin.pdf,non_longitudinal,NA,1,harm_justification,5,691,7.23589001447178
-1160_KennedyIchbin.pdf,non_longitudinal,NA,1,violent_identification,0,691,0
-142Thunberg.pdf,non_longitudinal,NA,1,harm_justification,6,742,8.086253369272237
-142Thunberg.pdf,non_longitudinal,NA,1,violent_identification,0,742,0
-1945 Labour Party Manifesto -.pdf,non_longitudinal,NA,1,harm_justification,14,5127,2.730641700799688
-1945 Labour Party Manifesto -.pdf,non_longitudinal,NA,1,violent_identification,2,5127,0.3900916715428126
-1949_simone-de-beauvoir-the-second-sex.pdf,non_longitudinal,NA,1,harm_justification,469,350086,1.3396708237404524
-1949_simone-de-beauvoir-the-second-sex.pdf,non_longitudinal,NA,1,violent_identification,203,350086,0.5798575207234793
+1160_KennedyIchbin,non_longitudinal,NA,1,harm_justification,5,691,7.23589001447178
+1160_KennedyIchbin,non_longitudinal,NA,1,violent_identification,0,691,0
+142Thunberg,non_longitudinal,NA,1,harm_justification,6,742,8.086253369272237
+142Thunberg,non_longitudinal,NA,1,violent_identification,0,742,0
+1945 Labour Party Manifesto -,non_longitudinal,NA,1,harm_justification,14,5127,2.730641700799688
+1945 Labour Party Manifesto -,non_longitudinal,NA,1,violent_identification,2,5127,0.3900916715428126
+1949_simone-de-beauvoir-the-second-sex,non_longitudinal,NA,1,harm_justification,469,350086,1.3396708237404524
+1949_simone-de-beauvoir-the-second-sex,non_longitudinal,NA,1,violent_identification,203,350086,0.5798575207234793
 A Contribution to the History of the National Programme in Austria and in Russia_2.5.1914,longitudinal,lenin,1,harm_justification,3,770,3.896103896103896
 A Contribution to the History of the National Programme in Austria and in Russia_2.5.1914,longitudinal,lenin,1,violent_identification,0,770,0
 A Disgraceful Resolution_10.18.1912,longitudinal,lenin,1,harm_justification,2,325,6.153846153846154
 A Disgraceful Resolution_10.18.1912,longitudinal,lenin,1,violent_identification,1,325,3.076923076923077
+A Fantasy_1999,longitudinal,tedk,1,harm_justification,1,1178,0.8488964346349746
+A Fantasy_1999,longitudinal,tedk,1,violent_identification,0,1178,0
 "A House of Many Mansions, 1940",longitudinal,churchill,1,harm_justification,2,1780,1.1235955056179776
 "A House of Many Mansions, 1940",longitudinal,churchill,1,violent_identification,2,1780,1.1235955056179776
 "A Hush Over Europe, 1939",longitudinal,churchill,1,harm_justification,6,1210,4.958677685950414
 "A Hush Over Europe, 1939",longitudinal,churchill,1,violent_identification,1,1210,0.8264462809917356
 A New Chapter of World History_10.21.1912,longitudinal,lenin,1,harm_justification,3,343,8.746355685131196
 A New Chapter of World History_10.21.1912,longitudinal,lenin,1,violent_identification,0,343,0
+A Scientific American Article Theorizing a Tech Induced Apocalypse & The Unabomber's Response_1993,longitudinal,tedk,1,harm_justification,2,841,2.378121284185493
+A Scientific American Article Theorizing a Tech Induced Apocalypse & The Unabomber's Response_1993,longitudinal,tedk,1,violent_identification,0,841,0
+A Shift Towards Hopefulness_1996,longitudinal,tedk,1,harm_justification,1,638,1.567398119122257
+A Shift Towards Hopefulness_1996,longitudinal,tedk,1,violent_identification,0,638,0
 "Address to Joint Session of US Congress, 1941",longitudinal,churchill,1,harm_justification,7,3252,2.152521525215252
 "Address to Joint Session of US Congress, 1941",longitudinal,churchill,1,violent_identification,0,3252,0
 Against Pessimism_4.15.1924,longitudinal,gramsci,1,harm_justification,5,1943,2.573340195573855
 Against Pessimism_4.15.1924,longitudinal,gramsci,1,violent_identification,0,1943,0
 Against Pessimism_4.15.1924,non_longitudinal,NA,1,harm_justification,5,1943,2.573340195573855
 Against Pessimism_4.15.1924,non_longitudinal,NA,1,violent_identification,0,1943,0
-Atlantic-Charter.pdf,non_longitudinal,NA,1,harm_justification,3,1036,2.8957528957528957
-Atlantic-Charter.pdf,non_longitudinal,NA,1,violent_identification,0,1036,0
+Apology to Women_1996,longitudinal,tedk,1,harm_justification,0,292,0
+Apology to Women_1996,longitudinal,tedk,1,violent_identification,0,292,0
+Atlantic-Charter,non_longitudinal,NA,1,harm_justification,3,1036,2.8957528957528957
+Atlantic-Charter,non_longitudinal,NA,1,violent_identification,0,1036,0
 "Be Ye Men of Valour, 1940",longitudinal,churchill,1,harm_justification,3,1394,2.152080344332855
 "Be Ye Men of Valour, 1940",longitudinal,churchill,1,violent_identification,1,1394,0.7173601147776184
 Bill on the Equality of Nations and the Safeguarding of the Rights of National Minorities_5.6.1914,longitudinal,lenin,1,harm_justification,0,642,0
@@ -37,20 +45,20 @@ Cadets and Nationalists_10.24.1912,longitudinal,lenin,1,harm_justification,2,328
 Cadets and Nationalists_10.24.1912,longitudinal,lenin,1,violent_identification,0,328,0
 Cadets on the Question of the Ukraine_7.16.1913,longitudinal,lenin,1,harm_justification,8,485,16.494845360824744
 Cadets on the Question of the Ukraine_7.16.1913,longitudinal,lenin,1,violent_identification,0,485,0
-Clarity Has Been Achieved_6.5.1914,longitudinal,lenin,1,harm_justification,34,1582,21.491782553729458
+Clarity Has Been Achieved_6.5.1914,longitudinal,lenin,1,harm_justification,34,1582,21.491782553729454
 Clarity Has Been Achieved_6.5.1914,longitudinal,lenin,1,violent_identification,1,1582,0.6321112515802781
 Class War in Dublin_8.29.1913,longitudinal,lenin,1,harm_justification,5,1432,3.4916201117318435
 Class War in Dublin_8.29.1913,longitudinal,lenin,1,violent_identification,0,1432,0
-Communist Manifesto.pdf,non_longitudinal,NA,1,harm_justification,162,38554,4.201898635679825
-Communist Manifesto.pdf,non_longitudinal,NA,1,violent_identification,18,38554,0.4668776261866473
+Communist Manifesto,non_longitudinal,NA,1,harm_justification,162,38554,4.201898635679825
+Communist Manifesto,non_longitudinal,NA,1,violent_identification,18,38554,0.4668776261866473
 Concerning Certain Speeches by Workers’ Deputies_11.1912,longitudinal,lenin,1,harm_justification,21,1576,13.3248730964467
 Concerning Certain Speeches by Workers’ Deputies_11.1912,longitudinal,lenin,1,violent_identification,0,1576,0
 Concerning the Workers’ Deputies to the Duma and Their Declaration_11.1912,longitudinal,lenin,1,harm_justification,27,1298,20.801232665639446
 Concerning the Workers’ Deputies to the Duma and Their Declaration_11.1912,longitudinal,lenin,1,violent_identification,1,1298,0.7704160246533128
 Corrupting the Workers with Refined Nationalism_5.10.1914,longitudinal,lenin,1,harm_justification,1,930,1.075268817204301
 Corrupting the Workers with Refined Nationalism_5.10.1914,longitudinal,lenin,1,violent_identification,0,930,0
-DefeatingEurabia1.pdf,non_longitudinal,NA,1,harm_justification,706,134974,5.2306370115725995
-DefeatingEurabia1.pdf,non_longitudinal,NA,1,violent_identification,82,134974,0.6075244121089988
+DefeatingEurabia1,non_longitudinal,NA,1,harm_justification,706,134974,5.2306370115725995
+DefeatingEurabia1,non_longitudinal,NA,1,violent_identification,82,134974,0.6075244121089988
 "Do Your Worst; We'll Do Our Best, 1941",longitudinal,churchill,1,harm_justification,1,1236,0.8090614886731392
 "Do Your Worst; We'll Do Our Best, 1941",longitudinal,churchill,1,violent_identification,1,1236,0.8090614886731392
 Does the Jewish Proletariat Need an “Independent Political Party”__2.15.1903,longitudinal,lenin,1,harm_justification,17,1829,9.294696555494806
@@ -59,8 +67,8 @@ Draft Platform for the Fourth Congress of Social-Democrats of the Latvian Area_6
 Draft Platform for the Fourth Congress of Social-Democrats of the Latvian Area_6.25.1913,longitudinal,lenin,1,violent_identification,4,2872,1.392757660167131
 Draft Theses on National and Colonial Questions_6.5.1920,longitudinal,lenin,1,harm_justification,20,2315,8.639308855291578
 Draft Theses on National and Colonial Questions_6.5.1920,longitudinal,lenin,1,violent_identification,2,2315,0.8639308855291576
-Earnest-Manifesto-042719.pdf,non_longitudinal,NA,1,harm_justification,18,4429,4.06412282682321
-Earnest-Manifesto-042719.pdf,non_longitudinal,NA,1,violent_identification,14,4429,3.1609844208624973
+Earnest-Manifesto-042719,non_longitudinal,NA,1,harm_justification,18,4429,4.06412282682321
+Earnest-Manifesto-042719,non_longitudinal,NA,1,violent_identification,14,4429,3.1609844208624973
 Editorial Comment on Veteran’s Article_ “The National Question and the Lettish Proletariat”_2.1914,longitudinal,lenin,1,harm_justification,2,233,8.583690987124463
 Editorial Comment on Veteran’s Article_ “The National Question and the Lettish Proletariat”_2.1914,longitudinal,lenin,1,violent_identification,0,233,0
 "Every Man to His Post, 1940",longitudinal,churchill,1,harm_justification,3,1277,2.3492560689115116
@@ -73,11 +81,11 @@ For an ideological preparation of the masses_3-4.1925,longitudinal,gramsci,1,har
 For an ideological preparation of the masses_3-4.1925,longitudinal,gramsci,1,violent_identification,1,3333,0.3000300030003
 For an ideological preparation of the masses_3-4.1925,non_longitudinal,NA,1,harm_justification,26,3333,7.800780078007801
 For an ideological preparation of the masses_3-4.1925,non_longitudinal,NA,1,violent_identification,1,3333,0.3000300030003
-"Four Freedoms Speech, Franklin Delano Roosevelt (1).pdf",non_longitudinal,NA,1,harm_justification,20,3386,5.9066745422327225
-"Four Freedoms Speech, Franklin Delano Roosevelt (1).pdf",non_longitudinal,NA,1,violent_identification,3,3386,0.8860011813349085
-Full_text_I_Have_a_Dream_.pdf,non_longitudinal,NA,1,harm_justification,3,1694,1.770956316410862
-Full_text_I_Have_a_Dream_.pdf,non_longitudinal,NA,1,violent_identification,0,1694,0
-"Give Us the Tools, 1941",longitudinal,churchill,1,harm_justification,4,2796,1.430615164520744
+"Four Freedoms Speech, Franklin Delano Roosevelt (1)",non_longitudinal,NA,1,harm_justification,20,3386,5.9066745422327225
+"Four Freedoms Speech, Franklin Delano Roosevelt (1)",non_longitudinal,NA,1,violent_identification,3,3386,0.8860011813349085
+Full_text_I_Have_a_Dream_,non_longitudinal,NA,1,harm_justification,3,1694,1.770956316410862
+Full_text_I_Have_a_Dream_,non_longitudinal,NA,1,violent_identification,0,1694,0
+"Give Us the Tools, 1941",longitudinal,churchill,1,harm_justification,4,2796,1.4306151645207439
 "Give Us the Tools, 1941",longitudinal,churchill,1,violent_identification,6,2796,2.1459227467811157
 Harris_10.23.1998,longitudinal,harris,1,harm_justification,0,384,0
 Harris_10.23.1998,longitudinal,harris,1,violent_identification,0,384,0
@@ -101,7 +109,7 @@ Harris_12.3.1998,longitudinal,harris,1,harm_justification,0,365,0
 Harris_12.3.1998,longitudinal,harris,1,violent_identification,0,365,0
 Harris_4.10.1998,longitudinal,harris,1,harm_justification,1,569,1.757469244288225
 Harris_4.10.1998,longitudinal,harris,1,violent_identification,0,569,0
-Harris_4.12.1998,longitudinal,harris,1,harm_justification,2,518,3.8610038610038617
+Harris_4.12.1998,longitudinal,harris,1,harm_justification,2,518,3.8610038610038613
 Harris_4.12.1998,longitudinal,harris,1,violent_identification,0,518,0
 Harris_4.21.1998,longitudinal,harris,1,harm_justification,0,648,0
 Harris_4.21.1998,longitudinal,harris,1,violent_identification,0,648,0
@@ -119,14 +127,18 @@ Harris_6.13.1998,longitudinal,harris,1,harm_justification,1,217,4.60829493087557
 Harris_6.13.1998,longitudinal,harris,1,violent_identification,0,217,0
 Harris_7.29.1998,longitudinal,harris,1,harm_justification,1,410,2.4390243902439024
 Harris_7.29.1998,longitudinal,harris,1,violent_identification,0,410,0
-Hitler_Adolf_-_Mein_Kampf.pdf,non_longitudinal,NA,1,harm_justification,1213,272706,4.448013611728381
-Hitler_Adolf_-_Mein_Kampf.pdf,non_longitudinal,NA,1,violent_identification,129,272706,0.47303689687795647
+Hippies may end up preserving liberty through the reaction they provoke_1970,longitudinal,tedk,1,harm_justification,2,651,3.0721966205837172
+Hippies may end up preserving liberty through the reaction they provoke_1970,longitudinal,tedk,1,violent_identification,0,651,0
+Hit where it hurts_2002,longitudinal,tedk,1,harm_justification,131,3813,34.35615001311303
+Hit where it hurts_2002,longitudinal,tedk,1,violent_identification,4,3813,1.049042748492001
+Hitler_Adolf_-_Mein_Kampf,non_longitudinal,NA,1,harm_justification,1213,272706,4.448013611728381
+Hitler_Adolf_-_Mein_Kampf,non_longitudinal,NA,1,violent_identification,129,272706,0.47303689687795647
 How Does Bishop Nikon Defend the Ukrainians__9.13.1913,longitudinal,lenin,1,harm_justification,3,688,4.3604651162790695
 How Does Bishop Nikon Defend the Ukrainians__9.13.1913,longitudinal,lenin,1,violent_identification,0,688,0
 "I Have Watched This Famous Island..., 1938",longitudinal,churchill,1,harm_justification,12,4607,2.604731929672238
 "I Have Watched This Famous Island..., 1938",longitudinal,churchill,1,violent_identification,0,4607,0
-Imperium - Yockey.pdf,non_longitudinal,NA,1,harm_justification,1604,185037,8.668536562957678
-Imperium - Yockey.pdf,non_longitudinal,NA,1,violent_identification,37,185037,0.1999600079984003
+Imperium - Yockey,non_longitudinal,NA,1,harm_justification,1604,185037,8.668536562957678
+Imperium - Yockey,non_longitudinal,NA,1,violent_identification,37,185037,0.1999600079984003
 Is a Compulsory Official Language Needed__1.18.1914,longitudinal,lenin,1,harm_justification,2,900,2.2222222222222223
 Is a Compulsory Official Language Needed__1.18.1914,longitudinal,lenin,1,violent_identification,0,900,0
 "It Is Undemocratic, Citizen Kerensky!_6.15.1917",longitudinal,lenin,1,harm_justification,3,466,6.437768240343348
@@ -139,14 +151,14 @@ LPM_1910,longitudinal,lpm,1,harm_justification,3,567,5.291005291005291
 LPM_1910,longitudinal,lpm,1,violent_identification,1,567,1.763668430335097
 LPM_1910.12,longitudinal,lpm,1,harm_justification,3,264,11.363636363636363
 LPM_1910.12,longitudinal,lpm,1,violent_identification,1,264,3.787878787878788
-LPM_1918,longitudinal,lpm,1,harm_justification,13,1147,11.333914559721013
+LPM_1918,longitudinal,lpm,1,harm_justification,13,1147,11.333914559721011
 LPM_1918,longitudinal,lpm,1,violent_identification,1,1147,0.8718395815170009
 LPM_1923,longitudinal,lpm,1,harm_justification,5,1163,4.299226139294927
 LPM_1923,longitudinal,lpm,1,violent_identification,0,1163,0
 LPM_1924,longitudinal,lpm,1,harm_justification,11,2261,4.865103936311367
 LPM_1924,longitudinal,lpm,1,violent_identification,1,2261,0.4422821760283061
 LPM_1929,longitudinal,lpm,1,harm_justification,12,2538,4.7281323877068555
-LPM_1929,longitudinal,lpm,1,violent_identification,3,2538,1.182033096926714
+LPM_1929,longitudinal,lpm,1,violent_identification,3,2538,1.1820330969267139
 LPM_1931,longitudinal,lpm,1,harm_justification,10,2120,4.716981132075471
 LPM_1931,longitudinal,lpm,1,violent_identification,1,2120,0.4716981132075472
 LPM_1935,longitudinal,lpm,1,harm_justification,9,1059,8.4985835694051
@@ -178,9 +190,9 @@ LPM_1983,longitudinal,lpm,1,violent_identification,60,22750,2.6373626373626373
 LPM_1987,longitudinal,lpm,1,harm_justification,42,9200,4.565217391304349
 LPM_1987,longitudinal,lpm,1,violent_identification,19,9200,2.0652173913043477
 LPM_1992,longitudinal,lpm,1,harm_justification,30,6281,4.776309504855914
-LPM_1992,longitudinal,lpm,1,violent_identification,8,6281,1.273682534628244
+LPM_1992,longitudinal,lpm,1,violent_identification,8,6281,1.2736825346282439
 LPM_1997,longitudinal,lpm,1,harm_justification,124,17829,6.954961018565259
-LPM_1997,longitudinal,lpm,1,violent_identification,35,17829,1.9630938358853551
+LPM_1997,longitudinal,lpm,1,violent_identification,35,17829,1.9630938358853554
 LPM_2001,longitudinal,lpm,1,harm_justification,65,20733,3.1350986350262864
 LPM_2001,longitudinal,lpm,1,violent_identification,66,20733,3.1833309217189987
 Lessons_5.5.1922,longitudinal,gramsci,1,harm_justification,1,930,1.075268817204301
@@ -195,8 +207,8 @@ Manifesto To The Ukrainian People_12.3.1917,longitudinal,lenin,1,harm_justificat
 Manifesto To The Ukrainian People_12.3.1917,longitudinal,lenin,1,violent_identification,2,722,2.770083102493075
 "Mass Effects in Modern Life, 1925",longitudinal,churchill,1,harm_justification,6,4034,1.487357461576599
 "Mass Effects in Modern Life, 1925",longitudinal,churchill,1,violent_identification,6,4034,1.487357461576599
-"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi.pdf",non_longitudinal,NA,1,harm_justification,355,157148,2.2590169776261866
-"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi.pdf",non_longitudinal,NA,1,violent_identification,32,157148,0.2036296993916563
+"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi",non_longitudinal,NA,1,harm_justification,355,157148,2.2590169776261866
+"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi",non_longitudinal,NA,1,violent_identification,32,157148,0.2036296993916563
 Maximalism and Extremism_7.2.1925,longitudinal,gramsci,1,harm_justification,0,436,0
 Maximalism and Extremism_7.2.1925,longitudinal,gramsci,1,violent_identification,0,436,0
 Maximalism and Extremism_7.2.1925,non_longitudinal,NA,1,harm_justification,0,436,0
@@ -205,6 +217,10 @@ Men of Flesh and Blood_5.8.1921,longitudinal,gramsci,1,harm_justification,2,612,
 Men of Flesh and Blood_5.8.1921,longitudinal,gramsci,1,violent_identification,1,612,1.6339869281045751
 Men of Flesh and Blood_5.8.1921,non_longitudinal,NA,1,harm_justification,2,612,3.2679738562091503
 Men of Flesh and Blood_5.8.1921,non_longitudinal,NA,1,violent_identification,1,612,1.6339869281045751
+Morality and Revolution First Edition_1999,longitudinal,tedk,1,harm_justification,48,4698,10.217113665389528
+Morality and Revolution First Edition_1999,longitudinal,tedk,1,violent_identification,3,4698,0.6385696040868455
+Morality and Revolution Third Edition_2001,longitudinal,tedk,1,harm_justification,42,4624,9.083044982698961
+Morality and Revolution Third Edition_2001,longitudinal,tedk,1,violent_identification,5,4624,1.0813148788927336
 More About “Nationalism”_2.20.1914,longitudinal,lenin,1,harm_justification,3,668,4.491017964071856
 More About “Nationalism”_2.20.1914,longitudinal,lenin,1,violent_identification,0,668,0
 National Equality_4.16.1914,longitudinal,lenin,1,harm_justification,1,535,1.8691588785046729
@@ -237,22 +253,28 @@ Once More on the Segregation of the Schools According to Nationality_12.17.1913,
 Once More on the Segregation of the Schools According to Nationality_12.17.1913,longitudinal,lenin,1,violent_identification,2,826,2.4213075060532687
 "Penny-in-the-Slot Politics, 1934",longitudinal,churchill,1,harm_justification,12,1776,6.756756756756757
 "Penny-in-the-Slot Politics, 1934",longitudinal,churchill,1,violent_identification,0,1776,0
-"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002.pdf_through_1998",non_longitudinal,NA,1,harm_justification,1001,342494,2.9226789374412396
-"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002.pdf_through_1998",non_longitudinal,NA,1,violent_identification,171,342494,0.49927881948296904
+"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002_through_1998",non_longitudinal,NA,1,harm_justification,1001,342494,2.9226789374412396
+"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002_through_1998",non_longitudinal,NA,1,violent_identification,171,342494,0.49927881948296904
 Political Lessons_3.1914,longitudinal,lenin,1,harm_justification,7,598,11.705685618729095
 Political Lessons_3.1914,longitudinal,lenin,1,violent_identification,3,598,5.016722408026756
-PortHuronStatement.pdf,non_longitudinal,NA,1,harm_justification,78,8737,8.927549502117431
-PortHuronStatement.pdf,non_longitudinal,NA,1,violent_identification,2,8737,0.22891152569531875
+PortHuronStatement,non_longitudinal,NA,1,harm_justification,78,8737,8.927549502117431
+PortHuronStatement,non_longitudinal,NA,1,violent_identification,2,8737,0.22891152569531875
+Progress versus Liberty_1972,longitudinal,tedk,1,harm_justification,15,6369,2.3551577955723033
+Progress versus Liberty_1972,longitudinal,tedk,1,violent_identification,3,6369,0.4710315591144607
+Progress versus Wilderness_1979,longitudinal,tedk,1,harm_justification,4,1580,2.5316455696202533
+Progress versus Wilderness_1979,longitudinal,tedk,1,violent_identification,0,1580,0
+Reflections on Purposeful Work_1983,longitudinal,tedk,1,harm_justification,6,4911,1.2217470983506415
+Reflections on Purposeful Work_1983,longitudinal,tedk,1,violent_identification,1,4911,0.20362451639177356
 "Resolutions of the Summer, 1913_9.1913",longitudinal,lenin,1,harm_justification,50,3930,12.72264631043257
 "Resolutions of the Summer, 1913_9.1913",longitudinal,lenin,1,violent_identification,2,3930,0.5089058524173028
-Revolt Against The Modern World - Julius Evola.pdf,non_longitudinal,NA,1,harm_justification,520,194704,2.670720683704495
-Revolt Against The Modern World - Julius Evola.pdf,non_longitudinal,NA,1,violent_identification,123,194704,0.6317281617224093
-"Russian Imperial Manifesto, Announcing the Start of War in August 1914.pdf",non_longitudinal,NA,1,harm_justification,0,447,0
-"Russian Imperial Manifesto, Announcing the Start of War in August 1914.pdf",non_longitudinal,NA,1,violent_identification,1,447,2.237136465324385
+Revolt Against The Modern World - Julius Evola,non_longitudinal,NA,1,harm_justification,520,194704,2.670720683704495
+Revolt Against The Modern World - Julius Evola,non_longitudinal,NA,1,violent_identification,123,194704,0.6317281617224093
+"Russian Imperial Manifesto, Announcing the Start of War in August 1914",non_longitudinal,NA,1,harm_justification,0,447,0
+"Russian Imperial Manifesto, Announcing the Start of War in August 1914",non_longitudinal,NA,1,violent_identification,1,447,2.237136465324385
 Separatists in Russia and Separatists in Austria_5.8.1913,longitudinal,lenin,1,harm_justification,0,610,0
 Separatists in Russia and Separatists in Austria_5.8.1913,longitudinal,lenin,1,violent_identification,0,610,0
 "Some Chicken; Some Neck, 1941",longitudinal,churchill,1,harm_justification,6,3535,1.6973125884016973
-"Some Chicken; Some Neck, 1941",longitudinal,churchill,1,violent_identification,7,3535,1.98019801980198
+"Some Chicken; Some Neck, 1941",longitudinal,churchill,1,violent_identification,7,3535,1.9801980198019802
 SotU-1964,longitudinal,sotu,1,harm_justification,9,3239,2.778635381290522
 SotU-1964,longitudinal,sotu,1,violent_identification,2,3239,0.6174745291756715
 SotU-1967,longitudinal,sotu,1,harm_justification,20,7242,2.7616680475006907
@@ -264,13 +286,13 @@ SotU-1982,longitudinal,sotu,1,violent_identification,2,5290,0.3780718336483932
 SotU-1983,longitudinal,sotu,1,harm_justification,28,5681,4.928709734201726
 SotU-1983,longitudinal,sotu,1,violent_identification,5,5681,0.8801267382503081
 SotU-1984,longitudinal,sotu,1,harm_justification,13,5061,2.5686623196996643
-SotU-1984,longitudinal,sotu,1,violent_identification,5,5061,0.9879470460383324
+SotU-1984,longitudinal,sotu,1,violent_identification,5,5061,0.9879470460383323
 SotU-1985,longitudinal,sotu,1,harm_justification,18,4310,4.176334106728539
 SotU-1985,longitudinal,sotu,1,violent_identification,9,4310,2.0881670533642693
 SotU-1986,longitudinal,sotu,1,harm_justification,20,3561,5.616399887672002
 SotU-1986,longitudinal,sotu,1,violent_identification,3,3561,0.8424599831508003
 SotU-1987,longitudinal,sotu,1,harm_justification,12,3893,3.0824556896994606
-SotU-1987,longitudinal,sotu,1,violent_identification,4,3893,1.0274852298998205
+SotU-1987,longitudinal,sotu,1,violent_identification,4,3893,1.0274852298998203
 SotU-1988,longitudinal,sotu,1,harm_justification,29,4976,5.827974276527331
 SotU-1988,longitudinal,sotu,1,violent_identification,4,4976,0.8038585209003215
 SotU-1991,longitudinal,sotu,1,harm_justification,17,4020,4.2288557213930345
@@ -282,7 +304,7 @@ SotU-1995,longitudinal,sotu,1,violent_identification,10,9403,1.0634903754121026
 SotU-1996,longitudinal,sotu,1,harm_justification,16,6438,2.485243864554209
 SotU-1996,longitudinal,sotu,1,violent_identification,12,6438,1.863932898415657
 SotU-1997,longitudinal,sotu,1,harm_justification,31,6854,4.522906332068865
-SotU-1997,longitudinal,sotu,1,violent_identification,8,6854,1.1672016340822875
+SotU-1997,longitudinal,sotu,1,violent_identification,8,6854,1.1672016340822877
 SotU-1998,longitudinal,sotu,1,harm_justification,28,7436,3.765465303926842
 SotU-1998,longitudinal,sotu,1,violent_identification,13,7436,1.7482517482517483
 SotU-1999,longitudinal,sotu,1,harm_justification,25,7628,3.2773990561090716
@@ -312,13 +334,13 @@ SotU-2012,longitudinal,sotu,1,violent_identification,7,7270,0.9628610729023384
 SotU-2022,longitudinal,sotu,1,harm_justification,22,8124,2.708025603151157
 SotU-2022,longitudinal,sotu,1,violent_identification,10,8124,1.2309207287050714
 SotU-2023,longitudinal,sotu,1,harm_justification,31,9783,3.168762138403353
-SotU-2023,longitudinal,sotu,1,violent_identification,9,9783,0.9199632014719412
+SotU-2023,longitudinal,sotu,1,violent_identification,9,9783,0.9199632014719411
 SotU-2024,longitudinal,sotu,1,harm_justification,49,8689,5.639314075267579
 SotU-2024,longitudinal,sotu,1,violent_identification,3,8689,0.3452641270571988
 SotU-2026,longitudinal,sotu,1,harm_justification,16,10899,1.4680245894118726
 SotU-2026,longitudinal,sotu,1,violent_identification,5,10899,0.4587576841912102
 Speech At The First All-Russia Congress Of The Navy_11.22.1917,longitudinal,lenin,1,harm_justification,5,2033,2.459419576979833
-Speech At The First All-Russia Congress Of The Navy_11.22.1917,longitudinal,lenin,1,violent_identification,2,2033,0.9837678307919332
+Speech At The First All-Russia Congress Of The Navy_11.22.1917,longitudinal,lenin,1,violent_identification,2,2033,0.9837678307919331
 Speech to the Italian parliament_5.16.1925,longitudinal,gramsci,1,harm_justification,23,3493,6.584597766962497
 Speech to the Italian parliament_5.16.1925,longitudinal,gramsci,1,violent_identification,0,3493,0
 Speech to the Italian parliament_5.16.1925,non_longitudinal,NA,1,harm_justification,23,3493,6.584597766962497
@@ -327,6 +349,10 @@ Sterile and Negative Criticism_9.30.1925,longitudinal,gramsci,1,harm_justificati
 Sterile and Negative Criticism_9.30.1925,longitudinal,gramsci,1,violent_identification,0,1056,0
 Sterile and Negative Criticism_9.30.1925,non_longitudinal,NA,1,harm_justification,5,1056,4.734848484848485
 Sterile and Negative Criticism_9.30.1925,non_longitudinal,NA,1,violent_identification,0,1056,0
+Suggestions for Earth First!ers_1995,longitudinal,tedk,1,harm_justification,58,2090,27.751196172248804
+Suggestions for Earth First!ers_1995,longitudinal,tedk,1,violent_identification,1,2090,0.4784688995215311
+Ted Kaczynski’s Comments on Timothy McVeigh_2000,longitudinal,tedk,1,harm_justification,8,1923,4.160166406656266
+Ted Kaczynski’s Comments on Timothy McVeigh_2000,longitudinal,tedk,1,violent_identification,0,1923,0
 The Agrarian Struggle in Italy_8.31.1921,longitudinal,gramsci,1,harm_justification,3,836,3.5885167464114835
 The Agrarian Struggle in Italy_8.31.1921,longitudinal,gramsci,1,violent_identification,1,836,1.1961722488038278
 The Agrarian Struggle in Italy_8.31.1921,non_longitudinal,NA,1,harm_justification,3,836,3.5885167464114835
@@ -371,9 +397,9 @@ The National Equality Bill_3.28.1914,longitudinal,lenin,1,harm_justification,3,5
 The National Equality Bill_3.28.1914,longitudinal,lenin,1,violent_identification,1,529,1.890359168241966
 The National Programme of the R.S.D.L.P._12.15.1913,longitudinal,lenin,1,harm_justification,26,2372,10.961214165261383
 The National Programme of the R.S.D.L.P._12.15.1913,longitudinal,lenin,1,violent_identification,0,2372,0
-The National Question in Our Programme_7.15.1903,longitudinal,lenin,1,harm_justification,37,3403,10.87275933000294
+The National Question in Our Programme_7.15.1903,longitudinal,lenin,1,harm_justification,37,3403,10.872759330002939
 The National Question in Our Programme_7.15.1903,longitudinal,lenin,1,violent_identification,5,3403,1.4692918013517484
-The Nationalisation of Jewish Schools_8.18.1913,longitudinal,lenin,1,harm_justification,5,487,10.26694045174538
+The Nationalisation of Jewish Schools_8.18.1913,longitudinal,lenin,1,harm_justification,5,487,10.266940451745379
 The Nationalisation of Jewish Schools_8.18.1913,longitudinal,lenin,1,violent_identification,0,487,0
 The Nationality of Pupils in Russian Schools_12.14.1913,longitudinal,lenin,1,harm_justification,8,974,8.213552361396305
 The Nationality of Pupils in Russian Schools_12.14.1913,longitudinal,lenin,1,violent_identification,0,974,0
@@ -400,7 +426,7 @@ The Social Significance of the Serbo-Bulgarian Victories_11.7.1912,longitudinal,
 The Socialist Revolution and the Right of Nations to Self-Determination_2.16,longitudinal,lenin,1,harm_justification,86,4502,19.102621057307864
 The Socialist Revolution and the Right of Nations to Self-Determination_2.16,longitudinal,lenin,1,violent_identification,2,4502,0.444247001332741
 The Tsar Against the Finnish People_10.31.1909,longitudinal,lenin,1,harm_justification,6,1084,5.535055350553505
-The Tsar Against the Finnish People_10.31.1909,longitudinal,lenin,1,violent_identification,2,1084,1.8450184501845015
+The Tsar Against the Finnish People_10.31.1909,longitudinal,lenin,1,violent_identification,2,1084,1.8450184501845017
 The Turin factory council movement_3.14.1921,longitudinal,gramsci,1,harm_justification,11,2990,3.6789297658862874
 The Turin factory council movement_3.14.1921,longitudinal,gramsci,1,violent_identification,2,2990,0.6688963210702341
 The Turin factory council movement_3.14.1921,non_longitudinal,NA,1,harm_justification,11,2990,3.6789297658862874
@@ -413,8 +439,12 @@ The Vatican_3.12.1924,non_longitudinal,NA,1,harm_justification,8,1493,5.35833891
 The Vatican_3.12.1924,non_longitudinal,NA,1,violent_identification,3,1493,2.0093770931011385
 The War and Russian Social-Democracy_9.28.1914,longitudinal,lenin,1,harm_justification,26,2691,9.66183574879227
 The War and Russian Social-Democracy_9.28.1914,longitudinal,lenin,1,violent_identification,2,2691,0.7432181345224824
+The Wave of the Future_1970,longitudinal,tedk,1,harm_justification,5,820,6.097560975609756
+The Wave of the Future_1970,longitudinal,tedk,1,violent_identification,0,820,0
 The Working Class and the National Question_5.10.1913,longitudinal,lenin,1,harm_justification,6,534,11.235955056179774
 The Working Class and the National Question_5.10.1913,longitudinal,lenin,1,violent_identification,0,534,0
+The capability for many to get away with evil is necessary for liberty to exist_1970,longitudinal,tedk,1,harm_justification,16,1725,9.27536231884058
+The capability for many to get away with evil is necessary for liberty to exist_1970,longitudinal,tedk,1,violent_identification,2,1725,1.1594202898550725
 The events of 2-3 December (1919)_12.6-13.19,longitudinal,gramsci,1,harm_justification,7,1841,3.802281368821293
 The events of 2-3 December (1919)_12.6-13.19,longitudinal,gramsci,1,violent_identification,1,1841,0.5431830526887561
 The events of 2-3 December (1919)_12.6-13.19,non_longitudinal,NA,1,harm_justification,7,1841,3.802281368821293
@@ -423,6 +453,8 @@ The grimace of Gwynplaine_8.30.1921,longitudinal,gramsci,1,harm_justification,3,
 The grimace of Gwynplaine_8.30.1921,longitudinal,gramsci,1,violent_identification,0,871,0
 The grimace of Gwynplaine_8.30.1921,non_longitudinal,NA,1,harm_justification,3,871,3.4443168771526977
 The grimace of Gwynplaine_8.30.1921,non_longitudinal,NA,1,violent_identification,0,871,0
+The hyper-specialization of labor stifles freedom_1969,longitudinal,tedk,1,harm_justification,8,4385,1.8244013683010263
+The hyper-specialization of labor stifles freedom_1969,longitudinal,tedk,1,violent_identification,0,4385,0
 The parties and the Masses_9.25.1921,longitudinal,gramsci,1,harm_justification,9,1382,6.512301013024602
 The parties and the Masses_9.25.1921,longitudinal,gramsci,1,violent_identification,1,1382,0.723589001447178
 The parties and the Masses_9.25.1921,non_longitudinal,NA,1,harm_justification,9,1382,6.512301013024602
@@ -438,7 +470,7 @@ The two fascisms_8.25.1921,non_longitudinal,NA,1,violent_identification,2,879,2.
 The “Vexed Questions” of Our Party_11.1912,longitudinal,lenin,1,harm_justification,7,2638,2.65352539802881
 The “Vexed Questions” of Our Party_11.1912,longitudinal,lenin,1,violent_identification,0,2638,0
 "Their Finest Hour, 1940",longitudinal,churchill,1,harm_justification,7,4403,1.589825119236884
-"Their Finest Hour, 1940",longitudinal,churchill,1,violent_identification,6,4403,1.3627072450601865
+"Their Finest Hour, 1940",longitudinal,churchill,1,violent_identification,6,4403,1.3627072450601863
 Theses on the National Question_6.1913,longitudinal,lenin,1,harm_justification,45,2769,16.25135427952329
 Theses on the National Question_6.1913,longitudinal,lenin,1,violent_identification,0,2769,0
 To the Communists of Turkestan_11.22.1919,longitudinal,lenin,1,harm_justification,0,212,0
@@ -464,19 +496,19 @@ Vekhi Contributors and Nationalism_4.1913,longitudinal,lenin,1,violent_identific
 "We Shall Fight on the Beaches, 1940",longitudinal,churchill,1,harm_justification,10,3807,2.6267402153926978
 "We Shall Fight on the Beaches, 1940",longitudinal,churchill,1,violent_identification,1,3807,0.2626740215392698
 "Winston Churchill's Broadcast on the Soviet-German War, 1941",longitudinal,churchill,1,harm_justification,3,2040,1.4705882352941175
-"Winston Churchill's Broadcast on the Soviet-German War, 1941",longitudinal,churchill,1,violent_identification,8,2040,3.92156862745098
+"Winston Churchill's Broadcast on the Soviet-German War, 1941",longitudinal,churchill,1,violent_identification,8,2040,3.9215686274509802
 american_civilization.1945,longitudinal,evola,1,harm_justification,22,3231,6.809037449705974
 american_civilization.1945,longitudinal,evola,1,violent_identification,0,3231,0
-anders_breivik_-_2083_manifesto_-_2011.pdf_book_one,non_longitudinal,NA,1,harm_justification,627,147388,4.254077672537791
-anders_breivik_-_2083_manifesto_-_2011.pdf_book_one,non_longitudinal,NA,1,violent_identification,90,147388,0.610633158737482
-brenton-tarrant-the-great-replacement-manifesto.pdf,non_longitudinal,NA,1,harm_justification,91,16984,5.35798398492699
-brenton-tarrant-the-great-replacement-manifesto.pdf,non_longitudinal,NA,1,violent_identification,34,16984,2.0018841262364577
+anders_breivik_-_2083_manifesto_-_2011_book_one,non_longitudinal,NA,1,harm_justification,627,147388,4.254077672537791
+anders_breivik_-_2083_manifesto_-_2011_book_one,non_longitudinal,NA,1,violent_identification,90,147388,0.610633158737482
+brenton-tarrant-the-great-replacement-manifesto,non_longitudinal,NA,1,harm_justification,91,16984,5.35798398492699
+brenton-tarrant-the-great-replacement-manifesto,non_longitudinal,NA,1,violent_identification,34,16984,2.0018841262364577
 character_3.3.1917,longitudinal,gramsci,1,harm_justification,0,582,0
 character_3.3.1917,longitudinal,gramsci,1,violent_identification,0,582,0
 character_3.3.1917,non_longitudinal,NA,1,harm_justification,0,582,0
 character_3.3.1917,non_longitudinal,NA,1,violent_identification,0,582,0
-cho_manifesto_1.1.pdf,non_longitudinal,NA,1,harm_justification,4,2184,1.8315018315018312
-cho_manifesto_1.1.pdf,non_longitudinal,NA,1,violent_identification,2,2184,0.9157509157509156
+cho_manifesto_1.1,non_longitudinal,NA,1,harm_justification,4,2184,1.8315018315018314
+cho_manifesto_1.1,non_longitudinal,NA,1,violent_identification,2,2184,0.9157509157509157
 chronicles of the new order_9.13.1919,longitudinal,gramsci,1,harm_justification,1,507,1.9723865877712032
 chronicles of the new order_9.13.1919,longitudinal,gramsci,1,violent_identification,0,507,0
 chronicles of the new order_9.13.1919,non_longitudinal,NA,1,harm_justification,1,507,1.9723865877712032
@@ -489,16 +521,16 @@ degeneration.1938,longitudinal,evola,1,harm_justification,5,2118,2.3607176581680
 degeneration.1938,longitudinal,evola,1,violent_identification,0,2118,0
 fascism.1928,longitudinal,evola,1,harm_justification,4,1081,3.700277520814061
 fascism.1928,longitudinal,evola,1,violent_identification,0,1081,0
-islamic_government_governance_of_the_jurist.pdf,non_longitudinal,NA,1,harm_justification,191,68475,2.789339174881343
-islamic_government_governance_of_the_jurist.pdf,non_longitudinal,NA,1,violent_identification,25,68475,0.3650967506389194
+islamic_government_governance_of_the_jurist,non_longitudinal,NA,1,harm_justification,191,68475,2.789339174881343
+islamic_government_governance_of_the_jurist,non_longitudinal,NA,1,violent_identification,25,68475,0.36509675063891933
 jihad.1934,longitudinal,evola,1,harm_justification,1,2102,0.4757373929590866
 jihad.1934,longitudinal,evola,1,violent_identification,0,2102,0
 men or machines_12.24.1916,longitudinal,gramsci,1,harm_justification,3,1155,2.5974025974025974
 men or machines_12.24.1916,longitudinal,gramsci,1,violent_identification,0,1155,0
 men or machines_12.24.1916,non_longitudinal,NA,1,harm_justification,3,1155,2.5974025974025974
 men or machines_12.24.1916,non_longitudinal,NA,1,violent_identification,0,1155,0
-milestones-f1.pdf,non_longitudinal,NA,1,harm_justification,366,68070,5.376817981489643
-milestones-f1.pdf,non_longitudinal,NA,1,violent_identification,15,68070,0.22036139268400176
+milestones-f1,non_longitudinal,NA,1,harm_justification,366,68070,5.376817981489643
+milestones-f1,non_longitudinal,NA,1,violent_identification,15,68070,0.22036139268400176
 neo-pagans.1942,longitudinal,evola,1,harm_justification,6,2536,2.365930599369085
 neo-pagans.1942,longitudinal,evola,1,violent_identification,0,2536,0
 occult.1953,longitudinal,evola,1,harm_justification,4,1025,3.902439024390244
@@ -507,8 +539,8 @@ one year of history_3.16.1918,longitudinal,gramsci,1,harm_justification,4,917,4.
 one year of history_3.16.1918,longitudinal,gramsci,1,violent_identification,0,917,0
 one year of history_3.16.1918,non_longitudinal,NA,1,harm_justification,4,917,4.362050163576881
 one year of history_3.16.1918,non_longitudinal,NA,1,violent_identification,0,917,0
-patrick_crusius_-_the_inconvenient_truth_about_me.pdf,non_longitudinal,NA,1,harm_justification,10,2420,4.132231404958678
-patrick_crusius_-_the_inconvenient_truth_about_me.pdf,non_longitudinal,NA,1,violent_identification,6,2420,2.479338842975207
+patrick_crusius_-_the_inconvenient_truth_about_me,non_longitudinal,NA,1,harm_justification,10,2420,4.132231404958678
+patrick_crusius_-_the_inconvenient_truth_about_me,non_longitudinal,NA,1,violent_identification,6,2420,2.479338842975207
 red ink_4.4.1919,longitudinal,gramsci,1,harm_justification,0,630,0
 red ink_4.4.1919,longitudinal,gramsci,1,violent_identification,0,630,0
 red ink_4.4.1919,non_longitudinal,NA,1,harm_justification,0,630,0
@@ -517,23 +549,23 @@ revolutionaries and elections_11.15.1919,longitudinal,gramsci,1,harm_justificati
 revolutionaries and elections_11.15.1919,longitudinal,gramsci,1,violent_identification,0,953,0
 revolutionaries and elections_11.15.1919,non_longitudinal,NA,1,harm_justification,10,953,10.49317943336831
 revolutionaries and elections_11.15.1919,non_longitudinal,NA,1,violent_identification,0,953,0
-rodger_manifesto.pdf,non_longitudinal,NA,1,harm_justification,128,109530,1.1686295991965672
-rodger_manifesto.pdf,non_longitudinal,NA,1,violent_identification,6,109530,0.05477951246233908
-roofmanifesto.pdf,non_longitudinal,NA,1,harm_justification,4,2460,1.6260162601626016
-roofmanifesto.pdf,non_longitudinal,NA,1,violent_identification,0,2460,0
-split or disorder_12.11-18.1920,longitudinal,gramsci,1,harm_justification,2,931,2.148227712137486
+rodger_manifesto,non_longitudinal,NA,1,harm_justification,128,109530,1.1686295991965672
+rodger_manifesto,non_longitudinal,NA,1,violent_identification,6,109530,0.054779512462339086
+roofmanifesto,non_longitudinal,NA,1,harm_justification,4,2460,1.6260162601626016
+roofmanifesto,non_longitudinal,NA,1,violent_identification,0,2460,0
+split or disorder_12.11-18.1920,longitudinal,gramsci,1,harm_justification,2,931,2.1482277121374866
 split or disorder_12.11-18.1920,longitudinal,gramsci,1,violent_identification,0,931,0
-split or disorder_12.11-18.1920,non_longitudinal,NA,1,harm_justification,2,931,2.148227712137486
+split or disorder_12.11-18.1920,non_longitudinal,NA,1,harm_justification,2,931,2.1482277121374866
 split or disorder_12.11-18.1920,non_longitudinal,NA,1,violent_identification,0,931,0
-ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post.pdf,non_longitudinal,NA,1,harm_justification,301,35252,8.538522637013502
-ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post.pdf,non_longitudinal,NA,1,violent_identification,13,35252,0.3687734029274935
-the ape people_1.2.1921,longitudinal,gramsci,1,harm_justification,11,991,11.09989909182644
+ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post,non_longitudinal,NA,1,harm_justification,301,35252,8.538522637013502
+ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post,non_longitudinal,NA,1,violent_identification,13,35252,0.3687734029274935
+the ape people_1.2.1921,longitudinal,gramsci,1,harm_justification,11,991,11.099899091826439
 the ape people_1.2.1921,longitudinal,gramsci,1,violent_identification,1,991,1.0090817356205852
-the ape people_1.2.1921,non_longitudinal,NA,1,harm_justification,11,991,11.09989909182644
+the ape people_1.2.1921,non_longitudinal,NA,1,harm_justification,11,991,11.099899091826439
 the ape people_1.2.1921,non_longitudinal,NA,1,violent_identification,1,991,1.0090817356205852
-the conquest of the state_7.12.1919,longitudinal,gramsci,1,harm_justification,20,2212,9.041591320072332
+the conquest of the state_7.12.1919,longitudinal,gramsci,1,harm_justification,20,2212,9.041591320072333
 the conquest of the state_7.12.1919,longitudinal,gramsci,1,violent_identification,0,2212,0
-the conquest of the state_7.12.1919,non_longitudinal,NA,1,harm_justification,20,2212,9.041591320072332
+the conquest of the state_7.12.1919,non_longitudinal,NA,1,harm_justification,20,2212,9.041591320072333
 the conquest of the state_7.12.1919,non_longitudinal,NA,1,violent_identification,0,2212,0
 the development of the revolution_9.13.1919,longitudinal,gramsci,1,harm_justification,12,1469,8.168822328114363
 the development of the revolution_9.13.1919,longitudinal,gramsci,1,violent_identification,0,1469,0
@@ -547,12 +579,12 @@ the problem of power_11.29.1919,longitudinal,gramsci,1,harm_justification,19,180
 the problem of power_11.29.1919,longitudinal,gramsci,1,violent_identification,0,1800,0
 the problem of power_11.29.1919,non_longitudinal,NA,1,harm_justification,19,1800,10.555555555555555
 the problem of power_11.29.1919,non_longitudinal,NA,1,violent_identification,0,1800,0
-the state and revolution - lenin.pdf,non_longitudinal,NA,1,harm_justification,282,40005,7.049118860142483
-the state and revolution - lenin.pdf,non_longitudinal,NA,1,violent_identification,4,40005,0.09998750156230472
-the urban guerilla concept.pdf,non_longitudinal,NA,1,harm_justification,73,9362,7.797479171117283
-the urban guerilla concept.pdf,non_longitudinal,NA,1,violent_identification,6,9362,0.640888698995941
-the-lawful-and-the-prohibited-in-islam_text.pdf,non_longitudinal,NA,1,harm_justification,181,121566,1.48890314726157
-the-lawful-and-the-prohibited-in-islam_text.pdf,non_longitudinal,NA,1,violent_identification,30,121566,0.24677952717042595
+the state and revolution - lenin,non_longitudinal,NA,1,harm_justification,282,40005,7.049118860142483
+the state and revolution - lenin,non_longitudinal,NA,1,violent_identification,4,40005,0.09998750156230471
+the urban guerilla concept,non_longitudinal,NA,1,harm_justification,73,9362,7.797479171117283
+the urban guerilla concept,non_longitudinal,NA,1,violent_identification,6,9362,0.640888698995941
+the-lawful-and-the-prohibited-in-islam_text,non_longitudinal,NA,1,harm_justification,181,121566,1.48890314726157
+the-lawful-and-the-prohibited-in-islam_text,non_longitudinal,NA,1,violent_identification,30,121566,0.24677952717042595
 unions and councils_10.11.1919,longitudinal,gramsci,1,harm_justification,10,1864,5.364806866952789
 unions and councils_10.11.1919,longitudinal,gramsci,1,violent_identification,0,1864,0
 unions and councils_10.11.1919,non_longitudinal,NA,1,harm_justification,10,1864,5.364806866952789
@@ -561,8 +593,8 @@ unions and the dictatorship_10.25.1919,longitudinal,gramsci,1,harm_justification
 unions and the dictatorship_10.25.1919,longitudinal,gramsci,1,violent_identification,0,1634,0
 unions and the dictatorship_10.25.1919,non_longitudinal,NA,1,harm_justification,8,1634,4.8959608323133414
 unions and the dictatorship_10.25.1919,non_longitudinal,NA,1,violent_identification,0,1634,0
-universal declaration of human rights.pdf,non_longitudinal,NA,1,harm_justification,6,1784,3.36322869955157
-universal declaration of human rights.pdf,non_longitudinal,NA,1,violent_identification,0,1784,0
+universal declaration of human rights,non_longitudinal,NA,1,harm_justification,6,1784,3.36322869955157
+universal declaration of human rights,non_longitudinal,NA,1,violent_identification,0,1784,0
 war is war_1.31.1921,longitudinal,gramsci,1,harm_justification,6,1201,4.995836802664447
 war is war_1.31.1921,longitudinal,gramsci,1,violent_identification,0,1201,0
 war is war_1.31.1921,non_longitudinal,NA,1,harm_justification,6,1201,4.995836802664447

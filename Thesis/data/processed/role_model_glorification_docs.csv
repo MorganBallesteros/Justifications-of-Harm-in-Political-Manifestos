@@ -1,17 +1,21 @@
 doc_id,corpus,author,any_role_model_glorification,n_glorification_segments,total_violent_reference_count,total_role_model_status_count
-1160_KennedyIchbin.pdf,non_longitudinal,NA,FALSE,0,0,0
-142Thunberg.pdf,non_longitudinal,NA,FALSE,0,0,0
-1945 Labour Party Manifesto -.pdf,non_longitudinal,NA,FALSE,0,0,2
-1949_simone-de-beauvoir-the-second-sex.pdf,non_longitudinal,NA,TRUE,1,2,201
+1160_KennedyIchbin,non_longitudinal,NA,FALSE,0,0,0
+142Thunberg,non_longitudinal,NA,FALSE,0,0,0
+1945 Labour Party Manifesto -,non_longitudinal,NA,FALSE,0,0,2
+1949_simone-de-beauvoir-the-second-sex,non_longitudinal,NA,TRUE,1,2,201
 A Contribution to the History of the National Programme in Austria and in Russia_2.5.1914,longitudinal,lenin,FALSE,0,0,0
 A Disgraceful Resolution_10.18.1912,longitudinal,lenin,FALSE,0,0,1
+A Fantasy_1999,longitudinal,tedk,FALSE,0,0,0
 "A House of Many Mansions, 1940",longitudinal,churchill,FALSE,0,2,0
 "A Hush Over Europe, 1939",longitudinal,churchill,FALSE,0,1,0
 A New Chapter of World History_10.21.1912,longitudinal,lenin,FALSE,0,0,0
+A Scientific American Article Theorizing a Tech Induced Apocalypse & The Unabomber's Response_1993,longitudinal,tedk,FALSE,0,0,0
+A Shift Towards Hopefulness_1996,longitudinal,tedk,FALSE,0,0,0
 "Address to Joint Session of US Congress, 1941",longitudinal,churchill,FALSE,0,0,0
 Against Pessimism_4.15.1924,longitudinal,gramsci,FALSE,0,0,0
 Against Pessimism_4.15.1924,non_longitudinal,NA,FALSE,0,0,0
-Atlantic-Charter.pdf,non_longitudinal,NA,FALSE,0,0,0
+Apology to Women_1996,longitudinal,tedk,FALSE,0,0,0
+Atlantic-Charter,non_longitudinal,NA,FALSE,0,0,0
 "Be Ye Men of Valour, 1940",longitudinal,churchill,FALSE,0,0,1
 Bill on the Equality of Nations and the Safeguarding of the Rights of National Minorities_5.6.1914,longitudinal,lenin,FALSE,0,0,0
 "Blood, Toil, Tears and Sweat, 1940",longitudinal,churchill,FALSE,0,0,0
@@ -20,24 +24,24 @@ Cadets and Nationalists_10.24.1912,longitudinal,lenin,FALSE,0,0,0
 Cadets on the Question of the Ukraine_7.16.1913,longitudinal,lenin,FALSE,0,0,0
 Clarity Has Been Achieved_6.5.1914,longitudinal,lenin,FALSE,0,0,1
 Class War in Dublin_8.29.1913,longitudinal,lenin,FALSE,0,0,0
-Communist Manifesto.pdf,non_longitudinal,NA,TRUE,1,1,17
+Communist Manifesto,non_longitudinal,NA,TRUE,1,1,17
 Concerning Certain Speeches by Workers’ Deputies_11.1912,longitudinal,lenin,FALSE,0,0,0
 Concerning the Workers’ Deputies to the Duma and Their Declaration_11.1912,longitudinal,lenin,FALSE,0,0,1
 Corrupting the Workers with Refined Nationalism_5.10.1914,longitudinal,lenin,FALSE,0,0,0
-DefeatingEurabia1.pdf,non_longitudinal,NA,TRUE,1,7,75
+DefeatingEurabia1,non_longitudinal,NA,TRUE,1,7,75
 "Do Your Worst; We'll Do Our Best, 1941",longitudinal,churchill,FALSE,0,1,0
 Does the Jewish Proletariat Need an “Independent Political Party”__2.15.1903,longitudinal,lenin,FALSE,0,0,0
 Draft Platform for the Fourth Congress of Social-Democrats of the Latvian Area_6.25.1913,longitudinal,lenin,FALSE,0,0,4
 Draft Theses on National and Colonial Questions_6.5.1920,longitudinal,lenin,FALSE,0,0,2
-Earnest-Manifesto-042719.pdf,non_longitudinal,NA,TRUE,1,11,3
+Earnest-Manifesto-042719,non_longitudinal,NA,TRUE,1,11,3
 Editorial Comment on Veteran’s Article_ “The National Question and the Lettish Proletariat”_2.1914,longitudinal,lenin,FALSE,0,0,0
 "Every Man to His Post, 1940",longitudinal,churchill,TRUE,1,2,1
 "Fifty Years Hence, 1931",longitudinal,churchill,FALSE,0,0,0
 Finland and Russia_5.15.1917,longitudinal,lenin,FALSE,0,0,1
 For an ideological preparation of the masses_3-4.1925,longitudinal,gramsci,FALSE,0,0,1
 For an ideological preparation of the masses_3-4.1925,non_longitudinal,NA,FALSE,0,0,1
-"Four Freedoms Speech, Franklin Delano Roosevelt (1).pdf",non_longitudinal,NA,FALSE,0,0,3
-Full_text_I_Have_a_Dream_.pdf,non_longitudinal,NA,FALSE,0,0,0
+"Four Freedoms Speech, Franklin Delano Roosevelt (1)",non_longitudinal,NA,FALSE,0,0,3
+Full_text_I_Have_a_Dream_,non_longitudinal,NA,FALSE,0,0,0
 "Give Us the Tools, 1941",longitudinal,churchill,TRUE,1,5,1
 Harris_10.23.1998,longitudinal,harris,FALSE,0,0,0
 Harris_11.1.1998,longitudinal,harris,FALSE,0,0,0
@@ -59,10 +63,12 @@ Harris_5.9.1998,longitudinal,harris,FALSE,0,0,0
 Harris_6.12.1998,longitudinal,harris,FALSE,0,0,0
 Harris_6.13.1998,longitudinal,harris,FALSE,0,0,0
 Harris_7.29.1998,longitudinal,harris,FALSE,0,0,0
-Hitler_Adolf_-_Mein_Kampf.pdf,non_longitudinal,NA,TRUE,1,18,111
+Hippies may end up preserving liberty through the reaction they provoke_1970,longitudinal,tedk,FALSE,0,0,0
+Hit where it hurts_2002,longitudinal,tedk,FALSE,0,0,4
+Hitler_Adolf_-_Mein_Kampf,non_longitudinal,NA,TRUE,1,18,111
 How Does Bishop Nikon Defend the Ukrainians__9.13.1913,longitudinal,lenin,FALSE,0,0,0
 "I Have Watched This Famous Island..., 1938",longitudinal,churchill,FALSE,0,0,0
-Imperium - Yockey.pdf,non_longitudinal,NA,FALSE,0,0,37
+Imperium - Yockey,non_longitudinal,NA,FALSE,0,0,37
 Is a Compulsory Official Language Needed__1.18.1914,longitudinal,lenin,FALSE,0,0,0
 "It Is Undemocratic, Citizen Kerensky!_6.15.1917",longitudinal,lenin,FALSE,0,0,0
 LPM_1900,longitudinal,lpm,FALSE,0,0,0
@@ -97,11 +103,13 @@ Liberals and Democrats on the Language Question_9.5.1913,longitudinal,lenin,FALS
 "MIT Mid-Century Convocation, 1949",longitudinal,churchill,TRUE,1,2,4
 Manifesto To The Ukrainian People_12.3.1917,longitudinal,lenin,FALSE,0,0,2
 "Mass Effects in Modern Life, 1925",longitudinal,churchill,FALSE,0,0,6
-"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi.pdf",non_longitudinal,NA,FALSE,0,0,32
+"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi",non_longitudinal,NA,FALSE,0,0,32
 Maximalism and Extremism_7.2.1925,longitudinal,gramsci,FALSE,0,0,0
 Maximalism and Extremism_7.2.1925,non_longitudinal,NA,FALSE,0,0,0
 Men of Flesh and Blood_5.8.1921,longitudinal,gramsci,FALSE,0,0,1
 Men of Flesh and Blood_5.8.1921,non_longitudinal,NA,FALSE,0,0,1
+Morality and Revolution First Edition_1999,longitudinal,tedk,FALSE,0,0,3
+Morality and Revolution Third Edition_2001,longitudinal,tedk,TRUE,1,2,3
 More About “Nationalism”_2.20.1914,longitudinal,lenin,FALSE,0,0,0
 National Equality_4.16.1914,longitudinal,lenin,FALSE,0,0,0
 National-Liberalism and the Right of Nations to Self-Determination_12.20.1913,longitudinal,lenin,FALSE,0,0,0
@@ -118,12 +126,15 @@ On the Operations of the Central Committee of the Party_12.20.1925,non_longitudi
 On the Question of National Policy_4.6.1914,longitudinal,lenin,FALSE,0,0,1
 Once More on the Segregation of the Schools According to Nationality_12.17.1913,longitudinal,lenin,FALSE,0,0,2
 "Penny-in-the-Slot Politics, 1934",longitudinal,churchill,FALSE,0,0,0
-"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002.pdf_through_1998",non_longitudinal,NA,TRUE,1,41,130
+"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002_through_1998",non_longitudinal,NA,TRUE,1,41,130
 Political Lessons_3.1914,longitudinal,lenin,FALSE,0,0,3
-PortHuronStatement.pdf,non_longitudinal,NA,FALSE,0,0,2
+PortHuronStatement,non_longitudinal,NA,FALSE,0,0,2
+Progress versus Liberty_1972,longitudinal,tedk,FALSE,0,0,3
+Progress versus Wilderness_1979,longitudinal,tedk,FALSE,0,0,0
+Reflections on Purposeful Work_1983,longitudinal,tedk,FALSE,0,0,1
 "Resolutions of the Summer, 1913_9.1913",longitudinal,lenin,FALSE,0,0,2
-Revolt Against The Modern World - Julius Evola.pdf,non_longitudinal,NA,FALSE,0,0,123
-"Russian Imperial Manifesto, Announcing the Start of War in August 1914.pdf",non_longitudinal,NA,FALSE,0,0,1
+Revolt Against The Modern World - Julius Evola,non_longitudinal,NA,FALSE,0,0,123
+"Russian Imperial Manifesto, Announcing the Start of War in August 1914",non_longitudinal,NA,FALSE,0,0,1
 Separatists in Russia and Separatists in Austria_5.8.1913,longitudinal,lenin,FALSE,0,0,0
 "Some Chicken; Some Neck, 1941",longitudinal,churchill,TRUE,1,6,1
 SotU-1964,longitudinal,sotu,FALSE,0,0,2
@@ -163,6 +174,8 @@ Speech to the Italian parliament_5.16.1925,longitudinal,gramsci,FALSE,0,0,0
 Speech to the Italian parliament_5.16.1925,non_longitudinal,NA,FALSE,0,0,0
 Sterile and Negative Criticism_9.30.1925,longitudinal,gramsci,FALSE,0,0,0
 Sterile and Negative Criticism_9.30.1925,non_longitudinal,NA,FALSE,0,0,0
+Suggestions for Earth First!ers_1995,longitudinal,tedk,FALSE,0,0,1
+Ted Kaczynski’s Comments on Timothy McVeigh_2000,longitudinal,tedk,FALSE,0,0,0
 The Agrarian Struggle in Italy_8.31.1921,longitudinal,gramsci,FALSE,0,0,1
 The Agrarian Struggle in Italy_8.31.1921,non_longitudinal,NA,FALSE,0,0,1
 The Arditi del Popolo_7.15.1921,longitudinal,gramsci,FALSE,0,0,1
@@ -206,11 +219,14 @@ The Ukraine_6.28.1917,longitudinal,lenin,FALSE,0,0,0
 The Vatican_3.12.1924,longitudinal,gramsci,FALSE,0,0,3
 The Vatican_3.12.1924,non_longitudinal,NA,FALSE,0,0,3
 The War and Russian Social-Democracy_9.28.1914,longitudinal,lenin,FALSE,0,0,2
+The Wave of the Future_1970,longitudinal,tedk,FALSE,0,0,0
 The Working Class and the National Question_5.10.1913,longitudinal,lenin,FALSE,0,0,0
+The capability for many to get away with evil is necessary for liberty to exist_1970,longitudinal,tedk,FALSE,0,0,2
 The events of 2-3 December (1919)_12.6-13.19,longitudinal,gramsci,FALSE,0,0,1
 The events of 2-3 December (1919)_12.6-13.19,non_longitudinal,NA,FALSE,0,0,1
 The grimace of Gwynplaine_8.30.1921,longitudinal,gramsci,FALSE,0,0,0
 The grimace of Gwynplaine_8.30.1921,non_longitudinal,NA,FALSE,0,0,0
+The hyper-specialization of labor stifles freedom_1969,longitudinal,tedk,FALSE,0,0,0
 The parties and the Masses_9.25.1921,longitudinal,gramsci,FALSE,0,0,1
 The parties and the Masses_9.25.1921,non_longitudinal,NA,FALSE,0,0,1
 The tactic of failure_9.22.1921,longitudinal,gramsci,FALSE,0,0,0
@@ -233,36 +249,36 @@ Vekhi Contributors and Nationalism_4.1913,longitudinal,lenin,FALSE,0,0,1
 "We Shall Fight on the Beaches, 1940",longitudinal,churchill,FALSE,0,1,0
 "Winston Churchill's Broadcast on the Soviet-German War, 1941",longitudinal,churchill,FALSE,0,8,0
 american_civilization.1945,longitudinal,evola,FALSE,0,0,0
-anders_breivik_-_2083_manifesto_-_2011.pdf_book_one,non_longitudinal,NA,TRUE,1,7,83
-brenton-tarrant-the-great-replacement-manifesto.pdf,non_longitudinal,NA,TRUE,1,6,28
+anders_breivik_-_2083_manifesto_-_2011_book_one,non_longitudinal,NA,TRUE,1,7,83
+brenton-tarrant-the-great-replacement-manifesto,non_longitudinal,NA,TRUE,1,6,28
 character_3.3.1917,longitudinal,gramsci,FALSE,0,0,0
 character_3.3.1917,non_longitudinal,NA,FALSE,0,0,0
-cho_manifesto_1.1.pdf,non_longitudinal,NA,FALSE,0,0,2
+cho_manifesto_1.1,non_longitudinal,NA,FALSE,0,0,2
 chronicles of the new order_9.13.1919,longitudinal,gramsci,FALSE,0,0,0
 chronicles of the new order_9.13.1919,non_longitudinal,NA,FALSE,0,0,0
 dark_age.1934,longitudinal,evola,FALSE,0,0,0
 decadence.1928,longitudinal,evola,FALSE,0,0,0
 degeneration.1938,longitudinal,evola,FALSE,0,0,0
 fascism.1928,longitudinal,evola,FALSE,0,0,0
-islamic_government_governance_of_the_jurist.pdf,non_longitudinal,NA,FALSE,0,0,25
+islamic_government_governance_of_the_jurist,non_longitudinal,NA,FALSE,0,0,25
 jihad.1934,longitudinal,evola,FALSE,0,0,0
 men or machines_12.24.1916,longitudinal,gramsci,FALSE,0,0,0
 men or machines_12.24.1916,non_longitudinal,NA,FALSE,0,0,0
-milestones-f1.pdf,non_longitudinal,NA,FALSE,0,0,15
+milestones-f1,non_longitudinal,NA,FALSE,0,0,15
 neo-pagans.1942,longitudinal,evola,FALSE,0,0,0
 occult.1953,longitudinal,evola,FALSE,0,0,0
 one year of history_3.16.1918,longitudinal,gramsci,FALSE,0,0,0
 one year of history_3.16.1918,non_longitudinal,NA,FALSE,0,0,0
-patrick_crusius_-_the_inconvenient_truth_about_me.pdf,non_longitudinal,NA,TRUE,1,1,5
+patrick_crusius_-_the_inconvenient_truth_about_me,non_longitudinal,NA,TRUE,1,1,5
 red ink_4.4.1919,longitudinal,gramsci,FALSE,0,0,0
 red ink_4.4.1919,non_longitudinal,NA,FALSE,0,0,0
 revolutionaries and elections_11.15.1919,longitudinal,gramsci,FALSE,0,0,0
 revolutionaries and elections_11.15.1919,non_longitudinal,NA,FALSE,0,0,0
-rodger_manifesto.pdf,non_longitudinal,NA,FALSE,0,0,6
-roofmanifesto.pdf,non_longitudinal,NA,FALSE,0,0,0
+rodger_manifesto,non_longitudinal,NA,FALSE,0,0,6
+roofmanifesto,non_longitudinal,NA,FALSE,0,0,0
 split or disorder_12.11-18.1920,longitudinal,gramsci,FALSE,0,0,0
 split or disorder_12.11-18.1920,non_longitudinal,NA,FALSE,0,0,0
-ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post.pdf,non_longitudinal,NA,FALSE,0,0,13
+ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post,non_longitudinal,NA,FALSE,0,0,13
 the ape people_1.2.1921,longitudinal,gramsci,FALSE,0,0,1
 the ape people_1.2.1921,non_longitudinal,NA,FALSE,0,0,1
 the conquest of the state_7.12.1919,longitudinal,gramsci,FALSE,0,0,0
@@ -273,14 +289,14 @@ the price of history_6.7.1919,longitudinal,gramsci,FALSE,0,0,2
 the price of history_6.7.1919,non_longitudinal,NA,FALSE,0,0,2
 the problem of power_11.29.1919,longitudinal,gramsci,FALSE,0,0,0
 the problem of power_11.29.1919,non_longitudinal,NA,FALSE,0,0,0
-the state and revolution - lenin.pdf,non_longitudinal,NA,FALSE,0,0,4
-the urban guerilla concept.pdf,non_longitudinal,NA,FALSE,0,0,6
-the-lawful-and-the-prohibited-in-islam_text.pdf,non_longitudinal,NA,FALSE,0,0,30
+the state and revolution - lenin,non_longitudinal,NA,FALSE,0,0,4
+the urban guerilla concept,non_longitudinal,NA,FALSE,0,0,6
+the-lawful-and-the-prohibited-in-islam_text,non_longitudinal,NA,FALSE,0,0,30
 unions and councils_10.11.1919,longitudinal,gramsci,FALSE,0,0,0
 unions and councils_10.11.1919,non_longitudinal,NA,FALSE,0,0,0
 unions and the dictatorship_10.25.1919,longitudinal,gramsci,FALSE,0,0,0
 unions and the dictatorship_10.25.1919,non_longitudinal,NA,FALSE,0,0,0
-universal declaration of human rights.pdf,non_longitudinal,NA,FALSE,0,0,0
+universal declaration of human rights,non_longitudinal,NA,FALSE,0,0,0
 war is war_1.31.1921,longitudinal,gramsci,FALSE,0,0,0
 war is war_1.31.1921,non_longitudinal,NA,FALSE,0,0,0
 workers and peasants_1.3.1920,longitudinal,gramsci,FALSE,0,0,0
