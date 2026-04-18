@@ -956,7 +956,9 @@ The model was not significant, F(2, 28) = 2.48, p = .102, R² = .15. No category
 
 Logistic regression models assessed whether integrative complexity predicted whether a manifesto was classified as violent (vs. non-violent; see Tables 2–3). In the baseline model, integrative complexity was negatively associated with violence likelihood, OR = 0.13, 95% CI [0.01, 0.91], p = .079. In the full model including linguistic indicators, integrative complexity remained a significant predictor, OR = 0.04, 95% CI [0.00, 0.69], p = .050.
 
-Among linguistic predictors, martyrdom narratives (OR = 14.63, p = .060) and justification for violence (OR = 4.05, p = .084) showed large but non-significant effects. Dyadic harm language and hopelessness did not significantly predict violence when included in the full model.
+Among linguistic predictors, martyrdom narratives (OR = 14.63, p = .060) and justification for violence (OR = 4.05, p = .084) showed large but non-significant effects. Dyadic harm language and hopelessness did not significantly predict violence when included in the full model.  
+
+A multinomial logistic regression model was estimated as a sensitivity analysis to examine whether predictors differentiated across all three manifesto categories (Table 4). Results were broadly consistent with the binary logistic models, with lower integrative complexity associated with greater likelihood of classification in more extreme categories relative to moderate texts. However, estimates were highly unstable, with large relative risk ratios and wide confidence intervals, limiting interpretability.
 
 ```{r violent-logistic-models, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
 # Binary outcome: violent vs non-violent (moderate + extreme)
@@ -1138,7 +1140,7 @@ out <- dplyr::bind_rows(lapply(1:nrow(coefs), function(k) {
   tibble::tibble(
     Comparison = paste0(cls, " vs baseline"),
     Term = term,
-    OR = exp(beta),
+    RRR = exp(beta),
     CI = paste0("[", exp(beta - 1.96*se), ", ", exp(beta + 1.96*se), "]")
   )
 })) |>
@@ -1146,8 +1148,8 @@ out <- dplyr::bind_rows(lapply(1:nrow(coefs), function(k) {
 
 papaja::apa_table(
   out,
-  caption = "Multinomial sensitivity model predicting 3-category manifesto classification from integrative complexity and marker prevalence.",
-  note = "Estimated via nnet::multinom; ORs are exponentiated coefficients."
+  caption = "Multinomial logistic regression (sensitivity analysis) predicting 3-category manifesto classification from integrative complexity and marker prevalence.",
+  note = "Estimated via nnet::multinom; relative risk ratios (RRR) are exponentiated coefficients. Values are Wald-based with 95% confidence intervals."
 )
 
 ```
