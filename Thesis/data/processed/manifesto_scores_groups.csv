@@ -22,7 +22,7 @@ doc_id,corpus,author,segment_id,marker_group,marker_category,count,word_count,pr
 1949_simone-de-beauvoir-the-second-sex.pdf,non_longitudinal,NA,1,justification_for_violence,harm_justification,53,350086,0.1513913724056375
 1949_simone-de-beauvoir-the-second-sex.pdf,non_longitudinal,NA,1,martyrdom_narrative,harm_justification,59,350086,0.16853001833835116
 1949_simone-de-beauvoir-the-second-sex.pdf,non_longitudinal,NA,1,role_model_status,violent_identification,201,350086,0.5741446387459082
-1949_simone-de-beauvoir-the-second-sex.pdf,non_longitudinal,NA,1,violent_reference,violent_identification,2,350086,0.005712881977571226
+1949_simone-de-beauvoir-the-second-sex.pdf,non_longitudinal,NA,1,violent_reference,violent_identification,2,350086,0.00571288197757122
 A Contribution to the History of the National Programme in Austria and in Russia_2.5.1914,longitudinal,lenin,1,dyadic_harm,harm_justification,0,770,0
 A Contribution to the History of the National Programme in Austria and in Russia_2.5.1914,longitudinal,lenin,1,hopelessness,harm_justification,3,770,3.896103896103896
 A Contribution to the History of the National Programme in Austria and in Russia_2.5.1914,longitudinal,lenin,1,justification_for_violence,harm_justification,0,770,0
@@ -72,8 +72,8 @@ Against Pessimism_4.15.1924,non_longitudinal,NA,1,martyrdom_narrative,harm_justi
 Against Pessimism_4.15.1924,non_longitudinal,NA,1,role_model_status,violent_identification,0,1943,0
 Against Pessimism_4.15.1924,non_longitudinal,NA,1,violent_reference,violent_identification,0,1943,0
 Atlantic-Charter.pdf,non_longitudinal,NA,1,dyadic_harm,harm_justification,0,1036,0
-Atlantic-Charter.pdf,non_longitudinal,NA,1,hopelessness,harm_justification,2,1036,1.9305019305019306
-Atlantic-Charter.pdf,non_longitudinal,NA,1,justification_for_violence,harm_justification,1,1036,0.9652509652509653
+Atlantic-Charter.pdf,non_longitudinal,NA,1,hopelessness,harm_justification,2,1036,1.9305019305019304
+Atlantic-Charter.pdf,non_longitudinal,NA,1,justification_for_violence,harm_justification,1,1036,0.9652509652509652
 Atlantic-Charter.pdf,non_longitudinal,NA,1,martyrdom_narrative,harm_justification,0,1036,0
 Atlantic-Charter.pdf,non_longitudinal,NA,1,role_model_status,violent_identification,0,1036,0
 Atlantic-Charter.pdf,non_longitudinal,NA,1,violent_reference,violent_identification,0,1036,0
@@ -114,7 +114,7 @@ Cadets on the Question of the Ukraine_7.16.1913,longitudinal,lenin,1,martyrdom_n
 Cadets on the Question of the Ukraine_7.16.1913,longitudinal,lenin,1,role_model_status,violent_identification,0,485,0
 Cadets on the Question of the Ukraine_7.16.1913,longitudinal,lenin,1,violent_reference,violent_identification,0,485,0
 Clarity Has Been Achieved_6.5.1914,longitudinal,lenin,1,dyadic_harm,harm_justification,0,1582,0
-Clarity Has Been Achieved_6.5.1914,longitudinal,lenin,1,hopelessness,harm_justification,34,1582,21.491782553729454
+Clarity Has Been Achieved_6.5.1914,longitudinal,lenin,1,hopelessness,harm_justification,34,1582,21.491782553729458
 Clarity Has Been Achieved_6.5.1914,longitudinal,lenin,1,justification_for_violence,harm_justification,0,1582,0
 Clarity Has Been Achieved_6.5.1914,longitudinal,lenin,1,martyrdom_narrative,harm_justification,0,1582,0
 Clarity Has Been Achieved_6.5.1914,longitudinal,lenin,1,role_model_status,violent_identification,1,1582,0.6321112515802781
@@ -130,7 +130,7 @@ Communist Manifesto.pdf,non_longitudinal,NA,1,hopelessness,harm_justification,15
 Communist Manifesto.pdf,non_longitudinal,NA,1,justification_for_violence,harm_justification,4,38554,0.10375058359703274
 Communist Manifesto.pdf,non_longitudinal,NA,1,martyrdom_narrative,harm_justification,4,38554,0.10375058359703274
 Communist Manifesto.pdf,non_longitudinal,NA,1,role_model_status,violent_identification,17,38554,0.4409399802873891
-Communist Manifesto.pdf,non_longitudinal,NA,1,violent_reference,violent_identification,1,38554,0.025937645899258184
+Communist Manifesto.pdf,non_longitudinal,NA,1,violent_reference,violent_identification,1,38554,0.02593764589925818
 Concerning Certain Speeches by Workers’ Deputies_11.1912,longitudinal,lenin,1,dyadic_harm,harm_justification,0,1576,0
 Concerning Certain Speeches by Workers’ Deputies_11.1912,longitudinal,lenin,1,hopelessness,harm_justification,21,1576,13.3248730964467
 Concerning Certain Speeches by Workers’ Deputies_11.1912,longitudinal,lenin,1,justification_for_violence,harm_justification,0,1576,0
@@ -181,7 +181,7 @@ Draft Theses on National and Colonial Questions_6.5.1920,longitudinal,lenin,1,ro
 Draft Theses on National and Colonial Questions_6.5.1920,longitudinal,lenin,1,violent_reference,violent_identification,0,2315,0
 Earnest-Manifesto-042719.pdf,non_longitudinal,NA,1,dyadic_harm,harm_justification,0,4429,0
 Earnest-Manifesto-042719.pdf,non_longitudinal,NA,1,hopelessness,harm_justification,1,4429,0.22578460149017837
-Earnest-Manifesto-042719.pdf,non_longitudinal,NA,1,justification_for_violence,harm_justification,7,4429,1.5804922104312487
+Earnest-Manifesto-042719.pdf,non_longitudinal,NA,1,justification_for_violence,harm_justification,7,4429,1.5804922104312489
 Earnest-Manifesto-042719.pdf,non_longitudinal,NA,1,martyrdom_narrative,harm_justification,10,4429,2.2578460149017836
 Earnest-Manifesto-042719.pdf,non_longitudinal,NA,1,role_model_status,violent_identification,3,4429,0.6773538044705351
 Earnest-Manifesto-042719.pdf,non_longitudinal,NA,1,violent_reference,violent_identification,11,4429,2.4836306163919617
@@ -192,11 +192,11 @@ Editorial Comment on Veteran’s Article_ “The National Question and the Letti
 Editorial Comment on Veteran’s Article_ “The National Question and the Lettish Proletariat”_2.1914,longitudinal,lenin,1,role_model_status,violent_identification,0,233,0
 Editorial Comment on Veteran’s Article_ “The National Question and the Lettish Proletariat”_2.1914,longitudinal,lenin,1,violent_reference,violent_identification,0,233,0
 "Every Man to His Post, 1940",longitudinal,churchill,1,dyadic_harm,harm_justification,0,1277,0
-"Every Man to His Post, 1940",longitudinal,churchill,1,hopelessness,harm_justification,2,1277,1.5661707126076743
+"Every Man to His Post, 1940",longitudinal,churchill,1,hopelessness,harm_justification,2,1277,1.5661707126076745
 "Every Man to His Post, 1940",longitudinal,churchill,1,justification_for_violence,harm_justification,1,1277,0.7830853563038371
 "Every Man to His Post, 1940",longitudinal,churchill,1,martyrdom_narrative,harm_justification,0,1277,0
 "Every Man to His Post, 1940",longitudinal,churchill,1,role_model_status,violent_identification,1,1277,0.7830853563038371
-"Every Man to His Post, 1940",longitudinal,churchill,1,violent_reference,violent_identification,2,1277,1.5661707126076743
+"Every Man to His Post, 1940",longitudinal,churchill,1,violent_reference,violent_identification,2,1277,1.5661707126076745
 "Fifty Years Hence, 1931",longitudinal,churchill,1,dyadic_harm,harm_justification,0,4151,0
 "Fifty Years Hence, 1931",longitudinal,churchill,1,hopelessness,harm_justification,6,4151,1.445434834979523
 "Fifty Years Hence, 1931",longitudinal,churchill,1,justification_for_violence,harm_justification,0,4151,0
@@ -234,7 +234,7 @@ Full_text_I_Have_a_Dream_.pdf,non_longitudinal,NA,1,martyrdom_narrative,harm_jus
 Full_text_I_Have_a_Dream_.pdf,non_longitudinal,NA,1,role_model_status,violent_identification,0,1694,0
 Full_text_I_Have_a_Dream_.pdf,non_longitudinal,NA,1,violent_reference,violent_identification,0,1694,0
 "Give Us the Tools, 1941",longitudinal,churchill,1,dyadic_harm,harm_justification,0,2796,0
-"Give Us the Tools, 1941",longitudinal,churchill,1,hopelessness,harm_justification,4,2796,1.4306151645207439
+"Give Us the Tools, 1941",longitudinal,churchill,1,hopelessness,harm_justification,4,2796,1.430615164520744
 "Give Us the Tools, 1941",longitudinal,churchill,1,justification_for_violence,harm_justification,0,2796,0
 "Give Us the Tools, 1941",longitudinal,churchill,1,martyrdom_narrative,harm_justification,0,2796,0
 "Give Us the Tools, 1941",longitudinal,churchill,1,role_model_status,violent_identification,1,2796,0.35765379113018597
@@ -306,7 +306,7 @@ Harris_4.10.1998,longitudinal,harris,1,martyrdom_narrative,harm_justification,0,
 Harris_4.10.1998,longitudinal,harris,1,role_model_status,violent_identification,0,569,0
 Harris_4.10.1998,longitudinal,harris,1,violent_reference,violent_identification,0,569,0
 Harris_4.12.1998,longitudinal,harris,1,dyadic_harm,harm_justification,0,518,0
-Harris_4.12.1998,longitudinal,harris,1,hopelessness,harm_justification,2,518,3.8610038610038613
+Harris_4.12.1998,longitudinal,harris,1,hopelessness,harm_justification,2,518,3.8610038610038617
 Harris_4.12.1998,longitudinal,harris,1,justification_for_violence,harm_justification,0,518,0
 Harris_4.12.1998,longitudinal,harris,1,martyrdom_narrative,harm_justification,0,518,0
 Harris_4.12.1998,longitudinal,harris,1,role_model_status,violent_identification,0,518,0
@@ -432,7 +432,7 @@ LPM_1923,longitudinal,lpm,1,martyrdom_narrative,harm_justification,0,1163,0
 LPM_1923,longitudinal,lpm,1,role_model_status,violent_identification,0,1163,0
 LPM_1923,longitudinal,lpm,1,violent_reference,violent_identification,0,1163,0
 LPM_1924,longitudinal,lpm,1,dyadic_harm,harm_justification,1,2261,0.4422821760283061
-LPM_1924,longitudinal,lpm,1,hopelessness,harm_justification,9,2261,3.9805395842547546
+LPM_1924,longitudinal,lpm,1,hopelessness,harm_justification,9,2261,3.980539584254754
 LPM_1924,longitudinal,lpm,1,justification_for_violence,harm_justification,1,2261,0.4422821760283061
 LPM_1924,longitudinal,lpm,1,martyrdom_narrative,harm_justification,0,2261,0
 LPM_1924,longitudinal,lpm,1,role_model_status,violent_identification,1,2261,0.4422821760283061
@@ -441,7 +441,7 @@ LPM_1929,longitudinal,lpm,1,dyadic_harm,harm_justification,0,2538,0
 LPM_1929,longitudinal,lpm,1,hopelessness,harm_justification,11,2538,4.334121355397952
 LPM_1929,longitudinal,lpm,1,justification_for_violence,harm_justification,1,2538,0.39401103230890466
 LPM_1929,longitudinal,lpm,1,martyrdom_narrative,harm_justification,0,2538,0
-LPM_1929,longitudinal,lpm,1,role_model_status,violent_identification,3,2538,1.1820330969267139
+LPM_1929,longitudinal,lpm,1,role_model_status,violent_identification,3,2538,1.182033096926714
 LPM_1929,longitudinal,lpm,1,violent_reference,violent_identification,0,2538,0
 LPM_1931,longitudinal,lpm,1,dyadic_harm,harm_justification,0,2120,0
 LPM_1931,longitudinal,lpm,1,hopelessness,harm_justification,10,2120,4.716981132075471
@@ -503,7 +503,7 @@ LPM_1970,longitudinal,lpm,1,justification_for_violence,harm_justification,3,1186
 LPM_1970,longitudinal,lpm,1,martyrdom_narrative,harm_justification,0,11864,0
 LPM_1970,longitudinal,lpm,1,role_model_status,violent_identification,8,11864,0.6743088334457181
 LPM_1970,longitudinal,lpm,1,violent_reference,violent_identification,0,11864,0
-LPM_1974,longitudinal,lpm,1,dyadic_harm,harm_justification,1,4809,0.20794343938448742
+LPM_1974,longitudinal,lpm,1,dyadic_harm,harm_justification,1,4809,0.20794343938448745
 LPM_1974,longitudinal,lpm,1,hopelessness,harm_justification,20,4809,4.158868787689748
 LPM_1974,longitudinal,lpm,1,justification_for_violence,harm_justification,3,4809,0.6238303181534622
 LPM_1974,longitudinal,lpm,1,martyrdom_narrative,harm_justification,0,4809,0
@@ -521,14 +521,14 @@ LPM_1979,longitudinal,lpm,1,justification_for_violence,harm_justification,7,9400
 LPM_1979,longitudinal,lpm,1,martyrdom_narrative,harm_justification,0,9400,0
 LPM_1979,longitudinal,lpm,1,role_model_status,violent_identification,15,9400,1.5957446808510638
 LPM_1979,longitudinal,lpm,1,violent_reference,violent_identification,0,9400,0
-LPM_1983,longitudinal,lpm,1,dyadic_harm,harm_justification,5,22750,0.21978021978021978
+LPM_1983,longitudinal,lpm,1,dyadic_harm,harm_justification,5,22750,0.21978021978021975
 LPM_1983,longitudinal,lpm,1,hopelessness,harm_justification,119,22750,5.230769230769231
 LPM_1983,longitudinal,lpm,1,justification_for_violence,harm_justification,19,22750,0.8351648351648352
 LPM_1983,longitudinal,lpm,1,martyrdom_narrative,harm_justification,1,22750,0.04395604395604395
 LPM_1983,longitudinal,lpm,1,role_model_status,violent_identification,60,22750,2.6373626373626373
 LPM_1983,longitudinal,lpm,1,violent_reference,violent_identification,0,22750,0
-LPM_1987,longitudinal,lpm,1,dyadic_harm,harm_justification,1,9200,0.10869565217391305
-LPM_1987,longitudinal,lpm,1,hopelessness,harm_justification,35,9200,3.8043478260869565
+LPM_1987,longitudinal,lpm,1,dyadic_harm,harm_justification,1,9200,0.10869565217391304
+LPM_1987,longitudinal,lpm,1,hopelessness,harm_justification,35,9200,3.804347826086957
 LPM_1987,longitudinal,lpm,1,justification_for_violence,harm_justification,4,9200,0.4347826086956522
 LPM_1987,longitudinal,lpm,1,martyrdom_narrative,harm_justification,2,9200,0.2173913043478261
 LPM_1987,longitudinal,lpm,1,role_model_status,violent_identification,19,9200,2.0652173913043477
@@ -537,13 +537,13 @@ LPM_1992,longitudinal,lpm,1,dyadic_harm,harm_justification,4,6281,0.636841267314
 LPM_1992,longitudinal,lpm,1,hopelessness,harm_justification,22,6281,3.502626970227671
 LPM_1992,longitudinal,lpm,1,justification_for_violence,harm_justification,2,6281,0.31842063365706097
 LPM_1992,longitudinal,lpm,1,martyrdom_narrative,harm_justification,2,6281,0.31842063365706097
-LPM_1992,longitudinal,lpm,1,role_model_status,violent_identification,8,6281,1.2736825346282439
+LPM_1992,longitudinal,lpm,1,role_model_status,violent_identification,8,6281,1.273682534628244
 LPM_1992,longitudinal,lpm,1,violent_reference,violent_identification,0,6281,0
-LPM_1997,longitudinal,lpm,1,dyadic_harm,harm_justification,8,17829,0.44870716248808123
+LPM_1997,longitudinal,lpm,1,dyadic_harm,harm_justification,8,17829,0.4487071624880812
 LPM_1997,longitudinal,lpm,1,hopelessness,harm_justification,105,17829,5.889281507656066
 LPM_1997,longitudinal,lpm,1,justification_for_violence,harm_justification,10,17829,0.5608839531101015
-LPM_1997,longitudinal,lpm,1,martyrdom_narrative,harm_justification,1,17829,0.056088395311010154
-LPM_1997,longitudinal,lpm,1,role_model_status,violent_identification,35,17829,1.9630938358853554
+LPM_1997,longitudinal,lpm,1,martyrdom_narrative,harm_justification,1,17829,0.05608839531101015
+LPM_1997,longitudinal,lpm,1,role_model_status,violent_identification,35,17829,1.9630938358853551
 LPM_1997,longitudinal,lpm,1,violent_reference,violent_identification,0,17829,0
 LPM_2001,longitudinal,lpm,1,dyadic_harm,harm_justification,9,20733,0.4340905802344089
 LPM_2001,longitudinal,lpm,1,hopelessness,harm_justification,51,20733,2.4598466213283174
@@ -565,7 +565,7 @@ Lessons_5.5.1922,non_longitudinal,NA,1,role_model_status,violent_identification,
 Lessons_5.5.1922,non_longitudinal,NA,1,violent_reference,violent_identification,0,930,0
 Liberals and Democrats on the Language Question_9.5.1913,longitudinal,lenin,1,dyadic_harm,harm_justification,0,1092,0
 Liberals and Democrats on the Language Question_9.5.1913,longitudinal,lenin,1,hopelessness,harm_justification,17,1092,15.567765567765568
-Liberals and Democrats on the Language Question_9.5.1913,longitudinal,lenin,1,justification_for_violence,harm_justification,1,1092,0.9157509157509157
+Liberals and Democrats on the Language Question_9.5.1913,longitudinal,lenin,1,justification_for_violence,harm_justification,1,1092,0.9157509157509156
 Liberals and Democrats on the Language Question_9.5.1913,longitudinal,lenin,1,martyrdom_narrative,harm_justification,0,1092,0
 Liberals and Democrats on the Language Question_9.5.1913,longitudinal,lenin,1,role_model_status,violent_identification,0,1092,0
 Liberals and Democrats on the Language Question_9.5.1913,longitudinal,lenin,1,violent_reference,violent_identification,0,1092,0
@@ -588,7 +588,7 @@ Manifesto To The Ukrainian People_12.3.1917,longitudinal,lenin,1,violent_referen
 "Mass Effects in Modern Life, 1925",longitudinal,churchill,1,role_model_status,violent_identification,6,4034,1.487357461576599
 "Mass Effects in Modern Life, 1925",longitudinal,churchill,1,violent_reference,violent_identification,0,4034,0
 "Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi.pdf",non_longitudinal,NA,1,dyadic_harm,harm_justification,61,157148,0.38816911446534474
-"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi.pdf",non_longitudinal,NA,1,hopelessness,harm_justification,242,157148,1.5399496016494005
+"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi.pdf",non_longitudinal,NA,1,hopelessness,harm_justification,242,157148,1.5399496016494003
 "Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi.pdf",non_longitudinal,NA,1,justification_for_violence,harm_justification,28,157148,0.17817598696769923
 "Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi.pdf",non_longitudinal,NA,1,martyrdom_narrative,harm_justification,24,157148,0.1527222745437422
 "Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi.pdf",non_longitudinal,NA,1,role_model_status,violent_identification,32,157148,0.2036296993916563
@@ -785,22 +785,22 @@ SotU-1982,longitudinal,sotu,1,justification_for_violence,harm_justification,2,52
 SotU-1982,longitudinal,sotu,1,martyrdom_narrative,harm_justification,1,5290,0.1890359168241966
 SotU-1982,longitudinal,sotu,1,role_model_status,violent_identification,2,5290,0.3780718336483932
 SotU-1982,longitudinal,sotu,1,violent_reference,violent_identification,0,5290,0
-SotU-1983,longitudinal,sotu,1,dyadic_harm,harm_justification,1,5681,0.17602534765006161
+SotU-1983,longitudinal,sotu,1,dyadic_harm,harm_justification,1,5681,0.1760253476500616
 SotU-1983,longitudinal,sotu,1,hopelessness,harm_justification,23,5681,4.048582995951417
 SotU-1983,longitudinal,sotu,1,justification_for_violence,harm_justification,3,5681,0.5280760429501848
-SotU-1983,longitudinal,sotu,1,martyrdom_narrative,harm_justification,1,5681,0.17602534765006161
+SotU-1983,longitudinal,sotu,1,martyrdom_narrative,harm_justification,1,5681,0.1760253476500616
 SotU-1983,longitudinal,sotu,1,role_model_status,violent_identification,5,5681,0.8801267382503081
 SotU-1983,longitudinal,sotu,1,violent_reference,violent_identification,0,5681,0
 SotU-1984,longitudinal,sotu,1,dyadic_harm,harm_justification,0,5061,0
 SotU-1984,longitudinal,sotu,1,hopelessness,harm_justification,8,5061,1.5807152736613317
 SotU-1984,longitudinal,sotu,1,justification_for_violence,harm_justification,4,5061,0.7903576368306658
-SotU-1984,longitudinal,sotu,1,martyrdom_narrative,harm_justification,1,5061,0.19758940920766646
-SotU-1984,longitudinal,sotu,1,role_model_status,violent_identification,5,5061,0.9879470460383323
+SotU-1984,longitudinal,sotu,1,martyrdom_narrative,harm_justification,1,5061,0.1975894092076665
+SotU-1984,longitudinal,sotu,1,role_model_status,violent_identification,5,5061,0.9879470460383324
 SotU-1984,longitudinal,sotu,1,violent_reference,violent_identification,0,5061,0
 SotU-1985,longitudinal,sotu,1,dyadic_harm,harm_justification,0,4310,0
 SotU-1985,longitudinal,sotu,1,hopelessness,harm_justification,11,4310,2.552204176334107
 SotU-1985,longitudinal,sotu,1,justification_for_violence,harm_justification,6,4310,1.3921113689095126
-SotU-1985,longitudinal,sotu,1,martyrdom_narrative,harm_justification,1,4310,0.23201856148491878
+SotU-1985,longitudinal,sotu,1,martyrdom_narrative,harm_justification,1,4310,0.2320185614849188
 SotU-1985,longitudinal,sotu,1,role_model_status,violent_identification,9,4310,2.0881670533642693
 SotU-1985,longitudinal,sotu,1,violent_reference,violent_identification,0,4310,0
 SotU-1986,longitudinal,sotu,1,dyadic_harm,harm_justification,0,3561,0
@@ -813,18 +813,18 @@ SotU-1987,longitudinal,sotu,1,dyadic_harm,harm_justification,0,3893,0
 SotU-1987,longitudinal,sotu,1,hopelessness,harm_justification,10,3893,2.5687130747495504
 SotU-1987,longitudinal,sotu,1,justification_for_violence,harm_justification,1,3893,0.25687130747495507
 SotU-1987,longitudinal,sotu,1,martyrdom_narrative,harm_justification,1,3893,0.25687130747495507
-SotU-1987,longitudinal,sotu,1,role_model_status,violent_identification,4,3893,1.0274852298998203
+SotU-1987,longitudinal,sotu,1,role_model_status,violent_identification,4,3893,1.0274852298998205
 SotU-1987,longitudinal,sotu,1,violent_reference,violent_identification,0,3893,0
-SotU-1988,longitudinal,sotu,1,dyadic_harm,harm_justification,1,4976,0.20096463022508038
+SotU-1988,longitudinal,sotu,1,dyadic_harm,harm_justification,1,4976,0.2009646302250804
 SotU-1988,longitudinal,sotu,1,hopelessness,harm_justification,24,4976,4.82315112540193
 SotU-1988,longitudinal,sotu,1,justification_for_violence,harm_justification,4,4976,0.8038585209003215
 SotU-1988,longitudinal,sotu,1,martyrdom_narrative,harm_justification,0,4976,0
 SotU-1988,longitudinal,sotu,1,role_model_status,violent_identification,4,4976,0.8038585209003215
 SotU-1988,longitudinal,sotu,1,violent_reference,violent_identification,0,4976,0
-SotU-1991,longitudinal,sotu,1,dyadic_harm,harm_justification,1,4020,0.24875621890547261
+SotU-1991,longitudinal,sotu,1,dyadic_harm,harm_justification,1,4020,0.2487562189054726
 SotU-1991,longitudinal,sotu,1,hopelessness,harm_justification,13,4020,3.233830845771144
-SotU-1991,longitudinal,sotu,1,justification_for_violence,harm_justification,2,4020,0.49751243781094523
-SotU-1991,longitudinal,sotu,1,martyrdom_narrative,harm_justification,1,4020,0.24875621890547261
+SotU-1991,longitudinal,sotu,1,justification_for_violence,harm_justification,2,4020,0.4975124378109452
+SotU-1991,longitudinal,sotu,1,martyrdom_narrative,harm_justification,1,4020,0.2487562189054726
 SotU-1991,longitudinal,sotu,1,role_model_status,violent_identification,3,4020,0.746268656716418
 SotU-1991,longitudinal,sotu,1,violent_reference,violent_identification,0,4020,0
 SotU-1994,longitudinal,sotu,1,dyadic_harm,harm_justification,0,7547,0
@@ -833,9 +833,9 @@ SotU-1994,longitudinal,sotu,1,justification_for_violence,harm_justification,2,75
 SotU-1994,longitudinal,sotu,1,martyrdom_narrative,harm_justification,0,7547,0
 SotU-1994,longitudinal,sotu,1,role_model_status,violent_identification,11,7547,1.457532794487876
 SotU-1994,longitudinal,sotu,1,violent_reference,violent_identification,0,7547,0
-SotU-1995,longitudinal,sotu,1,dyadic_harm,harm_justification,1,9403,0.10634903754121025
-SotU-1995,longitudinal,sotu,1,hopelessness,harm_justification,18,9403,1.9142826757417846
-SotU-1995,longitudinal,sotu,1,justification_for_violence,harm_justification,1,9403,0.10634903754121025
+SotU-1995,longitudinal,sotu,1,dyadic_harm,harm_justification,1,9403,0.10634903754121024
+SotU-1995,longitudinal,sotu,1,hopelessness,harm_justification,18,9403,1.9142826757417848
+SotU-1995,longitudinal,sotu,1,justification_for_violence,harm_justification,1,9403,0.10634903754121024
 SotU-1995,longitudinal,sotu,1,martyrdom_narrative,harm_justification,0,9403,0
 SotU-1995,longitudinal,sotu,1,role_model_status,violent_identification,10,9403,1.0634903754121026
 SotU-1995,longitudinal,sotu,1,violent_reference,violent_identification,0,9403,0
@@ -846,10 +846,10 @@ SotU-1996,longitudinal,sotu,1,martyrdom_narrative,harm_justification,2,6438,0.31
 SotU-1996,longitudinal,sotu,1,role_model_status,violent_identification,12,6438,1.863932898415657
 SotU-1996,longitudinal,sotu,1,violent_reference,violent_identification,0,6438,0
 SotU-1997,longitudinal,sotu,1,dyadic_harm,harm_justification,0,6854,0
-SotU-1997,longitudinal,sotu,1,hopelessness,harm_justification,27,6854,3.9393055150277205
+SotU-1997,longitudinal,sotu,1,hopelessness,harm_justification,27,6854,3.939305515027721
 SotU-1997,longitudinal,sotu,1,justification_for_violence,harm_justification,4,6854,0.5836008170411439
 SotU-1997,longitudinal,sotu,1,martyrdom_narrative,harm_justification,0,6854,0
-SotU-1997,longitudinal,sotu,1,role_model_status,violent_identification,8,6854,1.1672016340822877
+SotU-1997,longitudinal,sotu,1,role_model_status,violent_identification,8,6854,1.1672016340822875
 SotU-1997,longitudinal,sotu,1,violent_reference,violent_identification,0,6854,0
 SotU-1998,longitudinal,sotu,1,dyadic_harm,harm_justification,1,7436,0.13448090371167293
 SotU-1998,longitudinal,sotu,1,hopelessness,harm_justification,18,7436,2.420656266810113
@@ -871,7 +871,7 @@ SotU-2000,longitudinal,sotu,1,role_model_status,violent_identification,18,9275,1
 SotU-2000,longitudinal,sotu,1,violent_reference,violent_identification,0,9275,0
 SotU-2002,longitudinal,sotu,1,dyadic_harm,harm_justification,2,3876,0.5159958720330237
 SotU-2002,longitudinal,sotu,1,hopelessness,harm_justification,3,3876,0.7739938080495357
-SotU-2002,longitudinal,sotu,1,justification_for_violence,harm_justification,6,3876,1.5479876160990713
+SotU-2002,longitudinal,sotu,1,justification_for_violence,harm_justification,6,3876,1.547987616099071
 SotU-2002,longitudinal,sotu,1,martyrdom_narrative,harm_justification,3,3876,0.7739938080495357
 SotU-2002,longitudinal,sotu,1,role_model_status,violent_identification,2,3876,0.5159958720330237
 SotU-2002,longitudinal,sotu,1,violent_reference,violent_identification,0,3876,0
@@ -889,7 +889,7 @@ SotU-2004,longitudinal,sotu,1,role_model_status,violent_identification,5,5242,0.
 SotU-2004,longitudinal,sotu,1,violent_reference,violent_identification,0,5242,0
 SotU-2005,longitudinal,sotu,1,dyadic_harm,harm_justification,2,5114,0.39108330074305825
 SotU-2005,longitudinal,sotu,1,hopelessness,harm_justification,35,5114,6.84395776300352
-SotU-2005,longitudinal,sotu,1,justification_for_violence,harm_justification,9,5114,1.7598748533437623
+SotU-2005,longitudinal,sotu,1,justification_for_violence,harm_justification,9,5114,1.7598748533437625
 SotU-2005,longitudinal,sotu,1,martyrdom_narrative,harm_justification,1,5114,0.19554165037152912
 SotU-2005,longitudinal,sotu,1,role_model_status,violent_identification,8,5114,1.564333202972233
 SotU-2005,longitudinal,sotu,1,violent_reference,violent_identification,0,5114,0
@@ -919,7 +919,7 @@ SotU-2010,longitudinal,sotu,1,role_model_status,violent_identification,8,7486,1.
 SotU-2010,longitudinal,sotu,1,violent_reference,violent_identification,0,7486,0
 SotU-2011,longitudinal,sotu,1,dyadic_harm,harm_justification,2,7113,0.2811753128075355
 SotU-2011,longitudinal,sotu,1,hopelessness,harm_justification,15,7113,2.108814846056516
-SotU-2011,longitudinal,sotu,1,justification_for_violence,harm_justification,3,7113,0.42176296921130324
+SotU-2011,longitudinal,sotu,1,justification_for_violence,harm_justification,3,7113,0.4217629692113032
 SotU-2011,longitudinal,sotu,1,martyrdom_narrative,harm_justification,2,7113,0.2811753128075355
 SotU-2011,longitudinal,sotu,1,role_model_status,violent_identification,8,7113,1.124701251230142
 SotU-2011,longitudinal,sotu,1,violent_reference,violent_identification,0,7113,0
@@ -929,7 +929,7 @@ SotU-2012,longitudinal,sotu,1,justification_for_violence,harm_justification,5,72
 SotU-2012,longitudinal,sotu,1,martyrdom_narrative,harm_justification,0,7270,0
 SotU-2012,longitudinal,sotu,1,role_model_status,violent_identification,7,7270,0.9628610729023384
 SotU-2012,longitudinal,sotu,1,violent_reference,violent_identification,0,7270,0
-SotU-2022,longitudinal,sotu,1,dyadic_harm,harm_justification,1,8124,0.12309207287050715
+SotU-2022,longitudinal,sotu,1,dyadic_harm,harm_justification,1,8124,0.12309207287050716
 SotU-2022,longitudinal,sotu,1,hopelessness,harm_justification,11,8124,1.3540128015755786
 SotU-2022,longitudinal,sotu,1,justification_for_violence,harm_justification,10,8124,1.2309207287050714
 SotU-2022,longitudinal,sotu,1,martyrdom_narrative,harm_justification,0,8124,0
@@ -939,10 +939,10 @@ SotU-2023,longitudinal,sotu,1,dyadic_harm,harm_justification,4,9783,0.4088725339
 SotU-2023,longitudinal,sotu,1,hopelessness,harm_justification,16,9783,1.6354901359501175
 SotU-2023,longitudinal,sotu,1,justification_for_violence,harm_justification,11,9783,1.1243994684657057
 SotU-2023,longitudinal,sotu,1,martyrdom_narrative,harm_justification,0,9783,0
-SotU-2023,longitudinal,sotu,1,role_model_status,violent_identification,9,9783,0.9199632014719411
+SotU-2023,longitudinal,sotu,1,role_model_status,violent_identification,9,9783,0.9199632014719412
 SotU-2023,longitudinal,sotu,1,violent_reference,violent_identification,0,9783,0
 SotU-2024,longitudinal,sotu,1,dyadic_harm,harm_justification,4,8689,0.46035216940959833
-SotU-2024,longitudinal,sotu,1,hopelessness,harm_justification,32,8689,3.6828173552767867
+SotU-2024,longitudinal,sotu,1,hopelessness,harm_justification,32,8689,3.682817355276786
 SotU-2024,longitudinal,sotu,1,justification_for_violence,harm_justification,13,8689,1.4961445505811946
 SotU-2024,longitudinal,sotu,1,martyrdom_narrative,harm_justification,0,8689,0
 SotU-2024,longitudinal,sotu,1,role_model_status,violent_identification,2,8689,0.23017608470479917
@@ -957,7 +957,7 @@ Speech At The First All-Russia Congress Of The Navy_11.22.1917,longitudinal,leni
 Speech At The First All-Russia Congress Of The Navy_11.22.1917,longitudinal,lenin,1,hopelessness,harm_justification,3,2033,1.4756517461878995
 Speech At The First All-Russia Congress Of The Navy_11.22.1917,longitudinal,lenin,1,justification_for_violence,harm_justification,0,2033,0
 Speech At The First All-Russia Congress Of The Navy_11.22.1917,longitudinal,lenin,1,martyrdom_narrative,harm_justification,1,2033,0.49188391539596654
-Speech At The First All-Russia Congress Of The Navy_11.22.1917,longitudinal,lenin,1,role_model_status,violent_identification,2,2033,0.9837678307919331
+Speech At The First All-Russia Congress Of The Navy_11.22.1917,longitudinal,lenin,1,role_model_status,violent_identification,2,2033,0.9837678307919332
 Speech At The First All-Russia Congress Of The Navy_11.22.1917,longitudinal,lenin,1,violent_reference,violent_identification,0,2033,0
 Speech to the Italian parliament_5.16.1925,longitudinal,gramsci,1,dyadic_harm,harm_justification,0,3493,0
 Speech to the Italian parliament_5.16.1925,longitudinal,gramsci,1,hopelessness,harm_justification,23,3493,6.584597766962497
@@ -1116,13 +1116,13 @@ The National Programme of the R.S.D.L.P._12.15.1913,longitudinal,lenin,1,martyrd
 The National Programme of the R.S.D.L.P._12.15.1913,longitudinal,lenin,1,role_model_status,violent_identification,0,2372,0
 The National Programme of the R.S.D.L.P._12.15.1913,longitudinal,lenin,1,violent_reference,violent_identification,0,2372,0
 The National Question in Our Programme_7.15.1903,longitudinal,lenin,1,dyadic_harm,harm_justification,0,3403,0
-The National Question in Our Programme_7.15.1903,longitudinal,lenin,1,hopelessness,harm_justification,37,3403,10.872759330002939
+The National Question in Our Programme_7.15.1903,longitudinal,lenin,1,hopelessness,harm_justification,37,3403,10.87275933000294
 The National Question in Our Programme_7.15.1903,longitudinal,lenin,1,justification_for_violence,harm_justification,0,3403,0
 The National Question in Our Programme_7.15.1903,longitudinal,lenin,1,martyrdom_narrative,harm_justification,0,3403,0
 The National Question in Our Programme_7.15.1903,longitudinal,lenin,1,role_model_status,violent_identification,5,3403,1.4692918013517484
 The National Question in Our Programme_7.15.1903,longitudinal,lenin,1,violent_reference,violent_identification,0,3403,0
 The Nationalisation of Jewish Schools_8.18.1913,longitudinal,lenin,1,dyadic_harm,harm_justification,0,487,0
-The Nationalisation of Jewish Schools_8.18.1913,longitudinal,lenin,1,hopelessness,harm_justification,5,487,10.266940451745379
+The Nationalisation of Jewish Schools_8.18.1913,longitudinal,lenin,1,hopelessness,harm_justification,5,487,10.26694045174538
 The Nationalisation of Jewish Schools_8.18.1913,longitudinal,lenin,1,justification_for_violence,harm_justification,0,487,0
 The Nationalisation of Jewish Schools_8.18.1913,longitudinal,lenin,1,martyrdom_narrative,harm_justification,0,487,0
 The Nationalisation of Jewish Schools_8.18.1913,longitudinal,lenin,1,role_model_status,violent_identification,0,487,0
@@ -1171,7 +1171,7 @@ The Revolution against ‘Capital’_12.24.1917,non_longitudinal,NA,1,role_model
 The Revolution against ‘Capital’_12.24.1917,non_longitudinal,NA,1,violent_reference,violent_identification,0,1311,0
 The Revolutionary Proletariat and the Right of Nations to Self-Determination_10.16.1915,longitudinal,lenin,1,dyadic_harm,harm_justification,0,2413,0
 The Revolutionary Proletariat and the Right of Nations to Self-Determination_10.16.1915,longitudinal,lenin,1,hopelessness,harm_justification,37,2413,15.33360961458765
-The Revolutionary Proletariat and the Right of Nations to Self-Determination_10.16.1915,longitudinal,lenin,1,justification_for_violence,harm_justification,1,2413,0.41442188147534187
+The Revolutionary Proletariat and the Right of Nations to Self-Determination_10.16.1915,longitudinal,lenin,1,justification_for_violence,harm_justification,1,2413,0.4144218814753418
 The Revolutionary Proletariat and the Right of Nations to Self-Determination_10.16.1915,longitudinal,lenin,1,martyrdom_narrative,harm_justification,0,2413,0
 The Revolutionary Proletariat and the Right of Nations to Self-Determination_10.16.1915,longitudinal,lenin,1,role_model_status,violent_identification,2,2413,0.8288437629506837
 The Revolutionary Proletariat and the Right of Nations to Self-Determination_10.16.1915,longitudinal,lenin,1,violent_reference,violent_identification,0,2413,0
@@ -1184,9 +1184,9 @@ The Seventh (April) All-Russia Conference of the R.S.D.L.P.(B.)_4.29.1917,longit
 "The Sinews of Peace, 1946",longitudinal,churchill,1,dyadic_harm,harm_justification,0,4872,0
 "The Sinews of Peace, 1946",longitudinal,churchill,1,hopelessness,harm_justification,14,4872,2.8735632183908044
 "The Sinews of Peace, 1946",longitudinal,churchill,1,justification_for_violence,harm_justification,0,4872,0
-"The Sinews of Peace, 1946",longitudinal,churchill,1,martyrdom_narrative,harm_justification,2,4872,0.41050903119868637
-"The Sinews of Peace, 1946",longitudinal,churchill,1,role_model_status,violent_identification,2,4872,0.41050903119868637
-"The Sinews of Peace, 1946",longitudinal,churchill,1,violent_reference,violent_identification,1,4872,0.20525451559934318
+"The Sinews of Peace, 1946",longitudinal,churchill,1,martyrdom_narrative,harm_justification,2,4872,0.4105090311986864
+"The Sinews of Peace, 1946",longitudinal,churchill,1,role_model_status,violent_identification,2,4872,0.4105090311986864
+"The Sinews of Peace, 1946",longitudinal,churchill,1,violent_reference,violent_identification,1,4872,0.2052545155993432
 The Social Significance of the Serbo-Bulgarian Victories_11.7.1912,longitudinal,lenin,1,dyadic_harm,harm_justification,0,634,0
 The Social Significance of the Serbo-Bulgarian Victories_11.7.1912,longitudinal,lenin,1,hopelessness,harm_justification,5,634,7.886435331230284
 The Social Significance of the Serbo-Bulgarian Victories_11.7.1912,longitudinal,lenin,1,justification_for_violence,harm_justification,0,634,0
@@ -1194,7 +1194,7 @@ The Social Significance of the Serbo-Bulgarian Victories_11.7.1912,longitudinal,
 The Social Significance of the Serbo-Bulgarian Victories_11.7.1912,longitudinal,lenin,1,role_model_status,violent_identification,0,634,0
 The Social Significance of the Serbo-Bulgarian Victories_11.7.1912,longitudinal,lenin,1,violent_reference,violent_identification,0,634,0
 The Socialist Revolution and the Right of Nations to Self-Determination_2.16,longitudinal,lenin,1,dyadic_harm,harm_justification,0,4502,0
-The Socialist Revolution and the Right of Nations to Self-Determination_2.16,longitudinal,lenin,1,hopelessness,harm_justification,85,4502,18.880497556641494
+The Socialist Revolution and the Right of Nations to Self-Determination_2.16,longitudinal,lenin,1,hopelessness,harm_justification,85,4502,18.880497556641497
 The Socialist Revolution and the Right of Nations to Self-Determination_2.16,longitudinal,lenin,1,justification_for_violence,harm_justification,1,4502,0.2221235006663705
 The Socialist Revolution and the Right of Nations to Self-Determination_2.16,longitudinal,lenin,1,martyrdom_narrative,harm_justification,0,4502,0
 The Socialist Revolution and the Right of Nations to Self-Determination_2.16,longitudinal,lenin,1,role_model_status,violent_identification,2,4502,0.444247001332741
@@ -1203,7 +1203,7 @@ The Tsar Against the Finnish People_10.31.1909,longitudinal,lenin,1,dyadic_harm,
 The Tsar Against the Finnish People_10.31.1909,longitudinal,lenin,1,hopelessness,harm_justification,6,1084,5.535055350553505
 The Tsar Against the Finnish People_10.31.1909,longitudinal,lenin,1,justification_for_violence,harm_justification,0,1084,0
 The Tsar Against the Finnish People_10.31.1909,longitudinal,lenin,1,martyrdom_narrative,harm_justification,0,1084,0
-The Tsar Against the Finnish People_10.31.1909,longitudinal,lenin,1,role_model_status,violent_identification,2,1084,1.8450184501845017
+The Tsar Against the Finnish People_10.31.1909,longitudinal,lenin,1,role_model_status,violent_identification,2,1084,1.8450184501845015
 The Tsar Against the Finnish People_10.31.1909,longitudinal,lenin,1,violent_reference,violent_identification,0,1084,0
 The Turin factory council movement_3.14.1921,longitudinal,gramsci,1,dyadic_harm,harm_justification,0,2990,0
 The Turin factory council movement_3.14.1921,longitudinal,gramsci,1,hopelessness,harm_justification,11,2990,3.6789297658862874
@@ -1314,7 +1314,7 @@ The “Vexed Questions” of Our Party_11.1912,longitudinal,lenin,1,martyrdom_na
 The “Vexed Questions” of Our Party_11.1912,longitudinal,lenin,1,role_model_status,violent_identification,0,2638,0
 The “Vexed Questions” of Our Party_11.1912,longitudinal,lenin,1,violent_reference,violent_identification,0,2638,0
 "Their Finest Hour, 1940",longitudinal,churchill,1,dyadic_harm,harm_justification,0,4403,0
-"Their Finest Hour, 1940",longitudinal,churchill,1,hopelessness,harm_justification,6,4403,1.3627072450601863
+"Their Finest Hour, 1940",longitudinal,churchill,1,hopelessness,harm_justification,6,4403,1.3627072450601865
 "Their Finest Hour, 1940",longitudinal,churchill,1,justification_for_violence,harm_justification,1,4403,0.2271178741766977
 "Their Finest Hour, 1940",longitudinal,churchill,1,martyrdom_narrative,harm_justification,0,4403,0
 "Their Finest Hour, 1940",longitudinal,churchill,1,role_model_status,violent_identification,3,4403,0.6813536225300931
@@ -1381,7 +1381,7 @@ Vekhi Contributors and Nationalism_4.1913,longitudinal,lenin,1,violent_reference
 "War Speech, 1939",longitudinal,churchill,1,violent_reference,violent_identification,0,552,0
 "War of the Unknown Warriors, 1940",longitudinal,churchill,1,dyadic_harm,harm_justification,0,2085,0
 "War of the Unknown Warriors, 1940",longitudinal,churchill,1,hopelessness,harm_justification,3,2085,1.4388489208633093
-"War of the Unknown Warriors, 1940",longitudinal,churchill,1,justification_for_violence,harm_justification,2,2085,0.9592326139088729
+"War of the Unknown Warriors, 1940",longitudinal,churchill,1,justification_for_violence,harm_justification,2,2085,0.9592326139088728
 "War of the Unknown Warriors, 1940",longitudinal,churchill,1,martyrdom_narrative,harm_justification,0,2085,0
 "War of the Unknown Warriors, 1940",longitudinal,churchill,1,role_model_status,violent_identification,0,2085,0
 "War of the Unknown Warriors, 1940",longitudinal,churchill,1,violent_reference,violent_identification,7,2085,3.357314148681055
@@ -1392,21 +1392,21 @@ Vekhi Contributors and Nationalism_4.1913,longitudinal,lenin,1,violent_reference
 "We Shall Fight on the Beaches, 1940",longitudinal,churchill,1,role_model_status,violent_identification,0,3807,0
 "We Shall Fight on the Beaches, 1940",longitudinal,churchill,1,violent_reference,violent_identification,1,3807,0.2626740215392698
 "Winston Churchill's Broadcast on the Soviet-German War, 1941",longitudinal,churchill,1,dyadic_harm,harm_justification,0,2040,0
-"Winston Churchill's Broadcast on the Soviet-German War, 1941",longitudinal,churchill,1,hopelessness,harm_justification,2,2040,0.9803921568627451
-"Winston Churchill's Broadcast on the Soviet-German War, 1941",longitudinal,churchill,1,justification_for_violence,harm_justification,1,2040,0.49019607843137253
+"Winston Churchill's Broadcast on the Soviet-German War, 1941",longitudinal,churchill,1,hopelessness,harm_justification,2,2040,0.9803921568627452
+"Winston Churchill's Broadcast on the Soviet-German War, 1941",longitudinal,churchill,1,justification_for_violence,harm_justification,1,2040,0.4901960784313726
 "Winston Churchill's Broadcast on the Soviet-German War, 1941",longitudinal,churchill,1,martyrdom_narrative,harm_justification,0,2040,0
 "Winston Churchill's Broadcast on the Soviet-German War, 1941",longitudinal,churchill,1,role_model_status,violent_identification,0,2040,0
-"Winston Churchill's Broadcast on the Soviet-German War, 1941",longitudinal,churchill,1,violent_reference,violent_identification,8,2040,3.9215686274509802
+"Winston Churchill's Broadcast on the Soviet-German War, 1941",longitudinal,churchill,1,violent_reference,violent_identification,8,2040,3.92156862745098
 american_civilization.1945,longitudinal,evola,1,dyadic_harm,harm_justification,0,3231,0
 american_civilization.1945,longitudinal,evola,1,hopelessness,harm_justification,22,3231,6.809037449705974
 american_civilization.1945,longitudinal,evola,1,justification_for_violence,harm_justification,0,3231,0
 american_civilization.1945,longitudinal,evola,1,martyrdom_narrative,harm_justification,0,3231,0
 american_civilization.1945,longitudinal,evola,1,role_model_status,violent_identification,0,3231,0
 american_civilization.1945,longitudinal,evola,1,violent_reference,violent_identification,0,3231,0
-anders_breivik_-_2083_manifesto_-_2011.pdf_book_one,non_longitudinal,NA,1,dyadic_harm,harm_justification,23,147388,0.15605069612180097
+anders_breivik_-_2083_manifesto_-_2011.pdf_book_one,non_longitudinal,NA,1,dyadic_harm,harm_justification,23,147388,0.15605069612180095
 anders_breivik_-_2083_manifesto_-_2011.pdf_book_one,non_longitudinal,NA,1,hopelessness,harm_justification,542,147388,3.677368578174614
 anders_breivik_-_2083_manifesto_-_2011.pdf_book_one,non_longitudinal,NA,1,justification_for_violence,harm_justification,42,147388,0.28496214074415827
-anders_breivik_-_2083_manifesto_-_2011.pdf_book_one,non_longitudinal,NA,1,martyrdom_narrative,harm_justification,20,147388,0.13569625749721823
+anders_breivik_-_2083_manifesto_-_2011.pdf_book_one,non_longitudinal,NA,1,martyrdom_narrative,harm_justification,20,147388,0.13569625749721825
 anders_breivik_-_2083_manifesto_-_2011.pdf_book_one,non_longitudinal,NA,1,role_model_status,violent_identification,83,147388,0.5631394686134555
 anders_breivik_-_2083_manifesto_-_2011.pdf_book_one,non_longitudinal,NA,1,violent_reference,violent_identification,7,147388,0.04749369012402638
 brenton-tarrant-the-great-replacement-manifesto.pdf,non_longitudinal,NA,1,dyadic_harm,harm_justification,12,16984,0.7065473386716911
@@ -1431,7 +1431,7 @@ cho_manifesto_1.1.pdf,non_longitudinal,NA,1,dyadic_harm,harm_justification,0,218
 cho_manifesto_1.1.pdf,non_longitudinal,NA,1,hopelessness,harm_justification,3,2184,1.3736263736263736
 cho_manifesto_1.1.pdf,non_longitudinal,NA,1,justification_for_violence,harm_justification,0,2184,0
 cho_manifesto_1.1.pdf,non_longitudinal,NA,1,martyrdom_narrative,harm_justification,1,2184,0.45787545787545786
-cho_manifesto_1.1.pdf,non_longitudinal,NA,1,role_model_status,violent_identification,2,2184,0.9157509157509157
+cho_manifesto_1.1.pdf,non_longitudinal,NA,1,role_model_status,violent_identification,2,2184,0.9157509157509156
 cho_manifesto_1.1.pdf,non_longitudinal,NA,1,violent_reference,violent_identification,0,2184,0
 chronicles of the new order_9.13.1919,longitudinal,gramsci,1,dyadic_harm,harm_justification,0,507,0
 chronicles of the new order_9.13.1919,longitudinal,gramsci,1,hopelessness,harm_justification,1,507,1.9723865877712032
@@ -1472,8 +1472,8 @@ fascism.1928,longitudinal,evola,1,violent_reference,violent_identification,0,108
 islamic_government_governance_of_the_jurist.pdf,non_longitudinal,NA,1,dyadic_harm,harm_justification,12,68475,0.17524644030668127
 islamic_government_governance_of_the_jurist.pdf,non_longitudinal,NA,1,hopelessness,harm_justification,149,68475,2.1759766338079594
 islamic_government_governance_of_the_jurist.pdf,non_longitudinal,NA,1,justification_for_violence,harm_justification,28,68475,0.40890836071558967
-islamic_government_governance_of_the_jurist.pdf,non_longitudinal,NA,1,martyrdom_narrative,harm_justification,2,68475,0.029207740051113543
-islamic_government_governance_of_the_jurist.pdf,non_longitudinal,NA,1,role_model_status,violent_identification,25,68475,0.36509675063891933
+islamic_government_governance_of_the_jurist.pdf,non_longitudinal,NA,1,martyrdom_narrative,harm_justification,2,68475,0.02920774005111354
+islamic_government_governance_of_the_jurist.pdf,non_longitudinal,NA,1,role_model_status,violent_identification,25,68475,0.3650967506389194
 islamic_government_governance_of_the_jurist.pdf,non_longitudinal,NA,1,violent_reference,violent_identification,0,68475,0
 jihad.1934,longitudinal,evola,1,dyadic_harm,harm_justification,1,2102,0.4757373929590866
 jihad.1934,longitudinal,evola,1,hopelessness,harm_justification,0,2102,0
@@ -1493,7 +1493,7 @@ men or machines_12.24.1916,non_longitudinal,NA,1,justification_for_violence,harm
 men or machines_12.24.1916,non_longitudinal,NA,1,martyrdom_narrative,harm_justification,2,1155,1.7316017316017316
 men or machines_12.24.1916,non_longitudinal,NA,1,role_model_status,violent_identification,0,1155,0
 men or machines_12.24.1916,non_longitudinal,NA,1,violent_reference,violent_identification,0,1155,0
-milestones-f1.pdf,non_longitudinal,NA,1,dyadic_harm,harm_justification,7,68070,0.10283531658586749
+milestones-f1.pdf,non_longitudinal,NA,1,dyadic_harm,harm_justification,7,68070,0.10283531658586748
 milestones-f1.pdf,non_longitudinal,NA,1,hopelessness,harm_justification,309,68070,4.539444689290437
 milestones-f1.pdf,non_longitudinal,NA,1,justification_for_violence,harm_justification,26,68070,0.3819597473189364
 milestones-f1.pdf,non_longitudinal,NA,1,martyrdom_narrative,harm_justification,24,68070,0.35257822829440283
@@ -1553,11 +1553,11 @@ revolutionaries and elections_11.15.1919,non_longitudinal,NA,1,justification_for
 revolutionaries and elections_11.15.1919,non_longitudinal,NA,1,martyrdom_narrative,harm_justification,0,953,0
 revolutionaries and elections_11.15.1919,non_longitudinal,NA,1,role_model_status,violent_identification,0,953,0
 revolutionaries and elections_11.15.1919,non_longitudinal,NA,1,violent_reference,violent_identification,0,953,0
-rodger_manifesto.pdf,non_longitudinal,NA,1,dyadic_harm,harm_justification,3,109530,0.027389756231169543
+rodger_manifesto.pdf,non_longitudinal,NA,1,dyadic_harm,harm_justification,3,109530,0.02738975623116954
 rodger_manifesto.pdf,non_longitudinal,NA,1,hopelessness,harm_justification,121,109530,1.104720167990505
-rodger_manifesto.pdf,non_longitudinal,NA,1,justification_for_violence,harm_justification,2,109530,0.018259837487446362
-rodger_manifesto.pdf,non_longitudinal,NA,1,martyrdom_narrative,harm_justification,2,109530,0.018259837487446362
-rodger_manifesto.pdf,non_longitudinal,NA,1,role_model_status,violent_identification,6,109530,0.054779512462339086
+rodger_manifesto.pdf,non_longitudinal,NA,1,justification_for_violence,harm_justification,2,109530,0.01825983748744636
+rodger_manifesto.pdf,non_longitudinal,NA,1,martyrdom_narrative,harm_justification,2,109530,0.01825983748744636
+rodger_manifesto.pdf,non_longitudinal,NA,1,role_model_status,violent_identification,6,109530,0.05477951246233908
 rodger_manifesto.pdf,non_longitudinal,NA,1,violent_reference,violent_identification,0,109530,0
 roofmanifesto.pdf,non_longitudinal,NA,1,dyadic_harm,harm_justification,0,2460,0
 roofmanifesto.pdf,non_longitudinal,NA,1,hopelessness,harm_justification,1,2460,0.4065040650406504
@@ -1566,13 +1566,13 @@ roofmanifesto.pdf,non_longitudinal,NA,1,martyrdom_narrative,harm_justification,0
 roofmanifesto.pdf,non_longitudinal,NA,1,role_model_status,violent_identification,0,2460,0
 roofmanifesto.pdf,non_longitudinal,NA,1,violent_reference,violent_identification,0,2460,0
 split or disorder_12.11-18.1920,longitudinal,gramsci,1,dyadic_harm,harm_justification,0,931,0
-split or disorder_12.11-18.1920,longitudinal,gramsci,1,hopelessness,harm_justification,2,931,2.1482277121374866
+split or disorder_12.11-18.1920,longitudinal,gramsci,1,hopelessness,harm_justification,2,931,2.148227712137486
 split or disorder_12.11-18.1920,longitudinal,gramsci,1,justification_for_violence,harm_justification,0,931,0
 split or disorder_12.11-18.1920,longitudinal,gramsci,1,martyrdom_narrative,harm_justification,0,931,0
 split or disorder_12.11-18.1920,longitudinal,gramsci,1,role_model_status,violent_identification,0,931,0
 split or disorder_12.11-18.1920,longitudinal,gramsci,1,violent_reference,violent_identification,0,931,0
 split or disorder_12.11-18.1920,non_longitudinal,NA,1,dyadic_harm,harm_justification,0,931,0
-split or disorder_12.11-18.1920,non_longitudinal,NA,1,hopelessness,harm_justification,2,931,2.1482277121374866
+split or disorder_12.11-18.1920,non_longitudinal,NA,1,hopelessness,harm_justification,2,931,2.148227712137486
 split or disorder_12.11-18.1920,non_longitudinal,NA,1,justification_for_violence,harm_justification,0,931,0
 split or disorder_12.11-18.1920,non_longitudinal,NA,1,martyrdom_narrative,harm_justification,0,931,0
 split or disorder_12.11-18.1920,non_longitudinal,NA,1,role_model_status,violent_identification,0,931,0
@@ -1643,11 +1643,11 @@ the problem of power_11.29.1919,non_longitudinal,NA,1,justification_for_violence
 the problem of power_11.29.1919,non_longitudinal,NA,1,martyrdom_narrative,harm_justification,0,1800,0
 the problem of power_11.29.1919,non_longitudinal,NA,1,role_model_status,violent_identification,0,1800,0
 the problem of power_11.29.1919,non_longitudinal,NA,1,violent_reference,violent_identification,0,1800,0
-the state and revolution - lenin.pdf,non_longitudinal,NA,1,dyadic_harm,harm_justification,1,40005,0.024996875390576177
+the state and revolution - lenin.pdf,non_longitudinal,NA,1,dyadic_harm,harm_justification,1,40005,0.02499687539057617
 the state and revolution - lenin.pdf,non_longitudinal,NA,1,hopelessness,harm_justification,276,40005,6.899137607799025
 the state and revolution - lenin.pdf,non_longitudinal,NA,1,justification_for_violence,harm_justification,0,40005,0
 the state and revolution - lenin.pdf,non_longitudinal,NA,1,martyrdom_narrative,harm_justification,5,40005,0.12498437695288088
-the state and revolution - lenin.pdf,non_longitudinal,NA,1,role_model_status,violent_identification,4,40005,0.09998750156230471
+the state and revolution - lenin.pdf,non_longitudinal,NA,1,role_model_status,violent_identification,4,40005,0.09998750156230472
 the state and revolution - lenin.pdf,non_longitudinal,NA,1,violent_reference,violent_identification,0,40005,0
 the urban guerilla concept.pdf,non_longitudinal,NA,1,dyadic_harm,harm_justification,1,9362,0.10681478316599018
 the urban guerilla concept.pdf,non_longitudinal,NA,1,hopelessness,harm_justification,69,9362,7.370220038453322
@@ -1718,13 +1718,13 @@ workers and peasants_1.3.1920,non_longitudinal,NA,1,violent_reference,violent_id
 workers and peasants_8.2.1919,longitudinal,gramsci,1,dyadic_harm,harm_justification,2,1820,1.098901098901099
 workers and peasants_8.2.1919,longitudinal,gramsci,1,hopelessness,harm_justification,5,1820,2.7472527472527473
 workers and peasants_8.2.1919,longitudinal,gramsci,1,justification_for_violence,harm_justification,1,1820,0.5494505494505495
-workers and peasants_8.2.1919,longitudinal,gramsci,1,martyrdom_narrative,harm_justification,3,1820,1.6483516483516483
+workers and peasants_8.2.1919,longitudinal,gramsci,1,martyrdom_narrative,harm_justification,3,1820,1.6483516483516485
 workers and peasants_8.2.1919,longitudinal,gramsci,1,role_model_status,violent_identification,0,1820,0
 workers and peasants_8.2.1919,longitudinal,gramsci,1,violent_reference,violent_identification,0,1820,0
 workers and peasants_8.2.1919,non_longitudinal,NA,1,dyadic_harm,harm_justification,2,1820,1.098901098901099
 workers and peasants_8.2.1919,non_longitudinal,NA,1,hopelessness,harm_justification,5,1820,2.7472527472527473
 workers and peasants_8.2.1919,non_longitudinal,NA,1,justification_for_violence,harm_justification,1,1820,0.5494505494505495
-workers and peasants_8.2.1919,non_longitudinal,NA,1,martyrdom_narrative,harm_justification,3,1820,1.6483516483516483
+workers and peasants_8.2.1919,non_longitudinal,NA,1,martyrdom_narrative,harm_justification,3,1820,1.6483516483516485
 workers and peasants_8.2.1919,non_longitudinal,NA,1,role_model_status,violent_identification,0,1820,0
 workers and peasants_8.2.1919,non_longitudinal,NA,1,violent_reference,violent_identification,0,1820,0
 workers' democracy_6.21.1919,longitudinal,gramsci,1,dyadic_harm,harm_justification,0,1360,0
