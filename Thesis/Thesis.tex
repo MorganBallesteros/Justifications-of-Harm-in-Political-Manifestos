@@ -492,26 +492,42 @@ Mixed-effects models were estimated to examine within-author changes in integrat
 \caption{\label{fig:fig-long-ic-trajectories}Longitudinal trajectories of integrative complexity by author (document order).}
 \end{figure}
 
+\begin{verbatim}
+## Longitudinal rows: 237 
+## Authors: 8 
+## 
+## moderate  extreme  violent 
+##       86      115       36
+\end{verbatim}
+
 \begin{table}[tbp]
 
 \begin{center}
 \begin{threeparttable}
 
-\caption{\label{tab:longitudinal-models}Longitudinal mixed-effects models testing within-author change and the association between integrative complexity and justification language.}
+\caption{\label{tab:longitudinal-category-models}Longitudinal mixed-effects models testing category differences in trajectories of integrative complexity and justification language.}
 
 \begin{tabular}{lllll}
 \toprule
 Model & \multicolumn{1}{c}{Term} & \multicolumn{1}{c}{B} & \multicolumn{1}{c}{SE} & \multicolumn{1}{c}{t}\\
 \midrule
-Justification \textasciitilde{} IC + Time & ic & -0.15 & 0.13 & -1.11\\
-Justification \textasciitilde{} IC + Time & time\_c & 0.00 & 0.00 & 0.35\\
-IC \textasciitilde{} Time & time\_c & 0.00 & 0.00 & 0.19\\
+Justification \textasciitilde{} IC + Time × Category & Integrative Complexity & -0.12 & 0.13 & -0.88\\
+Justification \textasciitilde{} IC + Time × Category & Time & 0.00 & 0.01 & -0.19\\
+Justification \textasciitilde{} IC + Time × Category & Extreme vs. Moderate & -0.33 & 0.15 & -2.17\\
+Justification \textasciitilde{} IC + Time × Category & Violent vs. Moderate & -0.37 & 0.18 & -2.03\\
+Justification \textasciitilde{} IC + Time × Category & Time × Extreme & 0.00 & 0.01 & 0.29\\
+Justification \textasciitilde{} IC + Time × Category & Time × Violent & -0.01 & 0.03 & -0.23\\
+IC \textasciitilde{} Time × Category & Time & 0.00 & 0.00 & -0.67\\
+IC \textasciitilde{} Time × Category & Extreme vs. Moderate & 0.21 & 0.09 & 2.24\\
+IC \textasciitilde{} Time × Category & Violent vs. Moderate & 0.18 & 0.11 & 1.67\\
+IC \textasciitilde{} Time × Category & Time × Extreme & 0.01 & 0.01 & 1.14\\
+IC \textasciitilde{} Time × Category & Time × Violent & -0.01 & 0.01 & -0.56\\
 \bottomrule
 \addlinespace
 \end{tabular}
 
 \begin{tablenotes}[para]
-\normalsize{\textit{Note.} Models include random intercepts and random slopes for time by author (lme4::lmer).}
+\normalsize{\textit{Note.} Models include random intercepts and random slopes for time by author. Moderate manifestos serve as the reference category.}
 \end{tablenotes}
 
 \end{threeparttable}
