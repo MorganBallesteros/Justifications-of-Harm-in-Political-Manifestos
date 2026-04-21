@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.3.8)  20 APR 2026 18:54
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.3.8)  21 APR 2026 15:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -667,10 +667,6 @@ File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 Underfull \vbox (badness 1067) has occurred while \output is active []
 
 [8] [9{c:/Users/morga/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}]
-Overfull \hbox (90.7973pt too wide) in paragraph at lines 423--449
- [] 
- []
-
 <Thesis_files/figure-latex/fig-long-ic-trajectories-1.pdf, id=74, 469.755pt x 325.215pt>
 File: Thesis_files/figure-latex/fig-long-ic-trajectories-1.pdf Graphic file (type pdf)
 <use Thesis_files/figure-latex/fig-long-ic-trajectories-1.pdf>
@@ -699,9 +695,9 @@ Here is how much of TeX's memory you used:
  44574 multiletter control sequences out of 15000+600000
  665556 words of font info for 74 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 83i,12n,93p,2245b,567s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 83i,11n,93p,2245b,567s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/Users/morga/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Users/morga/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/morga/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri12.pfb>
-Output written on Thesis.pdf (18 pages, 143803 bytes).
+Output written on Thesis.pdf (18 pages, 143902 bytes).
 PDF statistics:
  260 PDF objects out of 1000 (max. 8388607)
  226 compressed objects within 3 object streams
