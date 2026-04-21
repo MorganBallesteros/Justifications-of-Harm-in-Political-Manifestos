@@ -1464,6 +1464,90 @@ papaja::apa_table(
 )
 ```
 
+```{r longitudinal-category-models, echo=FALSE, message=FALSE, warning=FALSE}
+# ------------------------------------------------------------
+# Longitudinal models comparing category-specific trajectories
+# ------------------------------------------------------------
+
+long_dat <- doc_scores_all |>
+  dplyr::filter(!is.na(author)) |>
+  dplyr::mutate(
+    dplyr::across(
+      c(dyadic_harm, hopelessness, justification_for_violence,
+        martyrdom_narrative, role_model_status, violent_reference),
+      ~ tidyr::replace_na(.x, 0)
+    )
+  ) |>
+  dplyr::filter(!is.na(ic), !is.na(category)) |>
+  dplyr::mutate(
+    category = factor(category, levels = c("moderate", "extreme", "violent"))
+  ) |>
+  dplyr::group_by(author) |>
+  dplyr::arrange(author, doc_id, .by_group = TRUE) |>
+  dplyr::mutate(
+    time_index = dplyr::row_number(),
+    time_c = time_index - mean(time_index, na.rm = TRUE)
+  ) |>
+  dplyr::ungroup()
+
+if (nrow(long_dat) == 0) {
+  stop("No rows available for longitudinal category models after filtering.")
+}
+
+# Optional quick check
+cat("Longitudinal rows:", nrow(long_dat), "\n")
+cat("Authors:", dplyr::n_distinct(long_dat$author), "\n")
+print(table(long_dat$category, useNA = "ifany"))
+
+# Model 1:
+# Does justification for violence vary by IC, time, and category?
+# Critical term: time_c * category
+m_just_ic_cat <- lme4::lmer(
+  justification_for_violence ~ ic + time_c * category + (1 + time_c | author),
+  data = long_dat,
+  REML = FALSE
+)
+
+# Model 2:
+# Does IC change over time differently across categories?
+# Critical term: time_c * category
+m_ic_time_cat <- lme4::lmer(
+  ic ~ time_c * category + (1 + time_c | author),
+  data = long_dat,
+  REML = FALSE
+)
+
+long_cat_tab <- dplyr::bind_rows(
+  broom.mixed::tidy(m_just_ic_cat, effects = "fixed") |>
+    dplyr::mutate(model = "Justification ~ IC + Time × Category"),
+  broom.mixed::tidy(m_ic_time_cat, effects = "fixed") |>
+    dplyr::mutate(model = "IC ~ Time × Category")
+) |>
+  dplyr::transmute(
+    Model = model,
+    Term = dplyr::case_when(
+      term == "(Intercept)" ~ "Intercept (Moderate at centered time)",
+      term == "ic" ~ "Integrative Complexity",
+      term == "time_c" ~ "Time",
+      term == "categoryextreme" ~ "Extreme vs. Moderate",
+      term == "categoryviolent" ~ "Violent vs. Moderate",
+      term == "time_c:categoryextreme" ~ "Time × Extreme",
+      term == "time_c:categoryviolent" ~ "Time × Violent",
+      TRUE ~ term
+    ),
+    B = round(estimate, 2),
+    SE = round(std.error, 2),
+    t = round(statistic, 2)
+  )
+
+papaja::apa_table(
+  long_cat_tab,
+  caption = "Longitudinal mixed-effects models testing category differences in trajectories of integrative complexity and justification language.",
+  note = "B = unstandardized coefficient; SE = standard error."
+)
+```
+
+
 
 ```{r harris-near-far, echo=FALSE, include=FALSE, message=FALSE, warning=FALSE, results='asis'}
 harris_dat <- long_dat |>
