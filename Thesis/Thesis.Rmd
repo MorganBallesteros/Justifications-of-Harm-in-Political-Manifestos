@@ -1056,7 +1056,111 @@ papaja::apa_table(
   note = "Odds ratios (OR), 95% confidence intervals, and p values are Wald-based. OR reflects a 1 SD increase in each standardized predictor."
 )
 
+# ------------------------------------------------------------
+# Reduced binary logistic models (single predictors)
+# ------------------------------------------------------------
+
+m_ic_only <- glm(violent ~ ic_z, data = doc_scores, family = binomial)
+m_dh_only <- glm(violent ~ dyadic_harm_z, data = doc_scores, family = binomial)
+m_jv_only <- glm(violent ~ justification_z, data = doc_scores, family = binomial)
+m_hp_only <- glm(violent ~ hopelessness_z, data = doc_scores, family = binomial)
+
+extract_reduced_glm <- function(model, model_label) {
+  cf <- summary(model)$coefficients
+
+  tibble::tibble(
+    Model = model_label,
+    OR = exp(cf[2, "Estimate"]),
+    CI_low = exp(cf[2, "Estimate"] - 1.96 * cf[2, "Std. Error"]),
+    CI_high = exp(cf[2, "Estimate"] + 1.96 * cf[2, "Std. Error"]),
+    p = cf[2, "Pr(>|z|)"]
+  )
+}
+
+reduced_logit_tab <- dplyr::bind_rows(
+  extract_reduced_glm(m_ic_only, "IC only"),
+  extract_reduced_glm(m_dh_only, "Dyadic Harm only"),
+  extract_reduced_glm(m_jv_only, "Justification only"),
+  extract_reduced_glm(m_hp_only, "Hopelessness only")
+) |>
+  dplyr::mutate(
+    OR = round(OR, 2),
+    CI = sprintf("[%.2f, %.2f]", round(CI_low, 2), round(CI_high, 2)),
+    p = dplyr::case_when(
+      p < .001 ~ "< .001",
+      TRUE ~ formatC(p, digits = 3, format = "f")
+    )
+  ) |>
+  dplyr::select(Model, OR, CI, p)
+
+papaja::apa_table(
+  reduced_logit_tab,
+  caption = "Reduced logistic models predicting violent (vs. non-violent) category from individual predictors."
+)
+
 ```
+
+```{r binary-nonparametric-tests, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+# ------------------------------------------------------------
+# Nonparametric contrasts: violent vs. non-violent
+# ------------------------------------------------------------
+
+binary_np <- doc_scores |>
+  dplyr::mutate(
+    violent_binary = ifelse(category == "violent", "violent", "non_violent")
+  ) |>
+  dplyr::select(
+    violent_binary,
+    dyadic_harm,
+    justification_for_violence,
+    hopelessness,
+    ic
+  ) |>
+  tidyr::pivot_longer(
+    cols = -violent_binary,
+    names_to = "measure",
+    values_to = "value"
+  )
+
+binary_wilcox <- binary_np |>
+  dplyr::group_by(measure) |>
+  dplyr::group_modify(~ {
+    test <- wilcox.test(value ~ violent_binary, data = .x, exact = FALSE)
+
+    tibble::tibble(
+      W = unname(test$statistic),
+      p = test$p.value
+    )
+  }) |>
+  dplyr::ungroup() |>
+  dplyr::mutate(
+    p_adj = p.adjust(p, method = "holm"),
+    measure = dplyr::case_when(
+      measure == "dyadic_harm" ~ "Dyadic Harm",
+      measure == "justification_for_violence" ~ "Justification for Violence",
+      measure == "hopelessness" ~ "Hopelessness",
+      measure == "ic" ~ "Integrative Complexity",
+      TRUE ~ measure
+    ),
+    W = round(W, 2),
+    p = dplyr::case_when(
+      p < .001 ~ "< .001",
+      TRUE ~ formatC(p, digits = 3, format = "f")
+    ),
+    p_adj = dplyr::case_when(
+      p_adj < .001 ~ "< .001",
+      TRUE ~ formatC(p_adj, digits = 3, format = "f")
+    )
+  ) |>
+  dplyr::select(Measure = measure, W, p, p_adj)
+
+papaja::apa_table(
+  binary_wilcox,
+  caption = "Wilcoxon rank-sum tests comparing violent and non-violent manifestos."
+)
+
+```
+
 
 
 ```{r fig-violent-probability, echo=FALSE, include=FALSE, message=FALSE, warning=FALSE, fig.cap="Predicted probability of violent (vs. non-violent) category as a function of integrative complexity (95% CI)."}
@@ -1324,7 +1428,38 @@ papaja::apa_table(
 )
 ```
 
+```{r category-nonparametric-tests, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+# ------------------------------------------------------------
+# Nonparametric category comparisons (Kruskal-Wallis + pairwise)
+# ------------------------------------------------------------
 
+library(rstatix)
+
+np_tests <- doc_scores |>
+  dplyr::select(category, dyadic_harm, justification_for_violence,
+                martyrdom_narrative, hopelessness) |>
+  tidyr::pivot_longer(-category, names_to = "measure", values_to = "value")
+
+# Kruskal-Wallis omnibus tests
+kw_results <- np_tests |>
+  dplyr::group_by(measure) |>
+  rstatix::kruskal_test(value ~ category)
+
+# Pairwise Wilcoxon (Holm corrected)
+pairwise_results <- np_tests |>
+  dplyr::group_by(measure) |>
+  rstatix::pairwise_wilcox_test(value ~ category, p.adjust.method = "holm")
+
+papaja::apa_table(
+  kw_results,
+  caption = "Kruskal-Wallis tests comparing marker prevalence across manifesto categories."
+)
+
+papaja::apa_table(
+  pairwise_results,
+  caption = "Pairwise Wilcoxon tests (Holm-corrected) comparing manifesto categories."
+)
+```
 
 ## Longitudinal Analyses
 
@@ -1422,6 +1557,30 @@ ggplot2::ggplot(long_dat, ggplot2::aes(x = time_index, y = ic, group = author)) 
   ggplot2::theme_classic()
 ```
 
+```{r longitudinal-summary, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+# ------------------------------------------------------------
+# Descriptive summaries for longitudinal authors
+# ------------------------------------------------------------
+
+long_summary <- long_dat |>
+  dplyr::group_by(author, category) |>
+  dplyr::summarise(
+    n_docs = dplyr::n(),
+    mean_ic = mean(ic, na.rm = TRUE),
+    mean_justification = mean(justification_for_violence, na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  dplyr::mutate(
+    mean_ic = round(mean_ic, 2),
+    mean_justification = round(mean_justification, 2)
+  )
+
+papaja::apa_table(
+  long_summary,
+  caption = "Descriptive summaries for longitudinal authors by category."
+)
+
+```
 
 
 ```{r longitudinal-category-models, echo=FALSE, message=FALSE, warning=FALSE}
@@ -1498,41 +1657,6 @@ if (nrow(long_dat_cat) == 0) {
 }
 ```
 
-
-
-```{r harris-near-far, echo=FALSE, include=FALSE, message=FALSE, warning=FALSE, results='asis'}
-harris_dat <- long_dat |>
-  dplyr::filter(author == "harris") |>
-  dplyr::filter(!is.na(doc_date)) |>
-  dplyr::mutate(
-    event_date = as.Date("1999-04-20"),   # <-- EDIT if you are using a different violence date definition
-    days_to_event = as.numeric(event_date - doc_date),
-    near_6m = days_to_event >= 0 & days_to_event <= 183
-  )
-
-# IC as a function of temporal proximity (within Harris)
-m_harris_ic <- stats::lm(ic ~ days_to_event, data = harris_dat)
-m_harris_just <- stats::lm(justification_for_violence ~ days_to_event, data = harris_dat)
-
-tab_harris <- tibble::tibble(
-  Outcome = c("IC", "Justification for Violence"),
-  B_days = c(coef(m_harris_ic)[["days_to_event"]], coef(m_harris_just)[["days_to_event"]]),
-  SE_days = c(summary(m_harris_ic)$coefficients["days_to_event","Std. Error"],
-             summary(m_harris_just)$coefficients["days_to_event","Std. Error"]),
-  p_days = c(summary(m_harris_ic)$coefficients["days_to_event","Pr(>|t|)"],
-            summary(m_harris_just)$coefficients["days_to_event","Pr(>|t|)"])
-) |>
-  dplyr::mutate(
-    dplyr::across(c(B_days, SE_days), \(x) round(x, 4)),
-    p_days = dplyr::case_when(p_days < .001 ~ "< .001", TRUE ~ sprintf("%.3f", p_days))
-  )
-
-papaja::apa_table(
-  tab_harris,
-  caption = "Within-author temporal proximity models for the violent longitudinal case (Harris).",
-  note = "Predictor is days remaining until the violence event date; positive B indicates higher outcome farther from the event."
-)
-```
 
 
 # Discussion 
