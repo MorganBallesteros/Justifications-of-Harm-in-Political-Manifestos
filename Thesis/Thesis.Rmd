@@ -1060,10 +1060,10 @@ papaja::apa_table(
 # Reduced binary logistic models (single predictors)
 # ------------------------------------------------------------
 
-m_ic_only <- glm(violent ~ ic_z, data = doc_scores, family = binomial)
-m_dh_only <- glm(violent ~ dyadic_harm_z, data = doc_scores, family = binomial)
-m_jv_only <- glm(violent ~ justification_z, data = doc_scores, family = binomial)
-m_hp_only <- glm(violent ~ hopelessness_z, data = doc_scores, family = binomial)
+m_ic_only_reduced <- glm(violent ~ ic_z, data = dat, family = binomial)
+m_dh_only <- glm(violent ~ dyadic_harm_z, data = dat, family = binomial)
+m_jv_only <- glm(violent ~ justification_z, data = dat, family = binomial)
+m_hp_only <- glm(violent ~ hopelessness_z, data = dat, family = binomial)
 
 extract_reduced_glm <- function(model, model_label) {
   cf <- summary(model)$coefficients
@@ -1078,7 +1078,7 @@ extract_reduced_glm <- function(model, model_label) {
 }
 
 reduced_logit_tab <- dplyr::bind_rows(
-  extract_reduced_glm(m_ic_only, "IC only"),
+  extract_reduced_glm(m_ic_only_reduced, "IC only"),
   extract_reduced_glm(m_dh_only, "Dyadic Harm only"),
   extract_reduced_glm(m_jv_only, "Justification only"),
   extract_reduced_glm(m_hp_only, "Hopelessness only")

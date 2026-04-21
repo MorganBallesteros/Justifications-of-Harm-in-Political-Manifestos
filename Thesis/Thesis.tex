@@ -421,6 +421,52 @@ Hopelessness (z) & 0.62 & {}[0.4, 0.96] & 0.034\\
 \begin{center}
 \begin{threeparttable}
 
+\caption{\label{tab:violent-logistic-models}Reduced logistic models predicting violent (vs. non-violent) category from individual predictors.}
+
+\begin{tabular}{llll}
+\toprule
+Model & \multicolumn{1}{c}{OR} & \multicolumn{1}{c}{CI} & \multicolumn{1}{c}{p}\\
+\midrule
+IC only & 1.01 & {}[0.74, 1.40] & 0.928\\
+Dyadic Harm only & 1.62 & {}[1.20, 2.18] & 0.002\\
+Justification only & 0.73 & {}[0.42, 1.28] & 0.276\\
+Hopelessness only & 0.73 & {}[0.48, 1.11] & 0.137\\
+\bottomrule
+\end{tabular}
+
+\end{threeparttable}
+\end{center}
+
+\end{table}
+
+\begin{table}[tbp]
+
+\begin{center}
+\begin{threeparttable}
+
+\caption{\label{tab:binary-nonparametric-tests}Wilcoxon rank-sum tests comparing violent and non-violent manifestos.}
+
+\begin{tabular}{llll}
+\toprule
+Measure & \multicolumn{1}{c}{W} & \multicolumn{1}{c}{p} & \multicolumn{1}{c}{p\_adj}\\
+\midrule
+Dyadic Harm & 5,165.00 & 0.165 & 0.494\\
+Hopelessness & 8,127.00 & < .001 & < .001\\
+Integrative Complexity & 4,337.00 & 0.277 & 0.554\\
+Justification for Violence & 6,178.50 & 0.357 & 0.554\\
+\bottomrule
+\end{tabular}
+
+\end{threeparttable}
+\end{center}
+
+\end{table}
+
+\begin{table}[tbp]
+
+\begin{center}
+\begin{threeparttable}
+
 \caption{\label{tab:multinomial-sensitivity}Multinomial logistic regression (sensitivity analysis) predicting 3-category manifesto classification from integrative complexity and marker prevalence.}
 
 \begin{tabular}{llll}
@@ -482,6 +528,60 @@ Hopelessness & Violent vs. Moderate & 0.60 & 0.81 & 0.74 & 0.458\\
 
 \end{table}
 
+\begin{table}[tbp]
+
+\begin{center}
+\begin{threeparttable}
+
+\caption{\label{tab:category-nonparametric-tests}Kruskal-Wallis tests comparing marker prevalence across manifesto categories.}
+
+\begin{tabular}{lllllll}
+\toprule
+measure & \multicolumn{1}{c}{.y.} & \multicolumn{1}{c}{n} & \multicolumn{1}{c}{statistic} & \multicolumn{1}{c}{df} & \multicolumn{1}{c}{p} & \multicolumn{1}{c}{method}\\
+\midrule
+dyadic\_harm & value & 305 & 21.93 & 2 & 0.00 & Kruskal-Wallis\\
+hopelessness & value & 305 & 41.36 & 2 & 0.00 & Kruskal-Wallis\\
+justification\_for\_violence & value & 305 & 41.23 & 2 & 0.00 & Kruskal-Wallis\\
+martyrdom\_narrative & value & 305 & 6.65 & 2 & 0.04 & Kruskal-Wallis\\
+\bottomrule
+\end{tabular}
+
+\end{threeparttable}
+\end{center}
+
+\end{table}
+
+\begin{table}[tbp]
+
+\begin{center}
+\begin{threeparttable}
+
+\caption{\label{tab:category-nonparametric-tests}Pairwise Wilcoxon tests (Holm-corrected) comparing manifesto categories.}
+
+\begin{tabular}{llllllllll}
+\toprule
+measure & \multicolumn{1}{c}{.y.} & \multicolumn{1}{c}{group1} & \multicolumn{1}{c}{group2} & \multicolumn{1}{c}{n1} & \multicolumn{1}{c}{n2} & \multicolumn{1}{c}{statistic} & \multicolumn{1}{c}{p} & \multicolumn{1}{c}{p.adj} & \multicolumn{1}{c}{p.adj.signif}\\
+\midrule
+dyadic\_harm & value & moderate & extreme & 95 & 166 & 9,925.00 & 0.00 & 0.00 & ****\\
+dyadic\_harm & value & moderate & violent & 95 & 44 & 2,190.00 & 0.61 & 0.61 & ns\\
+dyadic\_harm & value & extreme & violent & 166 & 44 & 2,975.00 & 0.00 & 0.01 & **\\
+hopelessness & value & moderate & extreme & 95 & 166 & 4,929.50 & 0.00 & 0.00 & ****\\
+hopelessness & value & moderate & violent & 95 & 44 & 2,706.50 & 0.00 & 0.00 & **\\
+hopelessness & value & extreme & violent & 166 & 44 & 5,420.50 & 0.00 & 0.00 & ****\\
+justification\_for\_violence & value & moderate & extreme & 95 & 166 & 11,119.00 & 0.00 & 0.00 & ****\\
+justification\_for\_violence & value & moderate & violent & 95 & 44 & 2,827.00 & 0.00 & 0.00 & ***\\
+justification\_for\_violence & value & extreme & violent & 166 & 44 & 3,351.50 & 0.28 & 0.28 & ns\\
+martyrdom\_narrative & value & moderate & extreme & 95 & 166 & 9,037.00 & 0.01 & 0.03 & *\\
+martyrdom\_narrative & value & moderate & violent & 95 & 44 & 2,322.00 & 0.21 & 0.42 & ns\\
+martyrdom\_narrative & value & extreme & violent & 166 & 44 & 3,488.50 & 0.52 & 0.52 & ns\\
+\bottomrule
+\end{tabular}
+
+\end{threeparttable}
+\end{center}
+
+\end{table}
+
 \subsection{Longitudinal Analyses}\label{longitudinal-analyses}
 
 Mixed-effects models were estimated to examine within-author changes in integrative complexity and justification language over time (see Table 6; Figure 2). No significant effects were observed. Integrative complexity was not associated with justification language (b = -0.11, SE = 0.11, t = -0.99), nor did either variable change systematically over time. These findings suggest that cross-sectional differences across manifesto types are more pronounced than within-author temporal dynamics.
@@ -491,6 +591,33 @@ Mixed-effects models were estimated to examine within-author changes in integrat
 \pandocbounded{\includegraphics[keepaspectratio]{Thesis_files/figure-latex/fig-long-ic-trajectories-1.pdf}}
 \caption{\label{fig:fig-long-ic-trajectories}Longitudinal trajectories of integrative complexity by author (document order).}
 \end{figure}
+
+\begin{table}[tbp]
+
+\begin{center}
+\begin{threeparttable}
+
+\caption{\label{tab:longitudinal-summary}Descriptive summaries for longitudinal authors by category.}
+
+\begin{tabular}{lllll}
+\toprule
+author & \multicolumn{1}{c}{category} & \multicolumn{1}{c}{n\_docs} & \multicolumn{1}{c}{mean\_ic} & \multicolumn{1}{c}{mean\_justification}\\
+\midrule
+churchill & moderate & 28 & 2.04 & 0.25\\
+evola & extreme & 8 & 2.42 & 0.23\\
+gramsci & extreme & 41 & 2.05 & 0.16\\
+harris & violent & 20 & 1.95 & 0.00\\
+lenin & extreme & 66 & 2.10 & 0.25\\
+lpm & moderate & 26 & 1.93 & 0.57\\
+sotu & moderate & 32 & 1.83 & 0.86\\
+tedk & violent & 16 & 2.30 & 0.37\\
+\bottomrule
+\end{tabular}
+
+\end{threeparttable}
+\end{center}
+
+\end{table}
 
 \begin{verbatim}
 ## Longitudinal rows: 237 
