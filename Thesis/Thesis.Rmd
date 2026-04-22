@@ -1552,8 +1552,26 @@ if (nrow(long_dat) == 0) {
 ggplot2::ggplot(long_dat, ggplot2::aes(x = time_index, y = ic, group = author)) +
   ggplot2::geom_line(alpha = 0.7) +
   ggplot2::geom_point(size = 1) +
-  ggplot2::facet_wrap(~ author, scales = "free_x") +
-  ggplot2::labs(x = "Document order (within author)", y = "AutoIC Integrative Complexity") +
+  ggplot2::facet_wrap(
+    ~ author,
+    scales = "free_x",
+    labeller = ggplot2::labeller(
+      author = c(
+        "tedk" = "Ted K",
+        "sotu" = "SotU",
+        "harris" = "Harris",
+        "lenin" = "Lenin",
+        "lpm" = "LPM",
+        "churchill" = "Churchill",
+        "evola" = "Evola",
+        "gramsci" = "Gramsci"
+      )
+    )
+  ) +
+  ggplot2::labs(
+    x = "Document order (within author)",
+    y = "AutoIC Integrative Complexity"
+  ) +
   ggplot2::theme_classic()
 ```
 
