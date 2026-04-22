@@ -481,29 +481,6 @@ Hopelessness only & 0.73 & {}[0.48, 1.11] & 0.137\\
 
 \end{table}
 
-\begin{table}[tbp]
-
-\begin{center}
-\begin{threeparttable}
-
-\caption{\label{tab:binary-nonparametric-tests}Wilcoxon rank-sum tests comparing violent and non-violent manifestos.}
-
-\begin{tabular}{llll}
-\toprule
-Measure & \multicolumn{1}{c}{W} & \multicolumn{1}{c}{p} & \multicolumn{1}{c}{p\_adj}\\
-\midrule
-Dyadic Harm & 5,165.00 & 0.165 & 0.494\\
-Hopelessness & 8,127.00 & < .001 & < .001\\
-Integrative Complexity & 4,337.00 & 0.277 & 0.554\\
-Justification for Violence & 6,178.50 & 0.357 & 0.554\\
-\bottomrule
-\end{tabular}
-
-\end{threeparttable}
-\end{center}
-
-\end{table}
-
 \begin{figure}
 \centering
 \pandocbounded{\includegraphics[keepaspectratio]{Thesis_files/figure-latex/fig-violent-probability-1.pdf}}
@@ -515,40 +492,6 @@ Justification for Violence & 6,178.50 & 0.357 & 0.554\\
 \pandocbounded{\includegraphics[keepaspectratio]{Thesis_files/figure-latex/fig-violent-oddsratios-1.pdf}}
 \caption{\label{fig:fig-violent-oddsratios}Odds ratios (95\% CI) from the logistic model predicting violent (vs.~non-violent) category.}
 \end{figure}
-
-\begin{table}[tbp]
-
-\begin{center}
-\begin{threeparttable}
-
-\caption{\label{tab:multinomial-sensitivity}Multinomial logistic regression (sensitivity analysis) predicting 3-category manifesto classification from integrative complexity and marker prevalence.}
-
-\begin{tabular}{llll}
-\toprule
-Comparison & \multicolumn{1}{c}{Term} & \multicolumn{1}{c}{RRR} & \multicolumn{1}{c}{CI}\\
-\midrule
-extreme vs baseline & ic\_z & 1.45 & {}[1.03785604685513, 2.03460229230181]\\
-extreme vs baseline & dyadic\_harm\_z & 0.63 & {}[0.393760189580065, 0.995027174666998]\\
-extreme vs baseline & justification\_z & 0.63 & {}[0.400193743945297, 0.995239888030332]\\
-extreme vs baseline & martyrdom\_z & 1.10 & {}[0.791218026851001, 1.53647845569049]\\
-extreme vs baseline & hopelessness\_z & 2.78 & {}[1.76212084348656, 4.37790396781234]\\
-violent vs baseline & ic\_z & 1.09 & {}[0.701678271130971, 1.7027568964777]\\
-violent vs baseline & dyadic\_harm\_z & 1.57 & {}[1.04952070573152, 2.33693697483482]\\
-violent vs baseline & justification\_z & 0.44 & {}[0.219348882285615, 0.874670092736279]\\
-violent vs baseline & martyrdom\_z & 1.24 & {}[0.865974030797352, 1.78399524627654]\\
-violent vs baseline & hopelessness\_z & 1.19 & {}[0.663249341917621, 2.14841366876896]\\
-\bottomrule
-\addlinespace
-\end{tabular}
-
-\begin{tablenotes}[para]
-\normalsize{\textit{Note.} Estimated via nnet::multinom; relative risk ratios (RRR) are exponentiated coefficients. Values are Wald-based with 95\% confidence intervals.}
-\end{tablenotes}
-
-\end{threeparttable}
-\end{center}
-
-\end{table}
 
 \begin{verbatim}
 ## [1] 0.0003014245 0.9593271053
@@ -719,33 +662,6 @@ Mixed-effects models were estimated to examine within-author changes in integrat
 \pandocbounded{\includegraphics[keepaspectratio]{Thesis_files/figure-latex/fig-long-ic-trajectories-1.pdf}}
 \caption{\label{fig:fig-long-ic-trajectories}Longitudinal trajectories of integrative complexity by author (document order).}
 \end{figure}
-
-\begin{table}[tbp]
-
-\begin{center}
-\begin{threeparttable}
-
-\caption{\label{tab:longitudinal-summary}Descriptive summaries for longitudinal authors by category.}
-
-\begin{tabular}{lllll}
-\toprule
-author & \multicolumn{1}{c}{category} & \multicolumn{1}{c}{n\_docs} & \multicolumn{1}{c}{mean\_ic} & \multicolumn{1}{c}{mean\_justification}\\
-\midrule
-churchill & moderate & 28 & 2.04 & 0.25\\
-evola & extreme & 8 & 2.42 & 0.23\\
-gramsci & extreme & 41 & 2.05 & 0.16\\
-harris & violent & 20 & 1.95 & 0.00\\
-lenin & extreme & 66 & 2.10 & 0.25\\
-lpm & moderate & 26 & 1.93 & 0.57\\
-sotu & moderate & 32 & 1.83 & 0.86\\
-tedk & violent & 16 & 2.30 & 0.37\\
-\bottomrule
-\end{tabular}
-
-\end{threeparttable}
-\end{center}
-
-\end{table}
 
 \begin{verbatim}
 ## Longitudinal rows: 237 

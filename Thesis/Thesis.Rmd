@@ -1100,7 +1100,7 @@ papaja::apa_table(
 
 ```
 
-```{r binary-nonparametric-tests, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+```{r binary-nonparametric-tests, echo=FALSE, include=FALSE, message=FALSE, warning=FALSE, results='asis'}
 # ------------------------------------------------------------
 # Nonparametric contrasts: violent vs. non-violent
 # ------------------------------------------------------------
@@ -1213,7 +1213,7 @@ ggplot2::ggplot(coef_tab, ggplot2::aes(x = estimate, y = term)) +
 
 ```
 
-```{r multinomial-sensitivity, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+```{r multinomial-sensitivity, echo=FALSE, include=FALSE, message=FALSE, warning=FALSE, results='asis'}
 dat3 <- doc_scores_ic |>
   dplyr::filter(!is.na(category), !is.na(ic)) |>
   dplyr::mutate(
@@ -1575,7 +1575,7 @@ ggplot2::ggplot(long_dat, ggplot2::aes(x = time_index, y = ic, group = author)) 
   ggplot2::theme_classic()
 ```
 
-```{r longitudinal-summary, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+```{r longitudinal-summary, echo=FALSE, message=FALSE, warning=FALSE, include= FALSE, results='asis'}
 # ------------------------------------------------------------
 # Descriptive summaries for longitudinal authors
 # ------------------------------------------------------------
