@@ -296,6 +296,48 @@ For longitudinal corpora (multiple texts per author over time), I estimate mixed
 
 \section{Results}\label{results}
 
+\begin{verbatim}
+## n used by lm after na.omit = 264
+\end{verbatim}
+
+\begin{verbatim}
+## category distribution in modeling data:
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## moderate  extreme  violent 
+##       95      125       44
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = form_ic2, data = mf)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -1.1518 -0.1988 -0.0299  0.1662  3.3723 
+## 
+## Coefficients:
+##                             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)                 1.999894   0.056769  35.228   <2e-16 ***
+## dyadic_harm                 0.176825   0.078387   2.256   0.0249 *  
+## hopelessness               -0.005058   0.005790  -0.874   0.3832    
+## justification_for_violence -0.041855   0.036109  -1.159   0.2475    
+## martyrdom_narrative        -0.012110   0.063300  -0.191   0.8484    
+## role_model_status          -0.018937   0.033540  -0.565   0.5728    
+## violent_reference          -0.039219   0.055904  -0.702   0.4836    
+## categoryextreme             0.151942   0.063411   2.396   0.0173 *  
+## categoryviolent             0.034667   0.081026   0.428   0.6691    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.4169 on 255 degrees of freedom
+## Multiple R-squared:  0.05528,    Adjusted R-squared:  0.02564 
+## F-statistic: 1.865 on 8 and 255 DF,  p-value: 0.06588
+\end{verbatim}
+
 \subsection{Descriptive Statistics}\label{descriptive-statistics}
 
 \begin{figure}
@@ -462,6 +504,18 @@ Justification for Violence & 6,178.50 & 0.357 & 0.554\\
 
 \end{table}
 
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio]{Thesis_files/figure-latex/fig-violent-probability-1.pdf}}
+\caption{\label{fig:fig-violent-probability}Predicted probability of violent (vs.~non-violent) category as a function of integrative complexity (95\% CI).}
+\end{figure}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio]{Thesis_files/figure-latex/fig-violent-oddsratios-1.pdf}}
+\caption{\label{fig:fig-violent-oddsratios}Odds ratios (95\% CI) from the logistic model predicting violent (vs.~non-violent) category.}
+\end{figure}
+
 \begin{table}[tbp]
 
 \begin{center}
@@ -496,6 +550,20 @@ violent vs baseline & hopelessness\_z & 1.19 & {}[0.663249341917621, 2.148413668
 
 \end{table}
 
+\begin{verbatim}
+## [1] 0.0003014245 0.9593271053
+\end{verbatim}
+
+\begin{verbatim}
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+## -1.4798 -0.6154 -0.5038 -0.1717 -0.3666  2.7156
+\end{verbatim}
+
+\begin{verbatim}
+##      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+## 1.700e-07 1.876e-04 3.067e-04 7.644e-03 1.419e-03 3.929e-01
+\end{verbatim}
+
 \begin{table}[tbp]
 
 \begin{center}
@@ -521,6 +589,66 @@ Hopelessness & Violent vs. Moderate & 0.60 & 0.81 & 0.74 & 0.458\\
 
 \begin{tablenotes}[para]
 \normalsize{\textit{Note.} Moderate manifestos served as the reference category.}
+\end{tablenotes}
+
+\end{threeparttable}
+\end{center}
+
+\end{table}
+
+\begin{table}[tbp]
+
+\begin{center}
+\begin{threeparttable}
+
+\caption{\label{tab:manifesto-regressions}Linear regression coefficients predicting document-level autoIC outcomes from linguistic indicators and manifesto category.}
+
+\begin{tabular}{llllll}
+\toprule
+Outcome & \multicolumn{1}{c}{Predictor} & \multicolumn{1}{c}{B} & \multicolumn{1}{c}{SE} & \multicolumn{1}{c}{t} & \multicolumn{1}{c}{p}\\
+\midrule
+IC & Justification for Violence & -0.05 & 0.04 & -1.34 & 0.182\\
+IC & Dyadic Harm & 0.17 & 0.08 & 2.18 & 0.030\\
+IC & Extreme vs. Moderate & 0.15 & 0.06 & 2.58 & 0.010\\
+IC & Violent vs. Moderate & 0.05 & 0.08 & 0.59 & 0.553\\
+Dial & Justification for Violence & -0.01 & 0.03 & -0.37 & 0.708\\
+Dial & Dyadic Harm & 0.15 & 0.06 & 2.57 & 0.011\\
+Dial & Extreme vs. Moderate & 0.10 & 0.04 & 2.22 & 0.027\\
+Dial & Violent vs. Moderate & 0.14 & 0.06 & 2.38 & 0.018\\
+Elab & Justification for Violence & -0.03 & 0.02 & -1.18 & 0.238\\
+Elab & Dyadic Harm & 0.04 & 0.05 & 0.78 & 0.433\\
+Elab & Extreme vs. Moderate & 0.04 & 0.04 & 1.17 & 0.242\\
+Elab & Violent vs. Moderate & 0.02 & 0.05 & 0.30 & 0.766\\
+IC Differentiation & Justification for Violence & -0.01 & 0.02 & -0.35 & 0.725\\
+IC Differentiation & Dyadic Harm & 0.08 & 0.05 & 1.57 & 0.117\\
+IC Differentiation & Extreme vs. Moderate & 0.05 & 0.04 & 1.29 & 0.200\\
+IC Differentiation & Violent vs. Moderate & 0.16 & 0.05 & 3.05 & 0.003\\
+IC Integration & Justification for Violence & -0.04 & 0.02 & -1.70 & 0.090\\
+IC Integration & Dyadic Harm & 0.08 & 0.05 & 1.74 & 0.083\\
+IC Integration & Extreme vs. Moderate & 0.09 & 0.04 & 2.57 & 0.011\\
+IC Integration & Violent vs. Moderate & -0.12 & 0.05 & -2.38 & 0.018\\
+Dial Differentiation & Justification for Violence & 0.01 & 0.02 & 0.41 & 0.679\\
+Dial Differentiation & Dyadic Harm & 0.07 & 0.05 & 1.53 & 0.127\\
+Dial Differentiation & Extreme vs. Moderate & 0.05 & 0.04 & 1.48 & 0.141\\
+Dial Differentiation & Violent vs. Moderate & 0.20 & 0.05 & 3.97 & < .001\\
+Dial Integration & Justification for Violence & -0.02 & 0.01 & -1.45 & 0.148\\
+Dial Integration & Dyadic Harm & 0.08 & 0.03 & 2.68 & 0.008\\
+Dial Integration & Extreme vs. Moderate & 0.04 & 0.02 & 2.04 & 0.042\\
+Dial Integration & Violent vs. Moderate & -0.04 & 0.03 & -1.48 & 0.141\\
+Elab Differentiation & Justification for Violence & -0.01 & 0.02 & -0.50 & 0.619\\
+Elab Differentiation & Dyadic Harm & 0.03 & 0.04 & 0.79 & 0.430\\
+Elab Differentiation & Extreme vs. Moderate & 0.00 & 0.03 & -0.11 & 0.911\\
+Elab Differentiation & Violent vs. Moderate & 0.09 & 0.04 & 2.35 & 0.019\\
+Elab Integration & Justification for Violence & -0.02 & 0.01 & -1.62 & 0.107\\
+Elab Integration & Dyadic Harm & 0.01 & 0.03 & 0.23 & 0.820\\
+Elab Integration & Extreme vs. Moderate & 0.04 & 0.02 & 2.15 & 0.032\\
+Elab Integration & Violent vs. Moderate & -0.08 & 0.03 & -2.91 & 0.004\\
+\bottomrule
+\addlinespace
+\end{tabular}
+
+\begin{tablenotes}[para]
+\normalsize{\textit{Note.} Moderate manifestos served as the reference category. Coefficients for linguistic predictors represent associations with document-level autoIC outcomes, controlling for the other predictors in the model.}
 \end{tablenotes}
 
 \end{threeparttable}
