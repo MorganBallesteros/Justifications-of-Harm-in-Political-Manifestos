@@ -1,32 +1,269 @@
-doc_id,category
-1160_KennedyIchbin,moderate
-142Thunberg,moderate
-1945 Labour Party Manifesto -,moderate
-1949_simone-de-beauvoir-the-second-sex,moderate
-Atlantic-Charter,moderate
-Communist Manifesto,extreme
-DefeatingEurabia1,extreme
-Earnest-Manifesto-042719,violent
-"Four Freedoms Speech, Franklin Delano Roosevelt (1)",moderate
-Full_text_I_Have_a_Dream_,moderate
-Hitler_Adolf_-_Mein_Kampf,violent
-Imperium - Yockey,extreme
-"Maududi, Sayyid Abul A'la - Al Jihad Fil Islam by Syed Abul Aala Maududi",extreme
-"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002",extreme
-PortHuronStatement,extreme
-Revolt Against The Modern World - Julius Evola,extreme
-"Russian Imperial Manifesto, Announcing the Start of War in August 1914",moderate
-anders_breivik_-_2083_manifesto_-_2011,violent
-brenton-tarrant-the-great-replacement-manifesto,violent
-cho_manifesto_1.1,violent
-milestones-f1,violent
-patrick_crusius_-_the_inconvenient_truth_about_me,violent
-rodger_manifesto,violent
-roofmanifesto,violent
-ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post,extreme
-the state and revolution - lenin,extreme
-the urban guerilla concept,extreme
-the-lawful-and-the-prohibited-in-islam_text,extreme
-universal declaration of human rights,moderate
-velayat_faqeeh - Khomeini,extreme
-what is to be done - lenin,extreme
+doc_id,category,author_id,time_index,is_longitudinal
+1160_KennedyIchbin,moderate,,,
+142Thunberg,moderate,,,
+1945 Labour Party Manifesto -,moderate,,,
+1949_simone-de-beauvoir-the-second-sex,moderate,,,
+Atlantic-Charter,moderate,,,
+Communist Manifesto,extreme,,,
+DefeatingEurabia1,extreme,,,
+Earnest-Manifesto-042719,violent,,,
+"Four Freedoms Speech, Franklin Delano Roosevelt (1)",moderate,,,
+Full_text_I_Have_a_Dream_,moderate,,,
+Hitler_Adolf_-_Mein_Kampf,violent,,,
+Imperium - Yockey,extreme,,,
+"Maududi, Sayyid Abul Ala - Al Jihad Fil Islam by Syed Abul Aala Maududi",extreme,,,
+"Pierce, William L. - FREE SPEECH ESSAYS 1995-2002",extreme,,,
+PortHuronStatement,extreme,,,
+Revolt Against The Modern World - Julius Evola,extreme,,,
+"Russian Imperial Manifesto, Announcing the Start of War in August 1914",moderate,,,
+anders_breivik_-_2083_manifesto_-_2011,violent,,,
+brenton-tarrant-the-great-replacement-manifesto,violent,,,
+cho_manifesto_1.1,violent,,,
+milestones-f1,violent,,,
+patrick_crusius_-_the_inconvenient_truth_about_me,violent,,,
+rodger_manifesto,violent,,,
+roofmanifesto,violent,,,
+ted-kaczynski-industrial-society-and-its-future-copy-sent-to-the-post,extreme,,,
+the state and revolution - lenin,extreme,,,
+the urban guerilla concept,extreme,,,
+the-lawful-and-the-prohibited-in-islam_text,extreme,,,
+universal declaration of human rights,moderate,,,
+velayat_faqeeh - Khomeini,extreme,,,
+what is to be done - lenin,extreme,,,
+LPM_1900.txt,moderate,lpm,1,TRUE
+LPM_1906.txt,moderate,lpm,2,TRUE
+LPM_1910.12.txt,moderate,lpm,3,TRUE
+LPM_1910.txt,moderate,lpm,4,TRUE
+LPM_1918.txt,moderate,lpm,5,TRUE
+LPM_1923.txt,moderate,lpm,6,TRUE
+LPM_1924.txt,moderate,lpm,7,TRUE
+LPM_1929.txt,moderate,lpm,8,TRUE
+LPM_1931.txt,moderate,lpm,9,TRUE
+LPM_1935.txt,moderate,lpm,10,TRUE
+LPM_1945.txt,moderate,lpm,11,TRUE
+LPM_1950.txt,moderate,lpm,12,TRUE
+LPM_1951.txt,moderate,lpm,13,TRUE
+LPM_1955.txt,moderate,lpm,14,TRUE
+LPM_1959.txt,moderate,lpm,15,TRUE
+LPM_1964.txt,moderate,lpm,16,TRUE
+LPM_1966.txt,moderate,lpm,17,TRUE
+LPM_1970.txt,moderate,lpm,18,TRUE
+LPM_1974.10.txt,moderate,lpm,19,TRUE
+LPM_1974.txt,moderate,lpm,20,TRUE
+LPM_1979.txt,moderate,lpm,21,TRUE
+LPM_1983.txt,moderate,lpm,22,TRUE
+LPM_1987.txt,moderate,lpm,23,TRUE
+LPM_1992.txt,moderate,lpm,24,TRUE
+LPM_1997.txt,moderate,lpm,25,TRUE
+LPM_2001.txt,moderate,lpm,26,TRUE
+"A House of Many Mansions, 1940.txt",moderate,churchill,9,
+"A Hush Over Europe, 1939.txt",moderate,churchill,7,
+"Address to Joint Session of US Congress, 1941.txt",moderate,churchill,24,
+"Be Ye Men of Valour, 1940.txt",moderate,churchill,11,
+"Blood, Toil, Tears and Sweat, 1940.txt",moderate,churchill,10,
+"Bolshevism and Imperial Sedition, 1920.txt",moderate,churchill,1,
+"Do Your Worst; Well Do Our Best, 1941.txt",moderate,churchill,22,
+"Every Man to His Post, 1940.txt",moderate,churchill,16,
+"Fifty Years Hence, 1931.txt",moderate,churchill,3,
+"Give Us the Tools, 1941.txt",moderate,churchill,20,
+"I Have Watched This Famous Island..., 1938.txt",moderate,churchill,5,
+"Mass Effects in Modern Life, 1925.txt",moderate,churchill,2,
+"MIT Mid-Century Convocation, 1949.txt",moderate,churchill,27,
+"Never Give In, Never, Never, Never, 1941.txt",moderate,churchill,23,
+"Penny-in-the-Slot Politics, 1934.txt",moderate,churchill,4,
+"Some Chicken; Some Neck, 1941.txt",moderate,churchill,18,
+"The Council of Europe, 1949.txt",moderate,churchill,28,
+"The Few, 1940.txt",moderate,churchill,15,
+The Fourth Climacteric. 1941.txt,moderate,churchill,21,
+"The Invasion of France, 1944.txt",moderate,churchill,25,
+"The Lights are Going Out (We Must Arm), 1938.txt",moderate,churchill,6,
+"The Old Lion, 1941.txt",moderate,churchill,19,
+"The Sinews of Peace, 1946.txt",moderate,churchill,26,
+"Their Finest Hour, 1940.txt",moderate,churchill,13,
+"War of the Unknown Warriors, 1940.txt",moderate,churchill,14,
+"War Speech, 1939.txt",moderate,churchill,8,
+"We Shall Fight on the Beaches, 1940.txt",moderate,churchill,12,
+"Winston Churchills Broadcast on the Soviet-German War, 1941.txt",moderate,churchill,17,
+american_civilization.1945.txt,extreme,evola,7,
+dark_age.1934.txt,extreme,evola,3,
+decadence.1928.txt,extreme,evola,1,
+degeneration.1938.txt,extreme,evola,5,
+fascism.1928.txt,extreme,evola,2,
+jihad.1934.txt,extreme,evola,4,
+neo-pagans.1942.txt,extreme,evola,6,
+occult.1953.txt,extreme,evola,8,
+Against Pessimism_4.15.1924.txt,extreme,gramsci,34,
+character_3.3.1917.txt,extreme,gramsci,3,
+chronicles of the new order_9.13.1919.txt,extreme,gramsci,12,
+For an ideological preparation of the masses_3-4.1925.txt,extreme,gramsci,36,
+Lessons_5.5.1922.txt,extreme,gramsci,32,
+Maximalism and Extremism_7.2.1925.txt,extreme,gramsci,38,
+Men of Flesh and Blood_5.8.1921.txt,extreme,gramsci,25,
+men or machines_12.24.1916.txt,extreme,gramsci,2,
+Neither Fascism nor Liberalism_ Sovietism!_10.7.1924.txt,extreme,gramsci,35,
+Newspapers and the workers_12.22.1916.txt,extreme,gramsci,1,
+On the Operations of the Central Committee of the Party_12.20.1925.txt,extreme,gramsci,40,
+one year of history_3.16.1918.txt,extreme,gramsci,5,
+red ink_4.4.1919.txt,extreme,gramsci,6,
+revolutionaries and elections_11.15.1919.txt,extreme,gramsci,16,
+Speech to the Italian parliament_5.16.1925.txt,extreme,gramsci,37,
+split or disorder_12.11-18.1920.txt,extreme,gramsci,20,
+Sterile and Negative Criticism_9.30.1925.txt,extreme,gramsci,39,
+The Agrarian Struggle in Italy_8.31.1921.txt,extreme,gramsci,28,
+the ape people_1.2.1921.txt,extreme,gramsci,21,
+The Arditi del Popolo_7.15.1921.txt,extreme,gramsci,26,
+The Communists and the Elections_4.12.1921.txt,extreme,gramsci,24,
+the conquest of the state_7.12.1919.txt,extreme,gramsci,9,
+the development of the revolution_9.13.1919.txt,extreme,gramsci,11,
+The events of 2-3 December (1919)_12.6-13.19.txt,extreme,gramsci,18,
+The Genoa Conference and Italy (19 April 1922)_4.19.1922.txt,extreme,gramsci,31,
+The grimace of Gwynplaine_8.30.1921.txt,extreme,gramsci,28,
+The parties and the Masses_9.25.1921.txt,extreme,gramsci,30,
+the price of history_6.7.1919.txt,extreme,gramsci,7,
+the problem of power_11.29.1919.txt,extreme,gramsci,17,
+The Revolution against Capital_12.24.1917.txt,extreme,gramsci,4,
+The tactic of failure_9.22.1921.txt,extreme,gramsci,29,
+The Turin factory council movement_3.14.1921.txt,extreme,gramsci,23,
+The two fascisms_8.25.1921.txt,extreme,gramsci,27,
+The Vatican_3.12.1924.txt,extreme,gramsci,33,
+To the section commissars of the FIAT-Brevetti workshops_9.13.1919.txt,extreme,gramsci,13,
+unions and councils_10.11.1919.txt,extreme,gramsci,14,
+unions and the dictatorship_10.25.1919.txt,extreme,gramsci,15,
+war is war_1.31.1921.txt,extreme,gramsci,22,
+workers and peasants_1.3.1920.txt,extreme,gramsci,19,
+workers and peasants_8.2.1919.txt,extreme,gramsci,10,
+workers democracy_6.21.1919.txt,extreme,gramsci,8,
+Harris_4.3.1999.txt,violent,harris,1,
+Harris_4.10.1998.txt,violent,harris,2,
+Harris_4.12.1998.txt,violent,harris,3,
+Harris_4.21.1998.txt,violent,harris,4,
+Harris_5.6.1998.txt,violent,harris,5,
+Harris_5.9.1998.txt,violent,harris,6,
+Harris_5.20.1998.txt,violent,harris,7,
+Harris_6.12.1998.txt,violent,harris,8,
+Harris_6.13.1998.txt,violent,harris,9,
+Harris_7.29.1998.txt,violent,harris,10,
+Harris_10.23.1998.txt,violent,harris,11,
+Harris_11.1.1998.txt,violent,harris,12,
+Harris_11.8.1998.txt,violent,harris,13,
+Harris_11.12.1998.txt,violent,harris,14,
+Harris_11.17.1998.txt,violent,harris,15,
+Harris_11.22.1998.txt,violent,harris,16,
+Harris_12.3.1998.txt,violent,harris,17,
+Harris_12.17.1998.txt,violent,harris,18,
+Harris_12.20.1998.txt,violent,harris,19,
+Harris_12.29.1998.txt,violent,harris,20,
+Cultural-National Autonomy_11.28.1913.txt,extreme,lenin,30,
+Disgrace as the Capitalists and the Proletarians Understand It_5.5.1917.txt,extreme,lenin,57,
+A Contribution to the History of the National Programme in Austria and in Russia_2.5.1914.txt,extreme,lenin,39,
+A Disgraceful Resolution_10.18.1912.txt,extreme,lenin,11,
+A New Chapter of World History_10.21.1912.txt,extreme,lenin,12,
+Bill on the Equality of Nations and the Safeguarding of the Rights of National Minorities_5.6.1914.txt,extreme,lenin,46,
+Cadets and Nationalists_10.24.1912.txt,extreme,lenin,13,
+Cadets on the Question of the Ukraine_7.16.1913.txt,extreme,lenin,24,
+Clarity Has Been Achieved_6.5.1914.txt,extreme,lenin,48,
+Class War in Dublin_8.29.1913.txt,extreme,lenin,26,
+Concerning Certain Speeches by Workers Deputies_11.1912.txt,extreme,lenin,15,
+Concerning the Workers Deputies to the Duma and Their Declaration_11.1912.txt,extreme,lenin,16,
+Corrupting the Workers with Refined Nationalism_5.10.1914.txt,extreme,lenin,47,
+Does the Jewish Proletariat Need an Independent Political Party__2.15.1903.txt,extreme,lenin,3,
+Draft Platform for the Fourth Congress of Social-Democrats of the Latvian Area_6.25.1913.txt,extreme,lenin,22,
+Draft Theses on National and Colonial Questions_6.5.1920.txt,extreme,lenin,65,
+Editorial Comment on Veterans Article_ The National Question and the Lettish Proletariat_2.1914.txt,extreme,lenin,38,
+Finland and Russia_5.15.1917.txt,extreme,lenin,58,
+How Does Bishop Nikon Defend the Ukrainians__9.13.1913.txt,extreme,lenin,28,
+Is a Compulsory Official Language Needed__1.18.1914.txt,extreme,lenin,37,
+"It Is Undemocratic, Citizen Kerensky!_6.15.1917.txt",extreme,lenin,59,
+Liberals and Democrats on the Language Question_9.5.1913.txt,extreme,lenin,27,
+Manifesto To The Ukrainian People_12.3.1917.txt,extreme,lenin,62,
+More About Nationalism_2.20.1914.txt,extreme,lenin,40,
+National Equality_4.16.1914.txt,extreme,lenin,45,
+National-Liberalism and the Right of Nations to Self-Determination_12.20.1913.txt,extreme,lenin,35,
+Novoye Vremya and Rech on the Right of Nations to Self-Determination_12.25.1913.txt,extreme,lenin,36,
+On the Manifesto of the Armenian Social-Democrats_2.1.1903.txt,extreme,lenin,2,
+On the National Pride of the Great Russians_12.12.1914.txt,extreme,lenin,51,
+On the Question of National Policy_4.6.1914.txt,extreme,lenin,44,
+Once More on the Segregation of the Schools According to Nationality_12.17.1913.txt,extreme,lenin,34,
+Political Lessons_3.1914.txt,extreme,lenin,42,
+"Resolutions of the Summer, 1913_9.1913.txt",extreme,lenin,29,
+Separatists in Russia and Separatists in Austria_5.8.1913.txt,extreme,lenin,20,
+Speech At The First All-Russia Congress Of The Navy_11.22.1917.txt,extreme,lenin,61,
+The Vexed Questions of Our Party_11.1912.txt,extreme,lenin,14,
+The Balkan War and Bourgeois Chauvinism_3.29.1913.txt,extreme,lenin,18,
+The Black Hundreds and the Organisation of an Uprising_8.29.1905.txt,extreme,lenin,8,
+The British Liberals and Ireland_3.12.1914.txt,extreme,lenin,41,
+The Cadets and The Right of Nations to Self-Determination_12.11.1913.txt,extreme,lenin,31,
+The Campaign Against Finland_4.26.1910.txt,extreme,lenin,10,
+The Discussion On Self-Determination Summed Up_7.16.txt,extreme,lenin,55,
+The Latest Word in Bundist Nationalism_8.15.1903.txt,extreme,lenin,5,
+The National Equality Bill_3.28.1914.txt,extreme,lenin,43,
+The National Programme of the R.S.D.L.P._12.15.1913.txt,extreme,lenin,33,
+The National Question in Our Programme_7.15.1903.txt,extreme,lenin,4,
+The Nationalisation of Jewish Schools_8.18.1913.txt,extreme,lenin,25,
+The Nationality of Pupils in Russian Schools_12.14.1913.txt,extreme,lenin,32,
+The Position of the Bund in the Party_10.22.1903.txt,extreme,lenin,6,
+The Protest of the Finnish People_11.20.1901.txt,extreme,lenin,1,
+The Question of Nationalities or _Autonomisation__12.31.1922.txt,extreme,lenin,66,
+The Revolutionary Proletariat and the Right of Nations to Self-Determination_10.16.1915.txt,extreme,lenin,53,
+The Seventh (April) All-Russia Conference of the R.S.D.L.P.(B.)_4.29.1917.txt,extreme,lenin,56,
+The Social Significance of the Serbo-Bulgarian Victories_11.7.1912.txt,extreme,lenin,17,
+The Socialist Revolution and the Right of Nations to Self-Determination_2.16.txt,extreme,lenin,54,
+The Tsar Against the Finnish People_10.31.1909.txt,extreme,lenin,9,
+The Ukraine_6.28.1917.txt,extreme,lenin,60,
+The War and Russian Social-Democracy_9.28.1914.txt,extreme,lenin,50,
+The Working Class and the National Question_5.10.1913.txt,extreme,lenin,21,
+Theses on the National Question_6.1913.txt,extreme,lenin,23,
+To the Communists of Turkestan_11.22.1919.txt,extreme,lenin,63,
+To the Indian Revolutionary Association_5.13.1920.txt,extreme,lenin,64,
+To the Jewish Workers_5.1905.txt,extreme,lenin,7,
+To_   S. G. SHAHUMYAN_7.6.1914.txt,extreme,lenin,49,
+Under a False Flag_2.1915.txt,extreme,lenin,52,
+Vekhi Contributors and Nationalism_4.1913.txt,extreme,lenin,19,
+SotU-1964.txt,moderate,sotu,1,
+SotU-1967.txt,moderate,sotu,2,
+SotU-1970.txt,moderate,sotu,3,
+SotU-1982.txt,moderate,sotu,4,
+SotU-1983.txt,moderate,sotu,5,
+SotU-1984.txt,moderate,sotu,6,
+SotU-1985.txt,moderate,sotu,7,
+SotU-1986.txt,moderate,sotu,8,
+SotU-1987.txt,moderate,sotu,9,
+SotU-1988.txt,moderate,sotu,10,
+SotU-1991.txt,moderate,sotu,11,
+SotU-1994.txt,moderate,sotu,12,
+SotU-1995.txt,moderate,sotu,13,
+SotU-1996.txt,moderate,sotu,14,
+SotU-1997.txt,moderate,sotu,15,
+SotU-1998.txt,moderate,sotu,16,
+SotU-1999.txt,moderate,sotu,17,
+SotU-2000.txt,moderate,sotu,18,
+SotU-2002.txt,moderate,sotu,19,
+SotU-2003.txt,moderate,sotu,20,
+SotU-2004.txt,moderate,sotu,21,
+SotU-2005.txt,moderate,sotu,22,
+SotU-2006.txt,moderate,sotu,23,
+SotU-2007.txt,moderate,sotu,24,
+SotU-2008.txt,moderate,sotu,25,
+SotU-2010.txt,moderate,sotu,26,
+SotU-2011.txt,moderate,sotu,27,
+SotU-2012.txt,moderate,sotu,28,
+SotU-2022.txt,moderate,sotu,29,
+SotU-2023.txt,moderate,sotu,30,
+SotU-2024.txt,moderate,sotu,31,
+SotU-2026.txt,moderate,sotu,32,
+A Fantasy_1999.txt,violent,tedk,12,
+A Scientific American Article Theorizing a Tech Induced Apocalypse & The Unabombers Response_1993.txt,violent,tedk,8,
+A Shift Towards Hopefulness_1996.txt,violent,tedk,10,
+Apology to Women_1996.txt,violent,tedk,11,
+Hippies may end up preserving liberty through the reaction they provoke_1970.txt,violent,tedk,2,
+Hit where it hurts_2002.txt,violent,tedk,16,
+Morality and Revolution First Edition_1999.txt,violent,tedk,14,
+Morality and Revolution Third Edition_2001.txt,violent,tedk,15,
+Progress versus Liberty_1972.txt,violent,tedk,5,
+Progress versus Wilderness_1979.txt,violent,tedk,6,
+Reflections on Purposeful Work_1983.txt,violent,tedk,7,
+Suggestions for Earth First!ers_1995.txt,violent,tedk,9,
+Ted Kaczynskis Comments on Timothy McVeigh_2000.txt,violent,tedk,13,
+The capability for many to get away with evil is necessary for liberty to exist_1970.txt,violent,tedk,4,
+The hyper-specialization of labor stifles freedom_1969.txt,violent,tedk,1,
+The Wave of the Future_1970.txt,violent,tedk,3,

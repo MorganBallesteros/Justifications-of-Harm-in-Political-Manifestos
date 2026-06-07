@@ -4,14 +4,15 @@ suppressPackageStartupMessages({
   library(stringr)
   library(readr)
   library(forcats)
-  library(purr)
+  library(purrr)
 })
 # score_manifestos.R
 # Purpose:
 #   Define the main wrangling/scoring function for manifesto texts.
 #   Supports:
-#     - input_type = "text": score texts already loaded in a data frame
-#     - input_type = "pdf": extract text from PDFs, then score
+#     - input_type = "text"  (pre-loaded dataframe)
+#     - input_type = "txt"   (raw text files)
+#     - input_type = "pdf"   (PDF extraction fallback)
 #   Produces:
 #     - tidy long output by default (doc_id × marker × prevalence)
 #     - optional wide output (one marker per column)
@@ -23,7 +24,7 @@ suppressPackageStartupMessages({
 #   - "segment" option illustrates tidy reshaping (document vs paragraph)
 
 # Load helper functions (normalize_text, build_marker_regex)
-source(here::here("Thesis", "manifesto_helpers.R"))
+source(here::here("manifesto_helpers.R"))
 
 # ------------------------------------------------------------
 # extract_pdf_text()
@@ -55,9 +56,10 @@ extract_pdf_text <- function(pdf_path) {
 #   scores_long: always the long (tidy) table
 #   doc_summary: one row per doc (and optional category) summary
 #   problems: documents that had missing/empty text
-score_manifestos <- function(input_type = c("text", "pdf"),
+score_manifestos <- function(input_type = c("text", "pdf", "txt"),
                              text_df = NULL,
                              pdf_paths = NULL,
+                             txt_paths = NULL,
                              doc_id_col = "doc_id",
                              text_col = "text",
                              markers,
@@ -66,60 +68,105 @@ score_manifestos <- function(input_type = c("text", "pdf"),
                              per = 1000,
                              output = c("long", "wide"),
                              write_out = FALSE,
-                             out_path = "Thesis/data/processed/manifesto_scores.csv",
+                             out_path = "data/processed/manifesto_scores.csv",
                              quiet = TRUE) {
   
-  # Normalize argument choices to safe values.
-  # match.arg() also provides automatic validation for allowed options.
+  # ----------------------------
+  # Normalize arguments
+  # ----------------------------
   input_type <- match.arg(input_type)
   segment <- match.arg(segment)
   output <- match.arg(output)
   
   # ----------------------------
-  # Control flow #1: validation
+  # Validate markers
   # ----------------------------
-  if (missing(markers) || is.null(markers)) stop("Provide markers (character vector).")
-  if (!is.character(markers)) stop("markers must be a character vector.")
+  if (missing(markers) || is.null(markers)) stop("Provide markers.")
+  if (!is.character(markers)) stop("markers must be character.")
   if (length(markers) == 0) stop("markers is empty.")
   
   # ----------------------------
-  # Input mode A: input_type == "text"
+  # Input mode A: text_df
   # ----------------------------
   if (input_type == "text") {
-    if (is.null(text_df) || !is.data.frame(text_df)) stop("text_df must be a data frame.")
-    if (!doc_id_col %in% names(text_df)) stop("doc_id_col not found in text_df.")
-    if (!text_col %in% names(text_df)) stop("text_col not found in text_df.")
+    if (is.null(text_df) || !is.data.frame(text_df)) {
+      stop("text_df must be a data frame.")
+    }
+    if (!doc_id_col %in% names(text_df)) stop("doc_id_col missing.")
+    if (!text_col %in% names(text_df)) stop("text_col missing.")
+    
     docs <- tibble::as_tibble(text_df)
-  } else {
-    # ----------------------------
-    # Input mode B: input_type == "pdf"
-    # ----------------------------
-    # Validate pdf_paths input
-    if (is.null(pdf_paths) || !is.character(pdf_paths) || length(pdf_paths) == 0) {
-      stop("For input_type='pdf', provide pdf_paths (character vector).")
+  }
+  
+  # ----------------------------
+  # Input mode B: TXT
+  # ----------------------------
+  else if (input_type == "txt") {
+    
+    if (is.null(txt_paths) || length(txt_paths) == 0) {
+      stop("Provide txt_paths.")
     }
     
-    # Derive doc_ids from filenames by stripping .pdf
-    # basename(): remove directory; str_replace(): remove extension
-    doc_ids <- stringr::str_replace(basename(pdf_paths), "\\.pdf$", "")
-    texts <- character(length(pdf_paths))
+    doc_ids <- str_replace(basename(txt_paths), "\\.txt$", "")
+    texts <- character(length(txt_paths))
+    corpus <- character(length(txt_paths))
+    author <- character(length(txt_paths))
     
-    # ----------------------------
-    # Control flow #2: loop over PDFs
-    # ----------------------------
-    # Extract PDF text one-by-one so errors can be tied to a specific file.
-    for (i in seq_along(pdf_paths)) {
-      texts[i] <- extract_pdf_text(pdf_paths[i])
-      if (!quiet) message("Extracted: ", doc_ids[i])
+    for (i in seq_along(txt_paths)) {
+      if (!file.exists(txt_paths[i])) {
+        stop(paste("Missing file:", txt_paths[i]))
+      }
+      
+      texts[i] <- readr::read_file(txt_paths[i])
+      
+      path_norm <- normalizePath(txt_paths[i], winslash = "/", mustWork = FALSE)
+      
+      if (grepl("/data/raw/longitudinal/", path_norm)) {
+        corpus[i] <- "longitudinal"
+        author[i] <- basename(dirname(txt_paths[i]))
+      } else {
+        corpus[i] <- "non_longitudinal"
+        author[i] <- NA_character_
+      }
+      
+      if (!quiet) message("Read:", doc_ids[i])
     }
     
-    # Build a tibble that matches the expected text_df structure.
-    # Use quasiquotation (!!) so doc_id_col/text_col can be customized by the user.
     docs <- tibble::tibble(
       !!doc_id_col := doc_ids,
-      !!text_col := texts
+      !!text_col := texts,
+      corpus = corpus,
+      author = author
     )
   }
+  
+  # ----------------------------
+  # Input mode C: PDF
+  # ----------------------------
+  else if (input_type == "pdf") {
+    
+    if (is.null(pdf_paths) || length(pdf_paths) == 0) {
+      stop("Provide pdf_paths.")
+    }
+    
+    doc_ids <- str_replace(basename(pdf_paths), "\\.pdf$", "")
+    texts <- character(length(pdf_paths))
+    
+    for (i in seq_along(pdf_paths)) {
+      texts[i] <- extract_pdf_text(pdf_paths[i])
+      if (!quiet) message("Extracted:", doc_ids[i])
+    }
+    
+    docs <- tibble::tibble(
+      !!doc_id_col := doc_ids,
+      !!text_col := texts,
+      corpus = "non_longitudinal",
+      author = NA_character_
+    )
+  }
+  
+  if (!"corpus" %in% names(docs)) docs$corpus <- NA_character_
+  if (!"author" %in% names(docs)) docs$author <- NA_character_
   
   # ----------------------------
   # Normalize text (stringr) + missing handling
@@ -175,6 +222,8 @@ score_manifestos <- function(input_type = c("text", "pdf"),
     segments_df <- docs_scoring %>%
       transmute(
         !!doc_id_col := .data[[doc_id_col]],
+        corpus,
+        author,
         segment_id = 1L,
         segment_text = .data[[text_col]],
         across(any_of(category_col), ~ .x)
@@ -186,6 +235,8 @@ score_manifestos <- function(input_type = c("text", "pdf"),
     segments_df <- docs_scoring %>%
       transmute(
         !!doc_id_col := .data[[doc_id_col]],
+        corpus,
+        author,
         raw_segments = str_split(.data[[text_col]], "\\n\\s*\\n+"),
         across(any_of(category_col), ~ .x)
       ) %>%
@@ -216,15 +267,15 @@ score_manifestos <- function(input_type = c("text", "pdf"),
     counts_list[[j]] <- segments_df %>%
       transmute(
         !!doc_id_col := .data[[doc_id_col]],
+        corpus,
+        author,
         segment_id,
         marker = m,
-        # Count occurrences using regex; ignore_case adds case-insensitivity
         count = str_count(segment_text, regex(pat, ignore_case = TRUE)),
         word_count,
         across(any_of(category_col), ~ .x)
       ) %>%
-      # Prevalence is scaled count per 'per' words (default 1000 words)
-      mutate(prevalence = if_else(word_count > 0, (count / word_count) * per, NA_real_)) 
+      mutate(prevalence = if_else(word_count > 0, (count / word_count) * per, NA_real_))
   }
   
   # Combine per-marker tables into one long tidy scoring table

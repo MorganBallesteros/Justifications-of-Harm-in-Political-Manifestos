@@ -11,7 +11,7 @@ suppressPackageStartupMessages({
 #   - normalizing whitespace (trim + collapse repeated spaces)
 #
 # Why:
-#   Text extracted from PDFs often contains messy whitespace and formatting artifacts.
+#   Raw text (from .txt or extracted from PDFs) often contains messy whitespace and formatting artifacts.
 #   Normalizing early makes later counting more reliable and reproducible.
 #
 # Args:
